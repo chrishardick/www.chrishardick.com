@@ -1,0 +1,52 @@
+<HTML>
+<HEAD><TITLE>PERL - SCOPE/LIFETIME</TITLE></HEAD>
+  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/css/notes.css" TYPE=text/css MEDIA=all>  
+
+<BODY>
+
+
+<H1>PERL - SCOPE/LIFETIME</H1>
+
+
+<H2>AUTOMATIC VARIABLES: my</H2>
+<UL>
+<LI><strong>my</strong> is an operator which declares variables to be automatic (same as in C/C++) -- they're automatically allocated & deallocated @ scope entry & exit
+<LI>automatic variables have block scope & lifetime. They only exist (and are visible) w/i the innermost enclosing block, subroutine, eval or file
+<LI>automatic variables are also called lexical scoped variables
+<LI>if not initialized @ time of declaration, scalers are initialized to <font face=courier>undef</font>, arrays & hashes are empty
+<LI>Examples:
+<PRE>my ($a $b $c) = @_
+my @array
+my %hash</PRE>
+</UL>
+
+<H2>PACKAGES</H2>
+<UL>
+<LI>a package is a namespace
+<LI>there is always a 'current package'
+<LI>by default, you're in the package 'main'
+<LI>@ anytime, you can switch the current package by using the package declaration
+<PRE>package chris;</PRE>
+</UL>
+
+<H2>MODULES</H2>
+<UL>
+<LI>allows for re-usability in Perl. e.g. you define a module w/ functions that you want to call from other files
+<LI>to import a module (functions & variables) into your file use the 'use' declaration
+<PRE>use HTML; # import the HTML interface (this is an interface that I made w/ some helpful fxns)</PRE> 
+<LI>a <strong>package</strong> which is entirely contained w/i one file
+<LI>the file name is the module name
+<LI>the file extension is .pm (perl module)
+</UL>
+
+
+<CENTER>
+<A HREF="index.html">Perl</A><BR><BR>
+<FONT SIZE=-2><A HREF="http://www.chrishardick.com">http://www.chrishardick.com</A></FONT>
+</CENTER>
+
+</FONT>
+</BODY> 
+</HTML>

@@ -1,0 +1,92 @@
+<html>
+<head><title>RCS - Revision Control System</title></head>
+
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<body>
+
+<H1>RCS - Revision Control System</h1>
+
+<UL>
+<LI>Made By GNU
+<LI>Multiple commands for managing source files
+</UL>
+
+
+<H2>rcs</H2>
+<DL>
+<DT>rcs -i &#60filename&#62
+<DD>Initialize RCS Control over a file
+</DL>
+
+<H2>ci - checkin</H2>
+<DL>
+<DT>ci &#60filename&#62
+<DD>Check a file in
+</DL>
+
+<H2>co - checkout</H2>
+<DL>
+<DT>co &#60filename&#62
+<DD>Copy a file out (no exlusive lock)
+
+<DT>co -l &#60filename&#62
+<DD>Check a file out (lock it)
+</DL>
+
+
+<H2>rlog - Look at Revision Log Summaries</H2>
+<DL>
+<DT>rlog &#60filename&#62
+<DD>Display Log Summaries
+</DL>
+
+
+<H2>rcsdiff - Look at All Changes (diff) from One Revision to Another</H2>
+<DL>
+<DT>rcsdiff -r&#60Revision 1&#62 -r&#60Revision 2&#62 &#60filename&#62
+<DD>Display Diff
+</DL>
+
+
+<H2>Macros</H2>
+<UL>
+<LI>RCS Supports Macros inside your source file
+<LI>Macros are strings which are automatically exanded anytime a file is checked out & updated when a revision is checked in
+<LI>Macros start and end with a dollar sign ($)
+<LI>Commonly macros are: $Header$, $RCSFile$, & $ID$
+<LI>$Header$ usually expands to contain the full pathname of the RCS file, the revision  number, date and time stamp, author, state, and locker (if locked)
+<LI>$RCSFile$ usually expands to the name of the RCS file without a path
+<LI>$ID$ usually the same as $Header$, except that the  RCS filename is without a path
+<LI>Consult man pages for full list of macros supported & what they actually expand to
+</UL>
+
+<H2>Identifying Files Within Executables: ident</H2>
+<UL>
+<LI><strong>ident</strong> identifies expanded RCS macros 
+<LI>ident searches for all instances of the pattern '$keyword: text$' in the named files (or standard input)
+<LI>ident works on 
+	<UL>
+	<LI>text files (usually source files)
+	<LI>object files
+	<LI>archive files
+	<LI>executables
+	</UL>
+<PRE>
+USAGE: ident [files...]
+
+
+w/i C/C++ files...
+
+#ifndef lint
+static char rcsid[] = "$Header$";
+#endif
+
+</PRE>
+</UL>
+
+<BR><BR>
+<A HREF=index.html>Back to Revision Control</A>
+</font>
+</body>
+</html>

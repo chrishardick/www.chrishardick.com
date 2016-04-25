@@ -1,0 +1,130 @@
+<HTML>
+<HEAD><TITLE>PERL - DATA TYPES</TITLE></HEAD>
+  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/css/notes.css" TYPE=text/css MEDIA=all>  
+
+<BODY>
+
+
+<H1>PERL - DATA TYPES</H1>
+
+<ul>
+<li>PERL HAS 3 DATA TYPES
+	<ol>
+	<li>Scalers
+	<li>Array of scalers
+	<li>Hash of scalers
+	</OL>
+<li>Each variable type has it's own namespace. i.e. you can have a scaler, an array & a hash all with the same name without fear of a conflict.
+$Foo, @Foo, & %Foo are 3 different variables.
+<li>Perl also supports references -- which are like pointers in C
+</ul>
+
+<H3>SCALERS</H3>
+<ul>
+<li>Scalers store a single value
+<li>Like most scripting languages, they are typeless; there is no seperate data types for floating point numbers, integers, characters, etc.
+<li>Scalers can contain strings or numbers & Perl will convert between the two as necessary. 
+<li>All references to scalers MUST begin w/ a $
+<pre>
+my $scaler1 = "ABC";
+my $scaler2 = 56.4;
+</pre>
+</ul>
+
+<H3>ARRAY [OF SCALERS]</H3>
+<ul>
+<li>Ordered list of scalers. Each element is accessed via a numeric subscript
+<li>Entire arrays are denoted via @. 
+<li>Individual scalers of an array are referenced via $
+<li>Arrays are indexed from 0 (just like C)
+<pre>
+my @array = ("ABC", 123.4, "abcd");         # Declare and Initialize an Array
+print "$array[1]\n";                        # Causes "123.4" to be printed
+
+foreach my $i (@array)
+{
+    print "$i\n";
+}
+</pre>
+</ul>
+
+
+<H3>HASH [OF SCALERS]</H3>
+<ul>
+<li>Unordered set of key->value pairs. 
+<li>Entire hash tables are denoted via %.
+<li>Individual scalers of a hash are referenced via $ -- enclose the key in curly brackets
+<pre>
+my %hash = ("11731", "East Northport"        # Declare and initialize a hash
+            ,"11768", "Northport"
+            ,"11747", "Melville"
+            );
+
+my %hash = ("11731" => "East Northport"      # equivalent, with clearer syntax 
+            ,"11768" => "Northport"
+            ,"11747" => "Melville"
+            );
+
+
+print "$hash{11731}\n";                      # "East Northport" will be printed
+
+foreach my $key (keys %hash)
+{
+    print "KEY=$key\n";
+    print "VAL=$hash{$key}\n";
+}
+</pre>
+</ul>
+
+<H3>REFERENCES</H3>
+<ul>
+<li>A.k.a. a pointer
+<li>can point to a saler, an array, a hash, or a function
+<li>useful for creating complex data types in Perl
+<li>utilize reference couting. memory is freed when reference count goes to 0
+<li>any scaler can contain a reference
+<pre>
+@$ptr   # dereference pointer to an array
+%$ptr   # dereference point to a hash
+</pre>
+<li>The backslash operator -- similar to the & operator in C
+<pre>
+my %hash_a;
+$hash_a{'key1'} = 'value1';
+$hash_a{'key2'} = 'value2';
+$hash_a{'key3'} = 'value3';
+
+my %hash_b;
+$hash_b{'key4'} = 'value4';
+$hash_b{'key5'} = 'value5';
+$hash_b{'key6'} = 'value6';
+
+my @array;
+
+$array[0] = \%hash_a;
+$array[1] = \%hash_b;
+
+foreach my $i (@array)
+{
+    # i is a hash reference
+
+    foreach my $key (keys %$i)
+    {
+        print "KEY=$key\n";
+        print "VAL=$$i{$key}\n";
+    }
+}
+</pre>
+</ul>
+
+
+<CENTER>
+<A HREF="index.html">Perl</A><BR><BR>
+<FONT SIZE=-2><A HREF="http://www.chrishardick.com">http://www.chrishardick.com</A></FONT>
+</CENTER>
+
+</FONT>
+</BODY> 
+</HTML>

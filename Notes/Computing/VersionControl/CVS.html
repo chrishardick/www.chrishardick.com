@@ -1,0 +1,65 @@
+<html>
+<head><title>CVS - Concurrent Versions System</title></head>
+
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<body>
+
+<H1>CVS - Concurrent Versions System</h1>
+
+<UL>
+<LI>Open source
+</UL>
+
+
+<H2>UPDATING A SANDBOX</H2>
+
+<pre>cvs update</pre>
+
+<UL>
+<LI>U
+	<UL>
+	<LI>UPDATE SUCCESSFUL
+	<LI>a newer version from the repository has replaced the sandbox version
+	</UL>
+<LI>M
+	<UL>
+	<LI>MERGE SUCCESSFUL
+	<LI>the file in the sandbox is more recent than the repository version (NOTE: no change) -OR-
+	<LI>both the repository version & the sandbox version have changes that CVS safely MERGED
+		into your sandbox version. CVS automatically merges when the changes are on different
+		lines
+	</UL>
+<LI>C
+	<UL>
+	<LI>CONFLICT
+	<LI>both the repository version & the sandbox version have changes. @ least one of the changes
+		could not be automatically merged & requires human intervention. I.e. the changes are
+		on the same line(s)
+	<LI>original file is saved as .#file.revision
+	<LI>conflicts are denoted as follows:
+		<pre>&lt&lt&lt&lt&lt&lt&lt<br>lines from sandbox<br>=======<br>&gt&gt&gt&gt&gt&gt&gt<br>lines from repository</pre>
+	</UL>
+<LI>?
+	<UL>
+	<LI>CVS does not know what to do with this file
+	</UL>
+</UL>
+
+
+<H2>ADDING FILES</H2>
+
+<pre>cvs add filename</pre>
+
+<UL>
+<LI>MARKS a file for inclusion in the repository
+<LI>a file is only MARKED for addition; it is not actually added to the repository until you run 'cvs commit'
+<LI>directories are added to the repository immediately
+</UL>
+
+
+<BR><BR>
+<A HREF=index.html>Back to Revision Control</A>
+</font>
+</body>
+</html>

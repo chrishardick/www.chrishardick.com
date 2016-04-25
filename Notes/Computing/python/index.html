@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Python</title>
+<meta charset="utf-8">
+
+<style>
+body    
+{
+    font-family: Verdana, sans-serif; 
+    font-size:0.8em;
+}
+</style>
+
+</head>
+
+<body>
+
+<header>
+<h1>Python</h1>
+</header>
+
+<h2>Misc</h2>
+<ul>
+<li>Like most scripting languages, variables in Python are untyped
+<li>Unlike most computer languages, white space matters. Rather than using brackets to denote the beginning and end of control structures, functions, classes, etc. the body of the block in question is denoted via indention
+<pre>
+if today == 'Wednesday':
+    print "Today is Hump Day"
+else:
+    print "Today is ", today
+</pre>
+<li>Unlike most computer languages, noticeably missing are the semi-colons to denote the end of statements. Instead, the end of each statement is denoted by a newline
+<li>One of the criticisms of Perl was that once written, it was very hard to read -- which proved a barrier for new developers. The things that are different about Python (e.g. whitespace, newlines, etc), seem to (intentionally or not) address this shortfall.  
+</ul>
+
+<h2>Hello, World!</h2>
+<li>The best way to start any new computer language is with "Hello, World!"
+<pre>
+#!/usr/bin/python
+
+print "Hello, World!"
+
+x=5
+y=10
+
+print x,' ',y
+</pre>
+
+<h2>Comments</h2>
+<ul>
+<li>start via pound sig (#) and continue until the end of line
+</ul>
+
+<h2>Variables</h2>
+<ul>
+<li>Like most scripting languages, variables in Python are untyped -- they can hold integers, floating point numbers, strings, etc.
+</ul>
+
+<h3>Strings</h3>
+<ul>
+<li>Strings can be defined using double or single quotes
+<pre>s = "Hello, World!"</pre>
+<li>You may be access individual characters of a string via indexing (square brackets). Like C/C++, indexing starts from 0 (zero)
+<pre>print s[0] # H</pre>
+<li>Slicing</li>
+<pre>
+print s[0:5]    # Hello
+print s[:5]     # equivalent
+print s[7:13]   # World
+print s[7:13]   # equivalent
+</pre> 
+    <ul>
+    <li>Notice with slicing, the beginning character is included and the last character is excluded
+    </ul>
+</ul>
+
+<h3>List</h3>
+<ul>
+<pre>
+days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+</pre>
+<li>Similar to a vector in C++ -- I believe look-up is in constant time
+<li>A list is written as a list of comma separated values between square brackets
+<li>You can access individual elements via indexing (square brackets). Lists are indexed from 0 (zero)
+<pre>
+days[3]='Humpday'
+</pre>
+<li>You can get the length of a list using the <strong>len</strong> function.
+<pre>
+print len(days)    # would print out 7
+</pre>
+</ul>
+
+<h3>Dictionary (Hash)</h3>
+<ul>
+<li>A dictionary is written key:value pairs surrounded by curly braces
+<pre>
+states = {   'NY': "New York"
+            ,'NJ': "New Jersey"
+         }
+
+states['CO'] = "Colorado"
+
+for abbr in states:
+    print abbr, '--&gt;', states[abbr]
+
+# try this
+print states
+</pre>
+</ul>
+
+<h2>Control Structures</h2>
+
+<table border=1>
+<tr><th>Operand</th><th>Meaning</th></tr>
+<tr><td>&lt;</td><td>Less than</td></tr>
+<tr><td>&gt;</td><td>Greater than</td></tr>
+<tr><td>==</td><td>Equal to</td></tr>
+<tr><td>!=</td><td>Not equal to</td></tr>
+</table>
+<h3>Conditionals</h3>
+<ul>
+<li>The syntax in Python is different than other programming languages. Notably missing are parenthesis and like most definitions in Python, the statement ends with a colon (:)
+<pre>
+i = 5
+if i == 5:
+    print "i equals 5"
+elif i == 6: 
+    print "i equals 6"
+else:
+    print "i equals ", i
+</pre>
+</ul>
+
+<h3>For Loops</h3>
+<ul>
+<li>For iterating a known number of times
+<pre>
+words = [ 'every', 'good', 'boy', 'does', 'fine' ]
+for w in words:
+    print 'word=', w, " length=", len(w)
+
+for i in range(0,10):
+    print i
+</pre>
+</ul>
+
+<h3>While Loops</h3>
+<ul>
+<li>Iterating an unknown number of times
+<pre>
+i=""
+
+while i != "quit":
+    i = raw_input ("$")
+    print i
+</pre>
+</ul>
+
+<h2>Functions</h2>
+<ul>
+<pre>
+# function definition
+def foo(n):
+    print "foo: Hello, World"
+    print "foo: n=" , n
+
+# function call
+foo (5)
+</pre>
+<li>functions are defined with the keyword def, followed by the function name, followed by a list of parameters surrounded by paranthesis, followed by a colon (:)
+<li>functions must be defined before they are called. I.e. it is not legal to call a 
+function which is defined later in the same source code
+</ul>
+
+<h2>Files</h2>
+<ul>
+<li>Read in the lines of a file
+<pre>
+f = open("in.txt"
+
+content = f.readlines()
+
+print content
+</pre>
+<li>
+<pre>
+f = open("out.txt","w")
+f.write ("Hello, World!\n")
+f.write ("Programming is fun!\n")
+f.close()
+</pre>
+</ul>
+
+
+<footer>
+<p>&copy; 2016 Chris Hardick. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+

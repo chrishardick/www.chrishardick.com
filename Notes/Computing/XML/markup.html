@@ -1,0 +1,132 @@
+<HTML>
+
+<HEAD>
+<TITLE>XML Markup</TITLE>
+<LINK rel="stylesheet" type="text/css" href="http://www.chrishardick.com/default.css" media="all" />  
+</HEAD>
+
+<BODY>
+
+<H1>XML Markup</H1>
+
+
+<H2>I. Elements</H2>
+<UL>
+<LI>Element Names</LI>
+	<UL>
+	<LI>Element Names must follow the rules of <em>XML names</em> - which apply for element names, attribute names, etc</LI>
+	<LI>XML names can contain alphanumeric characters, hyphens, underscrores and periods.
+	<LI>XML names are case sensitive
+	</UL>
+
+<H3>Container Elements</H3>
+<UL>
+<PRE>
+&lt;name attribute1 attribute2 ... &gt; 
+content
+...
+&lt;/name&gt;
+
+&lt;p&gt;paragraph text&lt;/p&gt;
+</PRE> 
+<LI>Container elements may contain elements, character data, or both</LI>
+<LI>&lt;name&gt; - element start tag</LI>
+<LI>&lt;/name&gt; - element end tag</LI>
+</UL>
+
+<H3>Empty Elements</H3>
+<PRE>&lt;name attribute1 attribute2 ... /&gt; 
+
+&lt;link rel="stylesheet" type="text/css" href="http://www.chrishardick.com/default.css" media="all" /&gt;</PRE> 
+
+</UL>
+
+
+<H2>II. Attributes</H2>
+<UL>
+<LI>Attributes define properties of elements
+<LI>Attributes are placed within element start tags
+<LI><em>name</em>=<em>"value"</em>
+<LI>Either single (') or double (") quotation marks may be used (so long as they match)
+<LI>There is no limit to the number of attributes you can have, so long as no two attributes for the same element have the same name
+<PRE>
+&lt;!-- invalid xml --&gt; 
+&lt;p class="warn" class="caution"&gt;</PRE>
+</UL>
+
+
+<H2>III. Entities</H2>
+
+<H3>1. Entity References</H3>
+<UL>
+<LI>Entity references - do just that, they refer to the entity</LI>
+<LI>Syntax - an ampersand (&amp;) followed by the entity name and a semi-colon (;)</LI>
+<PRE>&amp;gt;</PRE>
+</UL>	
+
+
+<H3>2. Character Entities</H3>
+<UL>
+<LI>Refer to a single character</LI>
+
+	<H4>Predefined Character Entities</H4>
+	<UL>
+	<LI>Some characters cannot be used in an XML document because they have special meaning (i.e. &lt; &gt;, etc.)</LI>
+	<LI>The XML Specification provides the following predefined character entities, so that you can easily express these characters</LI>
+	
+	<TABLE border=1>
+	<TR><TH>Entity</TH><TH>Value </TH></TR>
+	<TR><TD>amp   </TD><TD>&amp; </TD></TR>
+	<TR><TD>apos  </TD><TD>'     </TD></TR>
+	<TR><TD>lt    </TD><TD>&lt;  </TD></TR>
+	<TR><TD>gt    </TD><TD>&gt;  </TD></TR>
+	<TR><TD>quot  </TD><TD>&quot;</TD></TR>
+	</TABLE>
+	
+	</UL>
+	
+	<H4>Numeric Character Entities</H4>
+	<UL>
+	<LI>XML supports <a href="http://www.unicode.org">Unicode</a> - which defines 10,000+ different characters</LI>
+	<LI>&amp;# unicode # (decimal format) ;</LI>
+	<LI>&amp;#x unicode # (hexadecimal format) ;</LI>
+	</UL>
+	
+	<H4>Named Character Entities</H4>
+	<UL>
+	<LI>Numeric character references are hard to remember</LI>
+	<LI>You have to declare named character entities</LI>
+	<LI></LI>
+	</UL>
+</UL>
+
+<H3>3. Mixed Content Entities</H3>
+<H3>4. Unparsed Entities</H3>
+
+
+<H2>IV. Comments</H2>
+
+<UL>
+<LI>&lt;!-- text --&gt;</LI>
+<LI>Not interpreted by XML processor</LI>
+<LI>Comments can go anywhere in an XML document except before the XML declaraction and inside of tags</LI>
+</UL>
+
+
+<H2>V. CDATA Sections</H2>
+<UL>
+<LI></LI>
+</UL>
+
+
+<H2>VI. Processing Instructions (PIs)</H2>
+<UL>
+<LI></LI>
+</UL>
+
+
+<A HREF="index.html">XML</A>
+ 
+</BODY> 
+</HTML>
+  

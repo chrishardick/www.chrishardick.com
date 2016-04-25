@@ -1,0 +1,44 @@
+<HTML>
+<HEAD><TITLE>HTTP</TITLE></HEAD>
+  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/css/notes.css" TYPE=text/css MEDIA=all>  
+
+<BODY>
+
+<H1>HTTP</H1>
+
+<ul>
+<li>hypertext transfer protocol
+<li>a line based protocol (all lines are delimited by CR LF)
+<li><strong>requests</strong> from clients and <strong>responses</strong> from servers
+</ul>
+
+<h2>Request Methods</h2>
+<ul>
+<li>GET
+	<ul>
+	<li>Get an HTML document
+	</ul>
+<li>POST
+	<ul>
+	<li>Includes a body of data after the headers
+	<li>Normally, the data is handled by a dynamic module (cgi or similar) which processes the data
+	</ul>
+<li>HEAD
+	<ul>
+	<li>Return info about the document, but not the physical document
+	</ul>
+<li>PUT
+	<ul>
+	<li>Send a new document to the server to publish @ the given URI or replace an existing document
+	<li>For security reasons, this request method is normally disabled by default
+	</ul>
+<li>DELETE
+	<ul>
+	<li>Delete the specified document
+	<li>For security reasons, this request method is normally disabled by default
+	</ul>
+</ul>
+
+</BODY>

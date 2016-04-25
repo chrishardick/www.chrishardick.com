@@ -1,0 +1,54 @@
+<HTML> 
+<HEAD><TITLE>NAMESPACES</TITLE></HEAD>
+  
+<BODY>
+<FONT face="trebuchet ms,comic sans ms,lucida,verdana,arial">
+
+
+<center><H1>NAMESPACES</H1></center>
+
+
+<UL>
+<LI>provide a mechanism to separate the names used in 1 part of a program from those
+	used in another part of the program. I.e. different programming groups can 
+	both have a function named foo() or a class named Coo without interfering with each
+	other. 
+<LI>everything within a namespace block is implicitly qualified with the namespace
+	name.
+<LI>in order to refer to a name defined within a namespace, the name must be qualified 
+	with the namespace name using the <i>scope resolution operator (::)</i> -- unless
+	you use a <i>using directive</i> -- see below
+<LI>inside the namespace, any of the entities declared within the namespace can be
+	referred to without qualification
+<LI>the <i>using directive</i> makes all the names in a given namespace visible without
+	qualification.
+<LI>you can have multiple declarations of a namespace & each namespace will concatenate together.
+	I.e. you will have one big namespace. you can reference names declared in another 
+	block without using qualification, etc.
+
+<PRE>
+
+//MyMathStuff.h
+
+namespace MyMathStuff
+{
+// my math stuff -- functions, variables, classes, templates, anything
+}
+
+
+//myprog.cpp
+
+#include &ltiostream&gt
+#include &ltMyMathStuff.h&gt
+
+using namespace std;
+using namespace MyMathStuff;
+</PRE>
+
+</UL>
+
+<center><A HREF=index.html>back to C++</A></center>
+</FONT>
+
+</BODY> 
+</HTML>

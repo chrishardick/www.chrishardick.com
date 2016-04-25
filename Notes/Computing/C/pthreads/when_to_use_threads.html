@@ -1,0 +1,36 @@
+<html>
+
+<head><title>WHEN TO USE THREADS</title></head>
+
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<body>
+
+<h1>WHEN TO USE THREADS</h1>
+
+<BR>
+
+<UL>
+<LI>Making a program multi-threaded does not ALWAYS lead to faster programs; it does invariably lead to programs which are harder to debug
+<LI>Multi-threading your application might even make it slower. Some library functions might slow down considerably waiting for locks, etc. (e.g. malloc(), etc.)
+<LI>BOTTOM LINE: multi-threading does not always improve performance, and it may or may not be the right solution to your problem. 
+	below are some concrete examples as to when multi-threading has proven to be the right technique
+</UL>
+
+<BR><BR>
+
+<UL>
+<LI>SLOW I/O. If you're building a program that has to wait for slow i/o (long network reads/writes, user i/o, etc), 
+	you can multi-thread your application such that one or more threads can wait for the i/o while your program
+	continues to do useful work
+<LI>PARALLELISM. If you're building a program that is computation-intensive and lends itself to being sub-divided into
+	parallel operations (and you're executing it on a multi-processor machine), you can multi-thread your application
+	such that it will complete the operation in less time
+</UL>
+
+
+
+<BR><BR>
+<A HREF=index.html>Back to PTHREADS</A>
+</body>
+</html>

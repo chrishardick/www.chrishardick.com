@@ -1,0 +1,124 @@
+<HTML>
+
+<HEAD>
+<TITLE>Rules</TITLE>
+<LINK rel="stylesheet" type="text/css" href="http://www.chrishardick.com/default.css" media="all" />  
+</HEAD>
+
+<BODY>
+
+<H1>Rules</H1>
+
+<h2>I. Basic Rules</h2>
+<UL>
+<pre>
+selector(s) declaration block
+
+selector(s) { declaration1; declaration2; }
+
+selector(s) { property: value; property: value1 value2; }
+
+h1,h2       { color: red; background: yellow; }
+</pre>
+
+<LI><strong>Selector(s)</strong> selects the piece(s) of the document which are affected by the rule.</LI> 
+<LI>Most often, selectors are XHTML elements</LI>
+<LI>If the CSS file defines styles for an XML document, the selectors can be any element name</LI>
+<LI>You can specify a selector list (multiple selectors) by separating each selector by a comma (,)</LI>
+<LI>The <strong>declaration block</strong> is surrounded by curly brackets ({ ... }) 
+	and composed of one or more declarations separated by a semicolon (;)</LI>
+<LI>Each declaration has a property and a value separated by a colon</LI>
+<LI><strong>Values</strong> are either a single keyword or a space separated list of keywords which are permitted for
+	the given property</LI>
+<LI>If you use an incorrect property or incorrect value, the entire declaration will be ignored</LI>
+</UL>
+
+
+<h3>The Universal Selector (*)</h3>
+<UL>
+<pre>
+* {color: red; background: yellow: }
+</pre>
+<LI>The universal selector matches all elements</LI>
+</UL>
+
+
+<H2>II. Class Selectors</H2>
+<UL>
+<PRE>
+/* style sheet */
+
+*.IMPORTANT  { font-weight: bold; font-style: italic; background: silver; }
+
+/* same thing */
+.IMPORTANT   { font-weight: bold; font-style: italic; background: silver; } 
+
+ /* only for p elements */
+P.IMPORTANT  { font-style: italic; background: silver; }
+
+P.CAUTION    { background: red; }
+
+
+&lt!--
+     xhtml markup
+     
+     a paragraph element which belongs to 3 classes - important, warning & caution
+--&gt
+
+&lt;p class=&quot;important warning caution&quot;&gt;paragraph text&lt/p&gt
+</PRE>
+
+<LI>Allows you to assign styles independent of document elements</LI>
+<LI>Every HTML element (todo: check this) can have a <strong>class</strong> attribute.</LI>
+<LI>The class attribute is a space-separated list of words</LI>
+<LI>Each word is a class in which the element belongs</LI>
+<LI>You can then create styles which affect class members</LI>
+</UL>
+
+
+
+<h2>III. Document Structure - Decendant & Child Selectors</h2>
+<UL>
+<LI>All HTML documents define a hierarchy of elements (a tree)</LI>
+<LI>A <strong>parent</strong> is directly linked (1 level up)</LI>
+<LI>A <strong>child</strong> is directly linked (1 level down)</LI>
+<LI>An <strong>ancestor</strong> is more general than a parent - i.e. one or more levels up</LI>
+<LI>An <strong>descendant</strong> is more general than a child - i.e. one or more levels down</LI>
+<LI>The <strong>root element</strong> (HTML in a HTML document) is the ancestor to all elements</LI>
+</UL>
+
+<h3>1. Decendant Selectors</h3>
+<UL>
+<PRE>
+ancestor descendant declaration block
+
+/* this rule applies only to em elements which descend from h1 elements */
+h1 em { color: red; }
+
+/* similar - but with a selector list (rather than a single selector) */
+h1 em, p em { color: gray; }
+
+/* decendant selector which uses class selectors */
+h1.important em.not_so_important, h2.important em.not_so_important { color: gray }
+</PRE>
+<LI><strong>Descendant selectors</strong> are a space separated list of selectors (the decendants are listed later)</LI>
+<LI>Also known as <strong>contextual selectors</strong></LI>
+</UL>
+
+
+<h2>2. Child Selectors</h2>
+<UL>
+<PRE>
+parent &gt; child  declaration block
+
+h1 &gt; strong { color: red; }
+</PRE>
+<LI>Specified by using a &gt; separated list</LI>
+<LI>E.g. select a strong element which is a child of a H1 element</LI>
+</UL>
+
+<A HREF="index.html">XML</A>
+ 
+</BODY> 
+</HTML>
+  

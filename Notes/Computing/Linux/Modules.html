@@ -1,0 +1,33 @@
+<HTML>
+<HEAD><TITLE>Modules</TITLE></HEAD>
+  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<BODY>
+<H1>Modules</H1>
+
+<UL>
+<LI>Modules are object files which can be dynamically loaded into the kernel.
+<LI>Modules are typically used for device drivers
+<LI>Modules can be loaded @ boot time by rc scripts
+<LI>I've also seen them loaded on demand (i.e. ide-tape module was not loaded until I attempted a backup)
+</UL>
+
+<h2>Commands (typically in /sbin)</h2>
+<ul>
+<li>insmod
+<ul><li>Install (Load) the module into RAM.</ul>
+<li>modprobe
+<ul><li>Install module dependancies before loading the module.</ul>
+<li>rmmod
+<ul><li>Unload (remove) the module from RAM.</ul>
+<li>lsmod
+<ul><li>List the currently installed modules</ul>
+</ul>
+
+<br>
+<BR>
+<A HREF="index.html">Back to Linux Home Page</A>
+</BODY> 
+</HTML>
+  

@@ -1,0 +1,35 @@
+<HTML> 
+
+<HEAD> <TITLE>Dynamic Memory Allocation: new and delete</TITLE> </HEAD>
+  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<BODY>
+
+<H1>Dynamic Memory Allocation: <i>new</i> and <i>delete</i></H1>	
+
+<UL>
+<li>The <i>new</i> operator allocates memory from the heap
+<li>The <i>delete</i> operator de-allocates memory from the heap so that it can be used for other purposes within the program
+<li>when calling delete on an array, the following sytax is used
+<pre>double* dArray = new double[5]; 
+...
+delete[] dArray;</pre>
+<li>when callling new to create objects, the constructor will automatically be invoked
+<li>when calling delete on objects, the destructor will automatically be invoked
+<li>See also <a href=Inheritance.html>Inheritance</a> for a discussion on constructors and destructors in the relm of inheritance
+<li>some examples...
+<pre>
+double* dPtr = new double(5.5); 
+...
+delete dPtr;
+</pre>
+<pre>
+char* szStr = new char[20+1];
+....
+delete[] szStr;
+</pre>
+</UL>
+
+</BODY> 
+</HTML>

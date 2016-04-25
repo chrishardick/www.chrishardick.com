@@ -1,0 +1,37 @@
+<HTML>
+<HEAD><TITLE>fgets ( )</TITLE></HEAD>
+  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<BODY>
+
+<H1>fgets ( )</H1>
+
+<pre>
+/*
+ * READ @ most size-1 characters from stream and store in s
+ * reading stops after EOF or \n
+ * if \n is read, it is stored in the buffer
+ * returned string is always null (\0) terminated
+ * 
+ * RETURN
+ * ======
+ * s = success
+ * NULL = otherwise
+ */
+
+#include &ltstdio.h&gt
+
+char* fgets (char* s,        // out:    buffer to write to (usually of size 'size')
+             int size,       // in:     size of buffer 
+             FILE* stream);  // in/out: stream to read from
+</PRE>
+
+<BR><BR>
+
+<A HREF="index.html">C Function Reference</A>
+ 
+</FONT>
+</BODY> 
+
+</HTML>

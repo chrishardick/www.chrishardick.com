@@ -1,0 +1,51 @@
+<HTML>
+  <HEAD>
+    <TITLE>Processes</TITLE>
+  </HEAD>
+  
+  <BODY><FONT face=lucida,verdana,arial>
+	<CENTER><H1>Processes</H1></CENTER>
+	
+<p>
+The topic of processes caused a lot of confusion when I was learning about shell scripting, so I decided to start my
+discussion of shell scripting with a brief discussion of it.  First of all, let me start out by saying that there are
+a couple of  ways in which you can execute a shell script.  For example you can source it ('source progname' or '. progname'),
+you can type its name at the command line ('progname') or you can execute the command in the background ('progname &').  
+So what's the difference?  For the later two ('progname' or 'progname &'), a subshell is spawned.
+</p>
+
+<p>
+You must understand exactly
+what happens when a subshell is spawned.  First, all exported (or environment) variables are passed-by-value to the subshell.
+The subshell is a completely seperate entity than the parent shell which spawned it.  Anything which occurs in the subshell
+is completely invisible to the parent shell.  Therefore if in the subhell, you: set a variable x equal to 5 (x=5 -- 
+note that 5 is a character string, not an integer), define a function PrintHello ( ), and set a couple of environment 
+variables (all exported variables are environment variables); all of this is completely invisible to the parent process.  
+If after returning from the child process, you try to access the variable x, it will be the null string 
+(the value of all variables that have yet to be used--unless of course the
+parent process has a variable x).  If you try to call the function PrintHello, it will say 'PrintHello -- command not found';
+likewise, any mention of the subshell's exported variables will also yield the null string (unless, again you already have
+variables defined with the same name in the parent shell).
+</p>
+
+<p>
+So what happens when you source the shell script?  Sourcing the shell script (using '. progname' or 'source progname')
+is exactly the same as manually typing the commands which are in the shell script at the command line.  For example, if 
+you define a function, declare a couple of variables, all of these are completely visible to the parent process.  Why is this?
+When you souce a program, a new shell is NOT spawned.     
+</p>
+
+<p>
+So what's the difference between 'progname' and 'progname &'?  As we already know, the later allows progname to execute in
+the background and gives you back control of your shell so you can immediately enter more commands.  Since we're discussing 
+processes, we'll phrase it differently.  There is no difference other than using the prior, your current shell would 'sleep'
+while waiting for progname to complete, while using the later, your shell would remain active.
+</p>
+
+<BR>
+<BR>
+<CENTER><A HREF="index.html">Back to the BASH Index</A></CENTER>
+
+</FONT></BODY> 
+</HTML>
+  

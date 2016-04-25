@@ -1,0 +1,123 @@
+<HTML>
+<HEAD><TITLE>C - Pass-By-Reference</TITLE></HEAD>
+  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<BODY>
+
+
+<CENTER><H1>C - Pass-By-Reference</H1></CENTER>
+
+C does not explicitly support Pass-by-reference. To simulate pass-by-reference, C Programmers pass addresses into functions & dereference the variables inside of the functions.
+Here's an example of a complexity which arises because of this.
+
+<PRE>
+/******************************************************************************
+**
+**  CPassByRef.cpp
+**
+**  A Program to Experiment w/ PASS-BY-REFERENCE IN C
+**
+**  WHAT PROBLEM ARE WE TRYING TO SOLVE HERE?
+**  =========================================
+**  - LET'S SAY YOU WANT TO DESIGN A FUNCTION WHICH ACCEPTS A PTR AS AN OUTPUT 
+**    PARAMETER & INSIDE YOUR FXN, YOU'RE GOING TO ALLOCATE MEMORY & PASS BACK 
+**    THE PTR VIA THE OUTPUT PARAMETER (OR SOMETHING SIMILAR)...AS YOU'LL SEE,
+**    THERE ARE SOME COMPLEXITIES INVOLVED
+**   
+**  TOPICS COVERED
+**  ==============
+**  - ADVANCED DISCUSSION IN C PASS-BY-REFERENCE
+**  - SINGLE INDIRECTION
+**  - DOUBLE INDIRECTION
+**
+**  Chris Hardick
+**
+******************************************************************************/
+
+#include &#60stdio.h&#62
+#include &#60stdlib.h&#62
+
+
+/*
+ * SINGLE INDIRECTION
+ *
+ * -DOESN'T WORK...
+ */
+void void_fxn (double* p_dX)
+{
+	/*
+	 * WRONG!
+	 *
+	 * ALTHOUGH WE'RE USING "PASS-BY-REFERENCE"
+	 * C DOES NOT SUPPORT PASS-BY-REFERENCE.
+	 * C PROGRAMMERS ACHIEVE PASS-BY-REFERENCE BY PASSING AN ADDRESS
+	 * INTO A FXN (BY VALUE) & DEREFERENCING IT INSIDE OF THE FXN
+	 * 
+	 * HERE, WE'RE ASSIGNING A VALUE TO SOMETHING PASSED-BY-VALUE,
+	 * CLEARLY THIS ASSIGNMENT WILL NOT BE VISIBLE TO THE CALLING FXN
+	 */
+	p_dX = (double*) malloc (sizeof(double));
+
+	printf ("VOID_FXN: p_dX: %x\n",p_dX);
+}
+
+
+/*
+ * NOW THAT WE UNDERSTAND THE ISSUE, HOW DO WE DO WHAT WE WANT TO DO?
+ * 
+ * 1) MODIFY FXN TO ACCEPT DOUBLE INDIRECTION
+ * 2) WHEN CALLING FXN, PASS THE ADDRESS OF THE PTR
+ */
+
+
+/*
+ * DOUBLE INDIRECTION
+ *
+ * WORKS!
+ */
+void void_fxn2 (double** pp_dX)
+{
+	*pp_dX = (double*) malloc (sizeof(double));
+
+	printf ("VOID_FXN2: *pp_dX: %x\n",*pp_dX);
+}
+
+
+/*
+ * MAIN
+ */
+int main ()
+{
+	/*
+	 * DECLARE A PTR
+	 * - CONTAINS AN ADDRESS
+	 */
+	double* p_dX = NULL;
+
+
+	/*
+	 * CAN WE ALTER p_dX?
+	 */
+
+	printf ("BEFORE: p_dX: %x\n",p_dX);	
+	void_fxn (p_dX);
+	printf ("AFTER: p_dX: %x\n",p_dX);
+
+	/*
+	 * WHAT ABOUT NOW...
+	 * - WE'LL PASS THE ADDRESS OF A PTR
+	 *   & ACCEPT AS DOUBLE INDIRECTION
+	 */
+
+	printf ("\n\n");
+	
+	printf ("BEFORE: p_dX: %x\n",p_dX);	
+	void_fxn2 (&p_dX);
+	printf ("AFTER: p_dX: %x\n",p_dX);
+}
+</PRE>
+
+
+</BODY>
+</HTML>

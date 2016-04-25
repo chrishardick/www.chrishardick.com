@@ -1,0 +1,57 @@
+<HTML> 
+
+<HEAD> <TITLE>Pair</TITLE> </HEAD>
+  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<BODY>
+
+<H1>Pair</H1>	
+
+<UL>
+<li>A simple class template that can store two arbitrary types
+</UL>
+
+
+<PRE>
+template &ltclass T1, class T2&gt
+class pair
+{
+    public:
+
+    T1 first;
+    T2 second;
+
+    // CONSTRUCTOR(S)
+    pair () : first(T1()), second(T2()) { }
+    pair (const T1& t1, const T2& t2) : first(t1), second(t2) { }
+};
+
+pair &ltint, double&gt my_pair(5, 5.1);
+
+cout &lt&lt "first=" &lt&lt my_pair.first &lt&lt endl;
+cout &lt&lt "second=" &lt&lt my_pair.second &lt&lt endl;
+
+
+</PRE>
+
+<h3>make_pair</h3>
+
+<ul>
+<li>a convenience
+<li>you need not specify the template parameters, as they are deduced from the function arguments
+</ul>
+
+<pre>
+template &ltclass T1, class T2&gt
+pair&ltT1,T2&gt make_pair (const T1& t1, const T2& t2)
+
+
+// equivalent statements
+pair&ltint, double&gt (5, 3.14)
+// make_pair(5, 3.14)
+</pre>
+
+
+</BODY> 
+</HTML>

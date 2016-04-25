@@ -1,0 +1,156 @@
+<html>
+
+<head><title>IO Multiplexing: select( ) and poll( )</title></head>
+
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<body>
+
+<h1>IO Multiplexing: select ( ) and poll( )</h1>
+
+
+<h2>I. select ( )</h2>
+
+<UL>
+<LI>wait for a set of file descriptors to change status
+<LI><a href="../Terms.html#blocking_fxn">blocking function</a>. 
+	Returns when at least 1 file descriptor specified in readset, writeset and/or exceptset is ready
+	for reading, writing, or exception handing or a timeout occurs
+<LI>The descriptors specified are not limited to socket descriptors, they can be any descriptors. 
+	Hence this page is called I/O Multiplexing (and not just Socket Multiplexing)
+<LI>The same file descriptor can be specified in multiple fd_set parameters (readset, writeset, and exceptset)
+<LI>When an error occurs on a socket, it will be asserted in both readset and writeset
+<pre>
+/*
+ * SELECT ( )    
+ *
+ * RETURN
+ * ======
+ * number of ready descriptor(s) across all fd_set's
+ *  0 = timeout
+ * -1 = error (check errno)
+ */
+#include &ltsys/select.h&gt
+
+int select (int n,                               // in:     maximum descriptor to check + 1 (file descriptors 0 - n-1 are checked) 
+            fd_set* readset,                     // in/out: NULL if N/A. in: fd_set we're interested in. out: fd_set which is ready
+            fd_set* writeset,                    // in/out: NULL if N/A. in: fd_set we're interested in. out: fd_set which is ready
+            fd_set* exceptset,                   // in/out: NULL if N/A. in: fd_set we're interested in. out: fd_set which is ready
+            const struct timeval* timeout);      // in:     NULL =&gt wait forever
+                                                            set tv_sec=tv_usec=0 =&gt do not wait (return immediately after checking) - polling
+/*
+ * NOTES on 'n' - maximum descriptor to check + 1
+ * - FD_SETSIZE defined in sys/select.h is the number of descriptors in fd_set (usually 1024)
+ * - for efficiency, set n to limit the max descriptor to check - therefore the entire fd_set's need not be traversed
+ */
+
+struct timeval
+{
+     long tv_sec;       // seconds
+     long tv_usec;      // microseconds (10^-6)
+};
+
+
+/*
+ * fd_set
+ * - you can allocate a variable of type 'fd_set'
+ * - test and set/clear bits of a fd_set using the macros listed below
+ * - assignment is supported
+ *   fd_set fd1;
+ *   ...
+ *   fd_set fd2 = fd1;
+ * - be sure to initialize before using (FD_ZERO)
+ */
+
+/*
+ * clear all bits in fdset
+ */
+void FD_ZERO (fd_set* fdset);
+
+
+/*
+ * turn on bit 'fd' in fdset
+ */
+void FD_SET (int fd,
+             fd_set* fdset);
+
+/*
+ * turn off bit 'fd' in fdset
+ */
+void FD_CLR (int fd,
+             fd_set* fdset);
+
+/*
+ * test if bit 'fd' is set in fdset
+ */
+int FD_ISSET (int fd,
+              fs_set* fdset);
+
+</pre>
+</UL>
+
+<BR><BR>
+<h3>1. When is a Socket Descriptor READY for READING?</h3>
+A socket descriptor is ready for reading when any of the following are true:
+<OL>
+<LI>The number of bytes of data in the socket receive buffer is greater or equal to the current size of the 
+	socket's low-water mark for the socket's receive buffer
+	<UL>
+	<LI>A call to read( ) will not block and will return the number of bytes read
+	<LI>The default low-water mark for socket receive buffers is 1 byte for both TCP and UDP sockets. 
+	<LI>The low-water mark for a socket receive buffer can be set with the SO_RCVLOWAT socket option
+	</UL>
+<LI>The read half of the connection is closed
+	<UL>
+	<LI>A call to read( ) will not block and will return 0 (EOF)
+	</UL>
+<LI>The socket is a <a href="sockets.html">listening socket</a> and there is @ least one completed connection ready
+	<UL>
+	<LI>A call to accept( ) will normally not block.
+	<LI>There is a timing condition in which accept( ) will block. TODO: find out what this is.
+	</UL>
+<LI>A socket error is pending
+	<UL>
+	<LI>A call to read( ) will not block and will return -1 with errno set
+	<LI>The error can also be received/cleared by calling getsockopt( ) with SO_ERROR socket option
+	</UL>
+</OL>
+
+<BR><BR>
+<h3>2. When is a Descriptor READY for WRITING?</h3>
+A socket descriptor is ready for writing when any of the following are true:
+<OL>
+<LI>The socket is connected (TCP) or does not require a connection (UDP) and the number of bytes of available space 
+	in the socket's send buffer is greater than or equal to the current size of the socket's low-water mark
+	for the socket's send buffer
+	<UL>
+	<LI>NOTE: if socket is blocking (default), a call to write( ) can still block if you attempt to write more data
+		than is available in the socket's send buffer
+	<LI>The default low-water mark for socket send buffers is 2048 bytes for both TCP and UPD sockets 
+		(although UPD sockets do not really have a socket send buffer)
+	<LI>The low-water mark for a socket send buffer can be set with the SO_SNDLOWAT socket option
+	</UL>
+<LI>The write half of the connection is closed
+	<UL>
+	<LI>A call to write( ) will generate a SIGPIPE
+	</UL>
+<LI>A socket using a non-blocking connect has comleted the connection, or the connect has failed
+<LI>A socket error is pending. 
+	<UL>
+	<LI>A call to write( ) will not block and will return -1 with errno set
+	<LI>The error can also be received/cleared by calling getsockopt( ) with SO_ERROR socket option
+	</UL>
+</OL>
+
+<BR><BR>
+<h3>3. When is a Descriptor READY for EXCEPTION HANDLING?</h3>
+A socket descriptor is ready for exception handling when the following is true:
+<OL>
+<LI>There is out-of-band data for the socket or the socket is still at the out-of-band mark (todo - need more on this)
+</OL>
+
+
+<BR><BR>
+<A HREF=index.html>UNIX Networking Programming - Sockets API</A>
+</body>
+</html>

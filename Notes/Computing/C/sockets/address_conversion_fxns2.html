@@ -1,0 +1,330 @@
+<html>
+
+<head><title>Address Conversion Functions</title></head>
+
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<body>
+
+<h1>IP Addresses & Ports: DNS Names & Similar &harr; Binary Values</h1>
+
+<UL>
+<LI>Convert IP addresses between 
+	<UL>
+	<LI>DNS Names (and Similar) -and- 
+	<LI><a href="byte_order.html">network byte ordered</a> binary values
+	</UL>
+<LI>OLD (only handle IPv4)
+	<UL>
+	<LI>gethostbyname( ): DNS Name (or similar) to IPv4 Address (binary)
+	<LI>gethostbyaddr( ): IPv4 Address (binary) to DNS Name (or similar)
+	<LI>getservbyname( ): Service Name to Port (via /etc/services)
+	<LI>getservbyport( ): Port to Service Name (via /etc/services)
+	</UL>
+<LI>NEW (handle both IPv4 and IPv6)
+	<UL>
+	<LI>getaddrinfo( )
+	</UL>
+</UL>
+
+
+<BR><BR>
+<h2>DNS Basics</h2>
+<UL>
+<LI>hostnames &harr; IP Addresses
+<LI>simple name: linux_server
+<LI>fully qualified domain name (FQDN): linux_server.chrishardick.com.
+<LI>DNS Entries = Resource Records (RR)
+<LI>There are many different types of RR's
+	<UL>
+	<LI>Type A: hostname &rarr; 32 bit IPv4 address
+	<LI>Type AAAA (quad A record): hostname &rarr; 128 bit IPv6 address
+	<LI>Type PTR (pointer records): IP addresses &rarr; hostnames
+		<UL>
+		<LI>For IPv4 records: 4 bytes are reversed, each byte is converted to decimal (0-255) and in-addr.arpa is appended
+		</UL>
+	<LI>Type MX: Mail Exchanger. host that accepts e-mail for a domain
+	<LI>Type CNAME: Canonial Name
+	</UL>
+</UL>
+
+<BR><BR>
+<H3>Resolvers and Name Servers</H3>
+<UL>
+<LI>Name servers (usually a program called BIND - Berkeley Internet Name Domain)
+<LI>Resolver Functions:
+	<UL>
+	<LI>gethostbyname( )
+	<LI>gethostbyaddr( )
+	</UL>
+<LI>Usually /etc/resolv.conf has a list of IP Addresses of local name servers
+</UL>
+
+
+<BR><BR>
+<H3>DNS Alternatives</H3>
+<UL>
+<LI>static host file. E.g. /etc/hosts
+<LI>NIS: Network Information System
+<LI>LDAP: Lightweight Directory Access Protocol
+</UL>
+			
+
+
+<BR><BR>
+<h2>gethostbyname( ) and gethostbyaddr( )</h2>
+<UL>
+<LI>IP Addresses: DNS Names (and Similar) &harr; Binary Values
+<LI>Older functions - only support IPv4
+
+<PRE>
+struct hostent
+{
+     char*  h_name;          // official name of host
+     char** h_aliases;       // ptr to array of ptrs to alias names (h_aliases* [])
+     int    h_addrtype;      // address type (AF_INET) 
+     int    h_length;        // sizeof address (4 bytes)
+     char** h_addr_list      // ptr to array of ptrs to IPv4 addresses (struct in_addr* h_addr_list [])
+};
+
+#include &ltnetdb.h&gt
+
+
+/*
+ * DNS Name (or similar) =&gt 32 bit IPv4 address in network byte order
+ *
+ * RETURN
+ * ======
+ * non-null ptr = success
+ * NULL = error with h_errno set
+ */
+struct hostent* gethostbyname (const char* hostname);      // in: DNS Name (or similar)
+
+
+/*
+ * 32 bit IPv4 address in network byte order =&gt DNS Name (or similar)
+ *
+ * RETURN
+ * ======
+ * non-null ptr = success
+ * NULL = error with h_errno set
+ * 
+ */
+struct hostent* gethostbyaddr (const char* addr,           // in:  ptr to in_addr struct (32 bit IPv4 address in network byte order)
+                               socklen_t len,              // in:  sizeof(struct in_addr) - 4 bytes
+                               int family);                // in:  AF_INET
+</PRE>
+</UL>
+
+
+<BR><BR>
+<h2>getservbyname( ) and getservbyaddr( )</h2>
+<UL>
+<LI>Services: Name (via /etc/services) &harr; Port # (network byte order)
+<LI>Older functions
+
+<PRE>
+struct servent
+{
+     char*  s_name;          // official service name
+     char** s_aliases;       // alias list (char* s_aliases[])
+     int    s_port;          // port # - network byte order
+     char*  s_proto;         // protocol ("tcp"|"udp")
+};
+
+#include &ltnetdb.h&gt
+
+
+/*
+ * Service Name (via /etc/services) =&gt Port # (network byte order)
+ * - if protocol is not specified and the service supports multiple protocols, it is implementation dependent
+ *   as to which port is returned -- usually not an issue because if a service is supported by multiple protocols
+ *   they usually use the same port
+ *
+ * RETURN
+ * ======
+ * non-null ptr = success
+ * NULL = error
+ */
+struct servent* getservbyname (const char* servname,       // in: service name
+                               const char* protoname);     // in: protocol name ("tcp"|"udp") - optional (pass NULL if N/A)
+
+
+/*
+ * Port # (network byte order) =&gt Service Name (via /etc/services)
+ *
+ * RETURN
+ * ======
+ * non-null ptr = success
+ * NULL = error
+ * 
+ */
+struct servent* getservbyport (int port,                   // in:  port (network byte order)
+                               const char* protoname);     // in:  protocol name ("tcp"|"udp") - optional (pass NULL if N/A)
+                               int family);                // in:  AF_INET
+</PRE>
+</UL>
+
+
+<BR><BR>
+<h2>getaddrinfo( )</h2>
+<ul>
+<li>Handles: 
+	<UL>
+	<LI>DNS Name &rarr; Binary Address
+	<LI>Service Name (via /etc/services) &rarr; Port #
+	</UL>
+<LI>Makes it easier to write protocol independent code - all protocol dependence code is hidden in API
+<LI>Handles both IPv4 and IPv6
+<PRE>
+#include &ltnetdb.h&gt
+
+/*
+ * struct addrinfo
+ */
+struct addrinfo
+{
+     int ai_flags;                     // Bitmap. Only used by HINTS structure. 
+     int ai_family;                    // AF_UNSPEC, AF_INET, AF_INET6
+     int ai_socktype;                  // SOCK_DGRAM, SOCK_STREAM
+     int ai_protocol;                  // 0, IPPROTO_UDP, IPPROTO_TCP
+     socklen_t ai_addrlen;             // sizeof *ai_addr (socket address struct for the protocol) - AF_INET=16 bytes, AF_INET6=28 bytes
+     char* ai_canonname;
+     struct sockaddr* ai_addr;         // generic socket address struct
+
+     struct addrinfo* ai_next;         // linked list
+};
+</PRE>
+
+<PRE>
+/*
+ * getaddrinfo()
+ *
+ * NOTES
+ * =====
+ * - usual way to call - server: specify service name only
+ * - usual way to call - client: specify both host name & service
+ * 
+ * RETURN
+ * ======
+ *  0 =&gt OK
+ * ~0 =&gt ERROR - use <a herf="#gai_strerror">gai_strerror( )</a> to determine error reason
+ */
+int getaddrinfo (const char* hostname,           // in:  either: hostname or ASCII address string (IPv4 - dotted decimal, IPv6 - hex string)
+                 const char* service,            // in:  either: service name or a ASCII decimal port number string
+                 const struct addrinfo* hints,   // in:  NULL if n/a
+                 struct addrinfo** result);      // out:
+</PRE>
+<li>HINTS structure
+	<UL>
+	<LI>Pass NULL to specify no hints. When is this used? 
+	<LI>The only members which can be set in the HINTS structure:
+	<LI>ai_flags
+		<UL>
+		<LI>ai_flags is a bit map in which zero or more of the following AI_xxx bits can be set:
+		<LI>AI_PASSIVE
+			<UL>
+			<LI>The caller will use the socket as a passive (listening) socket
+			<LI>This is typically set for servers
+			</UL>
+		<LI>AI_CANONNAME
+			<UL>
+			<LI>Return the canonical name of the host???
+			</UL>
+		<LI>AI_NUMERICHOST
+			<UL>
+			<LI>Prevents name-to-address mapping. hostname must be a ASCII address string
+			</UL>
+		<LI>AI_NUMERICSERV
+			<UL>
+			<LI>Prevents name-to-service mapping. hostname must be a ASCII decimal port number string
+			</UL>
+		<LI>AI_V4MAPPED
+			<UL>
+			<LI>If specified along w/ ai_family = AF_INET6, then returns IPv4 mapped IPv6 addresses corresponding to A 
+				records if there are no available AAAA records
+			</UL>
+		<LI>AI_ALL
+			<UL>
+			<LI>If specified along w/ AI_V4MAPPED, IPv4 mapped IPv6 addresses will be returned, in addition to any AAAA records
+				belonging to the name
+			</UL>
+		<LI>AI_ADDRCONFIG
+			<UL>
+			<LI>Only looks up addresses for a given IP version if there is one or more interfaces (not loopback interface) configured
+				with an IP address of that version
+			</UL>
+		</UL>
+	<LI>ai_family
+		<UL>
+		<LI>The possible values for ai_family:
+		<LI>AF_UNSPEC
+		<LI>AF_INET
+		<LI>AF_INET6
+		</UL>
+	<LI>ai_socktype
+		<UL>
+		<LI>The possible values for ai_socktype:
+		<LI>SOCK_DGRAM
+		<LI>SOCK_STREAM
+		</UL>
+	<LI>ai_protocol
+		<UL>
+		<LI>
+		</UL>
+	<LI>If a NULL ptr is passed in for the HINTS structure, getaddrinfo( ) assumes
+		<UL>
+		<LI>ai_flags = 0
+		<LI>ai_socktype = 0
+		<LI>ai_protocol = 0
+		<LI>ai_family = AF_UNSPEC
+		</UL>
+	</UL>
+<LI>Typical Client: specifies hostname & service. On return, the tcp client will loop thru all returned structures calling socket( ) & connect( ) 
+	until a connection succeeds or until all addresses have been tried. See tcp_connect( )
+<LI>Typical Server: specifes only a service and specifies AI_PASSIVE in the HINTS structure. A TCP server will then call socket( ), bind( ), and listen( ).
+	If the server wants to obtains the client's address, it can malloc another socket address structure, using ai_addrlen as the size.
+</ul>
+
+
+<BR><BR>
+<h2 id=getnameinfo>getnameinfo( )</h2>
+<ul>
+<li>Handles Socket Address Structures &rarr; hostnames & services
+</UL>
+
+<BR><BR>
+<h2>gai_strerror( )</h2>
+<UL>
+<PRE>
+#include &ltnetdb.h&gt
+
+/*
+ * RETURN
+ * ======
+ * pointer to string describing error msg
+ */
+const char* agi_strerror(int error);
+</PRE>
+</UL>
+
+
+<BR><BR>
+<h2>freeaddrinfo( )</h2>
+<UL>
+<LI>Free all memory associated w/ addrinfo structure
+<LI>ai should point to the first addrinfo struct returned by getaddrinfo( )
+<LI>All the structures in the linked list are freed along w/ any other dynamic data for individual members (socket address structures, canonical hostnames)
+<PRE>
+#include &ltnetdb.h&gt
+
+void freeaddrinfo (struct addrinfo* ai);
+</PRE>
+</UL>
+
+
+
+<BR><BR>
+<A HREF=index.html>UNIX Networking Programming - Sockets API</A>
+</body>
+</html>

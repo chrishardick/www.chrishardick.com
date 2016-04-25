@@ -1,0 +1,306 @@
+<html>
+
+<head><title>SOCKET OPTIONS</title></head>
+
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<body>
+
+<h1>SOCKET OPTIONS</h1>
+
+<h2>I. getsockopt( ) / setsockopt( )</h2>
+<UL>
+<pre>
+/*
+ * getsockopt( )
+ * setsockopt( )
+ *
+ * RETURN
+ * ======
+ *  0 = success
+ * -1 = error (check errno)
+ */
+#include &ltsys/socket.h&gt
+
+int getsockopt (int sockfd,            // in:     open socket descriptor
+                int level,             // in:     kernel code which interprets the option: SOL_SOCKET, IPPROTO_IP, IPPROTO_IP6, etc.
+                int optname,           // in:     option: SO_ERROR, SO_KEEPALIVE, SO_LINGER, SO_RCVBUF, SO_SNDBUF, SO_RCVLOWAT, SO_SNDLOWAT, etc.
+                void* optval,          // out:    current value for the option
+                socklen_t* optlen);    // in/out: sizeof(optval)
+
+
+int setsockopt (int sockfd,            // in:     open socket descriptor
+                int level,             // in:     kernel code which interprets the option: SOL_SOCKET, IPPROTO_IP, IPPROTO_IP6, etc.
+                int optname,           // in:     option: SO_ERROR, SO_KEEPALIVE, SO_LINGER, SO_RCVBUF, SO_SNDBUF, SO_RCVLOWAT, SO_SNDLOWAT, etc.
+                const void* optval,    // in:     new value for the option
+                socklen_t optlen);     // in:     sizeof(optval)
+</pre>
+<LI>Level: what level of kernel code should interpret the option
+	<UL>
+	<LI>SOL_SOCKET: general socket code
+	<LI>Protocol specific code
+		<UL>
+		<LI>IPPROTO_IP - IPv4 protocol specific code
+		<LI>IPPROTO_IP6 - IPv6 protocol specific code 
+		<LI>etc.
+		</UL>
+	</UL>
+<LI>Four types of options:
+	<OL>
+	<LI>Flag options (either on or off)
+		<UL>
+		<LI>optval is an integer
+		<LI>non-zero = true (on)
+		<LI>zero = false (off)
+		</UL>
+	<LI>Integer options
+		<UL>
+		<LI>optval is an integer
+		</UL>
+	<LI>timeval options
+		<UL>
+		<LI>optval is a timeval struct
+		</UL>
+	<LI>linger option
+		<UL>
+		<LI>optval is a linger struct
+		</UL>
+	</OL>
+</UL>
+
+
+<h3>1. GENERIC SOCKET OPTIONS</h3>
+<UL>
+<LI>protoocl independent - handled by protocol independent code within the kernel
+<LI>level = SOL_SOCKET (general socket code)
+</UL>
+
+<H4>SO_BROADCAST Socket Option</H4>
+<UL>
+<LI>Option Type: Flag
+<LI>Enable/disable the ability of the process to send broadcast messages
+<LI>Broadcasting is supported only for datagram based sockets (not connection based sockets) and 
+	only on networks that support the concept of a broadcast message (ethernet, token ring, etc.)
+</UL>
+
+<H4>SO_DEBUG Socket Option</H4>
+<UL>
+<LI>Option Type: Flag
+<LI>Only supported by TCP
+<LI>When enabled, the kernel keeps track of detailed information about the packets sent and received by TCP for the socket
+<LI>These can be viewed with the trpt program
+</UL>
+
+<H4>SO_DONTROUTE Socket Option</H4>
+<UL>
+<LI>Option Type: Flag
+</UL>
+
+<H4>SO_ERROR Socket Option</H4>
+<UL>
+<LI>Option Type: Int
+<LI>Cannot be set by setsockopt( )
+</UL>
+
+<H4>SO_KEEPALIVE Socket Option</H4>
+<UL>
+<LI>Option Type: Flag
+<LI>Connection based sockets only (not sure if only TCP, might also be SCTP)
+<LI>Purpose: detect if peer host crashes or becomes unreachable
+<LI>Normally used by servers
+<LI>Behavior when set: if no data has been exchanged for 2 hours, TCP will automatically send a probe
+<LI>Probe is a <a href=terms.html#segment>TCP segment</a> in which the peer is required to acknowledge (like any other TCP segment)
+<LI>If peer responds with the requird ACK, the application will not be notified 
+<LI>If peer responds with RST (the peer host has crashed and rebooted) and socket's pending error is set to ECONNRESET and socket is closed
+<LI>If peer does not respond within the timeout interval (implementation dependant), additional probes will be sent.
+	If still no repsonse, the socket's pending error is set to ETIMEDOUT and the socket is closed.
+	Berkeley derived implementations send 8 additional probes, 75 seconds apart
+</UL>
+
+<H4 id=SO_LINGER>SO_LINGER Socket Options</H4>
+<UL>
+<LI>Option Type: linger
+<LI>See also <a href=close.html>close( )</a>, <a href=shutdown.html>shutdown( )</a>
+<PRE>
+struct linger
+{
+     int l_onoff;       // 0=off, non-zero=on 
+     int l_linger;      // linger time (secs)
+};
+</PRE>
+<LI>Controls how close( ) behaves for connection based protocols
+<LI>By default (LINGER OFF), close( ) returns immediately and the application has no way of knowing 
+	<OL>
+	<LI>if the peer TCP has received and acknowledged the data
+	<LI>if the peer application has read and processed the data
+	</OL>
+<LI>By turning LINGER ON and specifying a linger timeout value, close( ) will not return until
+	either (1) linger timeout value has expired, or (2) the peer TCP has acknowledged the data.
+	Therefore, by specifying an appropriate timeout value, the application can be assured that the
+	peer TCP has received the data
+<LI>In order for the application to know that the peer application has read and processed the data, 
+	shutdown(SHUT_WR), followed by read( ) must be utilized
+<LI>If LINGER ON is specified, but the timeout value is set to 0 (zero), TCP will abort the connection immediately
+	(any data in the socket send buffer is discarded) and RST (reset) is sent to the peer. 
+	I'm not sure when this is useful.
+</UL>
+
+<H4>SO_RCVBUF/SO_SNDBUF Socket Options</H4>
+<UL>
+<LI>Option Type: Int
+<LI>Every socket has a socket send buffer and a socket receive buffer
+<LI>Allows you to change the default sizes
+<LI>TCP buffer sizes for connected sockets are always inherited from the listening socket
+<LI>Socket Receive Buffer
+	<UL>
+	<LI>For TCP, the available size in the receive buffer is the 
+		<strong>advertised window</strong> which is advertised to the TCP peer.
+		This is TCP's flow control.
+	<LI>With both TCP and UDP, if a segment arrives which will not fit in the socket receive buffer, 
+		it will be discarded
+	<LI>For TCP clients, this option must be set prior to calling <a href=elementary_socket_fxns.html#connect>connect( )</a>
+	<LI>For TCP servers, this option must be set for the listening socket, prior to calling <a href=elementary_socket_fxns.html#listen>listen( )</a>
+	</UL>
+<LI>Socket Send Buffer
+	<UL>
+	<LI>UDP does not physically have a socket send buffer--it's not a reliable protocol and need not keep a copy of the data for re-transmission. 
+	For UDP, SO_SNDBUF is simply an upper bound on the maximum sized UDP datagram which can be written to the socket (not the size of a physical buffer) 
+	</UL>
+</UL>
+
+<H4>SO_RCVLOWAT/SO_SNDLOWAT Socket Options</H4>
+<UL>
+<LI>Option Type: Int
+<LI>Every socket has a <strong>receive low water mark</strong> and a <strong>send low water mark</strong>
+<LI>These options are used by <a href="io_multiplexing.html#select">select( )</a>
+<LI>Receive low water mark
+	<UL>
+	<LI>Amount of data (bytes) which must be present in the socket receive buffer in order for select( ) to return 'readable'
+	<LI>Usually defaults to 1 for UDP, TCP, and SCTP
+	</UL>
+<LI>Send low water mark
+	<UL>
+	<LI>Amount of free space (bytes) which must be available in the socket send buffer in order for select( ) to return 'writable'
+	<LI>Usually defaults to 2048 for TCP sockets
+	<LI>For UDP sockets, which do not really have socket send buffers, as long as the send low water mark is less than the size of 
+		the socket send buffer (not an actual buffer), the socket is always 'writable'
+	</UL>
+</UL>
+
+<H4>SO_RCVTIMEO/SO_SNDTIMEO Socket Options</H4>
+<UL>
+<LI>Option Type: timeval
+<PRE>
+struct timeval
+{
+     long tv_sec;
+     long tv_usec;
+};
+</PRE>
+<LI>allows you to place a timeout on socket sends and receives
+<LI>both timeouts are disabled by default
+<LI>send timeouts affect the following functions:
+	<UL>
+	<LI>write( )
+	<LI>writev( )
+	<LI>send( )
+	<LI>sendto( )
+	<LI>sendmsg( )
+	</UL>
+<LI>receive timeouts affect the following functions:
+	<UL>
+	<LI>read( )
+	<LI>readv( )
+	<LI>recv( )
+	<LI>recvfrom( )
+	<LI>recvmsg( )
+	</UL>
+</UL>
+
+<H4>SO_REUSEADDR Socket Option</H4>
+<UL>
+<LI>Option Type: Flag
+<LI>All TCP Servers should specify this option
+<LI>This option has several different purposes
+	<OL>
+	<LI>Allows a listening socket to bind to its well-known port, even if other socket(s) currently exist 
+		which are the port as their local port. This usually occurs as follows:
+		<UL>
+		<LI>A listening server is started
+		<LI>A connection request arrives and a child process is spawned
+		<LI>The listening server terminates (child continues executing)
+		<LI>Listening server is restarted
+			<UL>
+			<LI>Under default conditions (SO_REUSEADDR is off), bind( ) would fail - port already in use
+			<LI>Unless the listening socket sets the SO_REUSEADDR option prior to calling bind( )
+			</UL>
+		</UL>
+	<LI>Allows a new server to be started on the same port as an existing server so long as each server binds to
+		different local IP address (including the wildcard address)
+		<UL>
+		<LI>Frequently used to allow for different servers to service different IP addressses (i.e. a HTTP server)
+		<LI>Assume we have a server with 5 IP addresses (1,2,3,4,5)
+		<LI>Server #1 starts up and binds to port 80 w/ IP address #1
+		<LI>Server #2 starts up and binds to port 80 w/ IP address #2
+		<LI>Server #3 starts up and binds to port 80 w/ IP wildcard address
+		<LI>Server #1 will service all requests on address #1
+		<LI>Server #2 will service all requests on address #2
+		<LI>Server #3 will service all requests on address' #3, 4 and 5
+		<LI>The wildcard address is better defined as "every address that does not have a better match"
+		<LI>Note: even with SO_REUSEADDR specified, you can never bind to the same address with the same port 
+			(<strong>completely duplicate binding</strong>)
+		</UL>
+	<LI>SO_REUSEADDR also has 2 other purposes which are usually only used for UDP sockets
+	</OL>
+</UL>
+
+<H4>SO_REUSEPORT Socket Options</H4>
+<UL>
+<LI>Option Type: Flag
+<LI>Not supported by all systems
+</UL>
+
+<H4>SO_TYPE Socket Option</H4>
+<UL>
+<LI>Option Type: Int
+<LI>Returns the socket type
+</UL>
+
+<H4>SO_USELOOPBACK Socket Option</H4>
+<UL>
+<LI>Option Type: Flag
+</UL>
+
+
+<h3>2. IPv4 SOCKET OPTIONS</h3>
+<UL>
+<LI>Not covered
+</UL>
+
+<h3>3. IPv6 SOCKET OPTIONS</h3>
+<UL>
+<LI>Not covered
+</UL>
+
+<h3>4. ICMPv6 SOCKET OPTIONS</h3>
+<UL>
+<LI>Not covered
+</UL>
+
+<h3>5. TCP SOCKET OPTIONS</h3>
+<UL>
+<LI>Not covered
+</UL>
+
+<Br><Br>
+<h2>II. fcntl( )</h2>
+<UL>
+<LI>file control
+<LI>used to set a socket for both <strong>non-blocking I/O</strong> and <strong>signal driven I/O</strong>
+</UL>
+
+
+<BR><BR>
+<A HREF=index.html>UNIX Networking Programming - Sockets API</A>
+</body>
+</html>

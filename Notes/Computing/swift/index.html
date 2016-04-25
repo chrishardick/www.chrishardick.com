@@ -1,0 +1,270 @@
+<HTML>
+<HEAD><TITLE>Swift</TITLE></HEAD>
+ 
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all> 
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/css/notes.css" TYPE=text/css MEDIA=all>
+
+<BODY>
+
+<H1>Swift</H1>
+
+<h2>Introduction</h2>
+
+<ul>
+<li>statements need not be suffixed by a semi-colon unless you're trying to put multiple statements on a single line
+<li>both c & c++ style comments are allowed
+<li>swift is a compiled language
+<li>everything is an object. in swift, there are no scalers -- all types are objects
+<li>swift has three types of of object types: classes, structs, and enums
+<li>in swift, all variables need to be declared -- you do this w/ one of two keywords <strong>let</strong> or <strong>var</strong>
+<li>a variable declared with <strong>let</strong> is a <strong>constant</strong>
+<li>when a variable is declared, its type is established and can never change. 
+<pre>var t = 2
+t = "hello"    // will not compile as t is an Int</pre>
+<li>By convention, typenames (e.g. String, Int) start with a capital letter
+<li>A swift program consists of one or many files
+<li>TODO: Even if everything is a class (e.g. no scalers) -- what are the native objects supported?
+<li>TODO: I guess you can declare a variable with a type @ compile time? let a = Int();
+<li>String is a struct
+</ul>
+
+<h2>Namespaces</h2>
+<ul>
+<li>a named region of a program
+<li>classes specify a namespace
+<pre>class Parent 
+{
+    class Child
+    {
+    }
+}
+
+Parent.Child // accessing Child outside of Parent
+
+class Parent1
+{
+    class Child
+    {
+    }
+}
+
+Parent1.Child // does not conflict</pre>
+</ul>
+
+<h2>Modules</h2>
+<ul>
+<li>A module can be defined in one or more files
+<li>A module cannot see another module without an <span class=code>import</span> statement. e.g. <span class=code>import UIKit</span>
+<li>The top-level namespace is a module
+<li>By default, your app is a module
+<li>Frameworks are also modules (and hence a namespace)
+<li>Your code implicitly imports Swift (which contains the println() function)
+</ul>
+
+
+<h2>Object Types</h2>
+<ul>
+<li>Swift has 3 object types: class, struct & enum
+<li>Swift supports both object properties and class (static) properties
+<li>The <span class=code>self</span> keyword refers to the current object -- most of the time you need not specify this
+<li>Here's how you instantiate an object
+<pre>let chris = Parent()</pre>
+</ul>
+
+<h2>Classes</h2>
+<ul>
+<pre>class Dog
+{
+    var name = ""
+    func bark ()
+    {
+        println ("bark");
+    }
+}
+
+let my_dog = Dog(); my_dog.name = "Rover"
+let my_other_dog = Dog(); my_other_dog.name = "Dover"</pre>
+<li>By default, object members are public. The <span class=code>private</span> keyword is used to specify private properties
+</ul>
+
+<h2>Functions</h2>
+<ul>
+<li>Swift has a unique syntax for defining functions <pre>func sum 
+    (x:Int, y:Int)      // parameters
+    -> Int              // return value
+{
+    let result = x+y
+    return result
+}
+
+
+// calling a function
+let a = 5;
+let b = 10;
+let c = sum (a,b);
+
+func prnt
+    (x:String)
+    -> Void
+{
+    println (x)
+}
+
+// 3 ways to define a void function
+func prnt (x:String) -> Void  { ... }     // equivalent
+func prnt (x:String) -> ()    { ... }     // equivalent
+func prnt (x:String)          { ... }     // equivalent
+
+
+// a function without parameters
+
+func prnt_hello
+    (Void)              // parameters
+    -> Void             // return value
+{
+    println ("Hello, World!")
+}
+
+// You can omit Void when definining a function without parameters
+func prnt_hello (Void)  -> Void  { ... }
+func prnt_hello ()      -> Void  { ... }
+</pre>
+
+
+<li>Function Signature 
+<ul>
+<li>A signature characterizes all function that has the same number of parameters with the same types and the same return type
+<li>For example, here is a signature for a function with accepts 2 integers & returns an integer: <span class=code>(Int, Int) -> Int</span>
+<li>E.g. the type of function
+<li>Here are 3 equivalent signatures -- all representing a void function without parameters:
+<li><pre>Void -> Void</pre>
+<li><pre>() -> Void</pre>
+<li><pre>() -> ()</pre>
+</ul>
+
+<li>External Parameter Names
+<ul>
+<li>Forces the parameter names to appear in the call to a function
+<li>put the external name before the internal parameter name, separated by a space in the function definition
+<li>Even though external names are used, parameter order must be maintained
+<li>The external name can be equivalent to the internal name. If it is, you can put a # before the internal name
+<pre>func sum (x x:Int, y y:Int) -> Int { ... }
+func sum (#x:Int, #y:Int) -> Int { ... } // equivalent
+
+// calling a function with external parameter names (the external name precedes the argument separated by a colon)
+let a = 5;
+let b = 10;
+let c = sum (x:a, y:b)</pre>
+<li>If a function is a <strong>method</strong> (e.g. it is declared at the top level of an object type), then by default, the 2nd - nth parameters are implicitly externalized. You can provide your own external names for these parameters, but if you don't, the compiler will do it for you -- just like if you had preceded the 2nd - nth parameters with a #
+<li>This convention allows Swift functions to interface with Objective-C methods which usually work in this manner.
+<pre>class Date 
+{
+    func add (d:Int, m:Int, y:Int) { ... }
+}
+
+let date = Date();
+date.add (5, m:1, y:1970)</pre>
+</ul>
+
+<li>Function Overloading
+<ul>
+<li>E.g. multiple functions can have the same name so long as they have different signatures
+<pre>func prnt (s:String) -> Void { ... }
+func prnt (i:Int) -> Void { ... }</pre>
+<li>You can also have two functions with the same signature, but different external parameter names
+<li>Beware C++ programmers, Swift also allows you to overload by return type as well -- so long as the context of the call can resolve the correct function to call.
+</ul>
+
+<li>Default Parameter Values
+<ul>
+<pre>func prnt (s:String = "null") -> Void { ... }</pre>
+<li>If you do not supply an external name for a parameter with a default value, the compiler will implicitly provide one for you (just like you had proceeded the parameters with a #). You can suppress the implicit external name by preceding the internal name with an underscore and a spacea
+<li>If parameters with default values have external names, they need not be in order when you call the function
+</ul>
+
+<li>Variadic Parameters
+<ul>
+<li>The last parameter of a function can be defined as <strong>variadic</strong>. I.e. the caller can supply as many values of the given type separated by a comma. The function will receive these values as an array
+<li>To specify that the last parameter is variadic, follow it by three dots
+<pre>func sum (x:Int ...) { ... }
+
+// caller
+let x = sum (5, 4, 3, 2, 1)</pre>
+<li>Note: To date, you can not specify an array when calling a function which accepts a variadic parameter, you must pass a comma delimited list
+</ul>
+
+<li>Ignored Parameters
+<ul>
+<li>TODO: WHAT IS THIS?
+<li>A parameter whose local name is an underscore is ignored.
+<li>The caller must supply an argument, but it has no name within the function body and cannot be referred to within the body
+</ul>
+
+<li>Modifiable Parameters & Pass by Reference
+<ul>
+<li>A parameter is implicitly decalared with let (e.g. it's a constant and you cannot assign to it)
+<li>If you would like to assign to a parameter within the body of a function, you need to explicitly declare it with <strong>var</strong>
+<li>Note: this is still pass by value
+<pre>func sum (var x:Int, var y:Int) -> Int
+{
+    if (x == 0)
+    {
+        x=5
+    }
+
+    if (y == 0)
+    {
+        y=20
+    }
+
+    return x+y
+}
+
+// function call
+let a = 0, b = 0
+
+
+let c = sum (a, b)          // a = 0, b = 0, c = 25
+</pre>
+<li>If you want to pass by reference, you need to:
+    <ul>
+    <li>declare the parameter you wish to alter as <strong>inout</strong>
+    <li>the passed in parameter must not be constant (i.e. it must be declared with <strong>var</strong>, not <strong> let</strong>
+    <li>Instead of passing the variable, you need to pass the address of the variable by preceding its name with an ampersand
+<pre>func sum (inout x:Int, inout y:Int) -> Int
+{
+    if (x == 0)
+    {
+        x=5
+    }
+
+    if (y == 0)
+    {
+        y=20
+    }
+
+    return x+y
+}
+
+// function call
+var a = 0, b = 0
+
+let c = sum (&a, &b)      // a = 5, b=20, c=25
+</pre>
+    </ul>
+
+<li>NOTE: If your parameter is a class instance, the function can modify it even though it was not declared as <strong>inout</strong>. I.e. it is passed by reference (non-const)
+<li>Classes are <strong>reference types</strong>. All other object types are <strong>value types</strong>. When you pass a struct as an argument to a function, the compiler makes a copy of it & passes that copy to the function. When you pass a class as an argument to a function, you implicitly pass a reference to the class itself. 
+
+</ul>
+
+
+<li>abc
+</ul>
+
+
+<A HREF="../index.html">Back to Notes Home Page</A>
+
+</BODY> 
+</HTML>
+  

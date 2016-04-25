@@ -1,0 +1,135 @@
+<html>
+
+<head><title>Address Conversion Functions</title></head>
+
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<body>
+
+<h1>IP Addresses: ASCII Strings &harr; Binary Values</h1>
+
+<UL>
+<LI>Convert IP addresses between 
+	<UL>
+	<LI>ASCII strings (dotted decimal for IPv4, hex strings for IPv6) -and- 
+	<LI><a href="byte_order.html">network byte ordered</a> binary values
+	</UL>
+<LI>OLD: inet_aton( ), inet_ntoa( ) - only handle IPv4
+<LI>NEW: inet_pton( ), inet_ntop( ) - handle both IPv4 and IPv6
+</UL>
+
+
+<!--
+******************************************************************************
+ OLD FXNS
+******************************************************************************
+-->
+
+
+<BR><BR>
+<h2>inet_aton( ) and inet_ntoa( )</h2>
+<UL>
+<LI>Older functions - only support IPv4
+<LI>n = network
+<LI>a = ASCII
+<LI>NOTE: these functions accept socket address structures
+
+<PRE>
+#include &ltarpa/inet.h&gt
+
+/*
+ * ASCII (dotted decimal) =&gt 32 bit IPv4 address in network byte order
+ *
+ * RETURN
+ * ======
+ * 1 = string is valid
+ * 0 = invalid string
+ */
+int inet_aton(const char* str,         // in:     dotted decimal
+              struct in_addr* addr);   // in/out: 32 bit IPv4 address in network byte order
+
+
+/*
+ * 32 bit IPv4 address in network byte order =&gt ASCII (dotted decimal)
+ *
+ * NOTES
+ * =====
+ * - not <a href="../Terms.html#re-enterant">re-enterant</a>. Return value stored in static memory
+ * 
+ * RETURN
+ * ======
+ * ptr to dotted-decimal string
+ * 
+ */
+char* inet_ntoa(struct in_addr addr);  // in:  32 bit IPv4 address
+
+/*
+ * ASCII (dotted decimal) =&gt 32 bit IPv4 address in network byte order
+ * 
+ * NOTES
+ * =====
+ * - deprecated - use inet_aton( ) instead
+ */
+in_addr_t inet_addr (const char* str);
+</PRE>
+</UL>
+
+
+<!--
+******************************************************************************
+ NEW FXNS
+******************************************************************************
+-->
+
+
+<BR><BR>
+<h2>inet_pton( ) and inet_ntop( )</h2>
+<ul>
+<li>Newer functions - support both IPv4 and IPv6
+<LI>n = network
+<LI>p = presentation (rather than 'a' for ascii)
+<LI>NOTE: these functions accept pointers to the address member of a socket address structure
+
+<PRE>
+#include &ltarpa/inet.h&gt
+
+/*
+ * PRESENTATION =&gt NETWORK
+ *
+ * RETURN
+ * ======
+ *  1 = success
+ *  0 = invalid string
+ * -1 = errror
+ */
+int inet_pton (int family,        // in:  AF_INET|AF_INET6
+               const char* str,   // in:  ascii string
+               void* addr);       // out: struct in_addr* (IPv4) or struct in6_addr* (IPv6)
+
+
+/*
+ * NETWORK =&gt PRESENTATION
+ *
+ * RETURN
+ * ======
+ * pointer to str = success
+ * NULL = error
+ */
+
+#include &ltnetinet/in.h&gt
+
+#define INET_ADDRSTRLEN      16        // IPv4 presentation string size (dotted decimal - "192.168.000.001")
+#define INET6_ADDRSTRLEN     46        // IPv6 presentation string size (hex string) 
+
+const char* inet_ntop (int family,        // in:  AF_INET|AF_INET6
+                       const void* addr,  // in:  struct in_addr* (IPv4) or struct in6_addr* (IPv6)
+                       char* str,         // out: ascii string
+                       size_t len);       // in:  sizeof(str) - either INET_ADDRSTRLEN or INET6_ADDRSTRLEN
+</PRE>
+</ul>
+
+
+<BR><BR>
+<A HREF=index.html>UNIX Networking Programming - Sockets API</A>
+</body>
+</html>

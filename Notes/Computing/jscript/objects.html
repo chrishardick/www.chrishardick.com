@@ -1,0 +1,102 @@
+<HTML>
+<HEAD><TITLE>JavaScript - Objects</TITLE></HEAD>
+  
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<BODY>
+
+
+<H1>JavaScript - Objects</H1>
+
+
+<UL>
+<LI>Objects are a composite datatype. They allow you to group together variables and functions.
+<LI>The variables are re-named properties
+<LI>The functions are re-named methods
+<LI>Objects are created via the <strong>new</strong> operator together with a predefined contructor (a type of function)
+<LI>You can create an empty object (an object with no properties) with the Object contructor
+<PRE>var my_object = new Object( );</PRE>
+<LI>You can then add properties and methods to objects on the fly by simple assignment
+<PRE>my_object.name = "Chris Hardick";</PRE>
+<PRE>my_object.print = print_name( ); // assuming print_name is a function</PRE>
+<LI>Notice that you do not need <em>var</em> to create properties of an object
+</UL>
+
+<H2>Constructors Other Than Object( ) - A Better Way to Create Objects</H2>
+<UL>
+<LI>In JavaScript a contructor is any function which is invoked via the <em>new</em> operator
+<LI>Contructors are implicitly passed a reference to a newly created empty object -- via the <em>this</em> keyword
+<PRE>
+// Rectangle constructor
+function Rectangle (width, height)
+{
+     this.m_width  = width;
+     this.m_height = height;
+}
+</PRE>
+</UL>
+
+<H2>Methods</H2>
+<UL>
+<LI>A <strong>method</strong> is nothing more than a function which is a property of an object
+<LI>When methods are called, they are implicitly passed a reference to their object -- via the <em>this</em> keyword
+<LI>Note that this is a very loose way to create an object -- but remember, this is simply a scripting language
+<PRE>
+function Rectangle_area()             { return this.m_width * this.m_height; }
+function Rectangle_set_width(width)   { this.m_width = width; }
+function Rectangle_set_height(height) { this.m_height = height; }
+
+// Rectangle constructor
+function Rectangle (width, height)
+{
+     // properties
+     this.m_width  = width;
+     this.m_height = height;
+
+     // methods
+     this.area       = Rectangle_area;
+     this.set_width  = Rectangle_set_width;
+     this.set_height = Rectangle_set_height;
+}
+</PRE>
+</UL>
+
+
+<H2>Prototype Property - An Object</H2>
+<UL>
+<LI>Using a constructor to assign methods is ineffecient - everytime you instantiate an object, it gets a fresh copy of each method 
+	- increasing the memory required for each instance (which is usually not what you want)
+<LI>The better method to define object methods is via the prototype property
+<LI>In JavaScript, every object has a prototype property
+<LI>Since constructors are functions and functions in JavaScript are implemented as objects, every constructor has a prototype property
+<LI>All properties and methods of the prototype object are shared between all instances of the object 
+<LI>This makes the prototype object an ideal place for object methods and any other constant properties - i.e. do not need to be object specific
+<PRE>
+// Rectangle contructor
+function Rectangle (width, height)
+{
+     // properties
+     this.m_width  = width;
+     this.m_height = height;
+
+     // methods
+     this.prototype.area       = Rectangle_area;
+     this.prototype.set_width  = Rectangle_set_width;
+     this.prototype.set_height = Rectangle_set_height;
+</PRE>
+<LI>Prototype properties are accessed just like they're properties of the object (i.e. in the above example, you'd reference the area( ) method
+	using 'r.area( )' -- not 'r.prototype.area', assuming r is an instance of class Rectangle
+<LI>Scope Resolution. I.e. if you have both a property and a prototype property with the same name, and you're reading, the property takes precedence
+	over the prototype property (i.e. it masks the prototype property).
+<LI>You can never write to a prototype property -- only read. If you attempt to write to a prototype property, you will be creating a new property directly
+	in the object (rather than writing to the prototype property
+</UL>
+
+
+<CENTER>
+<A HREF="index.html">JavaScript</A><BR><BR>
+<FONT SIZE=-2><A HREF="http://www.chrishardick.com">http://www.chrishardick.com</A></FONT>
+</CENTER>
+
+</BODY> 
+</HTML>

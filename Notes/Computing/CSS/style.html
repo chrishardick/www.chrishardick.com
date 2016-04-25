@@ -1,0 +1,78 @@
+<HTML>
+
+<HEAD>
+<TITLE>Style</TITLE>
+<liNK rel="stylesheet" type="text/css" href="http://www.chrishardick.com/default.css" media="all" />  
+<liNK rel="stylesheet" type="text/css" href="http://www.chrishardick.com/css/notes.css" media="all" />  
+</HEAD>
+
+<BODY>
+
+<H1>Adding Style To Your Documents</H1>
+
+<p>
+There are three ways in which you can add style to your HTML documents:
+<ol>
+<li><a href=#external>External Style Sheets - &lt;link&gt; tag</a></li>
+<li><a href=#embedded>Embedded Style Sheets - &lt;style&gt; tag</a></li>
+<li><a href=#inline>Inline Styles</a></li>
+</ol>
+</p>
+
+
+<h2 id=external>1. External Style Sheets - &lt;link&gt; tag</h2>
+
+<UL>
+<pre>&lt;link rel="stylesheet" type="text/css" href="default.css" media="all" /&gt;</pre>
+<li>External Style Sheets allow you to create a consistent look for an entire web site</li>
+<li>Link elements must be placed inside the head element, but not inside any other element (i.e. title)</li>
+<li>Attributes:
+	<ul>
+	<li><strong>rel</strong>: relation - i.e. the type of link. In this case it's a stylesheet</li>
+	<li><strong>type</strong>: further classification as to the type of the link. In this case we're defining the stylesheet as a CSS stylesheet. 
+	In the future, there may be many different types of stylesheets (i.e. XSL, etc.)</li>
+	<li><strong>media</strong>: media in which the stylesheet should be applied. Valid values include: <em>all</em> (all mediums), <em>handheld</em> (handheld devices), <em>print</em> (print mediums including print preview, <em>screen</em> (screen mediums - usually a computer monitor), etc.</li>
+	</ul>
+<li>you can specify as many external style sheets as you like, the browser will load all style sheets combining the rules from each
+</UL>
+
+
+<h2 id=embedded>2. Embedded Style Sheet - &ltstyle&gt tag</h2>
+<UL>
+<pre>
+&lt;style type="text/css"&gt;
+
+/* h1 style */
+h1   {	
+          color: gray;
+     }
+
+&lt;/style&gt;
+</pre>
+<LI>The <span class=code>&lt;style&gt;</span> tag allows you to embed CSS rules directly in your HTML document
+<LI>Style elements must be placed inside the head element - I've never seen them defined anywhere else
+<LI>Allow you to create a style for a single web page which is different than the rest of the site</LI>
+<LI>Attributes:
+	<ul>
+	<li><em>type</em> attribute - required
+	<li><em>media</em> attribute</li>
+	</ul>
+</UL>
+
+
+<h2 id=inline>3. Inline Styles</h2>
+<UL>
+<pre>
+&lt;p style=&quot;color=red;&quot;&gt;This is red&lt;/p&gt;
+</pre>
+<LI>Inline styles are defined using the <em>style</em> attribute - which can be associated with any HTML tag inside the body</LI>
+<LI>Inline styles are useful if you want to give a style to a single element without affecting any other elements</LI>
+<LI>Should no longer be used. Deprecated by XHTML 1.1.</LI>
+</UL>
+
+
+<A HREF="index.html">CSS</A>
+ 
+</BODY> 
+</HTML>
+  

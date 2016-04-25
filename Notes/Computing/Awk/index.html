@@ -1,0 +1,76 @@
+<HTML>
+<HEAD><TITLE>AWK SCRIPTING</TITLE></HEAD>
+  
+<BODY><FONT face=lucida,verdana,arial>
+
+<CENTER><H1>AWK SCRIPTING</H1></CENTER>
+
+<H2>Basic Awk Script</H2>
+
+<PRE>
+cat FILE | awk '\
+	BEGIN		{
+				# ANYTHING HERE IS EXECUTED PRIOR TO ANY INPUT BEING READ...
+
+				FS = "[ \t]*"  # INPUT FIELD SEPERATOR: SPECIFY ANY OTHER REGEXP YOU LIKE
+
+				# MULTI-LINE RECORDS
+				FS = "\n"	# INPUT FIELD SEPERATOR (NEWLINE)
+				RS = ""		# RECORD SEPERATOR (BLANK LINE)	
+
+				# OTHER VARS
+				OFS = " "       # OUTPUT FIELD SEPERATOR
+				ORS = "\n\n"    # OUTPUT RECORD SEPERATOR
+				...
+			}
+
+			{
+				# EXECUTED FOR EVERY LINE
+
+				# $0  => Entire Line
+				# $1  => 1st Field
+				# $NF => Number of Fields
+
+				printf ("%10s %5d\n",$1,$2);
+				...
+			}
+	
+	/xyz/		{
+				# EXECUTED FOR EVERY LINE W/ PATTERN MATCHING REGEXP xyz
+
+				...
+			}
+
+	/^$/		{
+				# FOR EACH BLANK LINE
+
+				...
+			}
+
+	$5 ~ /abc/	{
+				# FOR EACH LINE WHERE FIELD 5 IS abc
+
+				...
+			}
+	
+	$5 !~ /abc/	{
+				# FOR EACH LINE WHERE FIELD 5 IS NOT abc
+
+				...
+			}
+	
+
+	END		{
+				# EXECUTED LAST, AFTER ALL INPUT HAS BEEN READ
+
+				...
+			}'
+</PRE>
+<BR>
+<BR>
+
+<CENTER><A HREF="../index.html">Back to Notes Home Page</A></CENTER>
+
+</FONT></BODY> 
+</HTML>
+  

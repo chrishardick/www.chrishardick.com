@@ -1,0 +1,471 @@
+<html>
+<head><title>UNIX: SIGNALS</title></head>
+
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+
+<body>
+
+<h1>UNIX: SIGNALS</h1>
+
+<h2>I. INTRO</h2>
+<ul>
+<li>Signal: a message sent to a running process
+<li>The message can be sent:
+	<UL>
+	<LI>from one process to another process
+	<LI>from a process to itself 
+	<LI>from the operating system to a process
+	</UL>
+<li>Signals are sometimes called <strong>software interrupts</strong>
+<li>Signals can be <strong>synchronous</strong> or <strong>asynchronous</strong>
+<li><strong>Synchronous</strong> signals are associated with a particular execution context (SEGV, BUS, FPE, ILL, PIPE, etc.).
+<li><strong>Asynchronous</strong> signals can occur at any time
+<LI>Signals are used for <strong>many</strong> purposes:
+	<UL>
+	<LI>reporting error conditions (synchronous - occur when the error occurs)
+		<UL>
+		<LI>memory segment violation (SEGV)
+		<LI>floating point error (FPE)
+		<LI>illegal instuction (ILL)
+		<LI>bus error (BUS)
+		<LI>etc...
+		</UL>
+	<LI>job control (asynchronous - can occur @ any time)
+		<UL>
+		<LI>abort (ABRT)
+		<LI>stop (STP)
+		<LI>continue (CONT)
+		<LI>hangup (HUP)
+		<LI>terminate (TERM)
+		<LI>kill (KILL)
+		</UL>
+	<LI>communication between process(es) (asynchronous - can occur @ any time)
+		<UL>
+		<LI>user defined signals (USR1,USR2)
+		</UL>
+	<LI>enforce time out on lengthly operations
+		<UL>
+		<LI>alarm (ALRM)
+		</UL>
+	<LI>etc...
+	</UL>
+<li>Every signal has a <strong>disposition</strong> (associated action).
+<LI>Every signal starts out w/ a <strong>default disposition</strong> which (depending on the signal), may or may not be overridden
+<LI>The POSIX method to change a signal's disposition is to call <strong>sigaction( )</strong>
+<LI>There are three ways in which you can change a signal's disposition:
+	<UL>
+	<LI><strong>catch</strong> the signal. I.e. provide a <strong>signal handler</strong> (function that will be called when the signal arrives).
+		There are two signals which cannot be caught (KILL & STOP)
+	<LI><strong>ignore</strong> the signal. There are two signals which cannot be ignored (KILL & STOP)
+	<LI>restore the <strong>default disposition</strong> of the signal. The default disposition is usually to terminate the process.
+		Some signals will also generate a core file (a file named 'core' in the working directory) - which is useful for debugging. 
+		Some signals's default disposition is to be ignored (CHLD & URG)
+	</UL>
+<LI>IMPORTANT NOTE: when writing signal handlers, it's important to call only <a href="Terms.html#RE-ENTERANT">re-enterant functions</a> because
+	signal handler execution may be interleaved with main program execution
+<LI>See also <a href="pthreads/pthreads_and_signals.html">PTHREADS and Signals</a>
+</ul>
+
+
+<br>
+<br>
+<h2>II. SIGNAL( )</h2>
+
+<UL>
+<LI>ANSI C mechanism to change a signal's disposition
+<LI>DEPRICATED in favor of POSIX SIGNALS, which is more portable &
+	eliminates the short window in which a signal is not handled (see below)
+
+<pre>
+#include &ltsignal.h&gt
+
+/*
+ * signal handler function def'n
+ * - accepts an int (input signal # - useful when you have 1 fxn that handles multiple signals) and returns nothing
+ */
+typedef void (*sighandler_t) (int);
+
+/*
+ * change a signal's disposition (ANSI C)
+ * - the handler will be used to catch ONLY the next signal of the given signal type
+ * - after handling the next signal (of the given type), the signal action is restored to the default
+ * - if you wish to maintain your signal handler, you must call re-register it by calling signal() again
+ * - this leads to a short window in which the signal is not correctly handled 
+ *   (i.e. from the time the signal is caught, to the time you re-register your signal handler)
+ *  
+ * NOTES
+ * =====
+ * - portablility issues (on some systems, the default signal action is not restored & your signal handler remains)
+ * - dangerous due to short window of signal not being correctly handled
+ * 
+ * RETURN
+ * ======
+ * - previous signal disposition
+ * - previous handler -OR-
+ * - SIG_IGN (signal was ignored) -OR- 
+ * - SIG_DFL (signal had default disposition)   
+ */
+sighandler_t signal (   int signum,              // in: signal number (to change the disposition of)
+                        sighandler_t handler);   // in: new signal disposition (new signal handler, SIG_IGN or SIG_DFL)
+
+
+/*
+ * An example...
+ */ 
+
+static void handle_term (int signal);   /** Fxn to Handle TERM Signals **/
+
+
+// In main...
+
+/*
+ * the next time the process receives a SIGTERM signal, call handle_term()
+ */
+signal(SIGTERM,handle_term);
+</pre>
+</UL>
+
+
+<br>
+<br>
+<h2>III. KILL( )</h2>
+<ul>
+<li>send a signal to a given process
+
+<pre>
+#include &ltsys/types.h&gt
+#include &ltsignal.h&gt
+
+/*
+ * send a signal to a given process
+ * 
+ * RETURN
+ * ======
+ * 0 = success
+ * -1 = check errno
+ */
+
+int kill (pid_t pid,    // in: pid to send signal to
+          int sig);     // in: signal to send
+</pre>
+</ul>
+
+<br>
+<br>
+<h2>IV. ALARM( )</h2>
+<ul>
+<LI>send a ALRM signal to your own process in X seconds
+<pre>
+#include &ltunistd.h&gt
+
+/*
+ * send a ALRM signal to your own PID in X seconds
+ * - may be delayed due to scheduling
+ * - a process can have only one pending alarm request
+ * - calling alarm() while a pending alarm request exists, will cause the alarm to be rescheduled
+ * 
+ * RETURN
+ * ======
+ * # seconds left before outstanding alarm would have been sent (usually 0)
+ * -1 if error
+ */
+
+unsigned int alarm (unsigned int sec);
+</pre>
+</ul>
+
+
+<br>
+<br>
+<h2>V. PAUSE( )</h2>
+<UL>
+<LI>pause() sleep until a signal is received.
+<pre>
+#include &ltunistd.h&gt
+
+int pause(void);
+
+/*
+ * An Example
+ */
+while (1)
+{
+	/*
+	 * pause () ->
+	 * Sleep Until We Receive a Signal  
+	 * & Then Execution Continues as Normal...
+	 * But since we're in an infinite loop,
+	 * all we'll do from this point on, is process signals!!!
+	 */
+
+	pause ();  
+}
+</pre>
+</ul>
+
+
+
+<br>
+<br>
+<h2>VI. POSIX SIGNALS</h2>
+
+<UL>
+<LI>more portable than ANSI C SIGNALS
+<LI>signal disposition is maintained (unlike using ANSI C signal handling facility)
+<LI>eliminates window w/o correct signal disposition
+<LI>supports blocking signals via signal masks
+<LI>blocked signals will not be delivered (will remain pending)
+<LI>@ most 1 of each signal type can be pending @ one time (i.e. pending signals are not queued past a depth of 1)
+</UL>
+
+
+<h3>1. SIGNAL SETS</h3>
+
+<ul>
+<LI>sigset_t
+<pre>
+#include &ltsignal.h&gt
+
+/*
+ * INITIALIZE signal set to be 
+ * - empty
+ * - fill (all signals)
+ *
+ * RETURN
+ * ======
+ *  0 = success
+ * -1 = check errno
+ */
+int sigemptyset (sigset_t* set);       // out: empty signal set
+int sigfillset  (sigset_t* set);       // out: filled signal set (containing all signals)
+
+
+/*
+ * ADD/DELETE a specified signal to given signal set
+ *
+ * RETURN
+ * ======
+ *  0 = success
+ * -1 = check errno
+ */
+int sigaddset (sigset_t* set,          // in/out: signal set to add signal to
+               int signo);             // in:     signal to add 
+
+int sigdelset (sigset_t* set,          // in/out: signal set to remove signal from
+               int signo);             // in:     signal to remove
+
+
+/*
+ * TEST
+ * 
+ * RETURN
+ * ======
+ *  1 = is a member
+ *  0 = is not a member
+ * -1 = check errno 
+ */
+ int sigismember (sigset_t* set,       // in: signal set to test
+                  int signo);          // in: signal to check for
+
+</pre>
+</ul>
+
+
+<h3 id=SIGPROCMASK>2. PROCESS SIGNAL MASK</h3>
+
+<ul>
+<li>set of signals currently blocked for the process
+<LI>blocked signals will NOT be delivered (will remain pending)
+<LI>@ most 1 of each signal type can be pending @ one time (i.e. pending signals are not queued past a depth of 1)
+<pre>
+/*
+ * SET/EXAMINE THE PROCESS SIGNAL MASK
+ * 
+ * how
+ * ===
+ * - SIG_BLOCK   = add the signals in 'set' to the process signal mask
+ * - SIG_UNBLOCK = remove the signals in 'set' from the process signal mask
+ * - SIG_SETMASK = set the process signal mask from 'set'
+ *
+ * RETURN
+ * ======
+ *  0 = success
+ * -1 = check errno - probably an invalid 'how' value
+ */
+int sigprocmask (int how,              // in:  SIG_BLOCK|SIG_SETMASK|SIG_UNBLOCK
+                 const sigset_t* set,  // in:  signal set (pass NULL to get current process signal mask, 'how' is not looked at)
+                 sigset_t* oset);      // out: old signal set (pass NULL if n/a)
+</pre>
+</ul>
+
+
+<h3>3. SIGPENDING( ) - GET SET OF PENDING SIGNALS</h3>
+
+<ul>
+<pre>
+/*
+ * GET SET OF PENDING SIGNALS
+ * 
+ * RETURN
+ * ======
+ *  0 = success
+ * -1 = check errno
+ */
+int sigpending (sigset_t* set);        // out: set of pending signals
+</pre>
+</ul>
+
+
+<h3>4. SIGSUSPEND( ) - WAIT FOR SIGNAL</H3>
+
+<UL>
+<PRE>
+/*
+ * SUSPEND PROGRAM UNTIL THE DELIVERY OF A SIGNAL
+ * - a more general form of pause()
+ * - replaces the process signal mask w/ the given signal mask and then suspends execution (process goes to sleep) & waits for a signal
+ *
+ * RETURN
+ * ======
+ * if the signal handler terminates the program, sigsuspend() will never return
+ * else return = -1 w/ errno set to EINTR (received signal doesn't terminate the program)
+ * 
+ */
+int sigsuspend (const sigset_t* sigmask) 
+</pre>
+</ul>
+
+
+<h3 id=SIGACTION>5. SIGACTION( ) - CHANGE/EXAMINE SIGNAL DISPOSITION</h3>
+
+<ul>
+<li>struct sigaction
+<PRE>
+#include &ltsignal.h&gt
+
+/*
+ * struct sigaction
+ * - minumum members
+ */
+struct sigaction
+{
+     /*
+      * signal handler, SIG_DFL, or SIG_IGN
+      */
+     void (*) (int) sa_handler;
+
+     /*
+      * set of signals to be added to the process signal mask during execution of the signal handler
+      * - i.e. will be blocked (not delivered to process)
+      * - todo: verify that these are added to the process signal mask and do not replace the signal mask
+      *   during execution of the signal handler
+      * - by default, the signal which triggered the handler will be blocked
+      *   (unless SA_NODEFER is specified)
+      */
+     sigset_t* sa_mask;                          
+
+     /*
+      * bitmap of flags
+      * - SA_NOCLDSTOP =&gt don't generate SIGCHLD when child processes terminate (I've never seen this used)
+      * - SA_RESETHAND =&gt reset signal action to SIG_DFL on receipt (ANSI C Signal Behavior)
+      * - SA_RESTART   =&gt restart interrupted system calls rather than returning w/ errno = EINTR
+      * - SA_NODEFER   =&gt normally, while a signal is being processed, it's added to the process signal mask
+      *                     setting this flag will cause the caught signal NOT to be added to the process signal mask
+      */
+     int sa_flags;
+};
+</pre>
+
+<li>sigaction ( )
+<PRE>
+/*
+ * CHANGE/EXAMINE SIGNAL DISPOSITION
+ *
+ * RETURN
+ * ======
+ *  0 = success
+ * -1 = error (check errno)
+ */
+int sigaction (int sig,                          // in:  signal
+               const struct sigaction* act       // in:  signal action (pass NULL to get current signal action)
+               struct sigaction* oact);          // out: previous signal action (pass NULL if N/A)
+
+
+
+/*
+ * An example...
+ */
+
+/* signal handler prototypes */
+static void handle_term (int signal);
+
+
+/*
+ * program logic
+ */
+struct sigaction act;
+
+act.sa_handler = handle_term;
+
+sigemptyset(&act.sa_mask);
+
+act.sa_flags = 0;
+
+sigaction (SIGINT,      // in:  signal
+           &act,        // in:  signal action struct
+           NULL);       // out: previous signal action struct (n/a)
+</pre>
+</UL>
+
+<br><br>
+<h2>VII. SENDING SIGNALS FROM THE SHELL</h2>
+
+<pre>
+kill [-&ltsignalname&gt] &ltpid&gt
+
+- Send Signal to indicated PID
+- Default Signal is SIGTERM
+- kill -ALRM 528
+
+killall [-&ltsignalname&gt] &ltcmd&gt
+
+- Send Signal to all processes running a specific command
+- Default Signal is SIGTERM
+- killall -HUP kermit
+</pre>
+
+
+<br><br>
+<h2>VIII. TABLE OF SIGNALS</h2>
+<table border=1 cellspacing=0 cellpadding=2 align=center width=100%>
+<tr><th>ACRONYM </th><th>CLASS        </th><th>DEFAULT ACTION (DISPOSITION)</th><th>DESCRIPTION</th>
+<tr><td>SIGABRT </td><td>job control  </td><td>                            </td><td>abort</td>
+<tr><td>SIGALRM </td><td>             </td><td>termination                 </td><td>generated by a timer set by alarm()</td>
+<tr><td>SIGBUS  </td><td>error        </td><td>                            </td><td>bus error</td>
+<tr><td>SIGCHLD </td><td>             </td><td>ignored                     </td><td>child process exits or stops</td>
+<tr><td>SIGCONT </td><td>job control  </td><td>continue                    </td><td>continue executing (if stopped)</td>
+<tr><td>SIGFPE  </td><td>error        </td><td>term & core                 </td><td>floating point exception</td>
+<tr><td>SIGHUP  </td><td>job control  </td><td>termination                 </td><td>hangup. Sent to a process by a disconnecting terminal</td>
+<tr><td>SIGILL  </td><td>error        </td><td>term & core                 </td><td>illegal instruction</td>
+<tr><td>SIGINT  </td><td>job control  </td><td>termination                 </td><td>terminal interrupt (usually CTRL-C -or- configured INTERRUPT character)</td>
+<tr><td>SIGIO   </td><td>             </td><td>                            </td><td>input/output (possible or completed)</td>
+<tr><td>SIGKILL </td><td>job control  </td><td>termination                 </td><td>stop an errant process. Sent via KILL -9 (CANNOT be caught)</td>
+<tr><td>SIGPIPE </td><td>error        </td><td>termination                 </td><td>attempt to write to a pipe w/o an associated reader</td>
+<tr><td>SIGQUIT </td><td>job control  </td><td>term & core                 </td><td>terminal quit (usually CTRL-\ -or- configured QUIT character)</td>
+<tr><td>SIGSEGV </td><td>error        </td><td>term & core                 </td><td>memory segmentation violation</td>
+<tr><td>SIGSYS  </td><td>             </td><td>                            </td><td>(bad argument to) system call</td>
+<tr><td>SIGTERM </td><td>job control  </td><td>termination                 </td><td>terminate. Default Signal Sent via KILL. Sent by UNIX when shutting down</td>
+<tr><td>SIGTTIN </td><td>             </td><td>suspend       </td><td>used by shell to indicate that bg process has stopped because it's trying to read from terminal</td>
+<tr><td>SIGTTOU </td><td>             </td><td>suspend       </td><td>used by shell to indicate that bg process has stopped because it's trying to write to terminal</td>
+<tr><td>SIGSTOP </td><td>job control  </td><td>suspend                     </td><td>stop executing until SIGCONT (can't be caught nor ignored)</td>
+<tr><td>SIGTSTP </td><td>job control  </td><td>suspend                     </td><td>terminal stop (usually CTRL-Z -or- configured STOP character)</td>
+<tr><td>SIGURG  </td><td>             </td><td>ignored                     </td><td>urgent I/O condition. Arrival of out-of-band data</td>
+<tr><td>SIGUSR1 </td><td>communication</td><td>termination                 </td><td>user-defined signal 1 (also: SIGUSR2)</td>
+<tr><td>SIGWINCH</td><td>             </td><td>                            </td><td>window size change</td>
+</table>
+
+
+<br><br>
+<A HREF="index.html">Back to C/C++ Notes</A>
+</body>
+</html>

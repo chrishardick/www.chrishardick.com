@@ -1,0 +1,215 @@
+<HTML> 
+
+<HEAD><TITLE>REFERENCES</TITLE></HEAD>
+<LINK REL=StyleSheet HREF="http://www.chrishardick.com/default.css" TYPE=text/css MEDIA=all>  
+  
+<BODY>
+
+<H1>REFERENCES</H1>	
+
+<UL>
+<LI>A.K.A. aliases
+<LI>A <strong>constant pointer</strong> which is <strong>automatically dereferenced</strong>
+<LI>Only supported in C++; not supported in C
+<LI>Syntax: datatype followed by ampersand (&)
+<PRE>
+int&  -&gt reference-to-int
+char& -&gt reference-to-char
+</PRE>
+<LI>Most commonly used for <strong>function arguments</strong> and <strong>function return values</strong>
+<PRE>
+void swap (const int& x, const int& y)
+{
+     int z = y;
+
+     y = x;
+
+     x = z;
+}
+
+...
+
+int x=5, y=10;
+
+swap (x,y);
+
+// x=10, y=5
+</PRE>
+<LI>You can also have a free-standing reference
+<PRE>
+int x = 5;
+int& y = x;
+
+int& z = 10;       // also legal. the compiler allocates an int, stores 10 in it and z points to it
+</PRE>
+<LI><strong>CONSTANT POINTER</strong>
+	<OL>
+	<LI>MUST be initialized @ creation time
+	<PRE>
+	int& y;  // compile time error - must be initialized @ creation time
+	</PRE>
+	<LI>Once initialized, cannot be pointed to another object
+	<PRE>
+	int x = 5;
+	int y = 10;
+
+	int& a = x;
+	
+	a  = y;       // will cause the value stored in 'x' to be 10
+	&a = &y;      // compile time error
+	</PRE>
+	<LI>Corollary: it's impossible to have a NULL reference
+	<BR><BR>
+	</OL>
+<LI><strong>AUTOMATICALLY DEREFERENCED</strong>
+	<OL>
+	<LI>You don't need '&' and '*'
+	<PRE>
+	int x = 5;
+
+	int& a = x;
+
+	a++;        // increment the value stored in x to 6
+	</PRE>
+	</OL>
+</UL>
+
+
+<br><br>
+<h2>References As Function Arguments</h2>
+<UL>
+<LI>References can be used as function arguments for pass-by-reference rather than passing pointers
+
+	<br><br>
+	<h3>const References</h3>
+	<UL>
+	<LI>If the function does not modify a reference argument, the argument should be passed as <strong>const</strong> reference. 
+	<LI>This explicitly states to users of your function, that the function will not alter its value
+	<LI>The compiler will enforce this rule. 
+	<LI>const objects cannot be passed into a function as non-const 
+	<LI>Temporary objects (literals passed into functions or function return values) are implicitly const. 
+		If you don't use const, you won't be able to pass temporary objects
+	<pre>
+	void print (int& x)
+	{
+	     cout &lt&lt x &lt&lt endl;
+	}
+	
+	...
+	
+	print (5);    // compile time error - temporary objects are always const and cannot be passed into a function as non-const
+	</pre>
+	</UL>
+
+
+	<br><br>
+	<h3>Pointer References</h3>
+	<UL>
+	<LI>In C, if you want a function to modify a pointer (not what the pointer points to, but the pointer itself), you have to use double-indirection
+		(a pointer to a pointer)
+	<pre>
+	void mymalloc(int** i)
+	{
+	     *i = malloc (sizeof(int));
+	}
+	
+	...
+	
+	int* p_i;
+	
+	mymalloc(&i);
+	</pre>
+	<LI>In C++, this is accomplished by passing a reference to a pointer (pointer reference)
+	<pre>
+	void mynew(int*& i)
+	{
+	     i = new (int);
+	}
+	
+	...
+	
+	int* p_i;
+	
+	mynew (p_i);
+	</pre>
+	</UL>
+</UL>
+
+<br><br>
+<h2>Returning a Reference</h2>
+<ul>
+<li>Remember, a reference is really a pointer (albeit a special type)
+<li>If you return a reference, make sure it points to valid memory after the function completes 
+	(i.e. do not return automatic variables declared within the function using a reference)
+<pre>
+/*
+ * note the return value is a const reference
+ * - you can't return a non-const reference, because you're returning a pointer to one of the passed in parameters
+ * - the passed in parameters are defined as const references
+ * - if the return value was not const (and the compiler allowed it), this function would convert a const object
+ *   to a non-const object
+ */
+const int& max (const int& x, const int& y)
+{
+     if (x &gt y)
+          return x;
+
+     return y;
+}
+
+...
+
+int x = 5;
+int y = 10;
+
+/*
+ * note what happens here
+ * - x & y are passed by reference (w/o having to use '&' and '*'
+ * - return value is passed back by reference - which is then copied by value to 'z'
+ */
+int z = max (x,y);
+
+/*
+ * similar, but a compiler error
+ * - you can't assign a const int& to an int&
+ */ 
+int& z = max (x,y);
+
+/*
+ * legal, but probably not too useful
+ */
+const int& z = max (x,y);
+</PRE>
+<li>A function which returns a reference is a valid lvalue
+<pre>
+/*
+ * return reference to lowest value in given array
+ * - can't pass array as const (because we're returning a non-const reference to it)
+ */
+int& lowest (int x[], int size)
+{
+     int *p_low = &x[0];
+
+     for (int i = 0; i&lt size; i++)
+          if (x[i] &lt *p_low)
+               *p_low = &x[i];
+
+     return *p_low;
+}
+
+int x[] = {5,10,15,20};
+
+// print initial contents
+print_array (x,sizeof(x)/sizeof(int));
+
+// replace lowest value w/ 0
+lowest(x,sizeof(x)/sizeof(int)) = 0;
+print_array (x,sizeof(x)/sizeof(int));
+
+// replace lowest value w/ 2
+lowest(x,sizeof(x)/sizeof(int)) = 0;
+print_array (x,sizeof(x)/sizeof(int));
+</pre>
+</ul>
+
+</BODY></HTML>
