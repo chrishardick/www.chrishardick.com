@@ -1,0 +1,60 @@
+<html>
+
+<head><title>Sockets</title></head>
+
+<link rel="stylesheet" href="../../../css/default.css">  
+
+<body>
+
+<h1>Sockets</h1>
+
+<UL>
+<LI>The purpose of this page is to describe sockets. 
+</UL>
+
+<h2>Socket Definition</h2>
+<UL>
+<LI>A socket consists of two numbers: an address and a port number
+<LI>There are three types of sockets
+	<OL>
+	<LI>Active sockets
+	<LI>Listening sockets
+	<LI>Connected sockets
+	</OL>
+<LI>Active Sockets
+	<UL>
+	<LI>Only clients have active sockets
+	<LI>Active sockets connect to servers
+	</UL>
+<LI>Listening Sockets
+	<UL>
+	<LI>Only servers have listening (passive) sockets
+	<LI>Listening sockets wait for incoming connections
+	<LI>Normal servers have only one listening socket which exists for the lifetime of the server
+	<LI>Listening socket are formed by:
+		<UL>
+		<LI>socket( ) = create a socket (active by default)
+		<LI>bind( ) = server binds to its well-known port
+		<LI>listen( ) = convert socket from active (default) to listening (passive) socket
+		</UL>
+	<LI>Listening sockets are passed to accept( ) which returns a connected socket
+	</UL>
+<LI>Connected Sockets
+	<UL>
+	<LI>Only servers have connected sockets
+	<LI>Connected sockets are returned by accept( )
+	<LI>A server can have multiple connected sockets
+	<LI>A connected socket is created for every successful incoming connection
+	</UL>
+</UL>
+
+<h2>Socket Pair</h2>
+<UL>
+<LI>A socket pair uniquely identifies a tcp connection
+<LI>4 tuple {local ip address, local port, foreign ip address, foreign port}
+</UL>
+
+
+
+</body>
+</html>

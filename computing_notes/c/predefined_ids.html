@@ -1,0 +1,32 @@
+<HTML> 
+<HEAD> <TITLE>Predefined Identifiers</TITLE> </HEAD>
+  
+<link rel="stylesheet" href="../css/menu_tree.css">
+
+<BODY>
+
+
+<H1>Predefined Identifiers</H1>	
+
+<DL>
+<DT><PRE>__LINE__</PRE>
+<DD>Current Line # Being Compiled
+<DT><PRE>__FILE__</PRE>
+<DD>Name of Current Source Code Being Compiled
+<DT><PRE>__DATE__</PRE>
+<DD>Date of Compile: Mmm dd yyyy
+<DT><PRE>__TIME__</PRE>
+<DD>Time of Compile: hh:mm:ss
+<DT><PRE>__STDC__</PRE>
+<DD>Defined as 1 if compiler confirms to ANSI Standard
+</DL>
+
+
+<BR>
+<BR>
+
+EXAMPLE:
+<pre>fprintf (stderr,"Line:%d File:|%s| Compiled:%s @ %s. ANSI: %d\n",__LINE__,__FILE__,__DATE__,__TIME__,__STDC__);</pre>
+
+</BODY> 
+</HTML>

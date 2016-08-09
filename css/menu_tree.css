@@ -1,0 +1,27 @@
+/**********
+ * menu_tree.css
+ *
+ * chris hardick
+ **********/
+
+/* all links in menu tree will be navy */
+a
+{
+	color: navy;
+}
+
+.folder_heading
+{	
+	cursor: pointer;
+}
+
+span.folder_content
+{
+	display: none;
+	margin-left: 16px;
+}
+
+span.folder_content.show
+{
+    display: block;
+}

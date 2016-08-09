@@ -1,0 +1,149 @@
+<HTML>
+<HEAD><TITLE>Transaction Based Processing</TITLE></HEAD>
+  
+<link rel="stylesheet" href="../../css/default.css">  
+
+<BODY>
+
+<H1>Transaction Based Processing</H1>
+
+<H2>I. What's a Transaction?</H2>
+<UL>
+<LI>Logical Unit of Work
+<LI>A Unit of Integrity: Not necessarily a single database operation, but rather a sequence of several such operations which, in general, transform the database from one consistent state to another
+<LI>The Unit of Recovery: A transaction can be undone
+<LI>The Unit of Concurrency: A sequence of events which may not be <strong>atomic</strong>, but can be made to be "pseudo-atomic"
+</UL>
+
+<BR>
+When discussing transactional based processing, there are two main topics:
+<OL>
+<LI><A HREF="#Recovery">Recovery</A>
+<LI><A HREF="#Concurrency">Concurrency</A>
+</OL>
+
+<BR><BR>
+
+
+<H2 ID="Recovery">II. Recovery</H2>
+
+<DL>
+
+<DT>What's Recovery?
+<DD> Restoring a database to a valid state after some failure has rendered the current state invalid (or at least suspect)
+
+<DT>Commit (Transaction)
+<DD>Successful End-of-Transaction
+
+<DT>Rollback (Transaction)
+<DD>Unsuccessful End-of-Transaction. The transaction will be undone, in order to insure the database is in a valid state.
+
+</DL>
+
+
+<H2 ID="Concurrency">III. Concurrency</H2>
+
+<DL>
+
+<DT>What's Concurrency?
+<DD>Concurrency is when multiple applications (or at least multiple processes, or multiple threads) are all accessing the same database, simultaneously. For example, there can be a web application, a UNIX application & a Windows application which all access & update the same database, possibliy stored on another machine (e.g. a database server). These multiple threads (to use the smallest level of granularity) can interfere with one another. In systems where this is unacceptable, some kind of <strong>concurrency control mechanism</strong> is required.
+<BR><BR>
+
+<DT>What problems can occur when concurrency exists?
+<DD><OL>
+<LI>Lost Update
+<LI>Duplicate Primary Key
+<LI>Inconsistent Analysis
+<LI>Uncommitted Dependency (only applicable when rollback is supported)
+</OL>
+
+</DL>
+
+
+<STRONG>1. Lost Update</STRONG>
+<TABLE WIDTH=100% align=center border=1>
+<TR><TH>TIME</TH><TH>TRANSACTION 1</TH><TH>TRANSACTION 2</TH></TR>
+<TR><TD align=center>t1</TD><TD align=center>Retrieve Row P</TD><TD></TD></TR>
+<TR><TD align=center>t2</TD><TD></TD><TD align=center>Retrieve Row P</TD></TR>
+<TR><TD align=center>t3</TD><TD align=center>Update Row P</TD><TD></TD></TR>
+<TR><TD align=center>t4</TD><TD></TD><TD align=center>Update Row P<BR>(Xaction 1 Update is Lost)</TD></TR>
+</TABLE>
+
+<BR><BR>
+
+<STRONG>2. Duplicate Primary Key</STRONG><BR>
+<UL>
+<STRONG>GIVEN:</STRONG>
+<LI>Table A uses a sequence # as the primary key (field name: ID). 
+<LI>When a record is added to the table, the sequence number is constructed by performing a MAX() operation on the ID Field (MAX(ID).
+</UL>
+<TABLE WIDTH=100% align=center border=1>
+<TR><TH>TIME</TH><TH>TRANSACTION 1</TH><TH>TRANSACTION 2</TH></TR>
+<TR><TD align=center>t1</TD><TD align=center>MAX(ID) on Table A</TD><TD></TD></TR>
+<TR><TD align=center>t2</TD><TD></TD><TD align=center>MAX(ID) on Table A</TD></TR>
+<TR><TD align=center>t3</TD><TD align=center>Add Record</TD><TD></TD></TR>
+<TR><TD align=center>t3</TD><TD></TD><TD align=center>Add Record<BR>Fails (Duplicate Key)</TD></TR>
+</TABLE>
+
+<BR><BR>
+
+<STRONG>3. Inconsistent Analysis</STRONG><BR>
+<UL>
+<STRONG>GIVEN:</STRONG>
+<LI>Customer Table contains a TOTAL field which contains total amount (in USD) in all of the customer's account(s). 
+<LI>Account Table contains one record for every account in the bank. 
+<LI>Customer A has 3 accounts (A1, A2, & A3). The original balances are $40, $50 & $20, respectively
+<LI>Transaction 1 is attempting to update the TOTAL field for Customer A
+<LI>Transaction 2 is attempting to transfer $40 from Acct 1 to Acct 3 (Customer A)
+</UL>
+<TABLE WIDTH=100% align=center border=1>
+<TR><TH>TIME</TH><TH>TRANSACTION 1</TH><TH>TRANSACTION 2</TH></TR>
+<TR><TD align=center>t1</TD><TD align=center>Retrieve Acct 1. Sum = $40</TD><TD></TD></TR>
+<TR><TD align=center>t2</TD><TD align=center>Retrieve Acct 2. Sum = $90</TD><TD></TD></TR>
+<TR><TD align=center>t3</TD><TD></TD><TD align=center>Retrieve Acct 3</TD><TD></TD></TR>
+<TR><TD align=center>t4</TD><TD></TD><TD align=center>Update Acct 3 (+ $40)</TD><TD></TD></TR>
+<TR><TD align=center>t5</TD><TD></TD><TD align=center>Retrieve Acct 1</TD><TD></TD></TR>
+<TR><TD align=center>t6</TD><TD></TD><TD align=center>Update Acct 1 (- $40)</TD><TD></TD></TR>
+<TR><TD align=center>t7</TD><TD align=center>Retrieve Acct 3. Sum = $150<BR>Incorrect. Correct Value: $110</TD><TD></TD></TR>
+</TABLE>
+
+<BR><BR>
+
+<STRONG>4. Uncommitted Dependency</STRONG>
+<UL><LI>Only applicable when Rollback is supported</LI></UL>
+<TABLE WIDTH=100% align=center border=1>
+<TR><TH>TIME</TH><TH>TRANSACTION 1</TH><TH>TRANSACTION 2</TH></TR>
+<TR><TD align=center>t1</TD><TD align=center>Retrieve Row P</TD><TD></TD></TR>
+<TR><TD align=center>t2</TD><TD align=center>Update Row P</TD><TD></TD></TR>
+<TR><TD align=center>t2</TD><TD></TD><TD align=center>Retrieve (or Update) Row P</TD></TR>
+<TR><TD align=center>t3</TD><TD align=center>Rollback.<BR>Transaction 2 is looking at invalid data (or its update is lost)</TD><TD></TD></TR>
+</TABLE>
+
+<BR><BR>
+
+<STRONG>Locking: The Standard Mechanism For Dealing With Concurrency</STRONG><BR><BR>
+The basic idea: When a transaction (Ta) needs assurance that some DB Object (typically a table row, but could be any db entity - depending on the locking granularity supported) 
+will not change, it acquires a lock on the object.
+While Ta holds the lock, any other transaction (Tb) which attempts to access the object (via acquiring a lock) will go into a wait state. 
+When Ta is done, it releases the lock & Tb acquires the lock. Locking forces Serializability<BR><BR>
+
+<STRONG>Deadlock: Locking Introduces its Own Problem</STRONG><BR><BR>
+Deadlock is a situation in which two or more transactions are in a simultaneous wait state, each of them waiting for one of the others to release a lock before it can proceed.
+I.e. Ta is waiting for Tb to release a lock & Tb is waiting for Ta to release a lock.<BR><BR>
+
+<STRONG>Serializability: The Criteron for Correctness for Concurrent Transactions</STRONG><BR><BR>
+A given interleaved execution of a set of transactions (Ta, Tb, ..., Tn) is considered correct if it is "serializable." 
+i.e. it produces the same result as some serial execution of the same transactions<BR><BR>
+
+<UL>
+<STRONG>PROOF</STRONG>
+<LI>Individual Transactions are "Correct." Remember, transactions transform the database from one valid state to another.
+<LI>Executing a set of transactions (Ta, Tb, ..., Tn) one at a time, in any order, is therefore always correct.
+<LI>An interleaved execution of Ta, Tb, ..., Tn is therefore correct, if it is equivalent to some serial execution of the same transactions.
+</UL>
+
+
+</BODY> 
+
+</HTML>
+  

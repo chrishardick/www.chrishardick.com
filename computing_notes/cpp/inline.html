@@ -1,0 +1,31 @@
+<HTML> 
+
+<HEAD><TITLE>Inline Functions</TITLE></HEAD>
+  
+<link rel="stylesheet" href="../../css/default.css">  
+
+<BODY>
+
+<H1>Inline Functions</H1>	
+
+<UL>
+<LI>The compiler will attempt to expand the code in the body of the function in place of the call to the function
+<LI>Inline functions avoid the overhead of calling a function & yield the advantages of macros (without all of the disadvantages)
+<LI>The compiler may not always be able to expand the code (such as with recursion), but generally it will
+<LI>It's best for short, simple functions
+<LI>Any function can be explicitly defined as inline by placing the keyword inline at the beginning of the function header
+<LI>Any function whose definition is contained within a class definition, is implicitly defined as inline
+<pre>
+inline double CBox::Volume ()
+{
+	return m_dLength * m_dWidth * m_dHeight;
+}
+
+inline void PrintHello ()
+{
+	cout &lt&lt "HELLO, WORLD!" &lt&lt endl;
+}
+</pre>
+</UL>
+
+</BODY></HTML>

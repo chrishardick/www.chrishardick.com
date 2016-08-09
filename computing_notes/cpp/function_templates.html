@@ -1,0 +1,167 @@
+<HTML> 
+<HEAD><TITLE>FUNCTION TEMPLATES</TITLE></HEAD>
+  
+
+<link rel="stylesheet" href="../../css/default.css">  
+
+<BODY>
+
+
+<center><H1>Function Templates</H1></center>
+
+<UL>
+<LI>Function templates allow you to parameterize the arguments or return type of a function
+<LI>Function templates are an appropriate choice when you find yourself creating a lot of functions which are identical
+	except they deal with different types (i.e. int, float, double, user-defined types)
+<LI>Another solution is to use <a href="FxnOverloading.html">Function Overloading</a>, which allows you to have multiple definitions of the same function name
+	which differ only in their parameter list. However, you'd still have to physically code each function. 
+<LI>Introduces 2 new C++ keywords: <i>template</I> & <i>typename</i>
+<LI>See also <a href="ClassTemplates.html">Class Templates</a> which allow you to parameterize class data members
+</UL>
+
+
+<BR><BR>
+<H2>Defining Function Templates</H2>
+
+<UL>
+<LI>Function templates are normally defined within header files, such that they can be used by multiple source files
+<LI>Here's an example of a function template <i>Max( )</i>
+<LI>The keyword <i>class</i> can be substituted for the keyword <i>typename</i> with no change in meaning (see below)
+<PRE>
+template &lttypename T&gt              // same as: template &ltclass T&gt 
+const T& Max (const T& T1,
+              const T& T2)
+{
+     if (T1 &gt T2)
+          return T1;
+
+     return T2;
+}
+</PRE>
+<LI>Within function templates, a typename (e.g. 'T' in the example) may be used to declare new objects
+<PRE>
+template &lttypename T&gt 
+T Max (T T1,
+       T T2)
+{
+     <strong>T T3;</strong>
+
+     if (T1 &gt T2)
+          T3 = T1;
+     else
+          T3 = T2;
+
+     return T3;
+}
+</PRE>
+<LI>Here's an example of a function template which has more than one parameterized type
+<PRE>
+template &lttypename T T1, U U1&gt
+const T& Max (const T& T1,
+              const U& U1)
+{
+    ...
+} 
+</PRE>
+</UL>
+
+<BR><BR>
+<H2>Function Template Instantiation</H2>
+
+<PRE>
+                         +-------------------+
+                         | function template |
+                         +-------------------+
+                               |      |
+                  +------------+      +----------+  function template instantiation
+                  |                              |  (compile time)
+                 \ /                            \ /
+             +-----------------------+    +-----------------------+
+             | fxn template instance |    | fxn template instance |
+             +-----------------------+    +-----------------------+
+</PRE>
+
+<UL>
+<LI>Each time you call a function--which is defined as a template--the compiler will check to 
+	see if it has already instantiated the appropriate function.
+<LI>If the function has already been instantiated, the existing instance is used
+<LI>If the appropriate function has not already been instantiated, the function instance will be generated
+	(corresponding to the types you specified)
+<LI>you can <strong>explicitly state the particular instance to be called</strong> by specifying the type after the function within angled brackets (see below)
+<LI>you can <strong>force the creation of particular instance(s)</strong> of a template by explicitly including a declaration
+	after the template definition (see below)
+<LI><strong>Function Template Specializations</strong> allows the programmer to explicitly define a function template instance.
+	This is useful when the implicit instance would not give the desired result (see below)
+<LI>Function templates may increase the size of your executable by creating new function template instances when existing 
+	instances have worked just fine (e.g. double to float)
+<LI>Compiler/Linker Note: If multiple source files use the same function template instance, they'll each have their own copy of the instance.
+	The linker normally will remove these redundancies at link time.
+<PRE>
+/*
+ * max.h
+ * - templates usually go inside header files such that they can be used by multiple source file(s)
+ */
+
+
+/*
+ * function template
+ */
+template &lttypename T&gt
+const T& max (const T& T1, 
+              const T& T2)
+{
+     if (T1 &gt T2)
+          return T1;
+
+     return T2;
+}
+
+/*
+ * explicitly force an instantation
+ */
+const double& max (const double& d1,
+                   const double& d2);
+
+
+/*
+ * function template specialization
+ * - function template specializations are useful when the implicit instantiation
+ *   (done by the compiler) would not have worked as intended
+ * - function template specializations are implemented as actual functions. 
+ *   therefore if they're defined in a header file, they must be inline
+ * - p.s. I see no reason why this is any advantage over using a ordinary inline function
+ */
+
+/*
+ * function template specialization
+ * - c strings
+ */
+template &lt&gt
+char const* const& Max (char const* const& sz1,
+                        char const* const& sz2)
+{
+     if (strcmp(sz1,sz2) &gt 0)
+          // sz1 &gt sz2
+          return sz1;
+
+     return sz2;
+}
+
+
+
+
+int main (int argc, char** argv)
+{
+        max (1L,2L);              // compiler will implicitly generate max&ltlong&gt
+        max (1,2);                // compiler will call function template specialization max&ltint&gt
+        max (2L,3L);              // compiler will use (already instantiated) max&ltlong&gt
+        max&ltint&gt(1.0,2.0);        // explicitly state which instance is used (max&ltint&gt) - parameter will be typecast to appropriate type
+
+        return 0;
+}
+</PRE>
+
+</UL>
+
+</BODY> 
+</HTML>

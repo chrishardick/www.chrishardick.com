@@ -1,0 +1,103 @@
+<HTML> 
+<HEAD> <TITLE>MySQL</TITLE> </HEAD>
+  
+<link rel="stylesheet" href="../../../css/default.css">  
+
+<BODY>
+
+<H1>MySQL</H1>	
+
+<UL>
+<LI>Multithreaded DB Engine
+<LI>Seperate threads for each incoming connection
+<LI>Main thread to manage connections
+<LI><A HREF="http://www.mysql.com">http://www.mysql.com</A>
+<LI>A Forking Daemon. As soon as it starts, it forks & exits. Leaving the forked process to run in the background
+<LI>safe_mysql. A script which starts the mysql daemon & continuously verifies that mysqld stays running. If mysqld exits, safe_mysql will restart it. Execute safe_mysql in the background (e.g. safe_mysql &)
+<LI>Databases are simply files in a specific file. You can use the OS to copy & rename databases
+<LI>MySQL Data Structure<BR>
+Depending on the version of MySQL you're running, you may see some variation here.<BR> 
+As far as I've seen, MySQL database formats are backward compatible. 
+	<UL>
+	<LI>.isd = Data File
+	<LI>.ism = Keys & other internal data
+	<LI>.frm = Table Structure Info
+	</UL>
+<LI><A HREF="http://www.chrishardick.com/cgi-bin/WikiChris/wiki.cgi?MySqlNotes">Wiki Notes</A>
+</UL>
+
+
+<H2><A HREF="frequently_used_sql_cmds.html">I. FREQENTLY USED SQL COMMANDS</A></H2>
+
+<h2><A HREF="join_notes.html">II. JOIN NOTES</A></h2>
+
+<h2>III. MySQL DATATYPES</h2>
+
+<table>
+
+<tr>
+<td>
+int
+</td>
+</tr>
+
+</table>
+
+
+<h2>IV. mysql DATABASE</h2>
+<UL>
+<LI>Used for security (who is permissioned to do what)
+<LI>contains 5 tables
+	<OL>
+	<LI>user
+		<UL>
+		<LI>sets permissions for the server as a whole
+		<LI>Columns (basically all of type enum ('N','Y'))
+		<LI>Select_priv -- perform SELECT statements
+		<LI>Insert_priv -- perform INSERT statements
+		<LI>Update_priv -- perform UPDATE statements
+		<LI>Delete_priv -- perform DELETE statements
+		<LI>Create_priv -- perform CREATE statements
+		<LI>Drop_priv   -- perform DROP statements
+		<LI>Index_priv  -- the ability to create or drop indicies
+		<LI>Alter_priv  -- perform ALTER TABLE statements
+		<LI>Here's a statement to add (a pretty powerful) user
+<pre>
+INSERT INTO user (Host     ,User           ,Password       ,Select_priv,Insert_priv,Update_priv,Delete_priv,Create_priv,Drop_priv,Index_priv,Alter_priv)
+	  VALUES (localhost,chris@localhost,password('xyz'),'Y',       ,'Y'        ,'Y'        ,'Y'        ,'Y'        ,'Y'      ,'Y'       ,'Y'       );</pre>
+		
+		</UL>
+	<LI>db
+		<UL>
+		<LI>sets permissions for individual databases
+		</UL>
+	<LI>host
+	<LI>tables_priv
+	<LI>colums_priv
+	</OL>
+</UL>
+
+<h3>Installing MySQL</h3>
+<ul>
+<li>Use 'mysqladmin' to set the root password
+	<pre>mysqladmin -u root password 'newpasswd'</pre>
+<li>Add user record to 'user' table and host record to 'host' table
+	<ul>
+	<li>login to 'mysql' client application as root
+	<li>add record to user table
+	<li>add record to host table
+	</ul>
+</ul>
+
+<h3>Porting An Existing MySQL Database</h3>
+<ul>
+<li>Copy directory to /var/lib/mysql
+<li>Add the following record to the 'db' table
+<pre>insert into db set host='localhost',db='HomeAuto',user='chris',select_pre_priv='y',create_priv='y',drop_priv='y',references_priv='y',index_priv='y',alter_priv='y';</pre>
+</ul>
+
+
+<h2>V. MySQL ADMINISTRATION</h2>
+
+</BODY> 
+</HTML>

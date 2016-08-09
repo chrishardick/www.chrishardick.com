@@ -1,0 +1,65 @@
+<HTML>
+<HEAD> 
+<TITLE>Command-Line Options</TITLE> 
+
+<link rel="stylesheet" href="../../css/default.css">  
+
+</HEAD>
+  
+<BODY>
+
+<H1>Command-Line Options</H1>
+
+<p>
+Typical UNIX commands have the form <i>command [-options] args</i>, 
+where <i>args</i> are Positional Parameters (see section on Variables). 
+This section is where we discuss processing the <i>-options</i> portion (more commonly called Command-Line Options).
+
+<dl>
+
+
+<!-- STRONG -->
+
+<dt><strong><i>shift</strong></i>
+
+<dd>accepts an argument as to the number of positions to shift the command line args to the left (1 is the default value).
+<pre>Examples:
+         shift   # 1=$2, 2=$3, etc.
+         shift 3 # 1=$4, 2=$5, etc.
+</pre>
+
+
+<!-- GETOPTS -->
+
+<dt><strong><i>getopts</strong></i>
+
+<dd>
+<ul>
+<li>A Built-In Command similar to Standard C Library Routine <i>getopt ()</i>.
+<li>Takes two arguments: (1) string containing letters and colons, (2) variable name
+<li>Argument 1: letters => acceptable options. Colon after an option means requires a argument. 
+If string starts with a colon, suppress automatically generated error message.
+<li>Argument 2: variable to use in the while loop iteration
+
+<li>Standard Usage:
+<pre>while getopts ":ab:c" opt; do
+     case $opt in
+          a  )  process option -a ;;
+          b  )  process option -b 
+                $OPTARG contains b's argument;;
+          c  )  process option -c ;;
+          \? )  Usage 
+                exit 1
+     esac
+done
+
+shift $(($OPTIND - 1))  # Arithmetic Operation = $OPTIND - 1</pre>
+
+</ul> 
+
+ 
+</dl>
+
+</BODY> 
+</HTML>
+  

@@ -1,0 +1,34 @@
+<html>
+
+<head><title>Terms & Definitions</title></head>
+
+<link rel="stylesheet" href="../css/default.css">  
+
+<body>
+
+<h1>TERMS & DEFINITIONS</h1>
+
+<dl>
+
+<dt ID="ASYNCHRONOUS">Asynchronous
+<dd>Asynchronous operations are operations which you do not have to wait for completion, they return immediately, and when processing is complete, they may or may not notify the caller of completion -- usually via a callback. An example of an asynchronous operation is an aynchronous function. pthread_cancel() is an example of an aynchronous function.
+<br><br>
+
+<dt ID=BLOCKING_FXN>Blocking Functions
+<dd>A function which when called, puts the calling process (or thread) into a wait state until some event occurs. E.g. until a mutex is released, etc. Examples of blocking functions: sleep(), pthread_join(), pthread_mutex_lock(), connect(), etc.
+<br><br>
+
+<dt ID="FLOATING_PT_PRECISION">Floating Point Precision
+<dd>assuming a standard 32-bit architecture (floats are 4 bytes and doubles are 8 bytes). The general rule of thumb is that floats yield 7 digit precision and doubles yield 15 digit precision
+<br><br>
+<dt ID=RE-ENTERANT>Re-enterant Functions
+<dd>A function which can have multiple <strong>simultaneous</strong>, <strong>interleaved</strong>, or <strong>nested</strong> invocations which will not interfere with one another. Re-enterant is an important concept for <strong>multi-threaded programming</strong>, in which multiple threads may be running simultaneously or may be interleaved. Re-enterant functions are a subset of thread-safe functions, as a function which is thread safe need not be re-enterant, but re-enterant functions must be thread-safe. Re-enterant functions are also called "efficiently thread-safe" as they can efficiently run in multiple threads and require no threading support (i.e. mutexes, thread-specific data, etc.). Re-enterant is also an important concept in <strong>signal handling programming</strong> because signal handling functions may be interleaved with main program execution.
+<br><br>
+
+<dt ID="SYNCHRONOUS">Synchronous Operation
+<dd><strong>Synchronous Operations</strong> are operations in which you wait for completion, and while you're waiting, no useful work can be performed.  
+</dl>
+<br><br>
+
+</body>
+</html>

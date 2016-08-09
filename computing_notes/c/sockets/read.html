@@ -1,0 +1,46 @@
+<html>
+
+<head><title>read ( )</title></head>
+
+<link rel="stylesheet" href="../../../css/default.css">  
+
+<body>
+
+<h1>read ( )</h1>
+
+<UL>
+<LI>Read from a file descriptor
+<LI><a href="../Terms.html#BLOCKING_FXN">blocking function</a>. returns only when there are bytes to read
+<LI>It is not an error for the return value to be less than count
+<pre>
+/*
+ * READ ( )    
+ *
+ * RETURN
+ * ======
+ * # bytes read
+ * 0 = EOF (socket closed by peer)
+ */
+#include &lt;unistd.h&gt;
+
+ssize_t read (int fd,             // in:  file descriptor to read from
+              void* buf,          // out: buffer to write to
+              size_t count);      // in:  max # of bytes to read
+</pre>
+</UL>
+
+
+<BR><BR>
+<H2>readn( )</H2>
+<UL>
+</UL>
+
+<BR><BR>
+<H2>readline( )</H2>
+<UL>
+</UL>
+
+
+
+</body>
+</html>

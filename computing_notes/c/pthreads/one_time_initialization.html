@@ -1,0 +1,56 @@
+<html>
+
+<head><title>PTHREADS: ONE TIME INITIAliZATION</title></head>
+
+<link rel="stylesheet" href="../../../css/default.css">  
+
+<body>
+
+<h1>Pthreads: One Time Initialization</h1>
+
+<br>
+
+<ul>
+<li>A facility to manage pthread initialization
+<li>Useful when writing library code
+</ul>
+
+<br><br>
+<h2>1. ONE TIME INITIALIZATION DATATYPE: PTHREAD_ONCE_T</h2>
+
+<ul>
+<pre>
+#include &lt;pthread.h&gt;
+
+pthread_once_t once_ctrl;
+</pre>
+<li>an opaque type -- (see <A HREF="pthread_misc.html#OPAQUE">Opaque Datatypes</A>)
+<li>MUST be statically initialized using the PTHREAD_ONCE_INIT macro
+</ul>
+
+
+<h2>2. INITIALIZATION FUNCTION & PTHREAD_ONCE()</h2>
+
+<ul>
+<li>you create a function (void function which accepts no parameters) that performs all initialization associated w/ a pthread_once_t control variable
+<li>any time you need to depend on the initialization, you call pthread_once( ), specifying the pthread_once_t variable and a pointer to the associated initialization function.
+	The first time it's called, your initialization function will be called. The 2nd - Nth time it's called, pthread_once() simply returns.
+<li>Either way, when pthread_once() returns, the caller is assured that the necessary initialization has been successfully completed.
+<pre>
+/*
+ * pthread_once()
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_once (pthread_once_t* p_OnceCtrl,            // in:  
+                  void (*InitFxn) (void);                // in: initialization routine
+</pre>
+
+</ul>
+
+
+</body>
+</html>

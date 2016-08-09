@@ -1,0 +1,60 @@
+<html>
+
+<head><title>Port Numbers</title></head>
+
+<link rel="stylesheet" href="../../../css/default.css">  
+
+<body>
+
+<h1>Port Numbers</h1>
+
+<UL>
+<LI>Port numbers are 16 bit unsigned integers
+<LI>2^16 = 65,536 Ports (0 - 65,535)
+<LI>Servers normally use their well-known port numbers
+<LI>Clients normally use ephemeral port numbers (short lived port #'s assigned by the kernel)
+<LI>IANA (Internet Assigned Numbers Authority) <a href="http://www.iana.org">www.iana.org</a> maintains a list of port number assignments
+<LI>IANA divides the port numbers into 3 ranges
+	<UL>
+	<LI><strong>well-known ports</strong>
+		<UL>
+		<LI>0-1023
+		<LI>Controlled & assigned by IANA
+		<LI>In UNIX, these are <strong>reserved</strong> ports which require superuser privileges
+		</UL>
+	<LI><strong>reserved ports</strong>
+		<UL>
+		<LI>1024-49151
+		<LI>Not controlled by IANA, but IANA maintans a list as a convenience to the community
+		<LI>Berkeley derived implementations ephemeral ports are from 1024-5000
+		<LI>Solaris ephemeral ports are from 32768 to 65535
+		<LI>Therefore, for reasons of portability, choose a port from 5001 to 32767
+		</UL>
+	<LI><strong>dynamic or private ports</strong>
+		<UL>
+		<LI>49152-65535
+		<LI><strong>ephemeral</strong> ports
+		</UL>
+	</UL>
+</UL>
+
+<pre>
+|0                                                                                                     65535|
+|&lt-----------------------------------------------ALL PORT NUMBERS------------------------------------------&gt|
+
+IANA
+|0                 1023|1024                                            49151|49152                    65535|
+|&lt--WELL KNOWN PORTS--&gt|&lt------------------REGISTED PORTS-------------------&gt|&lt-------Dynamic Ports--------&gt|
+
+BSD
+|0                 1023|1024         5000|5001                                                         65535|
+|&lt--RESERVED PORTS----&gt|&lt---EPHEMERAL---&gt|&lt-------SERVERS (NON-PRIVILEGED)---------------------------------&gt|
+
+SOLARIS
+|0                 1023|1024                            32767|32768                                    65535|
+|&lt--RESERVED PORTS----&gt|&lt-SERVERS (NON-PRIVILEGED)----------&gt|&lt--------------EPHEMERAL---------------------&gt|
+</pre>
+</UL>
+
+</body>
+</html>

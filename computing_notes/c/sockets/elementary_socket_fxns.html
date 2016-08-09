@@ -1,0 +1,239 @@
+<html>
+
+<head><title>Elementary Socket Functions</title></head>
+
+<link rel="stylesheet" href="../../../css/default.css">  
+
+<body>
+
+<h1>Elementary Socket Functions</h1>
+
+<UL>
+<LI>The purpose of this page is to describe the elementary socket functions:
+	<OL>
+	<LI><A HREF=#socket>socket( )</a>
+	<LI><A HREF=#connect>connect( )</a>
+	<LI><A HREF=#bind>bind( )</a>
+	<LI><A HREF=#listen>listen( )</a>
+	<LI><A HREF=#accept>accept( )</a>
+	</OL>
+<BR><BR>
+<LI>Typical server:
+	<OL>
+	<LI>socket ( ) - create socket (active by default)
+	<LI>bind( ) to well known port
+	<LI>listen( ) - convert to passive socket
+	<LI>accept( ) - blocking function (returns w/ next completed connection)
+	<LI>read( )/write( ) - according to protocol
+	<LI>[close( )] - according to prototocol
+	</OL>
+<BR><BR>
+<LI>Typical client:
+	<OL>
+	<LI>socket( ) - create socket (active by default)
+	<LI>connect( ) - blocking function (returns either when connection is established or error)
+	<LI>read( )/write( ) - according to prototcol
+	<LI>[close( )] - according to protocol
+	</OL>
+	
+</UL>
+
+<BR><BR>
+<H2 ID=socket>I. socket ( )</H2>
+<UL>
+<LI>create socket (endpoint for communication) 
+<LI>returns a socket descriptor
+<LI>called by both client & server
+<LI>by default, the socket is active (i.e. a client socket). An active socket will call connect( ) to connect to a server
+<LI>listen( ) (called only by the server) is used to convert an active socket to a passive socket (waits for incoming connections)
+<LI>family (domain)
+	<UL>
+	<LI>AF = Address Family
+	<LI>AF_INET = IPv4 protocols
+	<LI>AF_INET6 = IPv6 protocols
+	<LI>AF_LOCAL = UNIX domain protocols
+	</UL>
+<LI>type
+	<UL>
+	<LI>SOCK_STREAM = stream socket (byte stream)
+	<LI>SOCK_DGRAM = datagram socket
+	</UL>
+<LI>protocol
+	<UL>
+	<LI>set to 0 for system default for the given family and type
+	</UL>
+<pre>
+/*
+ * SOCKET ( )
+ *
+ * RETURN
+ * ======
+ * non-negative socket descriptor (sockfd) = success
+ * -1 on error (check errno)
+ */
+#include &ltsys/socket.h&gt
+
+int socket (int family,      // AF_INET|AF_INET6|AF_LOCAL
+            int type,        // SOCK_STREAM|SOCK_DGRAM
+            int protocol);   // 0 = system default for given family & type
+
+
+
+/*
+ * CODE 
+ */
+int iListenFD = socket (AF_INET,        // in: address family: IPv4
+                        SOCK_STREAM,    // in: socket type
+                        0);             // in: protocol - 0 = system default for given family & type
+
+if (iListenFD &lt 0)
+{
+        cerr &lt&lt "ERR: CREATING SOCKET. RC: " &lt&lt iListenFD &lt&lt ". STRERROR: " &lt&lt strerror(errno) &lt&lt endl;
+
+        exit (-1);
+}
+</pre>
+</UL>
+
+
+<BR><BR>
+<H2 id=connect>II. connect ( )</H2>
+<UL>
+<LI>called by a TCP client to establish a connection with a TCP server
+<LI><a href="../Terms.html#BLOCKING_FXN">blocking function</a>. returns only when there is an established TCP connection or an error occurs
+<LI>if connect( ) fails, the socket is no longer usable and must be closed
+<pre>
+/*
+ * CONNECT ( )
+ *
+ * RETURN
+ * ======
+ *  0 = success
+ * -1 on error (check errno)
+ */
+#include &ltsys/socket.h&gt
+
+int connect (int sockfd,                         // in: socket descriptor returned by socket( )
+             const struct sockaddr* servaddr,    // in: socket address structure
+             socklen_t addrlen);                 // in: socket address structure length
+</pre>
+</UL>
+
+
+<BR><BR>
+<H2 id=bind>III. bind ( )</H2>
+<UL>
+<LI>Assigns a IP address and/or port to a socket
+<LI>Usually called by a server to bind to its well known port
+<LI>If a client (or server) does not call bind and specify a port #, the kernel will assign an ephemeral port # 
+	when either connect( ) (called by the client) or listen( ) (called by the server) is called
+<LI>Normally servers call bind( ) to bind to their well-known port # (servers are known by their well-known port #),
+	while clients let the kernel choose an ephemeral port 
+<LI>If a process (either server or client) binds to a specific IP address, the IP address MUST belong to an interface of the host
+<LI>If a server binds to an IP address, it restricts the socket to receiving incoming connections only to that IP address
+<LI>If a client binds to an IP address, the assigned IP address will be used for messages sent from the server
+<pre>
+/*
+ * BIND ( )    
+ *
+ * RETURN
+ * ======
+ *  0 = success
+ * -1 on error (check errno)
+ */
+#include &ltsys/socket.h&gt
+
+int bind (int sockfd,                         // in: socket descriptor returned by socket( )
+          const struct sockaddr* servaddr,    // in: protocol specific socket address structure
+          socklen_t addrlen);                 // in: sizeof(servaddr)
+
+
+/*
+ * CODE 
+ */
+
+int iRC;
+struct sockaddr_in servaddr;            // IPv4 socket address struct
+
+memset (&servaddr,0,sizeof(servaddr));  // init 
+
+servaddr.sin_family             = AF_INET;
+servaddr.sin_addr.s_addr        = htonl (INADDR_ANY);   // wildcard address
+servaddr.sin_port               = htons (5001); 
+
+iRC = bind (    iListenFD,                      // in: socket descriptor returned from socket()
+                (struct sockaddr*) &servaddr,   // in: protocol specific socket address structure
+                sizeof(servaddr));              // in: sizeof(servaddr)
+
+if (iRC != 0)
+{
+        cerr &lt&lt "ERR: BINDING TO WELL KNOWN PORT. RC: " &lt&lt iRC &lt&lt ". STRERROR: " &lt&lt strerror(errno) &lt&lt endl;
+
+        exit (-1);
+}
+</pre>
+</UL>
+
+
+<BR><BR>
+<H2 id=listen>IV. listen ( )</H2>
+<UL>
+<LI>Called by a TCP server to convert an active socket (socket that will issue a connect( )) to a passive socket 
+	(socket that accepts incoming connection requests)
+<pre>
+/*
+ * LISTEN ( )    
+ *
+ * RETURN
+ * ======
+ *  0 = success
+ * -1 on error (check errno)
+ */
+#include &ltsys/socket.h&gt
+
+int listen (int sockfd,      // in: socket descriptor returned by socket( )
+            int backlog);    // in: max # of connections that the kernel should queue for this socket
+
+/*
+ * CODE
+ */
+
+iRC = listen (  iListenFD,      // in: socket descriptor returned from socket()
+                1024);          // in: backlog (max # of connections kernel should queue for this socket)
+
+if (iRC != 0)
+{
+        cerr &lt&lt "ERR: LISTEN ERROR. RC: " &lt&lt iRC &lt&lt ". STRERROR: " &lt&lt strerror(errno) &lt&lt endl;
+
+        exit (-1);
+}
+
+</UL>
+
+
+<BR><BR>
+<H2 id=accept>V. accept ( )</H2>
+<UL>
+<LI>called by TCP server to return the next completed connection
+<LI><a href="../Terms.html#BLOCKING_FXN">blocking function</a>. returns only when there is an established TCP connection or an error occurs
+<pre>
+/*
+ * ACCEPT ( )    
+ *
+ * RETURN
+ * ======
+ * non-negative connected socket descriptor (sockfd) = success
+ * -1 on error (check errno)
+ */
+#include &ltsys/socket.h&gt
+
+int accept (int sockfd,                     // in:     listening socket descriptor
+            struct sockaddr* client_addr,   // out:    socket address structure (protocol independent) of client (pass null if n/a)
+            socklen_t* sizeof_client_addr,  // in/out: pass null if n/a
+                                                       in:  sizeof struct passed in
+                                                       out: sizeof client socket address structure
+</UL>
+
+
+</body>
+</html>

@@ -1,0 +1,216 @@
+<html>
+
+<head><title>Pthreads: Threads</title></head>
+
+<link rel="stylesheet" href="../../../css/default.css">  
+
+<body>
+
+<h1>Pthreads: Threads</h1>
+
+<h2>1. Thread creation - pthread_create( )</h2>
+
+<ul>
+<li>pthread_create( ) creates a thread which will start by calling the specified thread start function (it will be in a <A HREF="#liFECYCLE">READY state</A>) 
+<li>When a process creates a new thread, it gets its own stack (hence local variables), but shares everything else 
+	(global variables, file descriptors, signal handlers, & current directory)
+<li>IMPORTANT TIP: thread start functions should always return a value (even if NulL), such that if another thread is waiting for it (blocked on pthread_join( )),
+	it does not de-reference a bad pointer & possibily crash
+
+<pre>
+#include &lt;pthread.h&gt;
+
+/*
+ * thread identifier 
+ * - opaque type 
+ */
+pthread_t thread;
+
+/*
+ * create a thread
+ * 
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PthREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_create(pthread_t* thread,                // out: thread identifier
+                   const pthread_attr_t* attr,       // in:  thread attributes (pass NulL if N/A)        
+                   void* (*start) (void*),           // in:  thread start fxn - expects a void* & returns a void*
+                   void* arg);                       // in:  argument that will be passed to thread start fxn 
+</pre>
+
+</ul>
+
+<h2>2. Thread Identification - pthread_self( ) & pthread_equal( )</h2>
+
+<ul>
+<li>threads are identified by a pthread_t identifier type - which is opaque (see <A HREF="pthread_misc.html#OPAQUE">Opaque Datatypes</A>)
+<li>a thread can get its own identifier by calling pthread_self( )
+<li>to determine if two thread identifiers are equivalent, use pthread_equal( )
+
+<pre>
+/*
+ * return the thread identifier for the current thread
+ */
+pthread_t pthread_self (void);
+
+
+/*
+ * are the 2 thread identifiers (pthread_t), the same thread?
+ *
+ * return
+ * ======
+ * non-zero = same thread
+ * 0        = not same thread
+ */
+int pthread_equal(pthread_t t1,
+                  pthread_t t2);
+</pre>
+
+</ul>
+
+
+<h2>3. Thread Termination</h2>
+
+A thread can terminate by any of the following:
+<ol>
+<li>returning from the thread start function
+<pre></pre>
+
+<li>calling pthread_exit( )
+<pre>
+/*
+ * terminate the current thread
+ * - never returns
+ * - since it never returns, i'm not sure why it has a return value
+ */
+int pthread_exit(void* value_ptr);        // out: thread's return value (void*)
+</pre>
+
+<li>another thread can call <a href="thread_cancellation.html">pthread_cancel( )</a>.
+<pre>
+/*
+ * cancel the given thread
+ * - CAUTION: advanced use only
+ * 
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PthREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_cancel(pthread_t thread);
+</pre>
+
+</ol>
+
+If the thread is <a href="#DETACHED">detached</a> when it terminates, it is immediately recycled. Otherwise the thread moves to the 
+<a href="#liFECYCLE">terminated</a> state in which it waits to be either detached or joined, at which time it will be recycled.
+
+
+<h4>A. Main Thread</h4>
+<ul>
+<li>in a threaded program, main( ) is called <i>the initial (or main) thread</i>
+<li>the initial thread is special in that when it terminates, the entire process terminates w/o allowing other threads to complete
+	- unless main( ) exits by calling pthread_exit( ), which allows the process to continue until all threads have terminated
+</ul>
+
+
+<h2 ID=DETACHED>4. Detach Threads: Free System Resources</h2>
+
+<ul>
+<li>detaching a thread tells the operating system that when the thread is finished executing, you no longer need it & that its system resources can be freed up
+<li>some of its system resources may have been freed when it finished executing (implementation dependent) - but at least the return value & its identifier must be retained
+<li>you can set the thread's attribute such that it's started detached
+<li>once a thread is created, you can call pthread_detach( ) to make a thread detached, passing in the thread's identifier (any thread can do this - as long as it knows the thread's identifier)
+<pre>
+/*
+ * detach the given thread
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PthREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_detach (pthread_t thread);
+</pre>
+
+<li>pthread_join( ) automatically detaches a thread upon return
+<pre>
+/*
+ * blocking fxn
+ * - will block until the specified thread completes
+ * - automatically detaches the thread
+ * - if &gt 1 thread needs to know when a given thread terminates, use a condition variable 
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PthREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_join(       pthread_t thread,       // in:  thread to wait for
+                        void** value_ptr);      // out: return value of thread
+</pre>
+</ul>
+
+
+<h2 ID=LIFECYCLE>5. Thread Lifecycle</h2>
+
+<table BORDER=1>
+<tr><th>STATE</th><th>NOTES</th></tr>
+
+<tr>
+<td>READY</td>
+<td><ul>
+<li>Waiting for processor time
+<li>could have just started (yet to be swapped in)
+<li>could have been swapped out (a.k.a. time sliced out or preempted by another thread or process)
+<li>bottom line: the thread is ready-to-run and is waiting to be swapped in
+</ul></td>
+</tr>
+
+<tr>
+<td>RUNNING</td>
+<td><ul>
+<li>Thread is currently running. 
+<li>I.e. eating up processor time
+</ul></td>
+</tr>
+
+<tr>
+<td>BLOCKED</td>
+<td><ul>
+<li>Thread is not able to run because it's waiting for something. 
+<li>I.e. mutex lock, or some other blocking call
+</ul></td>
+</tr>
+
+<tr>
+<td>TERMINATED</td>
+<td><ul>
+<li>Thread is terminated (returned from start function, called pthread_exit( ), cancelled, etc.),
+but is still occupying system resources because it not yet become <i>detached</i>
+</ul></td>
+</tr>
+
+<tr>
+<td>RECYCLED</td>
+<td><ul>
+<li>A TERMINATED thread that is detached  will be recycled
+<li>I.e. will release any system resources which were not released @ termination
+</ul></td>
+</tr>
+
+</table>
+
+
+<BR><BR>
+<h2>6. Misc</h2>
+<ul>
+<li>the initial thread runs on the default process stack (which can grow to be pretty large), the stack size for other threads is usually
+	much smaller & if a thread's stack overflows, your program will fail w/ a segmentation fault or bus error
+</ul>
+
+
+</body>
+</html>

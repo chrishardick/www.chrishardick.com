@@ -1,0 +1,406 @@
+<HTML>
+<HEAD> 
+<TITLE>Flow Control - Conditionals & Looping</TITLE> 
+
+<link rel="stylesheet" href="../../css/default.css">  
+</HEAD>
+  
+<BODY>
+
+<H1>Flow Control - Conditionals & Looping</H1>
+	
+<h2>Exit Status</h2>
+
+<p>
+If you're a programmer, you must understand that flow control conditions are based upon exit statuses of commands as 
+opposed to the pure boolean (true/false) logic that you're used to.  
+The condition that you specify is not actually a condition at all; it's actually an 
+expression which evaluates to an exit status.  The condition can be a single command or multiple commands seperated 
+by commas--in which case the expression evaluates to the exit status of the last command in the list.  In UNIX, an
+exit status of 0 means that the command completed successfully; while any other exit status denotes an error 
+(note that this is opposite of C/C++).
+</p>
+
+<h2>return N</h2>
+
+<p>
+The return statement allows you to exit out of the surrounding function with exit status N.  N is actually optional,
+it defaults to the exit status of the last command which executed.  Functions without a return statement also return the 
+exit status of the last command which executed.
+</p>
+
+<h2>if/elif/else</h2>
+
+<h3>Syntax</h3>
+<font face=courier>
+<pre>
+if condition1
+then
+	statement(s) #normal processing (exit status of 0 from condition1)
+[elif condition2
+then
+	statement(s)] #normal processing (exit status of 0 from condition2)
+[else
+	statement(s)] #neither condition yielded an exit status of 0 (all else failed)
+fi
+</pre>
+</font>
+
+<h2>Logically Combining Exit Statuses -- Short Circuit Evaluation</h2>
+
+<p>
+Bash allows you to logically combine exit statuses using && and || (logical and & logical or, respectively).  
+Short Circuit Evaluation is implemented; this means that both conditions are not evaluated if they do not need to be.  
+This deserves an example; let's say you have a logical and and the first condition is false, is there any reason to 
+evaluate the second condition?  Likewise, let's say you have a logical or and the first condition is true, is there 
+any reason to evaluate the second condition?
+</p>
+
+<font face=courier>
+<pre>
+LOGICAL AND EXAMPLE
+
+if condition1 && condition2
+then
+	statement(s) #both condition1 and condition2 returned a 0 exit status
+else
+	#condition1 returned a non-zero exit status (condition2 not exexuted--why?)
+	#-or-
+	#condition1 returned a zero exit status and condition2 returned a non-zero exit status
+	statement(s) 
+fi
+
+
+LOGICAL OR EXAMPLE
+
+if condition1 || condition2
+then
+	#either condition1 or condition2 returned a 0 exit status
+	#if condition1 returned a 0 exit status (condition2 was not executed--why?)
+	statement(s) 
+else
+	statement(s) #condition1 and condition2 returned non-zero exit statuses
+fi
+</pre>
+</font>
+
+<h2>Testing Conditions Other Than if a Command Ran Properly</h2>
+
+<p>
+Exit statuses are the only thing an if statement (or any other flow control statement) can test.  However, this 
+does not mean that we can't test for other conditions.  Bash provides the [ ... ] construct (which is equivalent to
+the 'test ...' construct to test conditions other than if a command successfully executed.  These constructs return an
+exit status of 0 when the statment is true and non-zero when false.  NOTE: spaces are required after the opening
+square bracket and before the closing square bracket.
+</p>
+
+<p>
+NOTE: the [ ... ] construct can be substituted anyplace where a condition is expected.
+</p>
+
+<p>
+Bash allows you to logically combine logical expressions within the [ ... ] construct using the -a (logical and) and
+-o (logical or) operators.  Each operand to these operators must be surrounded in parentheses (which must be escaped
+with backslashes to prevent the shell from interpreting them).  The reason for the parentheses is to override any 
+operator precedence which might have taken place; I've seen some unusual results without them.  I should really look 
+these up; but the parenthesis work just fine. 
+</p>
+
+<p>
+The following operators can be used inside of the [ ... ] construct:
+<ul>
+<li>String Comparision Operators</li>
+<li>File Attribute Checking Operators</li>
+<li>Integer Condition Operators</li>
+</ul>
+</p>
+
+
+<h3>String Comparisons</h3>
+
+<table cellspacing=1 border=1>
+<tr align=left>
+<th>Operator</th>
+<th>True if...</th>
+</tr>
+
+<tr>
+<td>str1 = str2</td>
+<td>str1 is equivalent to str2</td>
+</tr>
+
+<tr>
+<td>str1 != str2</td>
+<td>str1 is not equivalent to str2</td>
+</tr>
+
+<tr>
+<td>str1 < str2</td>
+<td>str1 is less than str2</td>
+</tr>
+
+<tr>
+<td>str1 > str2</td>
+<td>str1 is greater than str2</td>
+</tr>
+
+<tr>
+<td>-n str1</td>
+<td>str1 is NOT null (has a length greater than 0)</td>
+</tr>
+
+<tr>
+<td>-z str1</td>
+<td>str1 is null (has a length of 0)</td>
+</tr>
+
+</table>
+
+<font face=courier>
+<pre>
+Some Examples:
+
+x=yes
+y=no
+
+if [ $x = $y ]; then
+	echo "NOT EQUIVALENT"
+else
+	echo "EQUIVALENT"
+fi
+
+would result in the following output:
+NOT EQUIVALENT
+
+if [ $x = $y ] || echo "NOT EQUIVALENT"; then
+	echo "Inside the if statement"
+else
+	echo "echo returned a non-zero exit status"
+fi
+
+would result in the following output (assuming echo returns a 0 exit status):
+NOT EQUIVALENT
+Inside the if statement
+</pre>
+</font>
+<h3>File Attribute Checking</h3>
+
+<table cellspacing=1 border=1>
+
+<tr align=left>
+<th>Operator</th>
+<th>True if...</th>
+</tr>
+
+<tr>
+<td>-d file</td>
+<td>file exists and is a directory</td>
+</tr>
+
+<tr>
+<td>-e file</td>
+<td>file exists</td>
+</tr>
+
+<tr>
+<td>-f file</td>
+<td>file exists and is a regular file (not a directory or other special type of file)</td>
+</tr>
+
+<tr>
+<td>-r file</td>
+<td>You have read permission on file</td>
+</tr>
+
+<tr>
+<td>-s file</td>
+<td>file exists and is not empty (0 bytes)</td>
+</tr>
+
+<tr>
+<td>-w file</td>
+<td>You have write permission on file</td>
+</tr>
+
+<tr>
+<td>-x file</td>
+<td>You have execute permission on file; or directory search permission if it's a directory (the ability to
+cd to the directory)</td>
+</tr>
+
+<tr>
+<td>-O file</td>
+<td>You own the file</td>
+</tr>
+
+<tr>
+<td>-G</td>
+<td>file's group ID matches yours (or one of yours, if you have belong to multiple groups)</td>
+</tr>
+
+<tr>
+<td>file1 -nt file2</td>
+<td>file1 is newer than file2</td>
+</tr>
+
+<tr>
+<td>file1 -ot file2</td>
+<td>file1 is older than file2</td>
+</tr>
+
+</table>
+
+<font face=courier>
+<pre>
+Some Examples:
+
+# Change to $dir only if it's NOT null, it's a directory and you can search it!
+# Also shows use of -a inside the [ ... ] construct
+if [ -n "$dir" ] && [ \( -d "$dir" \) -a \( -x "$dir" \) ]; then
+	cd $dir
+fi
+
+# If you can execute the file and it's not a directory, execute it
+# Example of ! (logical not) operator; which is not supported under the Bourne shell
+# Notice my heavy use of parenthesis--we could have relied on operator precedence 
+# -- but I'm unsure of the rules
+if [ \( -x "$file" \) -a \( ! \( -d "$file" \)  \) ]; then
+	$file 
+fi
+
+</pre>
+</font>
+
+<h3>Integer Conditionals</h3>
+
+<table cellspacing=1 border=1>
+<tr align=left>
+<th>Operator</th>
+<th>Comparison</th>
+</tr>
+
+<tr>
+<td>-lt</td>
+<td>Less than</td>
+</tr>
+
+<tr>
+<td>-le</td>
+<td>Less than or equal to</td>
+</tr>
+
+<tr>
+<td>-eq</td>
+<td>Equal to</td>
+</tr>
+
+<tr>
+<td>-ge</td>
+<td>Greater than or equal</td>
+</tr>
+
+<tr>
+<td>-gt</td>
+<td>Greater than</td>
+</tr>
+
+<tr>
+<td>-ne</td>
+<td>Not Equal</td>
+</tr>
+
+</table>
+
+<font face=courier>
+<pre>
+An example:
+
+declare -i Integer
+
+Integer=20
+
+while [ $Integer -gt 0 ]; do
+
+        echo "Integer = $Integer"
+
+        Integer=Integer-1
+done
+
+</pre>
+</font>
+<h2>for loop</h2>
+
+<p>
+The for loop is different from the for loop in traditional programming in that it accepts a list of arguments rather than
+a start and ending value for a loop index.  In order to implement the traditional for loop found in C/C++ or any other
+traditional high-level language, use the while loop (see below).
+</p>
+
+<h3>Syntax</h3>
+<font face=courier>
+<pre>
+for name [in list]
+do
+	statements which can use $name
+done
+</pre>
+</font>
+
+<p>'list' is a list of names; if it is omitted, it defaults to "$@" (the command line arguements each enclosed in double
+quotes and seperated by spaces).
+
+<h2>while & until</h2>
+
+<h3>Syntax</h3>
+<font face=courier>
+<pre>
+# while the statement is true
+# useful for traditional for looping
+while condition
+do
+	statements
+done
+
+# until the condition is true (in other words while the condition is false)
+# very useful when you're looking to validate input (until the user enters correct information)
+# equivalent while statment: while ! condition
+until condition
+do
+	statements
+done
+
+NOTE: both loops are pre-test (testing occurs prior to entering the loop)
+</pre>
+</font>
+
+
+<h2>case</h2>
+
+<h3>Syntax</h3>
+<font face=courier>
+<pre>
+case expression in
+	pattern1 )
+		statements ;;
+	pattern2|pattern3 )
+		statements ;;
+	...
+	* )
+		statements ;;
+esac
+</pre>
+</font>
+
+<p>
+The case statement is very similar to the 'switch' statement in C/C++.  Except that the expression can be a string (in C/C++,
+it's limited to an integer type).  The patterns can contain wildcards (filename.??? -or- filename.*), you can also 
+specify multiple patterns to be logically or'ed, seperated by a pipe sign (|).  Similar to the default statement in C/C++,
+there's a * pattern which executes only if all other patterns reached up until that point were not matched (the * is 
+usually the last pattern).  For those of you who are not familiar with the C/C++ switch statement, the expression is 
+compared against each pattern in the order they're listed.  If a match is found, the statments corresponding to the pattern
+is executed and execution continues after the 'esac'.
+</p>	
+</BODY> 
+
+</HTML>
+  

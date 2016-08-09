@@ -1,0 +1,81 @@
+/**********
+* default.css
+*
+* my default cascading style sheet (CSS)
+*
+* chris hardick
+**********/
+
+BODY      
+{ 
+    font-family: "trebuchet ms", serif;
+}
+
+BODY *:HOVER
+{
+    background: yellow;
+}
+
+PRE
+{ 
+    font-size: 8pt; 
+    line-height: 125%;
+}
+
+TD,TH         
+{ 
+    vertical-align: middle;
+}
+
+LI            
+{ 
+    line-height: 150%;
+}
+
+*.items
+{
+    font-size: 10pt; 
+    /* vertical-align: middle */
+}
+
+*.subitems
+{
+    font-size: 8pt; 
+    /* vertical-align: middle */
+}
+
+
+*.chris
+{
+    font-size: 8pt;
+    margin: 0;
+    padding: 0;
+    /* border: 2px solid black; */
+}
+
+ul.hardick_list
+{
+    font-family: monospace;
+    font-size: 8pt;
+    margin: 0 0 10 0;
+    padding: 0;
+    padding-left: 1.25em;
+}
+p.hardick_title
+{
+    font-family: Verdana, sans-serif;
+    color: white;
+    background: navy;
+    font-size: 10pt;
+    margin-bottom: 10px;
+    padding: 3px;
+    padding-left: 10px;
+}
+p.hardick_item
+{
+    font-family: monospace;
+    font-size: 8pt;
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}

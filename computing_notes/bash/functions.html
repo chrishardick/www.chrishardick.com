@@ -1,0 +1,66 @@
+<HTML>
+<HEAD> 
+<TITLE>Functions</TITLE> 
+
+<link rel="stylesheet" href="../../css/default.css">  
+
+</HEAD>
+  
+<BODY>
+
+<H1>Functions</H1>
+	
+<h2>Syntax</h2>
+
+<pre>
+FunctionName ( )
+{
+	shell commands
+}
+
+-or-
+
+function FunctionName
+{
+	shell commands
+}
+NOTE: 'function' is a keyword in bash.
+</pre>
+</font>
+
+<h2>Benefits of using Functions</h2>
+
+<h3>Execution Speed</h3>
+<p>
+When you define a function, the function gets loaded into memory for the current shell process, whether this is  within a 
+shell script or if you source a script which contains the function at the command line.  
+This allows a function to execute quicker than the equivalent shell script.  
+Obviously, when the current shell process dies, the function's memory is freed along with the rest of the shell's memory.  
+</p>  
+
+<h3>Modular Scripts</h3>
+<p>
+As any programmer will tell you programs or scripts which are based upon functions, which are reusable chunks of code,
+are much easier to maintain; not to mention, they're easier to read and understand. 
+</p>
+
+<h3>Error Trapping</h3>
+<p>
+Myself, being a programmer who came to shell scripting with the notion that if I know how to program, I already know how to
+shell script, was very upset when I learned (very quickly I might add) that shell scripts continue even if individual
+commands fail.  Let's say for example, that we have a simple shell script with 5 commands and the first command fails 
+(returns a non-zero return code), the next 4 commands will be executed anyway--unless of course the programmer tests the return 
+value of each and every command.  Let's say that the purpose of the script is to create an empty directory in which to start a
+large-scale program.  Its first command could be a cd (change directory) to change to the appropriate directory.  
+So we failed to change directories--so let's say we're still in my home directory.  The next command is to forcefully remove 
+all files from the directory (rm -rf *).  We'll, after executing the script, I've just destroyed everything in the 
+directory--including any subdirectories that were present; and you thought that UNIX was suppose to make the programmer's job
+easier!  Functions, along with the flow control statements we'll learn about later, allow the programmer to create wrappers
+around each and every standard UNIX command (or your own programs for that matter), so that if a command fails, your program
+can display the correct error message and choose to continue or not continue, depending upon the situation.
+</P>
+
+</BODY> 
+
+</HTML>
+  

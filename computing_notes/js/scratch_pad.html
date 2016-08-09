@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+
+<!--
+<link rel="stylesheet" href="css/styles.css">
+-->
+
+<title></title>
+
+
+<style>
+body    
+{
+        font-family: Verdana, sans-serif; font-size:0.8em;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<script>
+// alert ("Hello, world");
+document.write ("Hello, World!<br>");
+
+var add_func = new Function ("x","y","return x+y;");
+var a = 5;
+var b = 10;
+document.write ("The result of " + a + " + " + b + " is " + add_func(a,b) + ".<br><br>");
+
+var i = 0;
+
+var s = "Hello, World!";
+
+document.write ("i=" + i + "<br>");
+document.write ("s=" + s + "<br>");
+document.write ("<br>");
+
+function foo (i,s)
+{
+    document.write ("x=" + x + "<br>");
+    var x = 5;
+    document.write ("x=" + x + "<br>");
+
+    i = i+1;
+
+    s = "Hello Dogs, Cats and Birds!";
+
+    document.write ("i=" + i + "<br>");
+    document.write ("s=" + s + "<br>");
+    document.write ("<br>");
+}
+
+
+document.write ("calling foo...<br>");
+
+foo (i,s);
+
+document.write ("returned from foo<br>");
+document.write ("i=" + i + "<br>");
+document.write ("s=" + s + "<br>");
+
+
+document.write ("END<br>");
+
+var obj = new Object();
+
+obj.name = "Chris Hardick";
+
+obj.print_name = function() { document.write(obj.name + "<br>");    }
+
+obj.print_name();
+
+
+function Rectangle (w, h)
+{
+    this.m_w = w;
+    this.m_h = h;
+
+    Rectangle.prototype.area = function() { return this.m_w * this.m_h; }
+
+    Rectangle.prototype.width  = function() { return this.m_w; }
+    Rectangle.prototype.height = function() { return this.m_h; }
+
+    Rectangle.prototype.set_height = function(h) { this.m_h = h; }
+    Rectangle.prototype.set_width  = function(w) { this.m_w = w; }
+}
+
+var r1 = new Rectangle (1, 2);
+
+document.write ("area of rectangle1 with width=" + r1.width() + " height=" + r1.height() + " is " + r1.area() + "<br>");
+
+r1.set_height(5);
+r1.set_width(6);
+
+document.write ("area of rectangle1 with width=" + r1.width() + " height=" + r1.height() + " is " + r1.area() + "<br>");
+
+</script>
+
+</pre>
+
+</body>
+</html>
+

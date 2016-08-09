@@ -1,0 +1,86 @@
+<HTML> 
+<HEAD> <TITLE>MySQL - JOIN NOTES</TITLE> </HEAD>
+  
+<link rel="stylesheet" href="../../../css/default.css">  
+
+<BODY>
+
+<H1>MySQL - JOIN NOTES</H1>	
+
+<H2>SAMPLE TABLES</H2>
+
+<UL>
+<LI>The following tables will be used to illustrate the different join types (inner joins and outer joins)
+<BR><BR>
+<LI><STRONG>INVOICE TABLE</STRONG>
+<TABLE BORDER=1>
+<TR><TH>ID</TH><TH>CASE_ID</TH><TH>DATE      </TH><TH>NOTES</TH></TR>
+<TR><TD> 1</TD><TD>      5</TD><TD>2004-12-26</TD><TD>NULL </TD></TR>
+<TR><TD> 2</TD><TD>      5</TD><TD>2004-12-27</TD><TD>NULL </TD></TR>
+<TR><TD> 3</TD><TD>      6</TD><TD>2004-12-28</TD><TD>NULL </TD></TR>
+<TR><TD> 4</TD><TD>      6</TD><TD>2004-12-29</TD><TD>NULL </TD></TR>
+</TABLE>
+
+<BR><BR>
+<LI><STRONG>PAYMENT TABLE</STRONG>
+<TABLE BORDER=1>
+<TR><TH>ID</TH><TH>INVOICE_ID</TH><TH>AMT       </TH><TH>DATE      </TH></TR>
+<TR><TD> 1</TD><TD>         1</TD><TD>     50.00</TD><TD>2004-12-26</TD></TR>
+<TR><TD> 2</TD><TD>         1</TD><TD>    100.00</TD><TD>2004-12-27</TD></TR>
+<TR><TD> 3</TD><TD>         2</TD><TD>    150.00</TD><TD>2004-12-28</TD></TR>
+<TR><TD> 4</TD><TD>         2</TD><TD>    200.00</TD><TD>2004-12-29</TD></TR>
+</TABLE>
+</UL>
+
+<BR><BR>
+<H2>I. Inner Join</H2>
+<UL>
+<LI><i>table1,table2</i>
+<LI>Same as <i>table1</i> JOIN <i>table2</i>
+<LI>Same as <i>table1</i> CROSS JOIN <i>table2</i>
+<LI>Only rows which match the condition(s) of the <i>where</i> clause are selected
+<LI>For example, the following <i>joined table</i> would only show rows in which payment.invoice_id = invoice.id
+<PRE>
+SELECT invoice.id, payment.amt, payment.date, payment.notes FROM payment,invoice WHERE payment.invoice_id=invoice.id;
+</PRE>
+<TABLE border=1>
+<TR><TH>invoice.id</TH><TH>payment.amt</TH><TH>payment.date</TH><TH>payment.notes</TH></TR>
+<TR><TD>         1</TD><TD>      50.00</TD><TD>  2004-12-26</TD><TD>NULL         </TD></TR>
+<TR><TD>         1</TD><TD>     100.00</TD><TD>  2004-12-27</TD><TD>NULL         </TD></TR>
+<TR><TD>         2</TD><TD>     150.00</TD><TD>  2004-12-28</TD><TD>NULL         </TD></TR>
+<TR><TD>         2</TD><TD>     200.00</TD><TD>  2004-12-29</TD><TD>NULL         </TD></TR>
+</TABLE>
+<BR>
+<LI>The tables are joined in the manner that the SQL Engine deems most efficient
+<LI>The SQL Engine can accomplish this query in one of two ways
+	<UL>
+	<LI>For each invoice, get all payment(s)
+		<UL>
+		<LI>probably the algorithm the SQL Engine uses
+		<LI>the payment table probably has an index for this 
+		<LI>only display invoices which have payment(s)
+		</UL>
+	<LI>For each payment, get all invoice(s) 
+		<UL>
+		<LI>there will only be 1
+		<LI>probably no index for this - i wouldn't create one
+		<LI>only display payments which have invoice(s) 
+		</UL>
+	</UL>
+<LI>Either way, we'll only display invoices with payments (or vice-versa, payments with invoices)
+<LI>There's no way to get invoices without payments (or payments without invoices - which would be a referential integrity violation).
+	For this, we'll need an outer join.
+</UL>
+
+
+<BR><BR>
+<H2>II. [Left] Outer Join</H2>
+<UL>
+<LI><i>table1</i> LEFT [OUTER] JOIN <i>table2</i> ON <i>clause</i>
+<LI>Selects all rows from table1
+<LI>If table2 does not have a matching row, a row of NULLs is used to join with table1 
+</UL>
+
+
+</BODY> 
+</HTML>
