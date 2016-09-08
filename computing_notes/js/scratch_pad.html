@@ -18,14 +18,73 @@ body
         font-family: Verdana, sans-serif; font-size:0.8em;
 }
 
+.reveal *   /* children of class reveal are not displayed */
+{
+    display: none;
+}
+
+.reveal *.handle    /* except if class is handle */
+{
+    display: block;
+}
+
 </style>
 
 </head>
 
 <body>
+<p>Body</p>
 
 <script>
-// alert ("Hello, world");
+alert ("Is this modal?");
+var rc = confirm ("Isn't this great???");
+
+if (rc)
+{
+    document.write ("YES -- it's GREAT!<br>");
+}
+else
+{
+    document.write ("NO -- I guess we can try again...<br>");
+}
+
+var msg = prompt ("Tell me quickly what's on your mind");
+
+document.write (msg + "<br>");
+
+function displayTime() 
+{
+    var e = document.getElementById("clock");
+
+    var now = new Date();
+
+    e.innerHTML = now.toLocaleTimeString();
+    
+    setTimeout(displayTime,1000);
+}
+
+window.onload = function ()
+{
+    var elements = document.getElementsByClassName("reveal");
+
+    for (var i=0; i<elements.length; i++)
+    {
+        var e = elements[i];
+
+        var title = e.getElementsByClassName("handle")[0];
+
+        title.onclick = function()
+        {
+            if (e.className == "reveal") e.className = "revealed";
+            else if (e.className == "revealed") e.className = "reveal";
+        }
+    }
+
+    var clock = document.getElementById("clock");
+
+    clock.onclick = displayTime;
+};
+
 document.write ("Hello, World!<br>");
 
 var add_func = new Function ("x","y","return x+y;");
@@ -66,8 +125,6 @@ document.write ("i=" + i + "<br>");
 document.write ("s=" + s + "<br>");
 
 
-document.write ("END<br>");
-
 var obj = new Object();
 
 obj.name = "Chris Hardick";
@@ -99,11 +156,20 @@ r1.set_height(5);
 r1.set_width(6);
 
 document.write ("area of rectangle1 with width=" + r1.width() + " height=" + r1.height() + " is " + r1.area() + "<br>");
+document.write ("SCRIPT END<br>");
+
 
 </script>
 
-</pre>
 
+<div class="reveal">
+<h1 class="handle">click here to reveal hidden text</h1>
+<p>hidden text</p>
+</div>
+
+<div id="clock">
+click here to turn this into a clock
+</div>
 </body>
 </html>
 

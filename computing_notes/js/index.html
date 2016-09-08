@@ -23,6 +23,7 @@
 </pre>
 <li>The core JS language defines only a minimal set of libraries. The majority of the libraries you will use (i.e. I/O, etc.) will be provided by the host environment (i.e. web browser, etc.)
 <li>Virtually every web browser today contains a JS interpreter. V8 is Google's JS interpreter
+<li>JS does not support multiple threads. It has a single threaded execution model
 </ul>
 
 <h2>Embedding JS in HTML Files</h2>
@@ -30,19 +31,20 @@
 <ul>
 <li>JS is embedded within HTML using the script tag. 
 <li>You can define your code in-line or via an external file. They work similarly.
+<li>The ending <code>&lt;script&gt;</code> tag is required even for external files and when you use the src tag, all text between the opening and closing tag is ignored.
 <li>Script execution is interleaved with HTML parsing and rendering.
 <li>You cannot manipulate objects before they have been created.
 <pre>
 &lt;html&gt;
 &lt;head&gt;
 &lt;!-- an external file --&gt;
-&lt;script src="script1.js"&gt; 
+&lt;script src="script1.js"&gt;&lt;/script&gt; 
 &lt;/head&gt;
 
 &lt;body&gt;
 ...
 &lt;!-- another external file --&gt;
-&lt;script src="script2.js&gt; 
+&lt;script src="script2.js&gt;&lt;/script&gt; 
 ...
 &lt;script&gt;
 // an inline script

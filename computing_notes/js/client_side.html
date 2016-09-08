@@ -1,0 +1,213 @@
+<HTML>
+<HEAD><TITLE>Client Side JavaScript</TITLE></HEAD>
+  
+<link rel="stylesheet" href="../../css/default.css">  
+
+<BODY>
+
+
+<h1>Client Side JavaScript</h1>
+
+<h2>The Window, Document & Element Objects</h2>
+<ul>
+<li>A web browser instance running on a client PC may contain several tabs. Each tab has its own Window object and can be thought of multiple browser instances.
+<li>The Window, Document & Event objets have event handler properties which allow you to specify functions to be envoked when events occur. 
+Event handler functions begin with 'on.' E.g. onclick, onload, etc.
+</ul>
+
+<h3>The window object</h3>
+
+<ul>
+<li>The window object is the global object.
+<li>You need not prefix window object properties & methods with <code>window</code>. You can for clarity, but it is not required.
+</ul>
+
+<h4>Timers</h4>
+
+<pre>
+/*
+ * setTimeout
+ *
+ * schedules function f to run after ms milliseconds elapse
+ * returns a value that can be passed to clearTimeout to cancel the scheduled execution
+ * any additional arguments are passed to f
+ */
+setTimeout(f, ms, ...);
+</pre>
+
+<pre>
+/*
+ * setInterval
+ *
+ * schedules function f to run repeatedly at the specified interval (# ms)
+ * returns a value that can be passed to clearTimeout to cancel the scheduled execution
+ * any additional arguments are passed to f
+ */
+setInterval(f, ms, ...);
+</pre>
+
+<h4>location Property</h4>
+<ul>
+<li>Refers to a Location object which represents the current URL and allows you to load a new URL.
+<li>Equivalent to the location property of the Document object
+<li>The <code>href</code> property contains a string of the complete URL. <code>toString()</code> returns this value
+<li>Other properties -- <code>protocol, host, hostname, port, pathname, search, hash</code> specify the individual constituents of the URL. 
+<li>The <code>assign()</code> method allows you to load a new URL. <code>replace()</code> is similar except that is replaces the current document in the browser history
+<li>The <code>reload</code> method allows you to reload the current URL
+<li>Another way to load a URL is to simply set the location property
+<pre>location = "www.chrishardick.com"</pre>
+</ul>
+
+<h4>history Property</h4>
+<ul>
+<li>Refers to the History object for the window. 
+<li><code>back()</code> and <code>forward()</code> methods behave as the browser's back and forward buttons do. 
+<li><code>go()</code> accepts an argument and allows you to move forward (positive integer) or back (negative integer) in the browser history
+<li>If a window contains iframes, the browsing history of the child windows will be chronologically interleaved. 
+</ul>
+
+<h4>navigator Property</h4>
+<ul>
+<li>A Navigator object which contains browser vendor and version information.
+<li><code>appName</code> -- property which contains the full name of the web browser
+<li><code>appVersion</code> -- property which contains the version of the web browser
+<li><code>userAgent</code> -- property which contains the browser sends in the USER-AGENT HTTP header
+<li><code>platform</code> -- property which identifies the OS/platform in which the browser is running
+<li><code>onLine</code> -- property which specifies whether the browser is currently connected to the network
+<li><code>geolocation</code> -- a Geolocation object for determining the user's geographical location.
+</ul>
+
+<h4>screen Property</h4>
+<ul>
+<li>A Screen object that provides information about the size of the user's display (# pixels) and the number of colors available on it. 
+<li><code>height</code> and <code>width</code> properties specify the size of the physical display in pixels
+<li><code>availWidth</code> and <code>availHeight</code> properties specify the size in pixels that is available to the browser. They exclude space occupied by widgets the browser cannot occupy -- i.e. the taskbar, etc.
+<li>The <code>colorDepth</code> property specifies the # of bits per pixels
+</ul>
+
+<h4>Dialog Boxes</h4>
+<ul>
+<li>The <code>alert()</code> method displays a [usually] modal dialog box with the specified text string (not HTML) and an OK button
+<li>The <code>confirm()</code> method displays a modal dialog box with the specified text string (not HTML) -- with OK or Cancel buttons. It returns a boolean.
+<li>The <code>prompt()</code> method displays a modal dialog box with the specified text string (not HTML). It allows the user to enter a string. It returns the string.
+<li>The <code>showModalDialog()</code> method displays a HTML formatted modal dialog box. The 1st parameter is the URL. The additional paramters are beyond the scope of this document.
+</ul>
+
+<h4>Document Elements as Window Properties</h4>
+<ul>
+<li>document elements which specify an <code>id</code> attribute -- so long as it does not conflict with a pre-existing Window object property -- becomes a non-enumerable property of the Window object whose name is the value of the id attribute whose value is the HTMLElement object that represents the element. However -- for all of the same reasons to avoid global variables -- it's a better idea to use <code>var foo = document.getElementById(id)</code> to access the given element.
+</ul>
+
+<h4>document Property</h4>
+<ul>
+<li>The <code>document</code> property refers to a Document object which represents the current document being displayed
+<li>See Document object below.
+</ul>
+
+<h4>Misc Properties and Methods</h4>
+
+<ul>
+<li>onload
+    <ul>
+    <li>an event handler. it is called when the content of the document has been displayed
+    </ul>
+
+<li>write("abc")
+    <ul>
+    <li>write text to the window
+    </ul>
+
+</ul>
+
+<h3>document object</h3>
+<ul>
+<li>Every window object has a document object which represents the content of the window.
+<li>Your gateway to the DOM (Document Object Model)
+<li>Client-side JS usually manipulates one or more elements of the DOM. 
+<li>In order to manipulate the elements, they first must be accessed
+    <ul>
+    <li>Via <code>id</code> attribute
+    <li>Via <code>name</code> attribute
+    <li>Via tag name -- i.e. select all h1 tags
+    <li>Via specified CSS class
+    <li>Via CSS selector
+    </ul>
+</ul>
+
+
+<h4>Selecting Elements via ID</h4>
+<ul>
+<li>ID attributes must be unique per document.
+<li>Always selects at most one element
+
+<pre>
+var clock = document.getElementById("clock");
+</pre>
+
+</ul>
+
+<h4>Selecting Elements via Name</h4>
+<ul>
+<li>The original purpose of the name attribute was to name CGI form elements such that the server could parse incoming message. 
+<li>However, you can also select elements of a document by name.
+<li>Keep in mind that name values need not be unique 
+
+<pre>
+/*
+ * returns a NodeList object (array like object)
+ * - the elements are in document order
+ */
+var items = document.getElementsByName("breakfast_items");
+</pre>
+</ul>
+
+<h4>Selecting Elements via Tag Name</h4>
+<ul>
+<li>NOTE: the Element class also defines a method by the same name (<code>getElementsByTagName</code>). However, it only selects elements that are descendants of the given element
+<pre>
+/*
+ * returns a NodeList object (array like object)
+ * - the elements are in document order
+ * - tag names are not case sensitive
+ * - supports wildcard "*" to return all elements of the document
+ */
+var sub_headings = document.getElementsByTagName("h2");
+
+var h2_1 = document.getElementsByTagName("h2")[0];
+
+var all_elements = document.getElementsByTagName("*");
+</pre>
+</ul>
+
+<h4>Selecting Elements via CSS Class</h4>
+
+<li>Document node
+<li>Element node
+<li>Text node
+</ul>
+
+<ul>
+<li>createTextNode("abc")
+<li>getElementsByClassName("abc")
+<li>getElementById()
+<ul>
+<li>returns the Element object with the given ID. 
+<pre>var clock = document.getElementById("clock");</pre>
+</ul>
+
+</ul>
+</ul>
+
+<h3>Element object</h3>
+<h3>Element object: properties and methods</h3>
+<ul>
+<li><code>appendChild(document.createTextNode("abc"))</code>
+<li><code>className</code> allows you to specify and retrieve css class name for the given element. e.g. <code>clock.className = "clock_style";</code>
+<li><code>firstChild</code>
+<li><code>onclick</code> An event handler triggered when the user clicks on the element
+<li><code>onmouseover</code> An event handler triggered when user hovers their mouse over the element
+<li><code>style</code> allows you to specify and/or retrieve css styles. e.g. <code>clock.style.backgroundColor = "red";</code>
+<li>Element objects and text nodes -- what is a text node?
+</ul>
+</body> 
+</html>

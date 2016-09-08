@@ -15,7 +15,7 @@
 <LI>Can't change the precedence of the operator
 <LI>There's only a few operators that you can't override (scope resolution operator <i>:</i>:, conditional operator <i>?:</i>, sizeof operator <i>sizeof</i>, and a few others)
 <LI>new & delete are operators which can be overloaded
-<LI>new keyword: <i>operator</i>
+<LI>Introduces a new keyword: <i>operator</i>
 <LI>define function w/ keyword <i>operator</i> followed by the operator you wish to overload
 <LI>whitespace following the keyword <i>operator</i> is optional unless an ambuigity arises (e.g. new & delete would not make sense: operatornew(), operatordelete() which would be valid function names)
 </UL>
@@ -103,6 +103,42 @@ CObj& operator= (const CObj& cObj)
 }
 </ul>
 
+<h2>Inheritance, Virtual Functions & Overloading &lt;&lt</h2>
+
+<ul>
+<li>Problem: You're using inheritance, you have a base class reference type (e.g. a pointer or a reference) and you want &lt;&lt; to utilize dynamic binding to print out the correct object type
+<li>Solution: Since you cannot make operator&lt;&lt; virtual (the 1st parameter is an ostream reference), you instead have operator&lt;&lt; call a virtual function to take advantage of dynamic binding
+</ul>
+<pre>
+class Parent
+{
+    public:
+
+        virtual void print_self (ostream& os) const
+        {
+            os &lt;&lt; "Parent";
+        }
+};
+
+class Child : public Parent
+{
+    public:
+
+        virtual void print_self (ostream& os) const
+        {
+            os &lt;&lt; "Child";
+        }
+};
+
+
+ostream& operator&lt;&lt; (ostream& os, const Parent& p)
+{
+    p.print_self();
+
+    return os; 
+}
+
+</pre>
 
 </BODY>
 </HTML>

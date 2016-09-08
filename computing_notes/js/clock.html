@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+
+<meta charset="utf-8">
+
+<!--
+<link rel="stylesheet" href="css/styles.css">
+-->
+
+<title>Digital Clock</title>
+
+
+<style>
+body    
+{
+        font-family: Verdana, sans-serif; font-size:0.8em;
+}
+
+#clock
+{
+    font: bold 24pt sans-serif;
+    background: #ddf;
+    padding: 10px;
+    border: solid black 2px;
+}
+</style>
+
+<script>
+function display_time ()
+{
+    var x = document.getElementById("clock");
+
+    var now = new Date();
+
+    x.innerHTML = now.toLocaleTimeString();
+
+    setTimeout(display_time, 1000);
+}
+
+window.onload = display_time;
+</script>
+
+
+</head>
+
+<body>
+<h1>Digital Clock</h1>
+<span id="clock"></span>
+
+</body>
+</html>
+
