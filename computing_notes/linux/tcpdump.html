@@ -1,0 +1,35 @@
+<HTML>
+
+<HEAD>
+<TITLE>tcpdump</TITLE>
+<link rel="stylesheet" href="../../css/default.css">  
+</HEAD>
+  
+<BODY>
+
+<H1>tcpdump</H1>
+
+<ul>
+<li>capture/dump network traffic
+<li>Example: save packet data to file. Rotate file every 60 seconds
+<pre>
+# -n - numeric. do not convert addresses, port numbers, etc. to names
+# -i - interface to listen on. e.g. 'eth0', 'wlan0', etc. Usually defaults to all traffic minus loopback and tunnel interfaces. 
+#      Wildcard 'all' can be specified to capture all including loopback and tunnel interfaces
+# -w &lt;filename&gt; - save packet data to specified file. 
+# -G &lt;n seconds&gt; - rotate file every n seconds 
+
+tcpdump -n -i wlan0 -w '/home/pi/tcpdump/tcpudmp.w.%Y%m%d_%H%M%S' -G 60
+</pre>
+<li>Example: convert binary packet file to ascii
+<pre>
+# -q - quick mode (less infomation is printed)
+# -r &lt;file&gt; - read packets from file 
+
+tcpdump -n -q -i wlan0 -r &lt;filename&gt;
+</pre>
+</ul>
+
+</BODY> 
+</HTML>
+  

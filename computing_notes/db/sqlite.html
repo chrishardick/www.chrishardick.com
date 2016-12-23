@@ -1,0 +1,64 @@
+<HTML>
+<HEAD><TITLE>SQLite</TITLE></HEAD>
+  
+<link rel="stylesheet" href="../../css/default.css">  
+
+<BODY>
+
+<H1>SQLite</H1>
+
+<h2>SQL</h2>
+
+<h3>CREATE TABLE</h3>
+<ul>
+<pre>
+CREATE TABLE tablename (column-name column-type, column-name column-type, ...)
+</pre>
+<li>Example(s):
+<pre>
+CREATE TABLE data (src varchar(50),dest varchar(50),proto varchar(10),num_pkts int, num_bytes int, timestamp varchar(25))
+</pre>
+</ul>
+
+<h3>CREATE INDEX</h3>
+<ul>
+<pre>
+CREATE [UNIQUE] INDEX index-name ON table-name (indexed-column [ASC|DESC], indexed-column [ASC|DESC], ...)
+</pre>
+<li>Example(s):
+<pre>
+CREATE UNIQUE INDEX src_dest_proto_timestamp ON data (src, dest, proto, timestamp)
+</pre>
+</ul>
+
+<h3>INSERT</h3>
+<ul>
+<pre>
+INSERT INTO table-name (column-list) VALUES (value-list)
+</pre>
+<li>Example(s):
+<pre>
+INSERT INTO data (src,dest,proto,num_pkts,num_bytes,timestamp) VALUES (...)
+</pre>
+</ul>
+
+<h3>UPDATE</h3>
+<ul>
+<pre>
+UPDATE table-name SET col1=expr1,col2=expr2,... [WHERE expr]
+</pre>
+<li>Example(s):
+<pre>
+INSERT INTO data (src,dest,proto,num_pkts,num_bytes,timestamp) VALUES (...)
+</pre>
+</ul>
+
+<h2>Command Line Shell -- sqlite3</h2>
+<ul>
+<li>.tables -- show tables
+<li>.schema -- show table schemas
+<li>CTRL-D to exit
+</ul>
+
+</BODY> 
+</HTML>
