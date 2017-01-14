@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Python - Modules</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="../../css/default.css">  
+
+</head>
+
+<body>
+
+<header>
+<h1>Modules</h1>
+</header>
+
+<ul>
+<pre>
+import sys
+
+sys.path.append("/my/directory")
+
+import abc
+
+abc.foo()
+</pre>
+<li>E.g. a library
+<li>The filename is the module name with the .py suffix
+<li>A module can contain executable statements as well as function definitions. The statements are intended to initialize module. They are executed only the 1st time the module is enountered in an import statement.
+<li>Each module has its own private symbol table
+<li>You can use the <strong>import</strong> statement to import a module.
+<li>Once you import a module, you can access the module's functions and global variables, by using the 'module.' prefix
+<li>Module Search Path
+    <ul>
+    <li>When a module is imported, the interpreter 1st searches for a built in module with the given name. If not found, it searches for the module in the directories listed in sys.path. 
+    <li>You may have to modify the contents of sys.path -- see example above
+    </ul>
+</ul>
+
+<footer>
+<p>&copy; 2016 Chris Hardick. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+

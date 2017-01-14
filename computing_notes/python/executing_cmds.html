@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Python</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="../../css/default.css">  
+
+</head>
+
+<body>
+
+<header>
+<h1>Executing Commands</h1>
+</header>
+
+<h2>Executing External Commands</h2>
+<ul>
+<li>subprocess module
+
+<pre>
+import subprocess
+</pre>
+
+<li>run the command specified by args, returning the process return code
+
+<pre>
+subprocess.call(args, stdin=None,stdout=None,stderr=None,shell=False)
+
+# e.g.
+print subprocess.call(["echo" "hello, world!"])
+
+# produces
+0
+</pre>
+
+<li>run the command specified by args, returning its output as a byte string
+<pre>
+subprocess.check_output(args, stdin=None,stderr=None,shell=False,universal_newlines=False)
+
+# e.g.
+print subprocess.call(["echo" "hello, world!"])
+
+# produces
+hello, world!
+</pre>
+
+</ul>
+
+<footer>
+<p>&copy; 2016 Chris Hardick. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+

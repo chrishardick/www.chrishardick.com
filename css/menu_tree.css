@@ -4,6 +4,12 @@
  * chris hardick
  **********/
 
+BODY      
+{ 
+    font-family: "trebuchet ms", serif;
+    white-space: normal;
+}
+
 /* all links in menu tree will be navy */
 a
 {

@@ -63,8 +63,38 @@ At boot-time, it's read to determine where the OS (or OS's) are located (which p
 mount -t ext2 /dev/hda2 /mnt</PRE>
 </UL>
 
+<H3>Mounting a Window's Hard Drive in Linux</H3>
 
-<H2>IV. Unmounting File Systems</H2>
+<H4>Determine the Drive Name</H4>
+<ul>
+<li>As root: <code>fdisk {name of drive}</code>
+<li>Drive Name Examples:
+	<UL>
+	<LI>/dev/hda --> 1st IDE Hard Drive</LI>
+	<LI>/dev/hdb --> 2nd IDE Hard Drive</LI>
+	<LI>/dev/sd0 --> 1st SCSI Hard Drive</LI>
+	<LI>/dev/sd1 --> 2nd SCSI Hard Drive</LI>
+	</UL>
+</ul>
+
+<H4><LI>Determine which Partition you want to mount</LI></H4>
+<ul>
+<li>In fdisk, enter 'p' to print the partition table
+</ul>
+
+<H4>Mount the drive</H4>
+<ul>
+<li>mount -t vfat -r/dev/hda1 /DirectoryName
+    <ul>
+    <li>NOTES:
+    <LI>t --> Drive Type</LI>
+    <LI>r --> Drive Partition</LI>
+    <LI>hda1 is used for illustrative purposes</LI>
+    <LI>The directory MUST exist before a drive (or partition) can be mounted to it</LI>
+    </ul>
+</ul>
+
+<H3>IV. Unmounting File Systems</H3>
 <UL>
 <LI>Synchronizes System Buffers with Actual Contents on Disk
 <LI>Makes file system no longer available

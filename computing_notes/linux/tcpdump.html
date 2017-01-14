@@ -18,6 +18,7 @@
 #      Wildcard 'all' can be specified to capture all including loopback and tunnel interfaces
 # -w &lt;filename&gt; - save packet data to specified file. 
 # -G &lt;n seconds&gt; - rotate file every n seconds 
+# -z &lt;postrotate-command&gt; -- Used with -C or -G, will execute 'postrotate-command file' -- once each file is generated
 
 tcpdump -n -i wlan0 -w '/home/pi/tcpdump/tcpudmp.w.%Y%m%d_%H%M%S' -G 60
 </pre>

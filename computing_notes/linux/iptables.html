@@ -10,20 +10,19 @@
 
 <ul>
 <li>Linux firewall
-<li>Also provides NAT (Network Address Translation)
 <li>Works via packet filtering
 <li>More aptly called Iptables/Netfilter
-<li>Iptables is the userspace module
-<li>Netfilter is the kernel module
-<li>Iptables allows you to places rules into 3 predefined chains (INPUT, OUTPUT and FORWARD)
-<li>The rules are checked against network traffic (IP packets) and a decision is is made as to what action to take with each packet -- basically DROP or ACCEPT
+<li>Iptables is the userspace module. Netfilter is the kernel module
+<li>Iptables breaks down into tables which are pre-defined. Each table has chains (both user and pre-defined), and each chain has a rule set which is an ordered set of rules
+<li>The type of traffic defines which tables and pre-defined chains are consulted. The network traffic (IP packets) are then checked against the appropriate rule sets and a decision is is made as to what action to take with each packet -- which usually breaks down to either DROP or ACCEPT
 <li>The actions are known as targets. 
+<li>Also provides NAT (Network Address Translation) -- which allows you to modify the source or destination addresses. See below.
 </ul>
 
 <h2>USEFUL COMMANDS</h2>
 <ul>
-<li><code>iptables -L -nv --line-numbers</code> -- show currently loaded rules (-n to avoid dns lookups and display ip addresses, -v for verbose which will display byte and packet counts) 
-<li><code>rpm -q iptables</code> -- check if iptables is installed on the given RH or CentOS linux machine
+<li><code>iptables -L [chain] -nv --line-numbers -Z</code> -- show currently loaded rules for specified chain (or all chains. -n to avoid dns lookups and display ip addresses, -v for verbose which will display byte and packet counts. -Z will atomically display and zero out byte counts
+<li><code>iptables -S [chain] -v</code> -- print  all  rules  in  the  selected chain in iptables-save format.  If no chain is selected, all chains are printed. -v for byte counts
 <li><code>lsmod | grep ip_tables</code> -- check if iptables module is loaded
 <li><code>ismod ip_tables</code> -- if your kernel has iptables support as a module and you need to load it
 </ul>
@@ -80,35 +79,35 @@
 
 <h3>Options to Manage an Entire Chain</h3>
 <ul>
-<li>-N &lt;chain&gt; - create a new chain 
-<li>-X &lt;chain&gt; - delete an empty chain 
-<li>-E &lt;old-chain&gt; &lt;new-chain&gt; - rename chain
-<li>-X &lt;chain&gt; - delete an empty chain
-<li>-P &lt;chain&gt; - change the policy for a built-in chain???
-<li>-L - list the rules for a chain. When specifying -L, useful options are -n, -v, and -x. -n (numeric) causes iptables to print ip addresses rather than making remote calls to DNS which can be slow. It also causes port numbers to be displayed -- rather than a port name. -v (verbose) causes iptables to print out packet and byte counters (by default K, M, and G are used to kilobyte, megabyte and gigabyte -- use -x to display actual numbers).
-<li>-F - flush the rules 
-<li>-Z - zero packet and byte counters for all rules of the chain. You may want to use -L together with -Z such that you get an accurate count and reset the numbers atomically
+<li><code>-N chain</code> - create a new chain 
+<li><code>-X chain</code> - delete an empty chain 
+<li><code>-E old-chain new-chain</code> - rename chain
+<li><code>-X chain</code> - delete an empty chain
+<li><code>-L [chain]</code> - list the rules for a chain. Useful options are -n, -v, and -x. -n (numeric) causes iptables to print ip addresses rather than making remote calls to DNS which can be slow. It also causes port numbers to be displayed -- rather than a port name. -v (verbose) causes iptables to print out packet and byte counters (by default K, M, and G are used to kilobyte, megabyte and gigabyte -- use -x to display actual numbers).
+<li><code>-P chain target</code> - set default policy for given chain. Only pre-defined chains can have default policy and default policies cannot be another chain -- i.e. must be ACCEPT, DROP
+<li><code>-F [chain]</code>- flush (remove) rules in the specified chain
+<li><code>-Z [chain [rule-number]]</code> - zero packet and byte counters for the specified chain [and rule]. Defaults to all rules of all chains. Use together with -L to atomically report and reset the numbers
 </ul>
 
 <h3>Options to Manage Rules of a Chain</h3>
 <ul>
-<li>-A - append rule to the end of the selected chain
-<li>-I - insert rule at specified rule number. 1 is the default rule number. i.e. 1st rule in the list (highest priority)
-<li>-D - delete rule
-<li>-R - replace rule
+<li><code>-A chain rule-specification</code> - append rule to the end of the selected chain
+<li><code>-I chain [rule#] rule-specification</code> - insert rule at specified rule number. 1 is the default rule number. i.e. 1st rule in the list (highest priority)
+<li><code>-D chain rule#</code> delete rule
+<li><code>-R chain rule# rule-specification</code> - replace rule
 </ul>
 
 <h3>Options to Manage a Rule -- Selectors & Actions</h3>
 <ul>
-<li>-i [!] &lt;in interface&gt; - lo (loopback), eth0, ... . An interface name ending with '+' will match all interfaces which begin with that string (e.g. eth+) .  (! negates)
-<li>-o [!] &lt;out interface&gt; - see comments under in interface
-<li>-p [!] &lt;protocol&gt; - ICMP, TCP, UDP. Case insensitive (! negates)
-<li>-s [!] &lt;source IP address[/mask]&gt; - source IP address. do not use a name which needs to be looked up via remote call (e.g DNS). mask can either be a network mask (e.g. 255.255.255.0) or a plain number (e.g. 24), where the plain numbe is the number of 1's in the left side of the network mask. Whereby the mask specifies which part of the IP address are significant (! negates)
-<li>-d [!] &lt;destination address[/mask]&gt; - destination address. see comments under source IP address. 
-<li>--sport &lt;port&gt; -- source port
-<li>--dport &lt;port&gt; -- destination port
-<li>-f -- the rule only applies to the 2nd or later fragments. See section on fragments below.
-<li>-j &lt;action&gt; -- where by action is usually either ACCEPT or DROP
+<li><code>-i [!] in interface</code> - lo (loopback), eth0, ... . An interface name ending with '+' will match all interfaces which begin with that string (e.g. eth+) .  (! negates)
+<li><code>-o [!] out interface</code> - see comments for in interface
+<li><code>-p [!] protocol</code> - ICMP, TCP, UDP. Case insensitive (! negates)
+<li><code>-s [!] source IP address[/mask]</code> - source IP address. do not use a name which needs to be looked up via remote call (e.g DNS). mask can either be a network mask (e.g. 255.255.255.0) or a plain number (e.g. 24), where the plain numbe is the number of 1's in the left side of the network mask. Whereby the mask specifies which part of the IP address are significant (! negates)
+<li><code>-d [!] destination address[/mask]</code> - destination address. see comments under source IP address. 
+<li><code>--sport port</code> -- source port
+<li><code>--dport port</code> -- destination port
+<li><code>-f -- the rule only applies to the 2nd or later fragments. See section on fragments below.
+<li><code>-j action</code> -- action: ACCEPT, DROP, another chain name
 </ul>
 
 <h2>MODULES</h2>
@@ -124,8 +123,8 @@
 
 <h2>User Defined Chains</h2>
 <ul>
-<li>With iptables (like its predecessor, iptables), allows you to create user-defined chains. 
-<li>Usually this is done, to group related rules together
+<li>Iptables (like its predecessor, ipchains), allows you to create user-defined chains. 
+<li>Usually this is done to group related rules together
 <li>User-defined chains names must be &lt;= 31 characters and by convention are usually lowercase 
 <li>When a packet matches a rule whose target is a user defined chain, the packet traverses the rules of the user defined chain
 <li>If no rules of the chain match the packet, traversal resumes on the next rule of the current chain.
@@ -141,11 +140,6 @@
 <li>Sometimes, a packet is too large and it gets split into fragments
 <li>When this happens, only the initial fragment has the complete header
 <li>If you are doing NAT or are working with the INPUT chain, then all fragments will be merged into the origial packet before reaching the packet filtering engine
-</ul>
-
-<h2>NAT</h2>
-<ul>
-
 </ul>
 
 <h2>SET UP BASIC FIREWALL</h2>

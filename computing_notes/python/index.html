@@ -4,13 +4,7 @@
 <title>Python</title>
 <meta charset="utf-8">
 
-<style>
-body    
-{
-    font-family: Verdana, sans-serif; 
-    font-size:0.8em;
-}
-</style>
+<link rel="stylesheet" href="../../css/default.css">  
 
 </head>
 
@@ -20,7 +14,7 @@ body
 <h1>Python</h1>
 </header>
 
-<h2>Misc</h2>
+<h2>Introduction</h2>
 <ul>
 <li>Like most scripting languages, variables in Python are untyped
 <li>Unlike most computer languages, white space matters. Rather than using brackets to denote the beginning and end of control structures, functions, classes, etc. the body of the block in question is denoted via indention
@@ -35,32 +29,45 @@ else:
 </ul>
 
 <h2>Hello, World!</h2>
-<li>The best way to start any new computer language is with "Hello, World!"
+<li>As always, the best way to start any new computer language is with a "Hello, World!" program
 <pre>
 #!/usr/bin/python
 
 print "Hello, World!"
-
-x=5
-y=10
-
-print x,' ',y
 </pre>
 
 <h2>Comments</h2>
 <ul>
-<li>start via pound sig (#) and continue until the end of line
+<li>start with a pound sig (#) and continue until the end of line
 </ul>
 
 <h2>Variables</h2>
 <ul>
-<li>Like most scripting languages, variables in Python are untyped -- they can hold integers, floating point numbers, strings, boolean, etc.
+<li>Like most scripting languages, variables in Python are untyped -- they can hold integers, floating point numbers, strings, booleans, etc.
 </ul>
 
 <h2>Strings</h2>
 <ul>
-<li>Strings can be defined using double or single quotes
-<pre>s = "Hello, World!"</pre>
+<li>Strings can be defined using either double or single quotes
+<pre>
+s = "Hello, World!"
+s1 = 'hello, world!'</pre>
+<li>String literals can also be defined using triple quotes -- which make it easier to define multi-line string literals (newlines will be included)
+<pre>
+print '''line 1
+line 2
+line 3
+line 4'''
+
+# equivalent
+print 'line 1\nline 2\nline 3\nline4'
+
+both produce:
+line 1
+line 2
+line 3
+line 4
+</pre>
 <li>You may be access individual characters of a string via indexing (square brackets). Like C/C++, indexing starts from 0 (zero)
 <pre>print s[0] # H</pre>
 <li>Slicing</li>
@@ -116,6 +123,7 @@ print len(days)    # would print out 7
 <h3>List methods</h3>
 <ul>
 <li><code>list.append(x)</code> - add an item (or items) to the end of the list
+<li><code>list.clear()</code> - remove all items from list
 <li><code>list.insert(i,x)</code> - insert an item (or items) to the list at position i. All subsequent items are moved down
 <li><code>list.remove(x)</code> - remove the 1st item from the list whose value is x
 <li><code>list.pop([i])</code> - remove the item at the specified position in the list and return it. i defaults to the last item in the list
@@ -222,6 +230,53 @@ foo (5)
 </pre>
 <li>functions are defined with the keyword def, followed by the function name, followed by a list of parameters surrounded by paranthesis, followed by a colon (:)
 <li>functions must be defined before they are called. I.e. it is not legal to call a function which is defined later in the same source code
+</ul>
+
+<h2>Command Line Arguments</h2>
+<ul>
+<pre>
+import sys
+
+# my_test.py
+#
+# if run as: my_test.py this is a test
+
+# sys.argv is ['my_test.py', 'this', 'is', 'a', 'test']
+print "sys.argv is ", sys.argv
+
+# num args is 5
+print "num args is ", len(sys.argv)
+</pre>
+<li><code>sys.argv</code> is the list of command line arguments
+<li><code>len(sys.argv)</code> is the # of command line arguments (including the executing script)
+<li><code>sys.argv[0]</code> is the name of the executing script
+</ul>
+
+<h2>Command Line Options</h2>
+<ul>
+<pre>
+# usage: my_test2.py [-h] [-i input]
+
+import sys, getopt
+
+in_file = ""
+
+# opts - list of (option, value) pairs where option will be user specified option (prepended with '-')
+# args - remaining command line arguments
+opts, args = getopt.getopt(argv,"hi:")
+
+for opt,arg in opts:
+    if opt == '-h':
+        usage()
+        sys.exit()
+
+    elif opt == '-i':
+        in_file = arg
+
+print "in_file: ", in_file
+print "remaining args: ", args
+</pre>
+<li>
 </ul>
 
 <h2>Files</h2>
@@ -372,12 +427,32 @@ class SubClass (ParentClass1[,ParentClass2, ...]:
 </ul>
 </ul>
 
-<h2>JSON</h2>
+<h2>Dates & Times</h2>
 <ul>
-<li>json module
 <pre>
-import json
+import datetime
+
+today = datetime.today()
 </pre>
+</ul>
+
+<h2>Exceptions</h2>
+<ul>
+<pre>
+try:
+    if input &gt; 500:
+        raise RuntimeError("sorry -- that's too large :-(")
+
+except RuntimeError as e:
+    print "Exception Occurred. ", e.value
+
+except:     # catch all exceptions
+
+else:       # executed if no exceptions trigger -- you cannot use both else and finally
+
+finally:    # always executed -- you cannot use both else and finally 
+</pre>
+
 </ul>
 
 <h2>Regular Expressions</h2>
@@ -414,7 +489,7 @@ Appending a <code>?</code> after <code>'*', '+', '?'</code> produces a non-greed
 <h3>search Function</h3>
 <ul>
 <pre>
-# returns: a match object on success, none on failure
+# returns: a MatchObject on success, none on failure
 # 
 # use group(num=0) to return the matched portion of the string or specify a number to return a specific saved string (see () above)
 #
@@ -560,6 +635,25 @@ conn.close()
 </pre>
 </ul>
 
+<h2>JSON</h2>
+<ul>
+<li>json module
+<pre>
+import json
+</pre>
+</ul>
+
+<h2>GUID</h2>
+
+<ul>
+<pre>
+import uuid
+
+def guid ():
+    u = uuid.uuid4()
+    return str(u)
+</pre>
+</ul>
 
 <footer>
 <p>&copy; 2016 Chris Hardick. All rights reserved.</p>

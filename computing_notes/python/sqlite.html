@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Python</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="../../css/default.css">  
+
+</head>
+
+<body>
+
+<header>
+<h1>Sqlite</h1>
+</header>
+
+<ul>
+
+<li>sqlite3 module
+
+<pre>
+import sqlite3
+
+# create Connection object
+# - if the db does not yet exist, it will be created for you
+conn = sqlite3.connect('demodb')
+
+# create Cursor object
+c = conn.cursor()
+
+# use c.fetchone() to retrieve the next row of a query set result as a tuple or None when no more data is available
+# use c.fetchall() to get a list of all (remaining) rows -- returns a list of tuples. An empty list is returned when no rows are available
+
+# you can also treat the cursor as an iterator
+
+for row in c.execute('select a,b,c from foo'):
+    print row
+   
+# commit changes
+conn.commit()
+
+# close the connection
+conn.close()
+</pre>
+</ul>
+<footer>
+<p>&copy; 2016 Chris Hardick. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+

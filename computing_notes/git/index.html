@@ -10,7 +10,7 @@
 
 <h1>Git</h1>
 
-<h2>Per User Config</h2>
+<h2>Configuration</h2>
 
 <ul>
 <li><code>~/.gitconfig</code>
@@ -20,8 +20,13 @@
 <h2><code>git init</code></h2>
 
 <ul>
-<li>go to or create a directory
-<li><code>git init</code>
+<li>Create git repository
+<li><code>git init [--bare]</code>
+<li>Use the bare option to create a bare repository (as opposed to a working repository)
+<li>Central repositories should be created as bare repositories.
+Bare directories do not contain working (i.e. checked out) versions of the files. 
+They also store the git revision history in the root folder rather than in the .git subdirectory.
+By convention, bare repositories are normally named with .git extension
 </ul>
 
 <h2><code>git clone</code></h2>
@@ -31,6 +36,10 @@
 <li>Clone repository (will make directory for you)
 <li>You will have one branch (master). run <code>git branch</code> to verify
 <li>You never want to work in the master branch -- you essentially want to treat it as read-only
+<li>Examples:
+<pre>
+git clone ssh://john.smith@smith.com:[port]/dir
+</pre>
 </ul>
 
 <h2><code>git checkout</code></h2>
@@ -53,6 +62,12 @@
 
 <ul>
 <li>display a list of all branches
+</ul>
+
+<h2>Diffs</h2>
+<ul>
+<li>Diff against master -- see handy script listed below
+<pre>git difftool --extcmd="diff -w" --no-prompt master &lt;file&gt; &gt;file.diff 2&gt;&1</pre>
 </ul>
 
 <h2><code>git add</code></h2>
@@ -92,8 +107,8 @@
 
 <h3>Merge Changes -- Development Branch</h3>
 <ul>
-<li><code>git checkout &lt;branch&gt; # e.g. dev. switch to your development branch
-<li><code>git rebase master # merge changes into your dev branch
+<li><code>git checkout &lt;branch&gt; # e.g. dev. switch to your development branch</code>
+<li><code>git rebase master # merge changes into your dev branch</code>
 </ul>
 
 <h3>Merge Changes -- Master Branch</h3>
@@ -107,6 +122,34 @@
 <li><code>git push</code>
 </ul>
 
+<h2>Appendix</h2>
+<ul>
+<li>Handy diff script -- mygitdiff.sh
+<pre>
+for file in $@
+do
+    if [ -f ${file}.diff ]; then
+        cmd="mv ${file}.diff ${file}.diff.sav.`date +%Y%m%d%H%M%S`"
+        echo "${cmd}"
+        echo ""
+        $cmd
+    fi
+
+echo "==================================================" &gt;$file.diff
+date                                                      &gt;&gt;$file.diff
+echo ""                                                   &gt;&gt;$file.diff
+echo "$file.diff"                                         &gt;&gt;$file.diff
+echo ""                                                   &gt;&gt;$file.diff
+echo "DIR: $PWD"                                          &gt;&gt;$file.diff
+echo ""                                                   &gt;&gt;$file.diff
+echo "OUTPUT BY ${0}"                                     &gt;&gt;$file.diff
+echo ""                                                   &gt;&gt;$file.diff
+echo "==================================================" &gt;&gt;$file.diff
+echo ""                                                   &gt;&gt;$file.diff
+
+git difftool --extcmd="diff -w" --no-prompt master $file &gt;&gt;$file.diff 2&gt;&1
+done
+</pre>
 
 </body> 
 </html>

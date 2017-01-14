@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Python - List</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="../../css/default.css">  
+
+</head>
+
+<body>
+
+<header>
+<h1>List</h1>
+</header>
+
+<ul>
+<pre>
+days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+</pre>
+<li>Similar to a vector in C++ -- I believe look-up is in constant time
+<li>A list is written as a list of comma separated values between square brackets
+<li>You can access individual elements via indexing (square brackets). Lists are indexed from 0 (zero)
+<pre>
+days[3]='Humpday'
+</pre>
+<li>You can get the length of a list using the <strong>len</strong> function.
+<pre>
+print len(days)    # would print out 7
+</pre>
+</ul>
+
+<h3>List methods</h3>
+<ul>
+<li><code>list.append(x)</code> - add an item (or items) to the end of the list
+<li><code>list.clear()</code> - remove all items from list
+<li><code>list.insert(i,x)</code> - insert an item (or items) to the list at position i. All subsequent items are moved down
+<li><code>list.remove(x)</code> - remove the 1st item from the list whose value is x
+<li><code>list.pop([i])</code> - remove the item at the specified position in the list and return it. i defaults to the last item in the list
+</ul>
+
+<footer>
+<p>&copy; 2016 Chris Hardick. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+
