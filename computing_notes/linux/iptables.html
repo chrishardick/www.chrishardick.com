@@ -13,7 +13,7 @@
 <li>Works via packet filtering
 <li>More aptly called Iptables/Netfilter
 <li>Iptables is the userspace module. Netfilter is the kernel module
-<li>Iptables breaks down into tables which are pre-defined. Each table has chains (both user and pre-defined), and each chain has a rule set which is an ordered set of rules
+<li>Iptables breaks down into tables (which are pre-defined). Each table has chains (both user and pre-defined), and each chain has a rule set which is an ordered set of rules
 <li>The type of traffic defines which tables and pre-defined chains are consulted. The network traffic (IP packets) are then checked against the appropriate rule sets and a decision is is made as to what action to take with each packet -- which usually breaks down to either DROP or ACCEPT
 <li>The actions are known as targets. 
 <li>Also provides NAT (Network Address Translation) -- which allows you to modify the source or destination addresses. See below.

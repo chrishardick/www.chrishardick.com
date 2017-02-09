@@ -12,21 +12,14 @@
 
 <h2>What is a shell?</h2>
 
-<p>A shell is a text (or character or command based) user interface (UI) for an operating
-system (UNIX or Linux in this case); there are many to choose from.
-A UI for an operating system allows you to interact with the operating
-system; e.g. to start and control programs (which could be UNIX utilities, your Java program, your native C/C++ code, or a
-shell script), access files, etc.  Examples of UNIX Shells are: the Bourne
-Shell, the BASH Shell (Bourne Again Shell), the C Shell, the Korn Shell, etc.
-The fact that there are many shells does allow a UNIX/Linux user to customize their environment, however
-it also causes problems when porting scripts over to other UNIX platforms.  
-The reason for so many popular shells is that some shells started out as being better than others at doing certain operations.  
-For example, shell scripting was normally done in the Bourne Shell; while a lot of users used to set their default
-shell to be the C Shell.  This is because the Bourne Shell proved to be the more reliable for shell scripting 
-while the C Shell provides several features which allow for easier command line usage.  But now, with the 
-advancement of shells, such as BASH and the extended C Shell, many users have decided to use the same shell for both
-writing shell scripts and as a command line environment.  BASH has become the standard Linux Shell and is the more
-popular environment for shell scripting.</p>
+<p>A shell is a text based user interface (UI) for an operating system (UNIX or Linux in this case). 
+A UI for an operating system allows you to interact with the operating system; e.g. to start and control programs 
+(which could be UNIX utilities, your Java program, your native C or C++ code, or a shell script), access files, etc.  
+Examples of UNIX Shells are: the Bourne Shell, the BASH Shell (Bourne Again Shell), the C Shell, the Korn Shell, etc.
+The fact that there are many shells is an example of how a UNIX/Linux user can customize their environment.
+Historically, different shells had different strengths. For example, the Bourne Shell was best for scripting. While the
+C Shell was better for interactive operation (at the command line). However, with the advancement of shells (i.e. BASH, 
+extended C Shell), this is no longer the case. BASH has become the standard shell across most (if not all) Linux/UNIX flavors
 
 <p>The BASH Shell is an evolutionary successor to the Bourne Shell (hence the Bourne Again Shell); 
 therefore you can execute your existing Bourne Shell scripts using BASH without a loss of functionality or worrying
@@ -39,7 +32,6 @@ sending the command to the operating system.  One thing that happens is Pathname
 Pathname Extension takes place when you use wildcards.  BASH will expand the wildcards to match
 filenames (or more generally pathnames).The wildcards which BASH recognizes are as follows:</p>
 
-<center>
 <table border=1 cellpadding=5>
 <tr>
 <th>Wildcard</th>
@@ -67,7 +59,6 @@ filenames (or more generally pathnames).The wildcards which BASH recognizes are 
 <tr>
 
 </table>
-</center>
 
 <p>If you do not want the shell to interpret and expand the wildcards into filenames 
 (or pathnames) shown above, you must quote them--see below.  The important thing to realize is that the
@@ -186,22 +177,18 @@ Standard UNIX Scripting Practice is to indicate on the first line of the file, t
 execute the script.  This is know as She-Bang Notation, and it is very important.  Without it, if you run the C Shell
 as your standard shell, and you wish to do bash shell programming, you have to do the following at the command line:
 
-<font face=courier>
 <pre>
 bash FileName 
 </pre> 
-</font>
 
 This states that bash should be used to execute your script.  The following is an example of she-bang notation.  Remember,
 she-bang notation must be used on the first line of the script; on any other line, it would be interpreted as a comment!
 With she-bang notation, the shell in which you're in when you execute the script does not matter; bash will always be used
 to execute your script.
-<font face=courier>
 <pre>
 #!/bin/bash
 ##  The line above is she-bang notation; if your path to bash is different simply alter the above.
 </pre> 
-</font>
 </p>
 
 <h2>Comments</h2>

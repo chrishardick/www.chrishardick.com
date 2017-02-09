@@ -1,0 +1,104 @@
+<HTML>
+
+<HEAD>
+<TITLE>sudo</TITLE>
+<link rel="stylesheet" href="../../css/default.css">  
+</HEAD>
+  
+<BODY>
+
+<H1>sudo</H1>
+
+<ul>
+<li>Originally named for 'superuser do'
+<li>Allows you to execute a command as another user
+<li>As opposed to <code>su</code>, users specify their own password, as opposed to the password of the user they're acting on behalf of
+<li>The sudo config file is <code>/etc/sudoers</code>
+<li>As a correct sudoers file is very important for the system, you should edit the sudoers file with <code>visudo</code>. It insures correctness before applying changes.
+</ul>
+
+<h2>sudoers File</h2>
+<ul>
+<li>Typically <code>/etc/sudoers</code>
+<li>Use <code>visudo</code> to edit. It insures correctness before applying changes
+<li>1st - set up aliases
+<li>2nd - set up user specifications
+<li>If there are multiple matches, the last match takes affect.
+</ul>
+
+<h3>Aliases</h3>
+<ul>
+<li>There are 4 types of aliases
+    <ul>
+    <li>User_Alias
+    <li>Runas_Alias
+    <li>Host_Alias
+    <li>Cmd_Alias
+    </ul>
+<li>They all have the form: <code>Alias_Type NAME = item1, item2, ...</code>
+<li>You can put several aliases of the sam type on the same line separated by a colon:
+<li><code>Alias_Type NAME1 = item1, item2 : NAME2 = item3 : ...</code>
+</ul>
+
+<h4>User Aliases</h4>
+<ul>
+<li>Used to specify a group of users
+<li>You can specify a UNIX user group by prefixing the name with a %. 
+<li>E.g. <code>%users</code> is the users UNIX users group
+<li>You can exclude a group by prepending the name with a !.
+<li>E.g. <code>!ADMINS</code> excludes the ADMINS group
+<pre>
+User_Alias ADMINS = chris, tom, ed
+
+# regular users -- %users = th
+User Alias REG_USERS = %users, !ADMINS
+</pre>
+</ul>
+
+<h4>Runas Aliases</h4>
+<ul>
+<li>Specified similar to user aliases except you're allowed to specify users by UID
+</ul>
+
+<h4>Host Aliases</h4>
+<ul>
+<li>List of host names, IP addresses, networks
+</ul>
+
+<h4>Command Aliases</h4>
+<ul>
+<li>List of commands, directories
+<li>If you specify a directory, it will include any file in that directory, but not any sub directories.
+</ul>
+
+<h3>User Specifications</h3>
+<ul>
+<li>Where you specify who can run what as which user
+<li><code>&lt;user list&gt; &lt;host list&gt; = &lt;operator list&gt; &lt;tag list&gt; &lt;command list&gt;</code>
+<li>An <strong>operator</strong> is the user you're taking the action on behalf of. 
+<li>You can use a <strong>Runas Alias</strong> to specify an operator
+<li>The <strong>Tag List</strong> allows you to specify options. Here are some supported options:
+    <ul>
+    <li><code>PASSWD</code> - require password
+    <li><code>NOPASSWD</code> - do not require password
+    <li><code>NOEXEC</code> - prevent shell launching
+    </ul>
+</ul>
+
+<h3>Typical Sudoers File</h3>
+<pre>
+# reset terminal environment after switching to root
+(Defaults env_reset)
+
+# root can run anything on any host - password required
+root ALL = (ALL) ALL
+
+# similar for admins
+%admin ALL = (ALL) ALL
+
+apache ALL = (ADMIN) NOPASSWD,NOEXEC /path/to/script 
+</pre>
+
+</BODY> 
+</HTML>
+  

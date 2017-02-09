@@ -15,12 +15,57 @@
 </header>
 
 <ul>
+<li>Python supports <strong>naive</strong> and <strong>aware</strong> date, time and datetime objects. The former do not have timezone information set, the latter does.
+</ul>
+
+<h2>class <code>datetime.datetime</code></h2>
+
+<ul>
+<li>attributes:
+    <ul>
+    <li><code>year</code>
+    <li><code>month</code> -- 1-12
+    <li><code>day</code> - 1 - # days in the month
+    <li><code>hour</code> - 0-23
+    <li><code>minute</code> - 0-59
+    <li><code>second</code> - 0-59
+    <li><code>microsecond</code> 0 - 999,999
+    <li><code>tzinfo</code> -- instance of <code>tzinfo</code> subclass 
+    </ul>
+<li>Constructors:
+    <ul>
+    <li><code>datetime.datetime(year,month,day[,hour[,minute[,second[,microsecond[,tzinfo]]]]])</code>
+    <li><code>datetime.today()</code> - return datetime object loaded with current date/time with <code>tzinfo</code> equal to <code>None</code>
+    <li><code>datetime.now(tz)</code> - return datetime object with <code>tzinfo</code> info -- not covered
+    <li><code>datetime.utcnow()</code> - return datetime object loaded with current UTC date/time with <code>tzinfo</code> equal to <code>None</code>
+    <li><code>datetime.fromtimestamp(timestamp,tz)</code> - where timestamp is seconds since epoch - as returned from <code>time.time()</code>. If tz is None or not specified, the returned datetime will be in the platform's local date/time and the datetime is naive (tzinfo is not set)
+    <li><code>datetime.utcfromtimestamp(timestamp)</code> - where timestamp is seconds since epoch - as returned from <code>time.time()</code>
+    <li><code>datetime.strptime(date_string,format)</code> - return datetime corresponding to date_string in specified format</code>
+    </ul>
+<li>Example(s):
 <pre>
 import datetime
 
 today = datetime.today()
+
+dt = datetime.datetime.strptime(str,"%W %Y/%m/%d %H:%M:%S")
 </pre>
 </ul>
+
+<h2>class <code>datetime.timedelta</code></h2>
+
+<ul>
+<li>Constructor: <code>datetime.timedelta([days[,seconds[,microseconds[,milliseconds[,minutes[,hours[,weeks]]]]]]])</code>
+<li>Only days, seconds and microseconds are stored internally
+<li>Arguments may be integers or floats and may be positive or negative.
+<li>Example(s):
+<pre>
+import datetime
+
+dt = datetime.utcnow() - datetime.timedelta(hours=1)
+</pre>
+</ul>
+
 
 <footer>
 <p>&copy; 2016 Chris Hardick. All rights reserved.</p>

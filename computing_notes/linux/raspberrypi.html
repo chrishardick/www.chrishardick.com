@@ -1,0 +1,46 @@
+<html>
+<head>
+<title>Raspberry Pi</title>
+<link rel="stylesheet" href="../../css/default.css">  
+</head>
+  
+<body>
+
+<h1>Raspberry Pi</h1>
+
+<h2><code>~/.bashrc</code></h2>
+<ul>
+<li>at end, <code>set -o vi</code>
+</ul>
+
+<h2><code>.vimrc</code></h2>
+<ul>
+<li>see Vim page -- most important is to shut off vi compatible mode
+</ul>
+
+<h2>Set root password</code></h2>
+<ul>
+<li>This can get you out of tough jams. E.g. corrupt sudo file, etc.
+<code>sudo passwd</code>
+</ul>
+
+<h2>Enable SSH server</code>
+<ul>
+<li><code>sudo raspi-config</code>, advanced options, enable ssh server
+</ul>
+
+<h2>Installs</h2>
+<pre>
+sudo apt-get update
+
+# apache web server
+sudo apt-get install apache2
+
+# full vim (supports syntax highlighting)
+sudo apt-get install vim
+</pre>
+
+
+</body> 
+</html>
+  

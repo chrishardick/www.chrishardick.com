@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Python</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="../../css/default.css">  
+
+</head>
+
+<body>
+
+<header>
+<h1>Environment Variables</h1>
+</header>
+
+<ul>
+<li>os module
+
+<pre>
+import os
+
+# dictionary of all environment variables
+print os.environ
+
+# here is how you access environment variables
+# - will throw exception if not set
+print os.environ['MY_VAR']
+
+# similar -- but returns None, rather than throwing an exception
+print os.environ.get('MY_VAR')
+
+# similar -- with default value
+print os.environ.getenv('MY_VAR', default_value)
+</pre>
+
+</ul>
+
+<footer>
+<p>&copy; 2016 Chris Hardick. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+

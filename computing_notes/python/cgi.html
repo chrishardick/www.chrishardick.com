@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Python - CGI</title>
+<meta charset="utf-8">
+
+<link rel="stylesheet" href="../../css/default.css">  
+
+</head>
+
+<body>
+
+<header>
+<h1>CGI</h1>
+</header>
+
+<ul>
+<pre>
+import cgi
+
+print "Content-Type: text/html"
+print ""
+
+# useful for debugging
+import cgitb
+
+cgitb.enable()
+
+# log to file rather than log to http results.
+#cgitb.enable(display=0, logdir="/logfile/dir/")
+
+print "&lt;html&gt;"
+print "&lt;head&gt;...&lt;/head&gt;"
+print "&lt;/html&gt;"
+</pre>
+</ul>
+
+<h2>Retrieving Input</h2>
+<pre>
+form = cgi.FieldStorage()
+
+for f in form:
+    print f, form[f].value
+</pre>
+
+
+<footer>
+<p>&copy; 2016 Chris Hardick. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+

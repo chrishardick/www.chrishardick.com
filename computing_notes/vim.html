@@ -1,7 +1,5 @@
 <html>
 <head>
-<link rel="stylesheet" type="text/css" href="http://www.chrishardick.com/default.css" media="all" />  
-<link rel="stylesheet" type="text/css" href="http://www.chrishardick.com/css/notes.css" media="all" />  
 <title>VIM</title>
 </head>
   
@@ -15,12 +13,22 @@
 "vim initialization file
 "comments denoted from quotation mark (") to end of line
 
+"shut off vi compatible mode -- which some linux flavors enable
+set nocp
+
 
 "show line #'s
 set number
 
 "enable autoindentation; works off of the previous line
 set autoindent
+
+set expandtab
+set tabstop=4
+
+"syntax highlighting
+syntax on
+
 </pre>
 
 
@@ -35,9 +43,6 @@ set autoindent
 </ul>
 
 
-<br>
-<a href="../index.html">Back to Notes Home Page</a>
- 
 </body> 
 </html>
   

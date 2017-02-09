@@ -1,0 +1,68 @@
+<html>
+<head>
+<title>Apache HTTP Server</title>
+<link rel="stylesheet" href="../../css/default.css">  
+</head>
+
+<body>
+<h1>Apache HTTP Server</h1>
+
+<pre>
+# ServerRoot: top of the directory tree under which the server's 
+# configuration, error, and log files are kept
+ServerRoot "/etc/httpd"
+ServerRoot "/etc/apache2"
+
+# Dynamic Shared Object (DSO) Support
+LoadModules module_name modules/module_name.so
+
+# include config files
+# - relative to ServerRoot
+Include conf.d/*.conf
+
+# User/Group the server should run as
+User apache
+Group apache
+
+ServerAdmin chardick@optonline.net
+
+# DocumentRoot: directory out of which you will serve your documents
+# By default, all requests are taken from this directory, but
+# symbolic links and aiases may point to other locations.
+DocumentRoot "/var/www/html"
+
+&lt;Directory /&gt;
+    Options FollowSymLinks
+    AllowOverride None
+&lt;/Directory&gt;
+
+# this should be changed to whatever your DocumentRoot is set to
+&lt;Directory "/var/www/html"&gt;
+    ...
+&lt;/Directory&gt;
+
+ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"
+
+&lt;Directory "/var/www/cgi-bin"&gt;
+    AllowOverride None
+    Options None
+    Order allow,deny
+    Allow from all
+&lt;/Directory&gt;
+
+</pre>
+
+<ul>
+<li>restart server: <code>sudo service apache2 restart<code>
+</ul>
+
+
+<h2>TODO</h2>
+<ul>
+<li>what are server side includes (SSI) - does it wllow you to process content before sending to client?
+</ul>
+
+</body>
+ 
+</html>
+  

@@ -23,6 +23,7 @@ import sqlite3
 
 # create Connection object
 # - if the db does not yet exist, it will be created for you
+# - use ':memory:' for in memory database
 conn = sqlite3.connect('demodb')
 
 # create Cursor object

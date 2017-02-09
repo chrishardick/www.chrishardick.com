@@ -23,6 +23,9 @@ str3="ghi"
 
 print "str1=%5s str2=%10s str3=%20s" % (str1, str2, str3)
 
+# same thing -- but does not print newline -- unless you explicitly ask for it!
+sys.stdout.write ("str1=%5s str2=%10s str3=%20s\n" % (str1,str2,str3)
+
 # realize that this is not part of print, you're calling a method on a string -- so you can do the same thing w/o print
 
 s = "str1=%5s str2=%10s str3=%20s" % (str1, str2, str3)

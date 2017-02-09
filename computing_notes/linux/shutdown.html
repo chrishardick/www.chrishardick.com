@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>shutdown</title>
+<link rel="stylesheet" href="../../css/default.css">  
+</head>
+  
+<body>
+
+<h1>shutdown</h1>
+
+<pre>
+shutdown [OPTIONS] &lt;TIME&gt; [MESSAGE]
+
+# options
+# -r - request reboot after system has been brought down
+# -H - request HALT after system has been brought down
+# -P - request POWER OFF after system has been brought down
+# -c - cancel a shutdown. time is not specified.
+# -k - only send out warning messges and disable logins. do not bring the system down
+#
+# examples
+shutdown now        # shutdown now
+shutdown +5         # shutdown in 5 minutes
+shutdown 23:59      # shutdown at 11:59 pm
+</pre>
+<ul>
+<li>Bring the system down.
+<li>Notify all users
+<li>Prevent new logins within last 5 minutes
+</ul>
+
+
+</body> 
+</html>
+  
