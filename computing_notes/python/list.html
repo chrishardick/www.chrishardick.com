@@ -39,6 +39,31 @@ print len(days)    # would print out 7
 <li><code>list.pop([i])</code> - remove the item at the specified position in the list and return it. i defaults to the last item in the list
 </ul>
 
+<pre>
+# a dictionary
+dict_js = {
+             "fname":       "John"
+            ,"lname":       "Smith"
+            ,"address":     "1 Smith Street"
+            }
+
+dict_jj = {
+             "fname":       "Jane"
+            ,"lname":       "Jones"
+            ,"address":     "9 Jones Lane"
+            }
+
+# a list of dictionaries
+lst = []
+lst.append(dict_js)
+lst.append(dict_jj)
+
+# sort 
+import operator
+lst_srt = sorted(lst, key=operator.itemgetter('lname','fname')
+</pre>
+
+
 <footer>
 <p>&copy; 2016 Chris Hardick. All rights reserved.</p>
 </footer>

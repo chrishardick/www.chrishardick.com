@@ -15,7 +15,8 @@
 </header>
 
 <ul>
-<li>A dictionary is written as key:value pairs surrounded by curly braces
+<li>A dictionary is written as <code>key:value</code> pairs surrounded by curly braces
+<li>Keys must be an immutable data type (i.e. strings, numbers, or tuples) -- remember that a tuple is an immutable list
 <pre>
 states = {   'NY': "New York"
             ,'NJ': "New Jersey"
@@ -26,8 +27,24 @@ states['CO'] = "Colorado"
 for abbr in states:
     print abbr, '--&gt;', states[abbr]
 
+# same thing -- sorted
+for abbr in sorted(states):
+    print abbr, '--&gt;', states[abbr]
+
+# remove an item 
+del states['CO']
+
 # prints out the entire dictionary
 print states
+
+# dictionary with tuple as key
+# i.e. a,b,c --&gt; value
+complex_dict = { 
+                     (1,2,3): "123"
+                    ,(2,3,4): "234"
+                    ,(1,5,9): "159"
+               }
+
 </pre>
 </ul>
 

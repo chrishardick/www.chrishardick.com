@@ -60,5 +60,115 @@ INSERT INTO data (src,dest,proto,num_pkts,num_bytes,timestamp) VALUES (...)
 <li>CTRL-D to exit
 </ul>
 
-</BODY> 
+<h2>Storage Classes</h2>
+
+Regardless of the type, Sqlite stores your values using one of the following storage classes: 
+<ul>
+<li><strong>NULL</strong> - NULL value
+<li><strong>INTEGER</strong> - signed integer
+<li><strong>REAL</strong> - 8 bytes IEEE floating point
+<li><strong>TEXT</strong> - text string using the database encoding (UTF-8, UTF-16BE or UTF-16LE)
+<li><strong>BLOB</strong> - stored exactly as it was input
+</ul>
+
+<h2>Datatypes</h2>
+
+<ul
+<li>Datatypes are more specific than storage classes
+<li>Datetimes are stored as either integers or reals. They're stored as integers so long as there is not a loss of precision. Otherwise, they're stored as reals
+</ul>
+
+<h2>Date & Time Functions</h2>
+<ul>
+<li><code>date(timestring, modifier, modifier, ...)</code> -- returns a date in the format YYYY-MM-DD
+<li><code>time(timestring, modifier, modifier, ...)</code> -- returns a time in the format HH:MM:SS
+<li><code>datetime(timestring, modifier, modifier, ...)</code> -- returns a datetime in the format YYYY-MM-DD HH:MM:SS
+<li><code>julianday(timestring, modifier, modifier, ...)</code> -- returns the Julian day (# days since noon in Greenwich on November 24, 4714 B.C. 
+<li><code>strftime(format string, timestring, modifier, modifier, ...)</code> -- returns the date/time according to the format string
+</ul>
+
+<h3>Format Strings</h3>
+<ul>
+<li>Format strings can be used with <code>strftime()</code>
+<li>a subset of ISO-8601 date and time formats
+
+<li><code>%Y</code> year 0000-9999
+<li><code>%m</code> month 01-12
+<li><code>%d</code> day of month 00
+
+<li><code>%H</code> hour 00-24
+<li><code>%M</code> minute 00-59
+<li><code>%S</code> seconds 00-59
+
+<li><code>%f</code> fractional seconds SS.SSS
+
+<li><code>%j</code> day of year -- 000-366
+
+<li><code>%J</code> Julian day number
+
+<li><code>%s</code> seconds since epoch
+
+<li><code>%w</code> day of week 0-6 0 is Sunday
+
+<li><code>%W</code> week of year 00-53
+</ul>
+
+
+<h3>Time Strings</h3>
+<ul>
+<li>The following time string formats are supported:
+<li><code>YYYY-MM-DD</code>
+<li><code>YYYY-MM-DD HH:MM</code>
+<li><code>YYYY-MM-DD HH:MM:SS</code>
+<li><code>YYYY-MM-DD HH:MM:SS.SSS</code>
+<li><code>YYYY-MM-DDTHH:MM</code>
+<li><code>YYYY-MM-DDTHH:MM:SS</code>
+<li><code>YYYY-MM-DDTHH:MM:SS.SSS</code>
+<li><code>HH:MM</code>
+<li><code>HH:MM:SS</code>
+<li><code>HH:MM:SS.SSS</code>
+<li><code>HH:MM:SS.SSS</code>
+<li><code>now</code>
+</ul>
+
+<h3>Modifiers</h3>
+<ul>
+<li>Modifiers alter the date, time, or datetime. I.e. you can add or subtract days, minutes, etc.
+<li>Results will be normalized -- i.e. if the calculation results in an invalid date, the result will be normalized into a valid date
+<li><code>NNN days</code> - add/subtract days
+<li><code>NNN hours</code> - add/subtract hours
+<li><code>NNN minutes</code> - add/subtract minutes
+<li><code>NNN.NNNN seconds</code> - add/subtract seconds
+<li><code>NNN months</code> - add/subtract months
+<li><code>NNN years</code> - add/subtract years
+<li><code>start of month</code> - reduce date to 1st of month
+<li><code>start of year</code> - reduce date to 1st of year
+<li><code>start of day</code> - reduce time to midnight
+<li><code>weekday N</code> - advance date forward until the next given day (0=Sunday, 1=Monday, ...)
+<li><code>unixepoch</code> - interpret the datetime as sec since UNIX epoch
+<li><code>localtime</code> -- assumes the datetime is in UTC and adjusts it to localtime
+<li><code>utc</code> -- assumes the datetime is in localtime and adjusts to UTC
+</ul>
+
+<h3>Examples</h3>
+<ul>
+<li><code>SELECT date('now')</code>
+<li><code>SELECT date('now', 'start of month', '+1 month' '-1 day')</code>
+<li><code>SELECT datetime(1092941466,'unixepoch')</code> 
+<li><code>SELECT strftime('%s','now')</code>
+<li><code>SELECT strftime('%s','now') - strftime('%s','20170210 18:12:00')</code>
+</ul>
+
+
+<h2>Transactions</h2>
+<ul>
+<li>A atomic unit of work in a database.
+<PRE>
+BEGIN
+COMMIT          # atomically commit changes to the database
+ROLLBACK        # undo transactions since last commit or rollback
+</PRE>
+</ul>
+
+</BODY>
 </HTML>
