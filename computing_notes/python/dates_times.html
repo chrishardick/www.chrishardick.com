@@ -21,7 +21,7 @@
 <h2>class <code>datetime.datetime</code></h2>
 
 <ul>
-<li>attributes:
+<li>Attributes:
     <ul>
     <li><code>year</code>
     <li><code>month</code> -- 1-12
@@ -40,16 +40,12 @@
     <li><code>datetime.utcnow()</code> - return datetime object loaded with current UTC date/time with <code>tzinfo</code> equal to <code>None</code>
     <li><code>datetime.fromtimestamp(timestamp,tz)</code> - where timestamp is seconds since epoch - as returned from <code>time.time()</code>. If tz is None or not specified, the returned datetime will be in the platform's local date/time and the datetime is naive (tzinfo is not set)
     <li><code>datetime.utcfromtimestamp(timestamp)</code> - where timestamp is seconds since epoch - as returned from <code>time.time()</code>
-    <li><code>datetime.strptime(date_string,format)</code> - return datetime corresponding to date_string in specified format</code>
+    <li><code>datetime.strptime(string,format string)</code> - return datetime corresponding to string in specified format -- see format codes below</code>
     </ul>
-<li>Example(s):
-<pre>
-import datetime
-
-today = datetime.today()
-
-dt = datetime.datetime.strptime(str,"%W %Y/%m/%d %H:%M:%S")
-</pre>
+<li>Methods:
+    <ul>
+    <li><code>strftime (format string)</code> - return string representation of the date controlled by format string -- see format codes below
+    </ul>
 </ul>
 
 <h2>class <code>datetime.timedelta</code></h2>
@@ -58,18 +54,99 @@ dt = datetime.datetime.strptime(str,"%W %Y/%m/%d %H:%M:%S")
 <li>Constructor: <code>datetime.timedelta([days[,seconds[,microseconds[,milliseconds[,minutes[,hours[,weeks]]]]]]])</code>
 <li>Only days, seconds and microseconds are stored internally
 <li>Arguments may be integers or floats and may be positive or negative.
-<li>Example(s):
+</ul>
+
+<h2>Examples</h2>
+
 <pre>
 import datetime
 
+today = datetime.today()
+
+# initializing a datetime object with specified string
+dt = datetime.datetime.strptime(str,"%W %Y/%m/%d %H:%M:%S")
+
+# datetime to epochtime
+epoch = (datetime.datetime.utcnow() - datetime.datetime(1970,1,1)).total_seconds()
+
+# subtracting a timedelta
 dt = datetime.utcnow() - datetime.timedelta(hours=1)
+
+# subtracting 2 dateteimes results in a timedelta
+dt1 = datetime.utcnow
+dt2 = dt1 - datetime.timedelta(hours=1)
+
+datetime.timedelta td = dt1-dt2
 </pre>
-</ul>
 
+<h3>strftime() & strptime() format codes</h3>
+<table border=1>
+<tr><th></th><th>Description</th><th>Example</th></tr>
+<tr><td>%a</td><td>Weekday (abbreviation) for locale</td><td>Sun,Mon,...Sat</td></tr>
+<tr><td>%A</td><td>Weekday (full name) for locale</td><td>Sunday,Monday,...Saturday</td></tr>
+<tr><td>%b</td><td>Month (abbreviation) for locale</td><td>Jan,Feb,...Dec</td></tr>
+<tr><td>%B</td><td>Month (full name) for locale</td><td>January,February,...December</td></tr>
+<tr><td>%m</td><td>2 digit month (0 padded)</td><td>00,01,...31</td></tr>
+<tr><td>%d</td><td>2 digit day of month (0 padded)</td><td>00,01,...31</td></tr>
+<tr><td>%y</td><td>2 digit year (without century) (0 padded)</td><td>00,01,...99</td></tr>
+<tr><td>%Y</td><td>4 digit year (with century)</td><td>2001,2002,...</td></tr>
+<tr><td>%H</td><td>2 digit hour - 24 hour clock (0 padded)</td><td>00,01,...23</td></tr>
+<tr><td>%I</td><td>2 digit hour - 12 hour clock (0 padded)</td><td>00,01,...12</td></tr>
+<tr><td>%M</td><td>2 digit minute (0 padded)</td><td>00,01,...59</td></tr>
+<tr><td>%S</td><td>2 digit second (0 padded)</td><td>00,01,...59</td></tr>
+<tr><td>%f</td><td>6 digit microsecond (0 padded)</td><td>000000,000001,...999999</td></tr>
+<tr><td>%z</td><td>UTC offset in form +HHMM or -HHMM (empty string if native datetime)</td><td>+0500,-0400</td></tr>
+<tr><td>%j</td><td>3 digit day of year</td><td>001,002,...366</td></tr>
+<tr><td>%U</td><td>2 digit week number of the year (Sunday as 1st day of week)</td><td>00,01,...53</td></tr>
+<tr><td>%w</td><td>2 digit week number of the year (Monday as 1st day of week)</td><td>00,01,...53</td></tr>
+<tr><td>%c</td><td>Date/time representation for locale</td><td>Wed Apr 5 18:19:00 2017</td></tr>
+<tr><td>%x</td><td>Date representation for locale</td><td>04/05/2017</td></tr>
+<tr><td>%X</td><td>Time representation for locale</td><td>18:19:00</td></tr>
+<tr><td>%p</td><td>AM/PM for locale</td><td>AM,PM</td></tr>
+<tr><td>%s</td><td>AM/PM for locale</td><td>AM,PM</td></tr>
+</table>
 
-<footer>
-<p>&copy; 2016 Chris Hardick. All rights reserved.</p>
-</footer>
+<h2>localtime</h2>
+<pre>
+os.environ['TZ'] = 'America/New_York'
+# get current datetime and epoch (lcl timezone)
+# - local timezone since we set TZ
+dt_lcl      = datetime.datetime.now()
+epoch_lcl   = int(dt_lcl.strftime('%s'))
+
+# get current datetime and epoch (utc)
+dt_utc      = datetime.datetime.utcnow()
+epoch_utc   = int(dt_utc.strftime('%s'))
+
+# calculate difference from utc
+sec_from_utc = epoch_lcl - epoch_utc
+</pre>
+
+<h2>pytz</h2>
+<pre>
+# get next ny midnight - in utc
+
+import datetime
+import pytz
+
+utc = pytz.utc
+ny  = pytz.timezone('America/New_York')
+
+# curr datetime - ny timezone
+dt_ny = ny.localize(datetime.datetime.now())
+
+# add a day
+dt_ny = dt_ny + datetime.timedelta(days=1)
+
+# adjust to midnight
+dt_ny_midnight = dt_ny.replace (hour=0,minute=0,second=0,microsecond=0)
+
+# convert to utc
+dt_ny_midnight_utc = dt_ny_midnight.astimezone (utc)
+
+print dt_ny
+print 'next ny midnight:', dt_ny_midnight
+</pre>
 
 </body>
 </html>

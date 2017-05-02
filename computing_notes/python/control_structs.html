@@ -67,10 +67,21 @@ skip the remaining processing of the current loop iteration and continue with th
 <li>Python also supports a <code>pass</code> statement which is used when a statement is required, but you do not want a command to execute. It is a null operation
 </ul>
 
+<h2>break, continue and pass</h2>
+<ul>
+<li><code>break</code> -- just like in C. Terminate the current loop and resume execution at the next statement after the loop
+<li><code>continue</code> -- just like in C. Terminate the current loop iteration and resume execution at the beginning of the loop
+<li><code>pass</code> -- null statement. 
 
-<footer>
-<p>&copy; 2016 Chris Hardick. All rights reserved.</p>
-</footer>
+<pre>
+if condition_we_not_want_to_action_on:
+    pass
+else
+    ...
+</pre>
+
+</ul>
+
 
 </body>
 </html>
