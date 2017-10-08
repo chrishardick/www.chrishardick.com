@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<H1>JavaScript - Exceptions</H1>
+
+<UL>
+<LI>In JavaScript, exceptions are thrown whenever a runtime error occurs or when a program explicitly throws one
+<LI>When an exception is thrown, control immediately jumps to the nearest exception handler (<strong>catch</strong> statement)
+</UL>
+
+
+<H2>Throw Statement</H2>
+<UL>
+<PRE>
+throw expression;
+</PRE>
+<LI>use <strong>throw</strong> to signal an exception
+</UL>
+
+<H2>Try Block</H2>
+<UL>
+<PRE>
+try
+{
+     statement(s)
+}
+</PRE>
+<LI>a try block defines a block of code in which exception(s) are to be handled
+<LI>a try block is followed by a catch block
+<LI>a catch block is followed by a finally block
+<LI>both the catch block and the finally block are optional - however @ least one of them MUST be specified
+</UL>
+
+<H2>Catch Block</H2>
+<UL>
+<PRE>
+catch (identifier)
+{
+     statement(s)
+}
+</PRE>
+<LI>The statement(s) within a catch block are executed only if the try block throws an exception
+<LI>the identifier is like a function argument. Its scope and lifetime exist only within the block of the catch block
+<LI>JavaScript assigns the exception object or value that was thrown to it
+</UL>
+
+<H2>Finally Block</H2>
+<UL>
+<PRE>
+finally
+{
+     statement(s)
+}
+</PRE>
+<LI>The statements within the finally block are always executed (regardless if an exception was thrown or not)
+<LI>It's generally used to clean up any code within the try block
+<LI>Normally the try block completes execution (by hitting the last curly bracket, via a return statement, etc.  and control is transfered to the 
+	finally block which performs cleanup
+</UL>
+
+</div>
+</body> 
+</html>

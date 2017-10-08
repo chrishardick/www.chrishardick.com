@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>STL - Deque</h1>
+
+<ul>
+<li>in terms of functionality, deques are very similar to vectors 
+<li>the main difference is that insertions and erasures @ the beginning take constant time 
+	(rather than linear time for the vector)
+<li>memory allocation is handled automatically
+<li>provides random access iterators
+<li>constant time insert and erase operations at the beginning and at the end
+<li>insert and erase at any other position (middle) takes linear time
+<li>the sequence container of choice when the majority of insertions and erasures occur @ either the beginning or end of the 
+	sequence
+<li>validity of iterators: do not write code which depends on iterators remaining valid. Deques do not provide the same 
+	guarantees as vectors (albeit limited) as to the validity of iterators when insertions and deletions are occuring
+<li>Basically has the same interface as <a href=vector.html>vector</a> without reserve() nor capacity() and the additions of push_front() and pop_front()
+<li>Internal Representation
+	<ul>
+	<li>Deques are usually implemented via a 2 level storage structure (see picture below)
+	<li>data blocks are of a fixed size
+	<li>the 1st entries of the directory block which are utilized are the middle
+	<li>when a directory boundary is hit, realloation occurs (i.e. the directory block is swapped for a larger one)
+<pre>
+
+directory block                           data blocks
+|---+---+---+---+---+---+---|             |---+---+---+---+---+---+---|
+|   |   | + | + | + | + |   |        +--->|   |   |   |   |   |   |   |
+|---+---+-|-+-|-+-|-+-|-+---|        |    |---+---+---+---+---+---+---|
+          |   +---|---|--------------+
+          |       |   |                   |---+---+---+---+---+---+---|
+          +-------|---|------------------>|   |   |   |   |   |   |   |
+                  |   |                   |---+---+---+---+---+---+---|
+                  |   |
+                  |   |                   |---+---+---+---+---+---+---|
+                  +---|------------------>|   |   |   |   |   |   |   |
+                      |                   |---+---+---+---+---+---+---|
+                      |
+                      |                   |---+---+---+---+---+---+---|
+                      +------------------>|   |   |   |   |   |   |   |
+                                          |---+---+---+---+---+---+---|
+</pre>
+</ul>
+
+<h2>I. Files</h2>
+<pre>#include &lt;deque&gt;</pre>
+
+
+<h2>II. Constructors</h2>
+<ul>
+
+<li>Default Constructor
+	<ul>
+	<li>Size: 0
+	</ul>
+<pre>deque &ltT&gt deque1;</pre>
+
+<li>A Dector of Size n
+<pre>deque &ltT&gt deque1(n);</pre>
+
+<li>A Dector of Size n each initialized to value
+<pre>deque &ltT&gt deque1(n, value);</pre>
+
+<li>Copy Constructor
+<pre>deque (const deque &ltT&gt& deque1);</pre>
+
+<li>Range [first,last)
+<pre>deque (InputIterator first, InputIterator last);</pre>
+
+
+</ul>
+
+
+<h2>III. Destructor</h2>
+<ul>
+<li>release any allocated space for the given deque
+<pre>~deque()</pre>
+</ul>
+
+
+<h2>IV. Member Functions</h2>
+<ul>
+
+<li>begin()
+<pre>iterator begin();
+const_iterator begin() const;</pre>
+
+<li>end()
+<pre>iterator end();
+const_iterator end() const;</pre>
+
+<li>operator[]
+	<ul>
+	<li>returns the nth element from the beginning of the deque
+	<li>undefined if deque is empty
+	<li>unlike vectors, it does not look like bounds checks are performed
+	</ul>
+<pre>reference operator[](size_type n);
+const_reference operator[](size_type n) const;</pre>
+
+
+<li>size()
+	<ul>
+	<li>returns # of elements
+	</ul>
+<pre>size_type size() const;</pre>
+
+<li>max_size()
+	<ul>
+	<li>returns max # of elements that could ever be stored in the deque
+	</ul>
+<pre>size_type size() const;</pre>
+
+<li>empty()
+	<ul>
+	<li>returns true if the deque contains no elements (size == 0 or begin() == end()), false otherwise
+	</ul>
+<pre>bool empty() const;</pre>
+
+<li>push_front()
+	<ul>
+	<li>standard function to add 1 element to the deque at the beginning (front)
+	</ul>
+
+<pre>void push_back(const T& x);</pre>
+
+<li>push_back()
+	<ul>
+	<li>standard function to add 1 element to the deque at the end
+	</ul>
+<pre>void push_back(const T& x);</pre>
+
+<li>insert()
+	<ul>
+	<li>insert 1 element to any position within the deque
+	<li>returns iterator to position where the element was added
+	</ul>
+<pre>iterator insert(iterator position, const T& x);</pre>
+
+<li>insert()
+	<ul>
+	<li>insert range [first,last) into the deque @ position
+	</ul>
+<pre>void insert(iterator position, InputIterator first, InputIterator last);</pre>
+
+
+<li>pop_front()
+	<ul>
+	<li>standard function to erase 1 element from the deque (from the beginning)
+	</ul>
+<pre>void pop_back();</pre>
+
+<li>pop_back()
+	<ul>
+	<li>standard function to erase 1 element to the deque (from the end)
+	</ul>
+<pre>void pop_back();</pre>
+
+<li>erase()
+	<ul>
+	<li>erase the element located at position
+	<li>returns iterator to 1 position past where the element was erased or end() if the last element was erased
+	</ul>
+<pre>iterator erase(iterator position);</pre>
+
+<li>erase()
+	<ul>
+	<li>erase range [first,last) from the deque @ position
+	<li>returns iterator to 1 position past the last element erased or end() if the last element was erased
+	<li>linear time
+	</ul>
+<pre>iterator erase(iterator first, iterator last);</pre>
+
+<li>clear()
+	<ul>
+	<li>erase all elements in the deque
+	<li>equivalent to deque.erase(deque.begin(), deque.end());
+	</ul>
+<pre>void clear();</pre>
+
+
+</ul>
+
+</div>
+</body> 
+</html>

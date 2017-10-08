@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_html");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<script>
+function set_color ()
+{
+    fg_color = document.getElementById('fg').value;
+    bg_color = document.getElementById('bg').value;
+
+    if (fg_color.length != 0)
+    {
+        document.getElementById('test_area').style.color = fg_color;
+    }
+
+    if (bg_color.length != 0)
+    {
+        document.getElementById('test_area').style.backgroundColor = bg_color;
+    }
+}
+</script>
+
+<style>
+.center  
+{
+    text-align: center;
+}
+
+.sub
+{
+    vertical-align: sub;
+}
+
+.super
+{
+    vertical-align: super;
+}
+</style>
+</head>
+
+<body>
+<h1>Colors</h1>
+
+<div id="test_area" style="float: right; width:150px; line-height: 150px; text-align: center; border: 2px solid black">TEST AREA</div>
+
+<table>
+<!-- ROW #1 -->
+<tr>
+<td>Fg Color:</td>
+<td><input id='fg' type='text'></td>
+</tr>
+
+<!-- ROW #2 -->
+<tr>
+<td>Bg Color:</td>
+<td><input id='bg' type='text'></td>
+</tr>
+
+</table>
+
+<div style="font-size: small;">E.g. #00FF00, RGB(0,255,0), RGBA(0,255,0,0.5), Green</div>
+
+<button type='button' onclick="set_color()">Apply</button>
+
+</div>
+</body>
+</html>

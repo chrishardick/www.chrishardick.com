@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_sockets_api");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Protocols</h1>
+
+<UL>
+<LI>an agreement as to how two entities are going to communicate across a computer network
+<LI>There are many different types of protocols
+	<UL>
+	<LI>datalink layer protocols (i.e. ethernet protocol)
+	<LI>network layer protocols (i.e. IP)
+	<LI>transport layer protocols (i.e. TCP and UDP)
+	<LI>application layer protocols
+	</UL>
+</UL>
+
+<BR><BR>
+
+<PRE>
+     +----------+                              +----------+
+     | USER APP |                              | USER APP |     
+     |          |< - - -Application Layer - - >|          |      USER SPACE
+     +----------+            Protocol          +----------+      ----------
+         /\                                        /\            KERNEL SPACE
+        /  \                                      /  \
+         ||                                        ||            
+         ||                                        ||
+        \  /                                      \  /
+         \/                                        \/
+     +----------+                              +----------+     
+     | TCP -or- |                              | TCP -or- |    
+     |   UDP    |< - - -Transport Layer - - - >|   UDP    |    
+     +----------+       Protocol (TCP/UDP)     +----------+
+         /\                                        /\
+        /  \                                      /  \
+         ||                                        ||
+         ||                                        ||
+        \  /                                      \  /
+         \/                                        \/
+     +----------+                              +----------+     
+     |    IP    |                              |   IP     |    
+     |          |< - - -Network Layer - - - - >|          |    
+     +----------+       Protocol (IP)          +----------+
+         /\                                        /\
+        /  \                                      /  \
+         ||                                        ||
+         ||                                        ||
+        \  /                                      \  /
+         \/                                        \/
+     +----------+                              +----------+     
+     | Ethernet |                              | Ethernet |    
+     |          |< - - -Datalink Layer- - - - >|          |    
+     +----------+       Protocol (Ethernet)    +----------+
+         /\                                        /\
+        /  \                                      /  \
+         ||                                        ||
+         ||                                        ||
+        \  /                                      \  /
+         \/                                        \/
+      ------------------------------------------------------
+                        Ethernet 
+                    (Physical Connection)
+</PRE>
+
+</div>
+</body>
+</html>

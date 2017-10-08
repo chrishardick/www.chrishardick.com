@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>JQuery</h1>
+
+<ul>
+<li>A JavaScript library designed to make it easier to use JS on a webpage
+<li>The entire library is defined in a single js file which comes in 2 versions (a compressed version and a full version)
+<li>The 2 versions are identical in functionality, the compressed version simply takes up less space (no comments, extra spaces, etc.)
+<li>You simply include a link to the file (you can either host it yourself or reference one hosted by a well known source -- i.e. google, etc.
+<li>jQuery also has a bunch of plugins
+</ul>
+
+<h2>$ - The jQuery Fuction</h2>
+<ul>
+<li>JQuery exposes its methods and properties via two properties of the window object -- jQuery and $ ($ is an alias for jQuery)
+<li>$ is a perfectly valid variable name in JS. 
+<li>In jQuery, $ is a selector function (i.e. a function which returns a set of elements found in the DOM)
+</ul>
+
+<h2>The Document Ready Event</h2>
+<ul>
+<li>Normally developers wrap their code in window.onload event such that the code does not execute until the document is done loaded.
+<li>The onload event does not trigger until the entire page is loaded (including images). 
+<li>On the contrary, the ready event triggers once the document is ready to be manipulated
+<pre>
+$(document).ready(function() {
+    //
+});
+
+// equivalent
+$(function)()
+{
+    //
+});
+</pre>
+</ul>
+
+<h2>Selectors</h2>
+<ul>
+<li>Selectors allow you to select HTML elements based on their name, id, classes, types, attributes, values of attributes, etc.
+<li>Basic Syntax: <code>$(selector).action()</code>
+<li>Examples:
+<pre>
+// an element selector
+$("p").hide()       // hide all &lt;p&gt; elements
+
+// an id selector
+$("#test").hide()   // hide the element with id="test"
+
+// a class selector
+$(".test").hide()   // hide all elements with class="test"
+
+// select all p elements with class intro
+$("p.intro").hide
+
+// select all elements with abc attribute
+$("[abc]").hide()
+
+// select all a elements with target="_blank"
+$("a[target='_blank']").hide()
+
+// select the current element
+$(this).hide()
+</pre>
+</ul>
+
+<h2>Events</h2>
+
+<h3>Mouse Events</h3>
+<dl>
+<dt>click
+<dd>the function is executed when the user clicks on the selected element
+<dt>dblclick
+<dd>the function is executed when the user double clicks on the selected element
+<dt>mouseenter
+<dd>the function is executed when the mouse pointer enters the HTML element
+<dt>mouseleave
+<dd>the function is executed when the mouse pointer leaves the HTML element
+<dt>mousedown
+<dd>the function is executed whenever any mouse button (left, middle, or right) is pressed down while the mouse pointer is over the HTML element
+<dt>mouseup
+<dd>the function is executed whenever any mouse button (left, middle, or right) is released while the mouse pointer is over the HTML element
+<dt>hover
+<dd>the hover() method accepts two functions. The 1st is executed when the mouse enters the HTML element and the 2nd is executed whtn the mouse leaves the HTML element.
+</dl>
+
+<h3>Keyboard Events</h3>
+<dl>
+<dt>keypress
+<dt>keydown
+<dt>keyup
+</dl>
+
+<h3>Form Events</h3>
+<dl>
+<dt>submit
+<dt>change
+<dt>focus
+<dd>the function is executed when the form field gets focus
+<dt>blur
+<dd>the function is executed when the form field loses focus
+</dl>
+
+<h3>Document/Window Events</h3>
+<dl>
+<dt>load
+<dt>resize
+<dt>scroll
+<dt>unload
+</dl>
+
+<h3>Examples</h3>
+<ul>
+<pre>
+$("p").click( function(){ $(this).hide(); } );
+
+
+// a method which accepts two functions
+$("p").hover( function(){ alert ("Hello"); }, function(){ alert ("Good bye"); } );
+
+// cool ui feature
+$("input").focus( function(){ $(this).css("background-color","amber"); } );
+$("input").blur ( function(){ $(this).css("background-color","white"); } );
+</pre>
+</ul>
+
+<h2>Chaining</h2>
+<ul>
+<li>Chain together multiple actions. 
+<li>You can put separate statements on separate lines
+<pre>
+$("p").css("color","blue).hide()
+
+// equivalent
+$("p").css("color","blue)
+    .hide()
+</pre>
+</ul>
+
+<h2>DOM Maniuplation</h2>
+
+<h3>get/set</h3>
+
+<dl>
+<dt>text()
+<dd>gets or sets the text content of the selected element(s)
+<dd><code>alert($("#test").text())</code>
+<dd><code>$("#test").text("Hello")</code>
+<dt>html()
+<dd>gets or sets the contents of the selected element(s) -- including HTML mark-up
+<dd><code>$("#test").html("<p>Hello</p>")</code>
+<dt>val()
+<dd>gets or sets the value of form fields
+<dd><code>$("#test").val("Hello")</code>
+</dl>
+
+<h3>add/remove</h3>
+
+<dl>
+<dt>append()
+<dd>insert content at the end of the selected HTML element(s)
+<dt>prepend()
+<dd>insert content at the beginning of the selected HTML element(s)
+<dt>after()
+<dd>insert content after the selected HTML element(s)
+<dt>before()
+<dd>insert content before the selected HTML element(s)
+<dt>remove()
+<dd>remove the selected elements and any child element(s)
+</dl>
+
+<h3>CSS</h3>
+
+<dl>
+<dt>addClass()
+<dd>add one or more classes to selected elements
+<dt>removeClass()
+<dd>remove one or more classes from the selected elements
+<dt>toggleClass()
+<dd>toggle (add/remove) one or more classes from the selected elements
+<dt>css()
+<dd>set or return the sytle attribute
+</dl>
+
+<h3>Dimensions</h3>
+
+<dl>
+<dt>width()
+<dt>height()
+</dl>
+
+<h3>Traversing</h3>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li>w3schools.com
+</ul>
+
+</div>
+</body> 
+</html>

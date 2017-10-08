@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_sockets_api");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Transport Layer Protocols (UDP & TCP)</h1>
+
+<br><br>
+<h2>I. UDP</h2>
+<UL>
+<LI>User Datagram Protocol
+<LI>Simple transport layer protocol
+<LI>Simple, unreliable, datagram transport level protocol
+<LI>Connectionless
+<LI>Unreliable
+	<UL>
+	<LI>No guarantee that a UDP datagram will ever reach its destination,
+	<LI>No guarantee that the datagrams will arrive in the order sent, or 
+	<LI>No guarantee that each datagram will be received only once
+	</UL>
+<LI>No flow control
+<LI>Basically how it works:
+	<UL>
+	<LI>Application writes a message to a UDP socket
+	<LI>UDP encapsulates the message within a UDP datagram
+	<LI>IP encapsulates the UDP datagram within a IP datagram and sends the datagram to its destination
+	</UL>
+</UL>
+
+<br><br>
+<h2>II. TCP</h2>
+<UL>
+<LI>Transmission Control Protocol
+<LI>Much more complex transport layer protocol than UDP
+<LI>Sophisticated, reliable byte stream transport level protocol
+<LI>Connection Based
+	<UL>
+	<LI>A TCP client establishes a connection with a server
+	<LI>Data is exchanged back and forth
+	<LI>Either side can initiate termination
+	</UL>
+<LI>Reliable
+	<UL>
+	<LI>Each <a href="terms.html#segment">segment</a> (unit of data passed to IP) requires an acknowledgment
+	<LI>If the acknowledgment is not received within a specified amount of time, 
+		TCP automatically retransmits the data and waits a longer amount of time
+	<LI>After a given number of retransmissions, TCP will give up (total time around 4-10 minutes - implementation dependant)
+	<LI>TCP uses algorithms to dynamically calculate <strong>Round Trip Time (RTT)</strong>. 
+	<LI>RTT estimates are used to determine the amount of time to wait for an acknowledgment
+	<LI>TCP assigns a sequence number to every byte of data sent
+	<LI>Example:
+		<UL>
+		<LI>Application writes 2K bytes to a TCP socket
+		<LI>TCP sends 2 segments to IP - each 1K bytes
+		<LI>Segment 1 gets assigned sequence numbers 1-1024
+		<LI>Segment 2 gets assigned sequence numbers 1025-2048
+		<LI>If the receiving TCP receives the segments out of order, 
+			it uses the sequence #'s to deliver the segments to the application in the correct order
+		<LI>If the receiving TCP receives duplicate segments, it uses the sequence #'s to discard the duplicate
+		</UL>
+	</UL>
+<LI>Provides flow control
+	<UL>
+	<LI>In every segment sent (true???), TCP will tell its peer the exact number of bytes it can accept -- <strong>advertised window</strong>
+		(the amount of free space in its socket receive buffer). 
+	<LI>If the socket receive buffer is full, the advertised window will be zero bytes
+	</UL>
+<LI>Full-duplex - an application can send and receive data on a given connection at the same time
+</UL>
+
+<BR><BR>
+<h3>1. TCP CONNECTION ESTABLISHMENT - 3 WAY HANDSHAKE</h3>
+
+<UL>
+<LI>3 way handshake because it requires 3 <a href="terms.html#segment">segments</a>: SYN, ACK/SYN, ACK
+<LI>Server prepares a <a href="sockets.html">listening socket</a>
+<LI>Client calls <a href="elementary_socket_fxns.html#connect">connect ( )</a>
+	<UL>
+	<LI>client TCP sents a SYN (synchronize) segment to client IP
+	<LI>SYN segment sent to client IP contains initial sequence number and any TCP options
+	<LI>SYN message sent to server contains IP header, TCP header and any TCP options -- THIS IS SEGMENT #1
+	</UL>
+<LI>Server acknowledges the SYN (sends an ACK) and sends a SYN of its own.
+	<UL>
+	<LI>Normally this is sent within the same segment -- THIS IS SEGMENT #2
+	</UL>
+<LI>Client acknowledges the SYN (sends an ACK) -- THIS IS SEGMENT #3
+</UL>
+
+
+<BR><BR>
+<h3 id=tcp_termination_sequence>2. TCP CONNECTION TERMINATION - 4 SEGMENTS</h3>
+
+<UL>
+<LI>4 SEGMENTS - FIN, ACK, FIN, ACK
+<LI>Application #1 calls <a href="close.html">close ( )</a>
+	<UL>
+	<LI>this is known as an active close -- the 1st application to call close( )
+	<LI>TCP sends FIN segment to Application #2 -- THIS IS SEGMENT #1
+	</UL>
+<LI>Application #2 receives FIN segment
+	<UL>
+	<LI>this is known as a passive close -- the application to receive the FIN
+	<LI>TCP sends ACK in response to the FIN -- THIS IS SEGMENT #2
+	<LI>Since FIN means that the application will not receive any more data, 
+		EOF is passed to the application -- read( ) returns 0
+	<LI>The TCP connection is now in a <a href="terms.html#half_closed">half-closed state</a> (Application #2 can still send data)
+	</UL>
+<LI>Application #2 calls close ( )
+	<UL>
+	<LI>TCP sends FIN segment to Application #1 -- THIS IS SEGMENT #3
+	</UL>
+<LI>Application #1 receives FIN and responds with ACK -- THIS IS SEGMENT #4
+</UL>
+
+
+<BR><BR>
+<h3>3. TCP CONNECTION STATES</h3>
+
+<UL>
+<LI>These are the states reported by netstat
+<LI>11 States
+<LI>Some states are only for servers, some states are only for clients
+<LI>TCP rules dictate how clients and servers move from one state to another based upon (1) the current state & (2) the segment received
+	<OL>
+	<LI>CLOSED	
+	<LI>LISTEN
+		<UL>
+		<LI>Server only
+		</UL>
+	<LI>SYN_SENT
+		<UL>
+		<LI>Client only. Occurs @ connection establishment when client sends SYN
+		</UL>
+	<LI>SYN_RCVD
+		<UL>
+		<LI>Usually Server. Occurs when in LISTEN state and a SYN is received from a client
+		</UL>
+	<LI>ESTABLISHED
+		<UL>
+		<LI>Client and server. Data transfer state
+		</UL>
+	<LI>FIN_WAIT_1
+		<UL>
+		<LI>The 1st application to call close( ) -- active close. Occurs when in ESTABLISHED state and application calls close( )
+		</UL>
+	<LI>FIN_WAIT_2
+		<UL>
+		<LI>The 1st application to call close( ) -- active close. Occurs when in FIN_WAIT_1 state and ACK is received from peer application
+		<LI>Upon FIN_WAIT_2, the 1st application is in a <a href="terms.html#half_closed">half-closed state</a>
+		</UL>
+	<LI>CLOSING
+		<UL>
+		<LI>Only occurs during a <i>simultaneous close</i> -- not covered
+		</UL>
+	<LI>TIME_WAIT
+		<UL>
+		<LI>Only the 1st applicatin to call close( ) -- active close. 
+		<LI>Begins when FIN ACK is sent and remains for twice the Maximum Segment Lifetime (2MSL)
+		<LI>Maximum Segment Lifetime is usually either 30 seconds or 2 minutes
+		<LI>Therefore 2MSL is usually between 1 & 4 minutes
+		<LI>The purpose of TIME_WAIT is to guarantee that the socket properly closes
+		</UL>
+	<LI>CLOSE_WAIT
+		<UL>
+		<LI>Only in the 2nd application to call close( ) -- passive close.
+		<LI>Occurs when in ESTABLISHED state and a FIN is received 
+		</UL>
+	<LI>LAST_ACK
+		<UL>
+		<LI>Only in the 2nd application to call close( ) -- passive close.
+		<LI>Occurs when in CLOSE_WAIT state and the 2nd applicaiton calls close( )
+		</UL>
+	</OL>
+</UL>
+
+</body>
+</html>

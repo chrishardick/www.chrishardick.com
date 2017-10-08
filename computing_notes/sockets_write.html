@@ -1,0 +1,100 @@
+
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_sockets_api");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>write ( )</h1>
+
+<UL>
+<LI>write to a file descriptor
+<PRE>
+/*
+ * write ( )
+ *
+ * RETURN
+ * ======
+ * number of bytes written 
+ * -1 = error (check errno)
+ */
+
+#include &ltunistd.h&gt
+
+ssize_t write(int fd,             // in:  file descriptor to write to
+              const void *buf,    // in:  ptr to application buffer to write
+              size_t count);      // in:  # bytes to write
+</PRE>
+</UL>
+
+<BR><BR>
+<h2>write( ) with TCP Sockets</h2>
+
+<UL>
+<LI>Every TCP socket has a send buffer
+<LI>The size of a socket's send buffer can be changed with the SO_SNDBUF socket option
+<LI>When an application calls write( ) for a TCP socket, the kernel copies data from the application's buffer to the socket's send buffer
+<LI>write( ) will NOT return until the last byte is copied from the application's buffer to the socket's send buffer
+<LI>If there is insufficient room in the socket's send buffer for the entire application buffer, the process will be put to sleep
+<LI>This can happen when either the application's buffer is larger than the socket's send buffer or there was already data in the socket's send buffer
+<LI>Therefore write( ) with TCP sockets is a <a href="../Terms.html#blocking_fxn">blocking function</a>
+<LI>A successful return from write( ) for a TCP socket only indicates that all the data was successfully written to the socket's send buffer. 
+	It does not indicate that the data has been successfully sent to its destination
+<LI>TCP takes the data in the socket's send buffer and sends it to the peer TCP based upon the rules of TCP data transmission
+<LI>The peer TCP must acknowledge the data. Only when the ACK is received, TCP can discard the data from the socket's send buffer
+</UL>
+
+<BR><BR>
+<h2>write( ) with UDP Sockets</h2>
+
+<UL>
+<LI>UDP sockets do not really have a send buffer
+<LI>UDP sockets do not have a need for send buffers, since UDP is unreliable, it need not keep a copy of the application's buffer
+<LI>Never-the-less, UDP supports the SO_SNDBUF socket option -- which is simply an upper bound on the maximum sized UDP datagram 
+	which can be written to the socket (not the size of a physical buffer)
+<LI>If an application writes a datagram which is larger than the socket's send buffer, EMSGBUF is returned
+<LI>UDP simply prepends an 8 byte header to the user's data and passes the entire datagram to IP
+<LI>IP prepends its header and either adds the UDP datagram to the datalink output queue or, if the datagram is too large, fragments the datagram
+	and adds each fragment to the datalink output queue
+<LI>A successful return from write( ) for a UDP socket indicates that the datagram or all of its fragments have been added to the datalink output queue
+<LI>If there is no room on the queue for the datagram or all of its fragments, ENOBUFS is returned to the application
+</UL>
+
+
+</div>
+</body>
+</html>

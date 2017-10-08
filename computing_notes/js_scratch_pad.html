@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<style>
+body    
+{
+        font-family: Verdana, sans-serif; font-size:0.8em;
+}
+
+.reveal *   /* children of class reveal are not displayed */
+{
+    display: none;
+}
+
+.reveal *.handle    /* except if class is handle */
+{
+    display: block;
+}
+
+</style>
+
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<div id="clock"></div>
+
+<script>
+function displayTime() 
+{
+    var e = document.getElementById("clock");
+
+    var now = new Date();
+
+    e.innerHTML = now.toLocaleTimeString();
+    
+    setInterval(displayTime,10);
+}
+
+displayTime();
+</script>
+
+
+<div id="clock"></div>
+
+</div>
+</body>
+</html>
+

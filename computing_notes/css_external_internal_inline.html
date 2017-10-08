@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_css");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CSS - External, Internal and In-line Styles</h1>
+
+<h2>External Style Sheets</h2>
+<ul>
+<li>Great for managing style across an entire site
+<li>External style sheets are specified by a &lt;link&gt; element inside the &lt;head&gt; section
+<li>The <em>media</em> attribute defines which media the style should be applied to. Common values are: all, screen, and print. 
+You may also specify a comma separated list when you want the style to be applied to multiple (but not all) media
+
+<pre>&lt;head&gt;
+...
+&lt;link rel="stylesheet" type="text/css" href="style.css" media="all"&gt;
+...
+&lt;/head&gt;</pre>
+</ul>
+
+<h2>Internal Style Sheets</h2>
+<ul>
+<li>Internal style sheets are used to define style for a single page
+<li>Internal style sheets are defined within the &lt;style&gt; element inside the &lt;head&gt; section
+<li>You can also specify mediums via the <em>media</em> attribute
+<pre>
+&lt;head&gt;
+...
+&lt;style&gt;
+...
+&lt;/style&gt;
+...
+&lt;/head&gt;</pre>
+</ul>
+
+<h2>Inline Styles</h2>
+<ul>
+<li>Inline styles are used to define style for a single element
+<pre>&lt;tag style="..."&gt;...&lt;/tag&gt;</pre>
+</ul>
+
+</div>
+</body>
+</html>

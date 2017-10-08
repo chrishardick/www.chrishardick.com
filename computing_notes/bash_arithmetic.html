@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_bash");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<H1>Arithmetic</H1>
+
+<ul>
+<li>Bash supports integer arithmetic, floating point arithmetic is not supported.
+
+<li>The shell interprets words surrounded by <i>$((</i> and <i>))</i> as arithmetic expressions.
+Variables in arithmetic expressions do <i>not</i> need to be preceded by dollar signs, although doing so is <i>not</i> an error.  
+
+<li>Arithmetic expressions are NOT evaluated inside of single quotes
+</ul>
+
+
+<h2>Declaring Integer Variables</h2>
+
+<p>
+Bash allows you to declare integer variables with the following syntax:
+
+<font face=courier>
+<pre>
+declare -i IntegerVariable
+</pre>
+</font>
+This allows you to explicitly state that a variable is to hold integer values.  Any expression which is assigned to an
+integer variable is assumed to be arithmetic.  For example:
+<font face=courier>
+<pre>
+declare -i Integer
+
+x=2+5
+Integer=2+5
+
+echo "x = $x"
+echo "Integer = $Integer"
+
+Produces the following output:
+x = 2+5
+Integer = 7
+
+</pre>
+</font>
+
+You can also force an expression to be arithmetic using the 'let' statement.  'let' causes the expression following the 
+assignment to be interpreted as an arithmetic expression.  For example:
+<font face=courier>
+<pre>
+let AVariable=5+2
+
+echo "AVariable = $AVariable"
+
+Produces the following output:
+AVariable = 7
+
+</pre>
+</div>
+</BODY> 
+
+</HTML>
+  

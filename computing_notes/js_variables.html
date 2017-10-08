@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Variables</h1>
+
+<ul>
+<pre>
+var i,j,k;
+var a=0, b="abc", c=5.2;
+</pre>
+<li>Before you use a variable in JavaScript, it must be declared
+<li>Variables are explicitly declared with keyword <strong>var</strong>
+<li>If you don't explicitly declare a variable (with <strong>var</strong>), JavaScript will implicitly declare it for you
+<li>Remember, JavaScript is an untyped language, so there's no need to associate a type with a variable
+<li>If you don't specify an initial value for a variable w/i the var statement, the variables value is <strong>undefined</strong> until you initialize it
+<li>Variables declared w/ <strong>var</strong> are <strong>permanent</strong> -- they cannot be deleted
+</ul>
+
+<h2>VARIABLE SCOPE/LIFETIME</h2>
+
+<ul>
+<li>Variables defined within a function and function parameters have local scope. Their scope and lifetime is from point of declaration to the end of the function
+<li>Local variables (defined within a function), must be declared using <strong>var</strong>
+<li><strong>let</strong> specifies block scope. However, it is not supported by all browsers
+<li>Local variables take precedence (i.e. hide) global variables of the same name
+<li>Global variables have file scope. Their scope and lifetime is from point of declaration to the end of the file. 
+</ul>
+
+
+<h2 id="the_global_object">The Global Object</h2>
+
+<ul>
+<li>When the JavaScript interpreter starts up, before executing any code, it instantiates the Global Object
+<li>When you declare a global variable, what you're actually doing is defining a property of the Global Object
+<li>In code which is not contained within a function block, you can use the keyword <strong>this</strong> to refer to the global object
+	(within functions, <strong>this</strong> has a different meaning)
+</ul>
+
+<h3>The Call Object</h3>
+
+<ul>
+<li>Local variables (declared within a function) are also properties of an object -- the Call Object
+<li>When you call a function, you implicitly instantiate a Call Object
+</ul>
+
+</div>
+</body> 
+</html>

@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_css");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CSS - Layout</h1>
+
+<p>There are two primary types of layout for an element -- <strong>block-level</strong> and <strong>inline-level</strong> layout.</p>
+
+<h2>Block-level Layout</h2>
+<pre>
+      +--------------------------+
+      |          margin          |
+      | +----------------------+ |
+      | |       border         | |
+      | | +------------------+ | |
+      | | |   padding (bg)   | | |
+      | | | +--------------+ | | |
+      | | | | content area | | | |
+      | | | +--------------+ | | |
+      | | +------------------+ | |
+      | +----------------------+ |
+      +--------------------------+
+</pre>
+<ul>
+<li>A block-level box in CSS generates a rectangular box called the <strong>element box</strong> -- see diagram above.
+<li>padding defaults to 0 (zero)
+<li>border defaults to none
+<li>box-sizing
+    <ul>
+    <li><code>content-box</code> (default value) - the width and height properties define only the width or height of the content area. Any padding, borders or margins are added to it. 
+    <li><code>border-box</code> - the width and height properties define the width and height of the total width of the content, padding and borders. 
+</ul>
+
+<h2>Inline Layout</h2>
+<ul>
+<li>an inline-level element generates one or more rectangular boxes called <strong>inline boxes</strong> -- depending on whether or not the inline element spans a single or multiple lines.
+<li>All inline elements have a <strong>line-height</strong> property
+<li><strong>Line height of non-replaced items</strong> is <strong>the height of the content area (usually the font size) + leading</strong>
+<li>The height of the content area can be computed via the em-boxes of each character (i.e. the theoretical box around each character) or it's computed via the character glyphs (another measurement). CSS2.1 allows the user agent to choose which method to use. 
+<li><strong>leading</strong> -- the height difference between the font-size and the line-height. Half this difference is applied to the top of the content area and the other half is applied to the bottom of the content area. Leading is only applied to non-replaced elements.
+<li>For replaced elements, the content area is the height of the element + any margins, borders or padding.
+<li>For non-replaced inline boxes, the <code>width</code> and <code>height</code> properties do not apply
+<li>line box - the shortest box that bounds the highest and lowest point of the inline boxes which are found in the line. 
+</ul>
+
+</div>
+</body>
+</html>

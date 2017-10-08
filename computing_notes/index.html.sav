@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+
+<div id="nav" class="nav">
+    <button class="accordion">Bash</button>
+    <div class="panel">
+        <a href="#">Introduction</a>
+        <a href="#">Processes</a>
+        <a href="#">Functions</a>
+        <a href="#">Variables</a>
+        <a href="#">Command Line Options</a>
+        <a href="#">Arithmetic</a>
+        <a href="#">Flow Control</a>
+        <a href="#">Precedence</a>
+    </div>
+    
+    <button class="accordion">C</button>
+    <div class="panel">
+        <a href="#">Bit Operations</a>
+        <a href="#">Function Pointers</a>
+        <a href="#">Function Reference</a>
+        <a href="#">POSIX Datatypes</a>
+        <a href="#">Predefined IDS</a>
+        <a href="#">String Tokenize</a>
+        <a href="#">Variable Argument List</a>
+    </div>
+    
+    <button class="accordion">C/UNIX</button>
+    <div class="panel">
+        <a href="#">Files</a>
+        <a href="#">Signals</a>
+        <a href="#">Time</a>
+    </div>
+    
+    <button class="accordion">Sockets API (C/UNIX)</button>
+    <div class="panel">
+        <a href="#">Elementary Socket Functions</a>
+        <a href="#">read()</a>
+        <a href="#">write()</a>
+        <a href="#">close()</a>
+        <a href="#">shutdown()</a>
+        <a href="#">Socket Address Structures</a>
+        <a href="#">Port Numbers</a>
+        <a href="#">Sockets</a>
+        <a href="#">Byte Order</a>
+        <a href="#">Transport Layer Protocols (UDP, TCP)</a>
+        <a href="#">Common Application Layer Protocols</a>
+        <a href="#">Data Format</a>
+        <a href="#">I/O Multiplexing (select() and poll()</a>
+        <a href="#">Socket Options</a>
+        <a href="#">UDP Sockets</a>
+        <a href="#">Terms</a>
+    </div>
+    
+    <button class="accordion">POSIX Threads (C/UNIX)</button>
+    <div class="panel">
+        <a href="#">When to Use Threads</a>
+        <a href="#">Misc</a>
+        <a href="#">Threads</a>
+        <a href="#">Mutexes</a>
+        <a href="#">Condition Variables</a>
+        <a href="#">Memory Visibility Rules</a>
+        <a href="#">One Time Initialization</a>
+        <a href="#">Pthreads and Stdio</a>
+        <a href="#">Thread Cancellation</a>
+        <a href="#">Pthreads and Signals</a>
+        <a href="#">Attribute Objects</a>
+        <a href="#">Thread Specific Data</a>
+        <a href="#">Read/Write Locks</a>
+    </div>
+    
+    <button class="accordion">C++</button>
+    <div class="panel">
+        <a href="#">OOP</a>
+        <a href="#">Member Functions</a>
+        <a href="#">Constructors</a>
+        <a href="#">Destructors</a>
+        <a href="#">Encapsulation</a>
+        <a href="#">Inheritance</a>
+        <a href="#">Polymorphism</a>
+        <a href="#">Default Parameters</a>
+        <a href="#">Function Overloading</a>
+        <a href="#">Operator Overloading</a>
+        <a href="#">Virtual Base Class</a>
+        <a href="#">Typecasting</a>
+        <a href="#">Dynamic Memory Allocationg</a>
+        <a href="#">Inline Functions</a>
+        <a href="#">Initialization List</a>
+        <a href="#">Functional Notation</a>
+        <a href="#">Access Attributes</a>
+        <a href="#">Friend Functions</a>
+        <a href="#">References</a>
+        <a href="#">this Pointer</a>
+        <a href="#">Constants</a>
+        <a href="#">Static Class Members</a>
+        <a href="#">Function Templates</a>
+        <a href="#">Class Templates</a>
+        <a href="#">Exceptions</a>
+        <a href="#">Function Objects (Functors)</a>
+        <a href="#">Namespaces</a>
+        <a href="#">Pair</a>
+        <a href="#">Vector</a>
+        <a href="#">List</a>
+        <a href="#">Map and Multimap</a>
+        <a href="#">Set</a>
+        <a href="#">Deque</a>
+        <a href="#">String</a>
+        <a href="#">Transform</a>
+    </div>
+    
+    <button class="accordion">Databases</button>
+    <div class="panel">
+        <a href="#">Transactions</a>
+        <a href="#">SQLite</a>
+        <a href="#">MySQL</a>
+    </div>
+
+    <button class="accordion">Git</button>
+    <div class="panel">
+        <a href="#">Cheat Sheet</a>
+    </div>
+
+    <button class="accordion">HTML</button>
+    <div class="panel">
+        <a href="#">Introduction</a>
+        <a href="#">Colors</a>
+        <a href="#">Color Tester</a>
+        <a href="#">Basic Template</a>
+        <a href="#">Forms</a>
+        <a href="#">DOM Events</a>
+    </div>
+
+    <button class="accordion">CSS</button>
+    <div class="panel">
+        <a href="#">Introduction</a>
+        <a href="#">Internal, External, Inline</a>
+        <a href="#">HTML Element Types</a>
+        <a href="#">Rules</a>
+        <a href="#">Specificity</a>
+        <a href="#">Units</a>
+        <a href="#">Generated Content</a>
+        <a href="#">Font Properties</a>
+        <a href="#">Text Properties</a>
+        <a href="#">Color and Background Properties</a>
+        <a href="#">Content Area, Padding, Borders and Margins</a>
+        <a href="#">Position Properties</a>
+        <a href="#">Misc Properties</a>
+    </div>
+
+    <button class="accordion">HTTP</button>
+    <div class="panel">
+        <a href="#">Apache HTTP</a>
+        <a href="#">CGI</a>
+        <a href="#">Cookies</a>
+        <a href="#">Re-direction</a>
+    </div>
+
+    <button class="accordion">JavaScript</button>
+    <div class="panel">
+        <a href="#">Introduction</a>
+        <a href="#">Data Types</a>
+        <a href="#">Control Structures</a>
+        <a href="#">Objects</a>
+        <a href="#">Variables</a>
+        <a href="#">Functions</a>
+        <a href="#">Exceptions</a>
+        <a href="#">Date class</a>
+        <a href="#">Client Side</a>
+        <a href="#">DOM</a>
+        <a href="#">Clock</a>
+        <a href="#">Scratch Pad</a>
+        <a href="#">Load Calculator</a>
+        <a href="#">jQuery</a>
+    </div>
+
+    <button class="accordion">Linux</button>
+    <div class="panel">
+        <a href="#">init</a>
+        <a href="#">cron</a>
+        <a href="#">DHCP</a>
+        <a href="#">File Systems</a>
+        <a href="#">IPTables</a>
+        <a href="#">Modules</a>
+        <a href="#">Raspberry Pi</a>
+        <a href="#">rsync</a>
+        <a href="#">sendmail</a>
+        <a href="#">shutdown</a>
+        <a href="#">sudo</a>
+        <a href="#">tcpdump</a>
+        <a href="#">wireless</a>
+    </div>
+
+    <button class="accordion">Python</button>
+    <div class="panel">
+        <a href="#">Introduction</a>
+        <a href="#">Variables</a>
+        <a href="#">List</a>
+        <a href="#">Tuple</a>
+        <a href="#">Dictionary</a>
+        <a href="#">Control Structures</a>
+        <a href="#">Functions</a>
+        <a href="#">Command Line</a>
+        <a href="#">External Files</a>
+        <a href="#">Modules</a>
+        <a href="#">Classes</a>
+        <a href="#">Dates and Times</a>
+        <a href="#">Exceptions</a>
+        <a href="#">Regular Expressions</a>
+        <a href="#">Formatted Output</a>
+        <a href="#">Executing Commands</a>
+        <a href="#">Environment Variables</a>
+        <a href="#">Sqlite</a>
+        <a href="#">JSON</a>
+        <a href="#">GUID</a>
+        <a href="#">CGI</a>
+    </div>
+
+    <button class="accordion">Vim</button>
+    <div class="panel">
+        <a href="#">Cheat Sheet</a>
+    </div>
+
+    <button class="accordion">Vim</button>
+    <div class="panel">
+        item<br>
+        item<br>
+    </div>
+
+</div>
+
+<div class="title">Computing Notes</div>
+
+<div id="content" class="content">
+<h2>Greatest Title Ever!</h2>
+<p>black and white gold</p>
+<p>and more, and more, and more</p>
+
+<h3>Here's Another One</h3>
+<ul>
+<li>one
+<li>two
+<li>three
+</ul>
+
+<h3>Here's Another One</h3>
+<ul>
+<li>one
+<li>two
+<li>three
+</ul>
+
+<h3>Here's Another One</h3>
+<ul>
+<li>one
+<li>two
+<li>three
+</ul>
+
+<h3>Here's Another One</h3>
+<ul>
+<li>one
+<li>two
+<li>three
+</ul>
+
+<h3>Here's Another One</h3>
+<ul>
+<li>one
+<li>two
+<li>three
+</ul>
+
+
+</div>
+
+</body>
+
+</html>

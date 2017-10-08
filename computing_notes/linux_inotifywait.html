@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>inotifywait</h1>
+
+<ul>
+<li>Efficiently wait for changes to files using Linux's inotify interface
+<li>It can either exit once an event occurs or continually ex
+<pre>
+# -q - quiet mode. less verbose
+# -m - execute indefinitely, instead of exiting after receiving a single event
+# -e &lt;event list&gt; - listen for specific event(s) only. 
+
+inotifywait
+</pre>
+<li>Example: 
+<pre>
+</pre>
+</ul>
+
+</body> 
+</html>
+  

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Files</h1>
+
+<h2>Files</h2>
+
+<h3>open()</h3>
+<ul>
+<pre>
+# modes
+# - r = read (default)
+# - w = write
+# - a = append
+# - r+ = both reading and writing
+# returns a file object
+f = open (  filename        # filename string
+            ,mode           # defaults to r
+            )
+</pre>
+</ul>
+
+<h3>File Object Methods</h3>
+<ul>
+<li><code>read(size)</code> - reads size bytes and returns a string. size is optional, if not specified, the entire file will be read. Will return empty string when EOF has been reached.
+<li><code>readline()</code> - reads a single line from the file including the '\n'. In other words the new line will be present in the returned string.
+<li>For reading lines from a file, you can also loop over the file object. For example:
+<pre>
+for foo in f:
+    print foo
+</pre> 
+<li><code>readlines()</code> - similr to readline(), but will reads all lines of the file into a list.
+<li>Examples:
+<pre>
+s = f.read(500)     # read next 500 bytes from file
+t = f.read()        # read entire file
+u = f.readline()    # read next line from file. returned string contains '\n'
+v = f.readlines()   # read entire file. v will contain a list of all lines of the file
+</pre>
+<li><code>write(string)</code> - write the specified string to a file
+<pre>
+f.write ("Hello, World!\n")
+</pre>
+<li><code>close()</code> - close a file. A good idea when you're done working with your file. frees up any resources taken up by the open file
+</ul>
+
+</div>
+</body>
+</html>
+

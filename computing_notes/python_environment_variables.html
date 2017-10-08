@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Environment Variables</h1>
+
+<ul>
+<li>os module
+
+<pre>
+import os
+
+# dictionary of all environment variables
+print os.environ
+
+# here is how you access environment variables
+# - will throw exception if not set
+print os.environ['MY_VAR']
+
+# similar -- but returns None, rather than throwing an exception
+print os.environ.get('MY_VAR')
+
+# similar -- with default value
+print os.environ.getenv('MY_VAR', default_value)
+</pre>
+
+</ul>
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<H1>tcpdump</H1>
+
+<ul>
+<li>capture/dump network traffic
+<li>Example: save packet data to file. Rotate file every 60 seconds
+<pre>
+# -n - numeric. do not convert addresses, port numbers, etc. to names
+# -i - interface to listen on. e.g. 'eth0', 'wlan0', etc. Usually defaults to all traffic minus loopback and tunnel interfaces. 
+#      Wildcard 'all' can be specified to capture all including loopback and tunnel interfaces
+# -w &lt;filename&gt; - save packet data to specified file. 
+# -G &lt;n seconds&gt; - rotate file every n seconds 
+# -z &lt;postrotate-command&gt; -- Used with -C or -G, will execute 'postrotate-command file' -- once each file is generated
+
+tcpdump -n -i wlan0 -w '/home/pi/tcpdump/tcpudmp.w.%Y%m%d_%H%M%S' -G 60
+</pre>
+<li>Example: convert binary packet file to ascii
+<pre>
+# -q - quick mode (less infomation is printed)
+# -r &lt;file&gt; - read packets from file 
+
+tcpdump -n -q -i wlan0 -r &lt;filename&gt;
+</pre>
+</ul>
+
+</div>
+</body> 
+</html>
+  

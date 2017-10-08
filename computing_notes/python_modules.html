@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Modules</h1>
+
+<ul>
+<pre>
+import sys
+
+sys.path.append("/my/directory")
+
+import abc
+
+abc.foo()
+</pre>
+<li>E.g. a library
+<li>The filename is the module name with the .py suffix
+<li>A module can contain executable statements as well as function definitions. The statements are intended to initialize module. They are executed only the 1st time the module is enountered in an import statement.
+<li>Each module has its own private symbol table
+<li>You can use the <strong>import</strong> statement to import a module.
+<li>Once you import a module, you can access the module's functions and global variables, by using the 'module.' prefix
+<li>Module Search Path
+    <ul>
+    <li>When a module is imported, the interpreter 1st searches for a built in module with the given name. If not found, it searches for the module in the directories listed in sys.path. 
+    <li>You may have to modify the contents of sys.path -- see example above
+    </ul>
+</ul>
+
+</div>
+</body>
+</html>
+

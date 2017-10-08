@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Exceptions</h1>
+
+<ul>
+<pre>
+try:
+    if input &gt; 500:
+        raise RuntimeError("sorry -- that's too large :-(")
+
+except RuntimeError as e:
+    print "Exception Occurred. ", e.value
+
+except:     # catch all exceptions
+
+else:       # executed if no exceptions trigger -- you cannot use both else and finally
+
+finally:    # always executed -- you cannot use both else and finally 
+</pre>
+</ul>
+
+</div>
+</body>
+</html>
+

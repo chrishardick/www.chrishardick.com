@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<H1>Member Functions</H1>	
+
+<UL>
+<LI>A function which has its definition or prototype within the class definition.
+<LI>If a member function has its definition within the class, it is implicitly declared as <a href="Inline.html">inline</a>
+<LI>It's a good practice to declare all member functions which do not alter the object as <A HREF=Constants.html>constant member functions</A>, 
+	which is accomplished by placing the keyword <strong>const</strong> after both the function prototype and header 
+	(only functions defined outside of the class definition have a function prototype). 
+	Declaring a member function as constant, ensures that it does not modify any of the object's data members.
+<LI>See also <a href=polymorphism.html#virtual_member_functions>Virtual Member Functions</a>
+<pre>
+/*
+ * member fxn definition w/i the class
+ */
+class CBox
+{
+	double m_dLength, m_dWidth, m_dHeight;
+
+	public:
+		// Constructor - Implicitly inline
+		CBox (double dL=0.0, double dW=0.0, double dH=0.0);
+
+		// Volume() - Implicitly inline (a constant member function)
+		double Volume () const { return m_dLength * m_dWidth * m_dHeight; }
+};
+
+
+/*
+ * member fxn definition outside the class
+ * - in order to be inline, must be explicitly defined
+ */
+class CBox
+{
+	double m_dLength, m_dWidth, m_dHeight;
+
+	public:
+		// Constructor - Implicitly inline
+		CBox (double dL=0.0, double dW=0.0, double dH=0.0);
+
+		// Volume() 
+		double Volume ();
+};
+
+inline double CBox::Volume () const
+{
+	return m_dLength * m_dWidth * m_dHeight;
+}
+</pre>
+</UL>
+
+</div></BODY></HTML>

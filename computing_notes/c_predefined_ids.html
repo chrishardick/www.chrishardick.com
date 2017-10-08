@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_c");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<H1>Predefined Identifiers</H1>	
+
+<DL>
+<DT><PRE>__LINE__</PRE>
+<DD>Current Line # Being Compiled
+<DT><PRE>__FILE__</PRE>
+<DD>Name of Current Source Code Being Compiled
+<DT><PRE>__DATE__</PRE>
+<DD>Date of Compile: Mmm dd yyyy
+<DT><PRE>__TIME__</PRE>
+<DD>Time of Compile: hh:mm:ss
+<DT><PRE>__STDC__</PRE>
+<DD>Defined as 1 if compiler confirms to ANSI Standard
+</DL>
+
+
+<BR>
+<BR>
+
+EXAMPLE:
+<pre>fprintf (stderr,"Line:%d File:|%s| Compiled:%s @ %s. ANSI: %d\n",__LINE__,__FILE__,__DATE__,__TIME__,__STDC__);</pre>
+
+</div>
+</body> 
+</html>

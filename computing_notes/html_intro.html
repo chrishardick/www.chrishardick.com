@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_html");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>HTML Introdution</h1>
+<h2>Semantic Elements</h2>
+<ul>
+<li>HTML has semantic elements
+<li>A semantic element is an element which has a meaning. I.e. header, footer, etc. 
+<li>This is useful because it helps search engines and other automated engines parse web pages in a meaningful way
+<li>The alternative is everybody coming up with their own tag names which would be difficult for automated engines. 
+</ul>
+
+<h2>Tags</h2>
+<dl>
+<dt>div
+<dd>generic block element. provides no default style.
+<dt>link
+<dd>href attribute - a link beginning with a slash is relative to the base element (e.g. assuming the current page is www.chrishardick.com/dir1/page1.html), href="/dir2/page2.html" would point to www.chrishardick.com/dir2/page2 whereas href="dir2/page2.html" would point to www.chrishardick.com/dir1/dir2/page2.html"
+<dt>span
+<dd>generic inline element. provides no default style.
+</dl>
+
+<h2>JavaScript</h2>
+<ul>
+<li>external scripts -- tag can be placed in the body or head sections
+<pre>
+&lt;script src="script.js"&gt;
+</pre>
+<li>inline scripts -- script tag (can be placed in the body or head sections)
+<pre>
+&lt;script&gt;...&lt;/script&gt;
+</pre>
+<li>accessing elements
+<pre>
+var obj = getElementById("MyElement");
+</pre>
+</ul>
+
+<h2>Canvas</h2>
+<ul>
+<li>used to draw graphics on a web page on the fly via scripting
+<li>canvas tag
+<pre>
+&lt;canvas id="myCanvas" width="200" height="100"&lt;/canvas&gt;
+</pre>
+<li>always specify id, width &amp; height attributes
+<li>well suited for graphic intensive games
+<li>you can save the resulting image as .png or .jpg
+<li><a href="canvas.html">canvas</a>
+</ul>
+
+<h2>SVG -- Scalable Vector Graphics</h2>
+<ul>
+<li>SVG element
+<li>SVG is a language for describing 2D graphics in XML
+<li>SVG elements are available via DOM. You can attach event handlers to elements
+<li>If an attribute of a SVG object are changed, the browser will automatically re-render the shape
+<li>not well suited for game applications
+<li>good for applications with large rendering areas (e.g. maps)
+</ul>
+
+<h2>Video</h2>
+<ul>
+<li>If your site will serve video, mp4 is the suggested format for HTML5
+<li>video element
+</ul>
+
+<h2>Audio</h2>
+<ul>
+<li>If your site will serve audio, mp3 is the suggested format for HTML5
+<li>audio element
+</ul>
+
+<footer>
+<p>&copy; 2016 Chris Hardick. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+

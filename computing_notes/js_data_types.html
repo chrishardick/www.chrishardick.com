@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Data Types</h1>
+
+<ul>
+<li>JavaScript--like most scripting languages--is an untyped language. In other words, a variable is a variable and it can hold any data type.
+	It's perfectly legal to declare a variable, assign a string to it and later assign a numerical value to it. JavaScript will automatically
+	convert from one type to another as necessary
+<li>JavaScript supports <strong>3 primitive data types</strong>
+	<ol>
+	<li><a href="#string">string</a>
+	<li><a href="#number">number</a> 
+	<li><a href="#boolean">boolean</a>
+	</ol>
+<li>JavaScript supports <a href="#object">objects</a> (composite datatypes)
+	<ul>
+	<li>In JavaScript, <a href="#array">arrays</a> and <a href="#function">functions</a> are implemented as objects
+	<li>The core JavaScript language defines numerous pre-defined object classes inclding: <strong>Date</strong>, <strong>RegExp</strong>, and <strong>Error</strong>
+	</ul>
+<li>Primitive Data Type Class Wrappers
+	<ul>
+	<li>JavaScript predefines class wrappers for each of the primitive data types (numbers, strings, and boolean types) named Number, String, and Boolean -- respectively
+	<li>The wrapper contains the same primitive data value, but also defined properties and methods that can be used to manipulate the data
+	<li>When you use a primitive type in an object context, JavaScript implicitly creates a wrapper object for the value. The object created is temporary, 
+		it's created such that you can access the given property, then it's marked for deletion (such that it can be reclaimed by the system)
+	<li>If you wish to create an non-temporary primitive data type object, you can create one just as you'd create any object
+	<pre>var ex = new String("Hello World");</pre>
+	<li>NOTE: the reverse is also true, when you use a primitive type object in primitive type context, a temporary primitive type is created
+	</ul>
+<li>Some JavaScript types are <strong>Reference Types</strong>. I.e. the actual variable contains only a pointer (reference) to the actual data. The data is dynamically allocated. Dynamically allocated data which is no longer referenced is cleaned up by the system via <strong>Garbage Collection</strong>
+<li>Strings, Objects, and Arrays are Reference Types
+</ul>
+
+<h3 id=string>STRINGS</h3>
+<ul>
+<li>A sequence of zero or more Unicode characters enclosed by single or double quotations
+<li>TIP: In client-side JavaScript programming, JavaScript code often contains strings of HTML code, and HTML code often contains strings of JavaScript code.  Therefore, it's recommended to use one style of quotes for the HTML code (either single or double) and the other type for your JavaScript code
+<li>JavaScript strings (and arrays) are indexed from zero (0)
+<li><code>parseInt(string, radix)</code>
+    <ul>
+    <li>The function <code>parseInt()</code> accepts a string and returns an integer in the specified base.
+    <li>Radix (e.g. base) is an optional parameter. Valid values are from 2-36. It defaults to 10. 
+    <li>Only the first number of the string is returned
+    <li>Leading and trailing spaces are ignored
+    <li>If the 1st character cannot be converted to a number, NaN is returned
+    </ul>
+<pre>
+
+</pre>
+<li>Escape Sequences
+	<table border=1>
+	<tr><td>Sequence</td><td>Interpretation </td></tr>
+	<tr><td>\0      </td><td>NULL character </td></tr>
+	<tr><td>\b      </td><td>Backspace      </td></tr>
+	<tr><td>\t      </td><td>Tab            </td></tr>
+	<tr><td>\n      </td><td>Newline        </td></tr>
+	<tr><td>\v      </td><td>Vertical tab   </td></tr>
+	<tr><td>\f      </td><td>Form Feed      </td></tr>
+	<tr><td>\r      </td><td>Carriage Return</td></tr>
+	<tr><td>\"      </td><td>Double Quote   </td></tr>
+	<tr><td>\'      </td><td>Single Quote   </td></tr>
+	<tr><td>\\      </td><td>Backslash      </td></tr>
+	<tr><td>\xXX    </td><td>Latin-1 character specified by hexadecimal # XX</td></tr>
+	<tr><td>\uXXXX  </td><td>Unicode character specified by XXXX            </td></tr>
+	</table>
+Unlike other languages if the backslash is followed by any character other than the ones noted in the above table, it's simply ignored
+<li>Concatenation
+	<ul>
+	<li>Built into the core JavaScript language is the ability to concatenate strings via the <strong>+ operator</strong>
+	<pre>var szX = "Hello" + " World"</pre>
+	</ul>
+<li>Length
+	<ul>
+	<li>To determine the length of a string, use the <strong>length method of the String class</strong>
+	<pre>var lLenX = x.length();</pre>
+	</ul>
+<li>Substrings
+	<ul>
+	<li>To extract a substring, use the <strong>substring method of the String class</strong>
+	<pre>var szY = x.substring(1,5);</pre>
+	<li>To find the position of the first occurance of a substring use the <strong>indexOf method of the String class</strong>
+	<pre>var lPosW = indexOf('W');</pre>
+	</ul>
+</ul>
+
+<h3 id=number>NUMBERS</h3>
+<ul>
+<li>Numbers are not surrounded by quotes
+<li>All numbers in JavaScript are stored in 64 bit floating point format. In other words, there is no distinction between integers and real numbers
+<li>Bitwise operators are an exception -- they are performed on 32-bit integers
+<li>Hexadecimal literals begin with 0x or 0X
+<li>Floating point literals can be represented using exponential notation (real number followed by E (or e) followed by an integer exponent (which may be negative)
+<li>JavaScript supports the basic arithmetic operators
+	<ul>
+	<li>+ for addition
+	<li>- for subtraction
+	<li>* for multiplication
+	<li>/ for division
+	</ul>
+<LI>In addition, JavaScript supports more complex arithmetic operations as part of the core language. These functions are accessed as <em>methods</em> of the Math class
+<LI>The Math class has a toString( ) method which converts an integer to a string using the base specified by its argument (the base must be between 2 and 36)
+<pre>
+var x = 6;
+var y = x.toString(2); // y is "110"
+
+// you can also invoke the toString method on a literal
+// the parenthesis are requird to prevent the period (.) from being interpreted as a decimal point
+
+var y = (6).toString(2);
+</pre>
+<li>Special Numeric Values
+	<ul>
+	<li><em>Infinity</em> is used to represent a number larger than the largest possible number
+	<li>There's also <em>-Infinity</em> to represent a negative number lower than the lowest possible negative number
+	<li><em>NaN</em> is used to represent 'not a number'. To test for NaN, use <em>IsNaN( )</em>
+	<li>Use <em>isFinite( )</em> to test whether a number is not NaN, Infinity, nor -Infinity
+	</ul>
+</ul>
+
+<h3 id=boolean>BOOLEAN</h3>
+<ul>
+<li>Boolean variables can have only two possible values: <strong>true</strong> and <strong>false</strong>.
+<li>Similar to numbers, you do not need to use quotes
+</ul>
+
+
+<h3 id=function>Functions</h3>
+<ul>
+<li>In JavaScript, functions are implemented as objects
+<pre>
+function square (x)
+{
+     return x*x;
+}
+</pre>
+<li>Primative parameters (even the primative data type wrappers) are always passed as values. Objects are always passed by reference. 
+<li>Functions are called just like they are in C/C++, following their name w/ an comma separated list of arguments enclosed in parentheses
+<li>In JavaScript, functions are a data type. This means that functions may be stored in variables and passed as arguments to other functions
+<li>When a function is assigned to a property of an object, it is refered to as an object method
+</ul>
+
+
+<h2>Variables</h2>
+
+<ul>
+<pre>
+var i,j,k;
+var a=0, b="abc", c=5.2;
+</pre>
+<li>Before you use a variable in JavaScript, you must be declared
+<li>Variables are explicitly declared with keyword <strong>var</strong>
+<li>If you don't explicitly declare a variable (with <strong>var</strong>), JavaScript will implicitly declare it for you
+<li>Remember, JavaScript is an untyped language, so there's no need to associate a type with a variable
+<li>If you don't specify an initial value for a variable w/i the var statement, the variables value is <strong>undefined</strong> until you initialize it
+<li>Variables declared w/ <strong>var</strong> are <strong>permanent</strong> -- they cannot be deleted
+</ul>
+
+<h3>VARIABLE SCOPE/LIFETIME</h3>
+
+<ul>
+<li>Variables defined within a function and function parameters have local scope. Their scope and lifetime is from point of declaration to the end of the function
+<li>Local variables (defined within a function), must be declared using <strong>var</strong>
+<li><strong>let</strong> specifies block scope. However, it is not supported by all browsers
+<li>Local variables take precedence (i.e. hide) global variables of the same name
+<li>Global variables have file scope. Their scope and lifetime is from point of declaration to the end of the file. 
+</ul>
+
+
+<h3 id="the_global_object">The Global Object</h3>
+
+<ul>
+<li>When the JavaScript interpreter starts up, before executing any code, it instantiates the Global Object
+<li>When you declare a global variable, what you're actually doing is defining a property of the Global Object
+<li>In code which is not contained within a function block, you can use the keyword <strong>this</strong> to refer to the global object
+	(within functions, <strong>this</strong> has a different meaning)
+</ul>
+
+<h3>The Call Object</h3>
+
+<ul>
+<li>Local variables (declared within a function) are also properties of an object -- the Call Object
+<li>When you call a function, you implicitly instantiate a Call Object
+</ul>
+
+</div>
+</body> 
+</html>

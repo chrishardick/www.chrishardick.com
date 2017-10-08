@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_css");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CSS - Rules</h1>
+
+<ul>
+<li>Style sheets allow you to specify <strong>rules</strong> to describe the presentation of your documents
+<li>Each rule consists of a selector list and a declaration block
+<pre>selector list { declaration list }</pre>
+</ul>
+
+
+<!-- 
+    S E L E C T O R S
+-->
+
+<h2>Selector Lists</h2>
+<ul>
+<li><strong>Selectors</strong> allow you to specify which HTML element(s) a given style should be applied to
+<li>A <strong>selector list</strong> is a comma separated list of selectors
+</ul>
+
+<h3>Element Selectors</h3>
+<ul>
+<li>Selects elements based on the element name
+<pre>h1,h2 { color:red; font-size:12px; }</pre>
+<li>There are also <em>Pseudo-element selectors</em>.  
+<li>Pseudo elements are elements not specified by the author of the page, but instead are added implicitly by the browser.
+<li>Common pseudo-element selectors include <em>first-letter</em> and <em>first-line</em> 
+<li>Pseudo-elements are specified via ':first-letter'. For example, the following would apply to the first-letter of all paragraph elements
+<pre>a:first-letter { font-size: 200%; }
+</ul>
+
+<h3>id Selectors</h3>
+<ul>
+<li>Selects an element based upon the <strong>id</strong> attribute
+<li>The id of an element must be unique within a page.
+<li>To select based upon an id, the selector is a hash or pound sign (#) followed by the specific element id 
+<li>id's cannot start with numbers
+<li>The following will select the element on the page with id="my_id"
+<pre>
+#my_id { color: purple; }
+
+&lt;p id="my_id"&gt; ... &lt;/p&gt;
+</pre>
+<li>id names are case sensitive
+</ul>
+
+<h3>Class Selectors</h3>
+<ul>
+<li>Selects elements based upon class attribute
+<li>To select based on class attribute, the selector is specified as a period followd by the class name
+<li>The following will select all elements with class="center"
+<pre>.center { text-align: center; }</pre>
+<li>You can also restrict a class selector based on a given element type
+<pre>p.center { color: green; }</pre>
+<li>HTML elements can belong to multiple classes
+<pre>&lt;h1 class="center important"&gt;</pre>
+<li>You can also restrict a class selector based on multiple classes
+<pre>.class1.class2 
+{
+    /* styles to apply to elements with belonging to both class1 and class2 */
+}</pre>
+<li>Class names cannot start with numbers
+<li>Class names are case sensitive
+<li>There are also <em>Pseudo-Class Selectors</em>. Pseudo-class selectors are classes not specified by the author of the page, but instead are added implicitly by the browser.
+<li>The most common pseudo class selector is <em>visited</em>. visited is a class added by the browser to a link which has already been visited.
+<li>pseudo-class selectors are specified using a colon (:) rather than a period
+<pre>a:visited { color: red; }</pre>
+<li>Other pseudo-class selectors include:
+<ul>
+<li><em>:focus</em> -- an element that currently has the input focus.
+<li><em>:hover</em> -- an element in which the mouse pointer is currently hovering over
+<li><em>:active</em> -- an element that has been activated by the use input
+</ul>
+</ul>
+
+<h3>Descendant Selectors</h3>
+<ul>
+<li><em>Descendant selectors</em> allow you to apply style to a document based upon the structure of the document.
+<li>For example, let's say you wanted to style &lt;em&gt; elements which were desendants of &lt;ul&gt; or &lt;ol&gt; elements
+<li>Descendant selectors are specified via a space delimited selector list.
+<li>The following would select based upon the example above
+<pre>ul em, ol em { color: purple; }</pre>
+<li>Keep in mind that descendant (and ancestor) relationships are more generic than child (and parent) relationships and that descendant selectors apply
+to the more general ancestor/descendant relationship.
+</ul>
+
+
+<!--
+    D E C L A R A T I O N S
+-->
+
+<h2>Declaration Block</h2>
+<ul>
+<li>Declarations are where you specify which style(s) should be applied to the elements matching the selector (or selector list)
+<li>Each declaration in the <strong>declaration list</strong> is of the form <code>property:value;</code>
+<li>A semi-colon (;) is always required. even if there is only a single declaration
+<li>If a value has a unit (e.g. 12px), do not put a space between the value and the unit
+</ul>
+
+</div>
+</body>
+</html>

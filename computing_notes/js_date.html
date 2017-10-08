@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Date Class</h1>
+
+<h2>Constructors</h2>
+<ul>
+<li><code>new Date()</code> -- initialized to current date and time.
+<li><code>new Date(milliseconds)</code> -- as returned by getTime() -- number of milliseconds from minight January 1, 1970 (UTC)
+<li><code>new Date(datestring)</code> -- in the format accepted by Date.parse()
+<li><code>new Date(year,month,day,hours,minutes,seconds,ms)</code> -- only year and month are required. 4 digit year, month is from 0-11, day is from 1-31, hours is from 0-23, minutes is from 0-59, milliseconds is from 0-999
+</ul>
+
+<h2>Methods</h2>
+<p>Most methods have two versions -- one that operates using localtime and one that operates using UTC.</p> 
+<ul>
+<li><code>get[UTC]Date()</code> - return the day of the month for the given Date object
+<li><code>set[UTC]Date()</code> set the day of the month in the given Date object
+
+<li><code>get[UTC]Day()</code> - return the day of the week for the given Date object
+
+<li><code>get[UTC]FullYear()</code> - return the four digit year for the given Date object
+<li><code>set[UTC]FullYear()</code> - set the four digit year for the given Date object
+
+<li><code>get[UTC]Hours()</code> - return the hours for the given Date object
+<li><code>set[UTC]Hours()</code> - set the hours for the given Date object
+
+<li><code>get[UTC]Milliseconds()</code> - return the milliseconds for the given Date object
+<li><code>set[UTC]Milliseconds()</code> - set the milliseconds for the given Date object
+
+<li><code>get[UTC]Minutes()</code> - return the minutes for the given Date object
+<li><code>set[UTC]Minutes()</code> - set the minutes for the given Date object
+
+<li><code>get[UTC]Month()</code> - return the minutes for the given Date object
+<li><code>set[UTC]Month()</code> - set the minutes for the given Date object
+
+<li><code>get[UTC]Seconds()</code> - return the seconds for the given Date object
+<li><code>set[UTC]Seconds()</code> - set the seconds for the given Date object
+
+<li><code>getTime()</code> - return the number of milliseconds from UNIX epoch for the given Date object
+<li><code>setTime()</code> - set the number of milliseconds from UNIX epoch for the given Date object
+
+<li><code>getTimezoneOffset()</code> - return the difference in minutes between the local and UTC representations of this date - takes DST into account
+
+<li><code>toLocaleDateString()</code> - return a string that represents the date portion of the Date in local timezone using the local date formatting conventions. 
+<li><code>toDateString()</code> - return a string that represents the date portion of the Date in local timezone.
+
+<li><code>toLocaleTimeString()</code> - return a string that represents the time portion of the Date in local timezone using the local date formatting conventions. 
+<li><code>toTimeString()</code> - return a string that represents the time portion of the Date in local timezone.
+
+<li><code>toLocaleString()</code> - return a string that represents the date in local timezone using the local date formatting conventions. 
+<li><code>toString()</code> - return a string that represents the date in local timezone.
+<li><code>toUTCString()</code> - return a string that represents the date in UTC timezone
+<li><code>toISOString()</code> - return a string that represents the date in ISO-8601 format in UTC timezone
+
+<li><code>toJSON()</code> - serializes a Date object using toISOString()
+
+<li><code>valueOf()</code> - returns the internal millisecond format for the date (i.e. ms since UNIX epoch)
+
+</ul>
+
+<h2>Static Methods</h2>
+<ul>
+<li><code>Date.now()</code> - returns the current time, as milliseconds since the UNIX epoch. 
+<li><code>Date.parse()</code> - parses a string representation of a date and time and returns the internal millisecond format (ms since UNIX epoch). 
+<li><code>Date.UTC()</code> - returns the internal millisecond representation of the date and time (assumed to be in UTC timezone)
+</ul>
+
+
+<h2>Examples</h2>
+<script>
+d = new Date()
+document.write("getDate=" + d.getDate() + "<br>")
+document.write("getUTCDate=" + d.getUTCDate() + "<br>")
+document.write("<br>")
+
+document.write("getDay=" + d.getDay() + "<br>")
+document.write("getUTCDay=" + d.getUTCDay() + "<br>")
+document.write("<br>")
+
+document.write("getFullYear=" + d.getFullYear() + "<br>")
+document.write("getUTCFullYear=" + d.getUTCFullYear() + "<br>")
+document.write("<br>")
+
+document.write("getHours=" + d.getHours() + "<br>")
+document.write("getUTCHours=" + d.getUTCHours() + "<br>")
+document.write("<br>")
+
+document.write("getMilliseconds=" + d.getMilliseconds() + "<br>")
+document.write("getUTCMilliseconds=" + d.getUTCMilliseconds() + "<br>")
+document.write("<br>")
+
+document.write("getMinutes=" + d.getMinutes() + "<br>")
+document.write("getUTCMinutes=" + d.getUTCMinutes() + "<br>")
+document.write("<br>")
+
+document.write("getMonth=" + d.getMonth() + "<br>")
+document.write("getUTCMonth=" + d.getUTCMonth() + "<br>")
+document.write("<br>")
+
+document.write("getSeconds=" + d.getSeconds() + "<br>")
+document.write("getUTCSeconds=" + d.getUTCSeconds() + "<br>")
+document.write("<br>")
+
+document.write("getTime=" + d.getTime() + "<br>")
+document.write("<br>")
+
+document.write("getTimezoneOffset=" + d.getTimezoneOffset() + "<br>")
+document.write("<br>")
+
+document.write("toLocaleDateString=" + d.toLocaleDateString() + "<br>")
+document.write("toDateString=" + d.toDateString() + "<br>")
+document.write("<br>")
+
+document.write("toLocaleTimeString=" + d.toLocaleTimeString() + "<br>")
+document.write("toTimeString=" + d.toTimeString() + "<br>")
+document.write("<br>")
+
+document.write("toLocaleString=" + d.toLocaleString() + "<br>")
+document.write("toString=" + d.toString() + "<br>")
+document.write("toUTCString=" + d.toUTCString() + "<br>")
+document.write("toISOString=" + d.toISOString() + "<br>")
+document.write("<br>")
+
+document.write("toJSON=" + d.toJSON() + "<br>")
+document.write("valueOf=" + d.valueOf() + "<br>")
+document.write("<br>")
+
+</script>
+
+
+</div>
+</body>
+</html>

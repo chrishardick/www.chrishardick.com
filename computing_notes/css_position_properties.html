@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_css");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CSS - Positioning Properties</h1>
+
+<h2>Types of Positioning</h2>
+<ul>
+<li>static
+    <ul>
+    <li>normal. positioned with the normal flow of the page.
+    <li>not affected by top, bottom, left and right properties
+    </ul>
+<li>relative
+    <ul>
+    <li>the element is positioned relative to its normal position
+    <li>the element will be adjusted away from its normal position by the values set in the top, bottom, left and right properties
+    </ul>
+<li>fixed
+    <ul>
+    <li>the element is positioned relative to the viewport. Therefore regardless of window resizing or scrolling, it will stay in the same place with respect to the viewport. 
+    <li>the element's box is removed entirely from the flow of the document.
+    </ul>
+<li>absolute
+    <ul>
+    <li>the element's box is removed entirely from the flow of the document and positioned with respect to its containing block
+    </ul>
+</ul>
+
+<h2>position</h2>
+<ul>
+<li>Values: static, relative, fixed, absolute
+<li>Default value: static
+</ul>
+
+<h2>top</h2>
+<ul>
+<li>set top <strong>margin</strong> edge for a positioned element
+<li>Values: auto, &lt;length&gt;
+<li>Default value: auto
+</ul>
+
+<h2>bottom</h2>
+<ul>
+<li>set bottom <strong>margin</strong> edge for a positioned element
+<li>Values: auto, &lt;length&gt;
+<li>Default value: auto
+</ul>
+
+<h2>left</h2>
+<ul>
+<li>set left <strong>margin</strong> edge for a positioned element
+<li>Values: auto, &lt;length&gt;
+<li>Default value: auto
+</ul>
+
+<h2>right</h2>
+<ul>
+<li>set right <strong>margin</strong> edge for a positioned element
+<li>Values: auto, &lt;length&gt;
+<li>Default value: auto
+</ul>
+
+<h3>z-index</h3>
+<ul>
+<li>When elements are <strong>positioned</strong>, they can overlap each other
+<li>The element with the higher z-index will be positioned in front of an element with a lower z-index
+<li>If two elements overlap without a z-index specified, element positioned later will appear in front of those positioned earlier
+<li>
+</ul>
+
+</div>
+</body>
+</html>

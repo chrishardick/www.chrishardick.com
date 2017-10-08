@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_pthreads");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Pthreads: Attribute Objects</h1>
+
+<ul>
+<li>There are attribute objects for:
+	<ul>
+	<li>threads (pthread_attr_t)
+	<li>mutexes (pthread_mutexattr_t) 
+	<li>condition variables (pthread_condattr_t)
+	</ul>
+<li>provide an extended argument list when you initialize a thread, mutex or condition variable
+<li>allows POSIX (or an individual system) to add options without requiring changes to existing code
+<li>private structures. you use get/set funtions to read/write members, use init/destroy functions to initialize and destory 
+<li>not all attributes are supported by all systems. check system documentation
+</ul>
+
+<br><br>
+<h2>I. Thread Attribute Objects</h2>
+
+<ul>
+<pre>
+#include &lt;pthread.h&gt;
+
+pthread_attr_t attr;
+
+/*
+ * initialize thread attribute object w/ default values
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_attr_init (pthread_attr_t* attr);
+
+
+/*
+ * destroy the thread attribute object
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_attr_destroy (pthread_attr_t* attr);
+</pre>
+
+<H3>1. <i>detachstate</i> Attribute</H3>
+
+<ul>
+<li>Supported by all POSIX systems
+<li>Possible values: {PTHREAD_CREATE_JOINABLE, PTHREAD_CREATE_DETACHED}
+<li>Default value: PTHREAD_CREATE_JOINABLE
+<li>Joinable threads are joinable and cancelable
+<li>Detached threads are not joinable, nor cancelable. They release all of their system resources upon termination. Their identifier can no longer be used
+<li>When you create threads that you will not need to cancel nor join with, you should create the threads <i>detached</i>
+<pre>
+/*
+ * GET DETACHED STATE
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_attr_getdetachstate(pthread_attr_t* attr,      // in:  attribute object
+                                int* detachstate);         // out: PTHREAD_CREATE_JOINABLE|PTHREAD_CREATE_DETACHED
+
+/*
+ * SET DETACHED STATE
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_attr_setdetachstate(pthread_attr_t* attr,      // in/out: attribute object
+                                int detachstate);          // in:     PTHREAD_CREATE_JOINABLE|PTHREADE_CREATE_DETACHED
+</pre>
+</ul>
+
+
+<H3>2. <i>stacksize</i> Attribute</H3>
+
+<ul>
+<li>Supported by MOST POSIX systems. 
+<li>To test for support, check if the following symbol is defined: _POSIX_THREAD_ATTR_STACKSIZE
+<li>Specifies the minimum stack size of a thread created w/ the object
+<li>Avoid using an absolute size due to portablity issues--different systems require different stack sizes
+<li>POSIX defines the symbol PTHREAD_STACK_MIN (minimum stack size required for a thread) which can be used to compute relative stack sizes (more portable). 
+	I.e. 2*PTHREAD_STACK_MIN, PTHREAD_STACK_MIN/2, etc. 
+<pre>
+#ifdef _POSIX_THREAD_ATTR_STACKSIZE
+
+/*
+ * GET STACK SIZE
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_attr_getstacksize(pthread_attr_t* attr,      // in:  attribute object
+                              size_t* stacksize);        // out: stack size
+
+/*
+ * SET STACK SIZE
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_attr_setstacksize (pthread_attr_t* attr,      // in/out: attribute object
+                               size_t stacksize)          // in:     stack size
+
+#endif
+</pre>
+</ul>
+
+
+<H3>3. <i>stackaddr</i> Attribute</H3>
+<ul>
+<li>NOT COVERED
+</ul>
+
+<H3>4. <i>scope</i> Attribute</H3>
+<ul>
+<li>NOT COVERED
+</ul>
+
+<H3>5. <i>inheritsched</i> Attribute</H3>
+<ul>
+<li>NOT COVERED
+</ul>
+
+<H3>6. <i>schedpolicy</i> Attribute</H3>
+<ul>
+<li>NOT COVERED
+</ul>
+
+<H3>7. <i>schedparam</i> Attribute</H3>
+<ul>
+<li>NOT COVERED
+</ul>
+
+
+<br><br>
+<h2>II. Mutex Attribute Objects</h2>
+
+<ul>
+<li>NOT COVERED
+</ul>
+
+<br><br>
+<h2>III. Condition Variable Attribute Objects</h2>
+
+<ul>
+<li>NOT COVERED
+</ul>
+
+</div>
+</body>
+</html>

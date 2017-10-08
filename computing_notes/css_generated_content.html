@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_css");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CSS - Generated Content</h1>
+
+<ul>
+<li>Let's say you wanted to suffix every h2 element with the paragraph symbol -- &para; similar to the Python web site, you could use the following:
+<pre>h2:after { content: " &para;;" }</pre>
+<li>Similarly, if you wanted a prefix:
+<pre>h2:before { content: " &para;;" }</pre>
+</ul>
+
+</div>
+</body>
+</html>

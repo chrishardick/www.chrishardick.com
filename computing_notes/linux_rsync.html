@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>rsync</h1>
+
+<h2>Remotely Copy or Sync Files Over SSH</h2>
+
+<ul>
+<pre>rsync -avz -e "ssh -p1111" /path/to/file remote_user@ip_addr:/remote/path</pre>
+</ul>
+
+</div>
+</body> 
+</html>
+  

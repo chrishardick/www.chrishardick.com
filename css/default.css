@@ -18,6 +18,11 @@ BODY *:HOVER
     background: yellow;
 }*/
 
+.condensed 
+{
+    font-size: 11pt;
+}
+
 PRE
 { 
     font-size: 8pt; 

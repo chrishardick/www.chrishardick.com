@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Date - Examples</h1>
+<p>Body</p>
+
+<script>
+alert ("Is this modal?");
+var rc = confirm ("Isn't this great???");
+
+if (rc)
+{
+    document.write ("YES -- it's GREAT!<br>");
+}
+else
+{
+    document.write ("NO -- I guess we can try again...<br>");
+}
+
+var msg = prompt ("Tell me quickly what's on your mind");
+
+document.write (msg + "<br>");
+
+function displayTime() 
+{
+    var e = document.getElementById("clock");
+
+    var now = new Date();
+
+    e.innerHTML = now.toLocaleTimeString();
+    
+    setTimeout(displayTime,1000);
+}
+
+window.onload = function ()
+{
+    var elements = document.getElementsByClassName("reveal");
+
+    for (var i=0; i<elements.length; i++)
+    {
+        var e = elements[i];
+
+        var title = e.getElementsByClassName("handle")[0];
+
+        title.onclick = function()
+        {
+            if (e.className == "reveal") e.className = "revealed";
+            else if (e.className == "revealed") e.className = "reveal";
+        }
+    }
+
+    var clock = document.getElementById("clock");
+
+    clock.onclick = displayTime;
+};
+
+document.write ("Hello, World!<br>");
+
+var add_func = new Function ("x","y","return x+y;");
+var a = 5;
+var b = 10;
+document.write ("The result of " + a + " + " + b + " is " + add_func(a,b) + ".<br><br>");
+
+var i = 0;
+
+var s = "Hello, World!";
+
+document.write ("i=" + i + "<br>");
+document.write ("s=" + s + "<br>");
+document.write ("<br>");
+
+function foo (i,s)
+{
+    document.write ("x=" + x + "<br>");
+    var x = 5;
+    document.write ("x=" + x + "<br>");
+
+    i = i+1;
+
+    s = "Hello Dogs, Cats and Birds!";
+
+    document.write ("i=" + i + "<br>");
+    document.write ("s=" + s + "<br>");
+    document.write ("<br>");
+}
+
+
+document.write ("calling foo...<br>");
+
+foo (i,s);
+
+document.write ("returned from foo<br>");
+document.write ("i=" + i + "<br>");
+document.write ("s=" + s + "<br>");
+
+
+var obj = new Object();
+
+obj.name = "Chris Hardick";
+
+obj.print_name = function() { document.write(obj.name + "<br>");    }
+
+obj.print_name();
+
+
+function Rectangle (w, h)
+{
+    this.m_w = w;
+    this.m_h = h;
+
+    Rectangle.prototype.area = function() { return this.m_w * this.m_h; }
+
+    Rectangle.prototype.width  = function() { return this.m_w; }
+    Rectangle.prototype.height = function() { return this.m_h; }
+
+    Rectangle.prototype.set_height = function(h) { this.m_h = h; }
+    Rectangle.prototype.set_width  = function(w) { this.m_w = w; }
+}
+
+var r1 = new Rectangle (1, 2);
+
+document.write ("area of rectangle1 with width=" + r1.width() + " height=" + r1.height() + " is " + r1.area() + "<br>");
+
+r1.set_height(5);
+r1.set_width(6);
+
+document.write ("area of rectangle1 with width=" + r1.width() + " height=" + r1.height() + " is " + r1.area() + "<br>");
+document.write ("SCRIPT END<br>");
+
+
+</script>
+
+
+<div class="reveal">
+<h1 class="handle">click here to reveal hidden text</h1>
+<p>hidden text</p>
+</div>
+
+<div id="clock">
+click here to turn this into a clock
+</div>
+
+</div>
+</body>
+</html>
+

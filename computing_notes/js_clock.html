@@ -1,0 +1,78 @@
+
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>Computing Notes</title>
+
+<style>
+#clock
+{
+    font: bold 24pt sans-serif;
+    background: #ddf;
+    padding: 10px;
+    border: solid black 2px;
+}
+</style>
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+
+<script>
+function display_time ()
+{
+    var x = document.getElementById("clock");
+
+    var now = new Date();
+
+    x.innerHTML = now.toLocaleTimeString();
+
+    setTimeout(display_time, 1000);
+}
+
+window.onload = display_time;
+</script>
+
+
+</head>
+
+<body>
+<h1>Digital Clock</h1>
+<span id="clock"></span>
+
+</div>
+</body>
+</html>
+

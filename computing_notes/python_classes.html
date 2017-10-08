@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Classes</h1>
+
+<ul>
+<li>All members are public
+<li>Per class variables are declared within the class definition and are referenced only by using the classname prefix (e.g. Class.num_instances in the example below)
+<li>Per instance variables are declared within the __init__ method
+<li>Unlike C++, you must use <strong>self</strong> to reference an object methods and data members from its methods
+<li>Unused objects are cleaned up via garbage collection. Objects are cleaned up when their reference count goes to 0 (zero)
+<pre>
+# class definition
+
+class Class():
+    '''a simple class'''
+
+    # class variables go here
+    
+    num_instances = 0
+    num_foo_calls = 0
+
+    #==========
+    # __init__()
+    # 
+    # - constructor
+    # - Python does not support multiple constructors, but you can define default parameters
+    #==========
+    def __init__(self,val=0):         # __init__() is the constructor
+
+        # instance variables go here
+
+        print "Class constructor called. val=", val
+
+        self.i = val
+
+        Class.num_instances += 1
+
+    def bar(self):
+
+        print "bar!"
+
+
+    def foo(self):
+
+        self.i += 1
+
+        self.bar()
+
+# class instantiation
+
+a = Class(100)
+b = Class(200)
+c = Class(300)
+
+print "a.i=", a.i
+print "b.i=", b.i
+print "c.i=", c.i
+
+a.foo()
+
+print "a.i=", a.i
+
+print "# class instances: ", Class.num_instances
+print "# foo calls:, Class.num_foo_calls
+
+</pre>
+
+<li>Inheritance
+<pre>
+class SubClass (ParentClass1[,ParentClass2, ...]:
+    '''doc string'''
+
+    # class variables go here
+
+    def __init__ ()
+
+        # instance variables go here
+
+    ...
+</pre>
+<ul>
+<li>All methods are virtual
+<li>Multiple base classes are supported
+</ul>
+</ul>
+
+</div>
+</body>
+</html>
+

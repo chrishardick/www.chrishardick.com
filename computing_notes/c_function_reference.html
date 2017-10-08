@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_c");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C Function Reference</h1>
+<h2>assert ( )</h2>
+<pre>
+/*
+ * Abort program printing an informative message to stdio if expression is false
+ * - implemented using a macro
+ */
+#include &lt;assert.h&gt;
+
+void assert (expression);
+</pre>
+
+<h2>fgets ( )</h2>
+
+<pre>
+/*
+ * READ @ most size-1 characters from stream and store in s
+ * reading stops after EOF or \n
+ * if \n is read, it is stored in the buffer
+ * returned string is always null (\0) terminated
+ * 
+ * RETURN
+ * ======
+ * s = success
+ * NulL = otherwise
+ */
+
+#include &lt;stdio.h&gt;
+
+char* fgets (char* s,        // out:    buffer to write to (usually of size 'size')
+             int size,       // in:     size of buffer 
+             FILE* stream);  // in/out: stream to read from
+</pre>
+
+<h2>fork ( )</h2>
+<ul>
+<li>create a child process which is virtually identical to parent process
+<pre>
+/*
+ * RETURN
+ * ======
+ * on success
+ * - IN PARENT: PID of child process
+ * - IN CHILD: 0
+ * 
+ * on error
+ * - IN PARENT: -1 (no child process is created)
+ */
+
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+
+pid_t fork (void);
+</pre>
+</ul>
+
+
+<h2>getopt ( )</h2>
+<pre>#include &lt;unistd.h&gt;
+
+int getopt (	int argc,
+		char* const argv[],
+		const char* optstring)	// Options Specifier String
+
+extern char* optarg	// Option Argument
+extern int   optind
+extern int   opterr
+extern int   optopt</pre>
+
+</div>
+</body> 
+</html>

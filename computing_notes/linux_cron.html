@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<H1>cron</H1>
+<ul>
+<li>Cron is a process which runs commands specified by a user automatically according to the specifications set by the user.
+<li>Usually, each user in a UNIX/LINUX system can have a CRON.  On other systems, the use of the cron is limited to the ROOT.
+<li>Normally a user can only view their own cron file (except the super-user, who can view/change everyone's cron file).
+<li>Each user's cron commands are stored in a file, usually bearing the user's name.
+<li>All cron files are usually stored in the same directory. In RedHat Linux, it's /var/spool/cron.
+<li>There is not a command named 'cron'; only 'crontab' and 'crond', which is the cron daemon.
+</ul>
+
+<h2>Appendix</h2>
+
+<ul>
+<li>Crontab example
+<pre>
+# crontab
+# user: chris
+#
+#
+# NOTES
+# =====
+# - each line is a record
+# - blanklines and leading whitespace (tabs & spaces) are ignored
+# - lines whose 1st non-whitespace character is # are comments
+# - each field is space delimited
+# - fields are explained below
+# - ranges are allowed
+#   - ranges are specified via a hyphen
+#   - ranges are inclusive
+# - lists are allowed
+#  - lists are specified via a set of #'s (or ranges) separated by a comma
+# - * is a wildcard. i.e. this criteria will NOT be considered when looking for a mach
+#   - i.e. to not be concerned with the day nor the month (i.e. to run everday)
+#     the 3rd - 5th fields should be specified as *
+# - cmds are executed when the min, hour, month of year and either of the two days are matched
+#
+# FLD           DEFN
+# =============================================================
+#  1            minute (0-59)
+#  2            hour (0-23)
+#  3            day of month (1-31)
+#  4            month (1-12)
+#  5            day of week (0-7)
+#                       0 sunday
+#                       1 monday
+#                       2 tuesday
+#                       3 wednesday
+#                       4 thursday
+#                       5 friday
+#                       6 saturday
+#                       7 sunday
+#  6            cmd to run
+
+
+# remote back-up legalmgmt monday-friday @ 9:15pm
+# legalmgmt performs back-up @ 8pm
+# back-up directory is trimmed @ 9pm
+15 21 * * 1-5 /user2/bin/rmt_backup_legalmgmt.pl
+
+</ul>
+
+</div>
+</body> 
+</html>
+  

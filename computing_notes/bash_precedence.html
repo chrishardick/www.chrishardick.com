@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_bash");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Order of Precedence</h1>
+
+<p>
+So now that we've talked about functions and scripts, if you have a function (which has been loaded into memory) and a 
+script, both with the same name, how do you tell which one will execute?  
+</p> 	
+
+
+<p>
+The following list is in order of highest to lowest precedence:
+<ul>
+<li>
+alias - not covered, but here's the syntax: alias AliasName='AliasValue'.  Basically, the alias name is a synonym for the
+alias value.  This is extremely useful when you have long commands that you use frequently.
+</li>
+<li>
+keywords - i.e. function, if, for, ...
+</li>
+<li>
+functions
+</li>
+<li>
+built-in commands; commands which are built into the shell (e.g. cd, type) 
+</li>
+<li>
+scripts & executable programs - for which the shell searches in the directories listed in the PATH variable
+</li>
+</ul>
+</p>
+
+<p>
+The built-in command 'type' when given the command as the first argument will tell you how bash would interpret the command.
+</p>
+
+</div>
+</body> 
+</html>
+  

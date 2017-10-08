@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<H1>sendmail</H1>
+
+<UL>
+<LI>sendmail hangs on start-up
+	<UL>
+	<LI>try putting only one entry for the local machine in /etc/hosts
+	<PRE>
+	127.0.0.1 localhost.localdomain localhost
+	</PRE>
+	<LI>if this works, the system is probably trying to look up one of your alternate names via dns (and failing)
+	</UL>
+</UL>
+
+</div>
+</body> 
+</html>
+  

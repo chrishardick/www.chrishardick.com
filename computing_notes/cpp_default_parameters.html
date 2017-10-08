@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<H1>Default Parameters</H1>	
+
+<UL>
+
+<LI>Specify default parameters ONLY in the function prototype (not the header)
+<LI>Allow you to specify default values for function parameters
+<LI>If you've specified a default parameter & then call the function without specifying the parameter, the default value is used
+<LI>If you want to omit more than one argument, all assignments to the right of the leftmost argument that you omit, must also be left out.
+<LI>As a conclusion, you need to put all arguments which have default values in the function prototype together @ the end of the parameter list, with the most likely to be omitted appearing last.
+<PRE>
+// An Example. 
+// - default parameters only specified in the prototype
+
+void showit (const char szMsg[] = "Hello, World", int nX = 5, double dY = 10.0);
+
+void showit (char szMsg[], int nX, double dY)
+{
+	cout &lt&lt szMsg &lt&lt nX &lt&lt dY &lt&lt endl;
+}
+</PRE>
+</UL>
+
+</div>
+</BODY> 
+</HTML>

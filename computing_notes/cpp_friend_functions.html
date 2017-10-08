@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<H1>Friend Functions (of a class)</H1>	
+
+A function which is NOT a member of a class, but has access to all members of the class (public, private & protected). You can either include the prototype of the friend function in the class definition, or you can include the entire function definition. To indicate it's a friend function, simply prefix the prototype or function header with the keyword friend. Although, I've never seen the latter used, as it seems to me to be misleading. The friend function is NOT part of the class, and including its definition within the class may lead to some confusion. However, if you do find a use for this, remember that all functions which are defined within a class are automatically inline.
+
+
+<pre>class CBox
+{
+	public:
+		CBox (long lL=1L, long lW=1L, long lH=1) {m_lL=lL; m_lW=lL; m_lH=lH;}
+
+	private:
+		long lL, lW, lH;
+
+	// Friend Fxn(s)
+	friend double 2BoxVol (CBox 1, CBox 2);
+};</pre>
+
+
+</div>
+</BODY>
+</HTML>

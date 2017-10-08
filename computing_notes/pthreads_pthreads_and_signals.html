@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_pthreads");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Pthreads & Signals</h1>
+
+<br>
+
+<ul>
+<li>Signals which are associated with a specific execution context (SEGV, BUS, FPE, ILL, PIPE, etc.) are delivered to the thread which caused the signal to be raised.
+	These signals are known as <strong>synchronous signals</strong> and within multi-threaded environments, they are normally handled by 
+	<a href="#SIGNAL_DISPOSITIONS">signal dispositions</a>
+<li>All other signals (those not associated with a specific execution context) are delivered to an arbitrary thread.
+	These signals are known as <strong>asynchronous signals</strong> because they can occur at any time. 
+	Within multi-threaded environments, asynchronous signals are normally handled synchronously by calling <a href=#sigwait>sigwait ( )</a>
+<li>See also <A HREF="../UnixSignals.html">UNIX Signals</A> 
+	-- discusses UNIX Signals (not in the realm of threads)
+</ul>
+
+<br>
+<br>
+<h2 id=SIGNAL_DISPOSITIONS>I. SIGNAL ACTIONS (DISPOSITIONS)</h2>
+
+<ul>
+<li>Every signal has an associated action (disposition)
+<li>Signal dispositions are <strong>process wide</strong>. I.e. a signal disposition is shared between all threads
+<li>Within multi-threaded programs, signal dispositions are normally only used for <strong>synchronous signals</strong> (SEGV, BUS, FPE, ILL, PIPE, etc.);
+while <strong>Asynchronous signals</strong> are normally handled synchronously by calling <a href=#SIGWAIT>sigwait ( )</a>
+<li><A HREF="../UnixSignals.html#SIGACTION">sigaction( )</a> 
+	- POSIX function to set/examine a signal's disposition (associated action) 
+<li>A program must coordinate any use of sigaction() across threads.
+<li>Because dispositions are process wide (and usually process specific - i.e. different processes want to process signals differently), 
+	changing signal dispositions should solely be the job of the main program.  Library code should never change signal dispositions.
+<li>An example:
+
+<pre>
+-------------------------------------+----------------------
+thread 1                             | thread 2
+-------------------------------------+----------------------
+/*                                   |
+ * set SEGV disposition              |
+ * - process-wide                    |
+ */                                  |
+ sigaction(SIGSEGV)                  |
+                                     |
+                                     | /*
+                                     |  * set SEGV disposition
+                                     |  * - process-wide
+                                     |  * - overrides disposition set by thread 1
+                                     |  */
+                                     | sigaction(SIGSEGV)
+                                     |
+***SIGSEGV GENERATED***              |
+- it will be handled by the          |     
+  disposition set by thread 1        |
+  (within the context of thread 2)   |
+</pre>
+</ul>
+
+
+<br>
+<br>
+<h2 ID=PTHREAD_SIGMASK>SIGNAL MASKS</h2>
+
+<ul>
+<li>in a threaded process, each thread has it's own private signal mask
+<li>signal masks are <strong>per thread</strong>
+<li>signal mask: set of signals currently being blocked 
+<li>blocked signals are not delivered (they will remain pending)
+<li>@ most 1 of each signal type can be pending @ one time (i.e. pending signals are not queued past a depth of 1) 
+<li><A HREF="../UnixSignals.html#SIGPROCMASK">sigprocmask( )</a> 
+	- POSIX function to set/examine the process signal mask is NOT supported within a threaded process
+<li>POSIX introduces a new function - <strong>pthread_sigmask ( )</strong>
+<li>when a thread is created, it inherits the signal mask of the thread that created it
+<li>if you want a signal masked everywhere, mask it in the main thread prior to creating any threads
+
+<pre>
+/*
+ * SET/EXAMINE THE CALLING THREAD'S SIGNAL MASK
+ * 
+ * how
+ * ===
+ * - SIG_BLOCK   = add the signals in 'set' to the calling thread's signal mask
+ * - SIG_UNBLOCK = remove the signals in 'set' from the calling thread's signal mask
+ * - SIG_SETMASK = set the calling thread's signal mask from 'set'
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_sigmask (int how,                // in:  SIG_BLOCK|SIG_SETMASK|SIG_UNBLOCK
+                     const sigset_t* set,    // in:  signal set (pass NulL to get current signal mask, 'how' is not looked at)
+                     sigset_t* oset);        // out: old signal set (pass NulL if n/a)
+</pre>
+</ul>
+
+
+<br>
+<br>
+<h2>PTHREAD_KILL( )</h2>
+
+<ul>
+<li>allows a thread to send a signal to another thread (or itself) within the same process
+
+<pre>
+/*
+ * SEND SIGNAL FROM ONE THREAD TO ANOTHER THREAD (OR ITSELF) W/I THE SAME PROCESS
+ * 
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+ */
+int pthread_kill (pthread_t thread,    // in:  thread to send signal to
+                  int sig);            // in:  signal to send
+</pre>
+</ul>
+
+
+<br>
+<br>
+<h2 id=SIGWAIT>SIGWAIT( )</h2>
+
+<ul>
+<li>Recall that signals not associated w/ a specific execution context (<strong>asynchronous</strong>, because they can occur @ any time) are delivered 
+	to an arbitrary thread
+<li>sigwait( ) allows threaded programs to deal with asynchronous signals synchronously. 
+	I.e. a specified thread can wait for asynchronous signals, rather than have them happen @ any time to an arbitrary thread
+<li>All signals in the given signal set should be masked prior to calling sigwait ( )
+<li>All signals in the given signal set should not be ignored. 
+	This is not normally a consideration because very few signals have a default disposition of 'ignored'
+<li>sigwait( ) is normally used as follows:
+	<ul>
+	<li>in main( ), prior to creating any additional threads, mask (<a href=#PTHREAD_SIGMASK>pthread_sigmask( )</a>) the asynchronous signals that 
+		you wish to have sigwait( ) thread(s) wait for (they will therefore be blocked in all threads). 
+	<li>in sigwait( ) thread(s), call sigwait( ) passing in the signal set that you wish to wait for
+	<li>when a signal arrives, sigwait( ) will return & 'sig' will be set to the generated signal 
+	<li>NOTE: if the given signal has a signal handler, it is <strong>NOT</strong> called
+	</ul>
+
+<pre>
+/*
+ * WAIT FOR SIGNAL IN GIVEN SET
+ * - blocking function. it will return when a signal in the given set occurs
+ * - will not call a given signal handler
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int sigwait (const sigset_t* set,      // in:  set of signals to wait for
+             int* sig)                 // out: signal received
+</pre>
+</ul>
+
+</div>
+</body>
+</html>

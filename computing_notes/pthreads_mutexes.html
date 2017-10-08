@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_pthreads");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Pthreads: Mutexes</h1>
+
+<br>
+
+<ul>
+<li>the basic pthread synchronization mechanism
+<li>mutex stands for <strong>mut</strong>ual <strong>ex</strong>clusion. 
+<li>the job of a mutex is to guarantee mutual exclusive access to a given resource (or set of resources)
+<li>the most common method to synchronize common resources (global data, file descriptors, etc.) among threads is to ensure that only one thread is allowed to interact
+	with the shared resource @ a given time. I.e. access to the shared resource is mutually exclusive (mutex)
+<li>the most basic (& most common) usage is to create one mutex for each shared resource and to surround all access to the shared resouce w/ mutex_lock() & mutex_unlock() calls
+</ul>
+
+<br><br>
+<h2>1. MUTEX DATATYPE: PTHREAD_MUTEX_T</h2>
+
+<ul>
+<pre>
+#include &lt;pthread.h&gt;
+
+pthread_mutex_t my_mutex;
+</pre>
+<li>an opaque type -- (see <A HREF="pthread_misc.html#OPAQUE">Opaque Datatypes</A>)
+<li>never copy a mutex - the result is undefined (it's opaque)
+<li>if you need access to a mutex, you can copy a pointer to a mutex (into a function, etc.)
+</ul>
+
+<br><br>
+<h2>2. MUTEX CREATION & DESTRUCTION</h2>
+
+<ul>
+<li>In order to use a mutex, it must first be initialized (and initialized only once)
+<li>There are two ways a mutex can be initialized
+	<OL>
+	<li>static initialization
+	<li>dynamic initialization
+	</OL>
+</ul>
+
+<h3>A. STATIC INITIAliZATION</h3>
+
+<ul>
+
+<pre>
+/*
+ * statically initialize a mutex using PTHREAD_MUTEX_INITIAliZER macro
+ */
+pthread_mutex_t StaticMutex = PTHREAD_MUTEX_INITIAliZER;
+</pre>
+
+<li>statically initializes a mutex with default attributes. 
+<li>if you need to specify attributes, you must use dynamic initialization
+<li>if you dynamically allocate a mutex, you must use dynamic initialization
+<li>mutexes which are initialized statically do NOT need to be destroyed
+</ul>
+
+
+<h3>B. DYNAMIC INITIAliZATION</h3>
+
+<ul>
+
+<pre>
+/*
+ * dynamically initialize a mutex
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_mutex_init (pthread_mutex_t* p_Mutex,               // in
+                        pthread_mutexattr_t* p_MutexAttr);      // in: pass NulL for default attributes
+</pre>
+
+<li>mutexes which are dynamically initialized need to be destroyed using pthread_mutex_destroy()
+<li>you can safely destroy a mutex which has no thread(s) blocked on it & is unlocked
+<li>how do you know if no threads are blocked on the mutex & that it is unlocked? You have to have a solid grasp of the program logic!!!
+
+<pre>
+/*
+ * destroy a dynamically initialized mutex
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_mutex_destroy (pthread_mutex_t* p_Mutex)            // in
+</pre>
+
+<pre>
+/*
+ * an example
+ */
+
+#include &ltpthread.h&gt
+#include &ltstring.h&gt      // for strerror_r()
+
+char szEMsg[80];
+
+pthread_mutex_t* p_DynamicMutex = (pthread_mutex_t*) malloc (sizeof(pthread_mutex_t));
+
+int iRC = pthread_mutex_init (p_DynamicMutex, NulL);
+
+if (iRC != 0)
+{
+	strerror_r(iRC, szEMsg, sizeof(szEMsg));
+
+	cout &lt&lt "ERR: UNABLE TO INIT DYNAMIC MUTEX: " &lt&lt szEMsg &lt&lt endl;
+	
+	return false;
+}
+
+...
+
+iRC = pthread_mutex_destroy (p_DynamicMutex);
+
+if (iRC != 0)
+{
+	strerror_r(iRC, szEMsg, sizeof(szEMsg));
+
+	cout &lt&lt "ERR: UNABLE TO DESTROY DYNAMIC MUTEX: " &lt&lt szEMsg &lt&lt endl;
+	
+	return false;
+}
+</pre>
+
+</ul>
+
+
+<br><br>
+<h2>3. LOCKING & UNLOCKING A MUTEX</h2>
+
+<ul>
+<li>Use <strong>pthread_mutex_lock( )</strong> to lock a mutex
+<pre>
+/*
+ * lock a mutex - <a href="../Terms.html#BLOCKING_FXN">blocking call</A>
+ * - if mutex is not already locked, you will obtain the lock & own the mutex
+ * - if mutex is already locked, you will block
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_mutex_lock (pthread_mutex_t* p_Mutex);              // in
+</pre>
+<li>be careful NOT to lock a mutex when the calling thread already has the mutex locked; the behavior is undefined.
+	On some systems, pthread_mutex_lock() will return an error, on other systems, you'll be in a <strong>self-deadlock</strong> and never return
+</ul>
+
+<ul>
+<li>Use <strong>pthread_mutex_unlock( )</strong> to unlock a mutex
+<li>You can ONLY unlock a mutex which is currently locked (owned) by the current thread 
+<li>2 corollaries: (1) you cannot unlock a mutex which is not locked & (2) you cannot unlock a mutex which was locked by another thread
+<li>mutex owner: the thread which obtained the lock on the mutex
+<pre>
+/*
+ * unlock a mutex
+ * - mutex must be owned by current thread
+ * - unlock mutex & release ownership
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_mutex_unlock (pthread_mutex_t* p_Mutex);              // in
+</pre>
+</ul>
+
+<ul>
+<li>Non-blocking Mutex Locks: <strong>pthread_mutex_trylock( )</strong>
+<pre>
+/*
+ * lock a mutex - non-blocking version
+ * - if mutex is not already locked, you will obtain the lock & own the mutex
+ * - if mutex is already locked, pthread_mutex_trylock() will return immediately wth return value EBUSY
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * EBUSY = mutex is currently locked
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_mutex_trylock (pthread_mutex_t* p_Mutex);              // in
+</pre>
+</ul>
+
+<ul>
+<li>A simple example
+<pre>
+/*
+ * All accesses and modifications to x should be bracketed by calls to 
+ * pthread_mutex_lock() and pthread_mutex_unlock() as follows:
+ */
+
+pthread_mutex_lock(&Mutex);
+
+/*
+ * operate on x 
+ */
+
+pthread_mutex_unlock(&Mutex);
+</pre>
+</ul>
+
+
+<br><br>
+<h2>4. MUTEX SIZE</h2>
+
+<ul>
+<li>How much code should be within a mutex (i.e. how much data--and other shared resources--should be protected by a single mutex)?
+<li>When converting existing non thread-safe code (e.g. an existing C library or (even worse) an existing fortran library), it's
+	easiest to lock before entering and unlock after returning. This is known a a <strong>BIG MUTEX</strong> and depending on
+	your situation, it might be your best (or only) solution
+<li>As a general rule, resources which are usually used together should use the same mutex. Unrelated resources should use separate mutexes
+</ul>
+
+
+<br><br>
+<h2>5. AVOIDING DEADLOCKS</h2>
+
+<ul>
+<li>Anytime your code need to hold more than one mutex @ a time, you have to be careful to avoid deadlock
+<li>The classic deadlock 
+<pre>
+    Thread 1                                Thread 2
+    ========                                ========
+    lock mutex_a                            lock mutex_b
+    |                                       |
+    lock mutex_b                            lock mutex_a
+    - blocked forever waiting for mutex_b   - blocked forever waiting for mutex_a
+</pre>
+<li>Common techniques to avoid deadlocks are:
+	<OL>
+	<li>establish a locking hierarchy
+	<li>spin lock
+	<li>chaining
+	</OL>
+</ul>
+
+<h3 ID=LOCK_HIERARCHY>A. ESTABliSH A LOCKING HIERARCHY</h3>
+<ul>
+<li>If a thread needs to hold multiple locks simultaneously, establish a hierarchy
+<li>For example, mutex_a and mutex_b protect data which sometimes needs to be accessed simultaneously,
+	establish a rule such that in order to lock both mutex_a and mutex_b, mutex_a must first be locked, followed by mutex_b
+<li>Make sure you really need to hold both locks simultaneously. I.e. is it possible to release the 1st lock prior to obtaining the 2nd lock?
+<li>Use whatever order makes the most sense -- so long as you always use the same order
+<li>Make a function to lock the set of mutexes (to enforce the correct order) -- be sure to document
+<li>Unlocking the mutexes in whatever order makes the most sense. 
+	Unlocking can never result in deadlock, but some orders will probably be more effecient than others
+<li>For a locking hierarchy, it usually makes the most sense to unlock in the same order
+<li>Make another function to unlock the set of mutexes
+<pre>
+    Thread 1                                Thread 2
+    ========                                ========
+    lock mutex_a                            |
+    lock mutex_b                            lock mutex_a (blocked)
+    |                                       |
+    perform processing                      |
+    |                                       |
+    unlock mutex_a                          |
+    unlock mutex_b                          wake up (obtained mutex_a)
+    |                                       lock mutex_b
+    ...                                     |
+                                            perform processing
+                                            |
+                                            unlock mutex_a
+                                            unlock mutex_b
+                                            |
+                                            ...
+</pre>
+</ul>
+
+<h3>B. SPIN LOCK</h3>
+<ul>
+<li>Lock the first mutex normally (blocking), but for any additional mutexes - use non-blocking mutexes (pthread_mutex_trylock())
+<li>If any lock fails, unlock in reverse order and try again
+<li>Unlocking the mutexes in the reverse order reduces the spinning for other threads
+<pre>
+    Thread 1                                Thread 2
+    ========                                ========
+    lock mutex_a                            |
+    try-lock mutex_b                        lock mutex_a (blocked)
+    |                                       |
+    perform processing                      |
+    |                                       |
+    unlock mutex_b                          |
+    unlock mutex_a                          |
+    |                                       wake up (obtained mutex_a)
+    ...                                     try-lock mutex_b
+                                            |
+                                            perform processing
+                                            |
+                                            unlock mutex_b
+                                            unlock mutex_a
+</pre>
+</ul>
+     
+<h3>C. CHAINING</h3>
+<ul>
+<li>Useful for traversing linked lists and other tree data structures
+<li>A type of locking hierarchy 
+<li>Lock #1, Lock #2, Unlock #1, Lock #3, Unlock #2
+<pre>
+    Thread 1 
+    ========
+    lock head node  
+    head node processing  
+    |                    
+    traverse branch locking first node 
+    unlock head node 
+    first node processing 
+</pre>
+</ul>     
+
+</div>
+</body>
+</html>

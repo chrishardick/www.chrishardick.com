@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_html");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<header>
+<h1>HTML - Colors</h1>
+</header>
+
+<p>Colors can be specified as either:</p>
+<ul>
+<li>a well known name (e.g. Red, Yellow, Green, DarkGreen, Gray, DarkGray, ...)
+<li>RGB value (red, green, blue) -- where each parameter can have a value from 0-255 in either decimal or hexidecimal format -- see below
+<li>Colors can also be specified using a RGBA value -- which is an extension of RGB -- see below
+</ul>
+
+<h3>RGB</h3>
+<ul>
+<li>rgb(255,0,0) or #FF0000 is red
+<li>rgb(0,255,0) or #00FF00 is green
+<li>rgb(0,0,255) or #0000FF is blue
+<li>rgb(0,0,0) or #000000 is black
+<li>rgb(90,90,90) or #5A5A5A is dark gray
+<li>rgb(128,128,128) or #808080 is a ligher shade of gray
+<li>rgb(200,200,200) or #C8C8C8 is an even ligher shade of gray
+<li>255,255,255 or #FFFFFF is white
+</ul>
+
+<h3>RGBA</h3>
+<ul>
+<li>RGBA color values are an extension of RBG color values with an alpha channel. 
+<li>The alpha channel specifies the opacity from 0.0 to 1.0 where 0.0 is fully transparent and 1 is fully opaque
+</ul>
+
+</div>
+</body>
+</html>

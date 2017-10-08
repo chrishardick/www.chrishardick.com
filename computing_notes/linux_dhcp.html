@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>DHCP</h1>
+
+<ul>
+<li>
+</ul>
+
+<h2>DHCP Client</h2>
+
+<ul>
+For more information, man dhclient, man dhclient.conf
+</ul>
+
+<h2>DHCP Server Quick Start</h2>
+
+<ul>
+<li>Install -- if necessary. On RedHat or Centos systems,  <code>yum install dhcp</code>
+<li>Install dhcpd.conf in /etc/ (e.g. /etc/dhcpd.conf). A sample can be found at /usr/share/doc/dhcp-&lt;version&gt;/dhcp.conf.sample
+<li>DHCP also uses the file /var/lib/dhcpd/dhcpd.leases to store the client lease database. 
+</ul>
+
+
+<h2>dhcpd.conf</h2>
+
+<pre>
+default-lease-time  600;
+max-lease-time      7200;
+
+# cmd line options
+# here we specify the network card connected to the internal network 
+DHCPDARGS=eth1
+
+subnet 192.168.2.0 netmask 255.255.255.0
+{
+    option routers                  192.168.2.1;
+    option subnet-mask              255.255.255.0;
+    option domain-name-servers      192.168.1.5;        # this is propably an ip address outside of the local subnet
+
+    range 192.168.1.10 192.168.1.100;
+}
+</pre>
+
+<ul>
+<li>After changing the configuration file, be sure to restart the dhcp server by running service dhcpd restart
+<li>For more information, man dhcpd.conf, man dhcp-options
+
+</ul>
+
+<h2>Lease Database</h2>
+
+<ul>
+<li>Stored in file /var/lib/dhcpd/dhcpd.leases
+<li>ASCII file. Every time a lease is acquired, renewed or released, a new record is written to the end of the file. 
+Therefore, if you find multiple entries, the last one is the one that takes precedence.
+<li>Do not change this file. 
+<li>Times listed in file are UTC
+<li>Periodically, the file is re-created by moving the current file to dhcpd.leases~ and then copying active leases to the new file. 
+This is done to prevent the file from growing without bound.
+If the service or machine crashes during this operation, it's possible that the file is not present whihc will prevent the service from starting. 
+If this is the case, either dhcpd.leases~ needs to be copied to dhcpd.leases or dhcpd.leases needs to be touched -- whichever is the appropriate solution
+<li>The file also has to be touched before the server can come up for the 1st time.
+</ul>
+
+</div>
+</body> 
+</html>
+  

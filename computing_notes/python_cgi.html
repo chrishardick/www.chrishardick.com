@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CGI</h1>
+
+<ul>
+<pre>
+import cgi
+
+print "Content-Type: text/html"
+print ""
+
+# useful for debugging
+import cgitb
+
+cgitb.enable()
+
+# log to file rather than log to http results.
+#cgitb.enable(display=0, logdir="/logfile/dir/")
+
+print "&lt;html&gt;"
+print "&lt;head&gt;...&lt;/head&gt;"
+print "&lt;/html&gt;"
+</pre>
+</ul>
+
+<h2>Retrieving Input</h2>
+<pre>
+form = cgi.FieldStorage()
+
+for f in form:
+    print f, form[f].value
+</pre>
+
+</div>
+</body>
+</html>
+

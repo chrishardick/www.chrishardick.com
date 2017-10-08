@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cunix");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>C/UNIX: DATES & TIMES</h1>
+
+<h2>Definitions</h2>
+
+<dl>
+
+<dt>Start of the Epoch</dt>
+<dd>
+Midnight GMT (a.k.a UTC-Coordinated Universal Time) of January 1st, 1970.
+All times in UNIX are ultimately measured as seconds since the Start
+of the Epoch.  NOTE: MS-DOS Programs Use 1980.
+</dd>
+
+<dt>time_t</dt>
+
+<dd>
+Datatype large enough to contain dates & times.  Defined in time.h
+</dd>
+
+</dl>
+
+<pre>
+struct tm
+{
+         int         tm_sec;          /** Seconds (0-61) to allow for leap second or double leap second) **/
+         int         tm_min;          /** Minute (0-59) **/
+         int         tm_hour;         /** Hour (0-23) **/
+         int         tm_mday;         /** Day of Month (1-31) **/
+         int         tm_mon;          /** Month of Year (0-11) **/
+         int         tm_year;         /** Years Since 1900 **/
+         int         tm_wday;         /** Day of Week (0-6) 0 -> Sunday) **/
+         int         tm_yday;         /** Day of Year (0-365) **/
+         int         tm_isdst;        /** Daylight Savings in Effect **/
+};
+</pre>
+
+<h2>Y2K & UNIX</h2>
+
+32 Bit UNIX Machines will have a problem with Y2K in 2038 (GMT 03:14:07, Tuesday, January 19, 2038 - to be exact).
+They will run out of time.
+
+
+<h2>Functions</h2>
+
+<h3>FOR # OF SECONDS TO ELAPSE SINCE THE START OF THE EPOCH</h3>
+
+<pre>
+	#include &#60time.h&#155
+
+	time_t	time	(time_t* tloc);
+
+		Returns the # of Seconds since Start of the Epoch.  If you pass
+		a time_t ptr (instead of NULL), it will also fill the variable
+		with the same value.
+</pre>
+
+<h3>GET # OF SECONDS TO ELAPSE BETWEEN 2 TIMES</h3>
+
+<pre>
+	#include &#60time.h&#155
+	
+	double	difftime (time_t time1, time_t time2);
+</pre>
+
+<h3>SEPERATE time_t INTO STRUCTURE OF INDIVIDUAL ELEMENTS</h3>
+
+<pre>
+	#include &#60time.h&#155
+	
+	struct tm* gmtime (const time_t time);
+
+	NOTE: Returns Time in GMT
+</pre>
+
+
+<h3>SAME AS gmtime - EXCEPT CONVERT TO THE USER'S LOCAL TIME</h3>
+
+<pre>
+	#include &#60time.h&#155
+	
+	struct tm* localtime (const time_t* time);
+
+	NOTE: Exactly the same as gmtime, except converts for user's local time & day-light savings.
+</pre>
+	
+<h3>tm structure -> time_t</h3>
+<ul>
+<li>converts the broken down (struct) time - expressed in local time into a time_t (sec since start of epoch)
+<li>the original values of tm_wday & tm_yday are ignored
+<li>the original values of the other struct members are not restricted to their normal values
+<li>local time zone info of the tm struct are set (as though mktime() called tzset()
+<li>on error, mktime() returns -1
+</ul>
+
+<pre>
+	#include &#60time.h&#155
+	
+	time_t mktime (struct tm* timeptr);
+
+	NOTE: Will return -1 if unable to convert.
+</pre>
+
+<h3>CONVERSION TO STRINGS</h3>
+
+<pre>
+	#include &#60time.h&#155
+
+	char* asctime (const struct tim* timeptr);
+	char* ctime   (const time_t*     timeptr);
+
+	NOTE: Both functions always return a Fixed Format (26 characters long including NULL Ptr)
+
+	e.g. Sun Jun 16 12:30:43 2001\n\0
+</pre>
+
+</div>
+</body>
+</html>

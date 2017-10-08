@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_db");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<BODY>
+
+<H1>MySQL - Frequently Used SQL Commands</H1>	
+
+<UL>
+
+<LI>show databases;</LI>
+<BR><BR>
+
+<LI>use DBNAME</LI>
+<BR><BR>
+
+<LI>create database DBNAME;</LI>
+<BR><BR>
+
+<LI>create table TABLENAME (field1-name field1-type field1-modifiers, ... fieldN-name fieldN-type fieldN-modifiers;</LI>
+
+<pre>
+create table Event (	id int not null primary key auto_increment,
+			object_id int not null,
+			start_dt date not null,
+			time time not null,
+			freq char(1),
+			inst varchar(50) not null,
+			end_dt date,
+			last_update timestamp,
+			unique index ByStart (start_dt, time, id),
+			index ByEnd (end_dt, id));
+
+
+create table invoice_item (	id int not null primary key auto_increment, 
+				date_of_service date not null, 
+				invoice_id int, 
+				action_id int not null, 
+				invoice_item_type int not null,      
+				flat_rate DECIMAL(14,2), 
+				hour_rate DECIMAL(14,2), 
+				num_hrs int, 
+				unique index ByActionID (action_id,id), 
+				unique index ByDate (date_of_service,id));
+</pre>
+<BR><BR>
+
+<LI>describe table TABLENAME;</LI>
+<BR><BR>
+
+<LI>show index from TABLENAME;</LI>
+<BR><BR>
+
+<LI>insert into TABLENAME (col1, col2, ... colN) values (val1, val2, ... valN);</LI>
+<BR><BR>
+
+<LI>update TABLENAME set column=value [where clause];</LI>
+<BR><BR>
+
+<LI>select col, col2, ... colN from TABLENAME1, TABLENAME2, ... TABLENAMEN [where clause];</LI>
+	<UL>	
+	<LI>Functions
+	<LI>Aggregate Functions
+	</UL>
+<BR><BR>
+
+
+<LI>delete from TABLENAME [where clause];</LI>
+<BR><BR>
+
+<LI>alter table: to modify the structure of a table. Add/remove column(s), add/remove indexes (or unique indexes), etc.</LI>
+<pre>#add a fld 'notes' of type text (variable length char fld less than or equal to 64K)
+alter table Action add notes text;</pre>
+<BR><BR>
+
+</UL>
+
+</div>
+</BODY> 
+</HTML>

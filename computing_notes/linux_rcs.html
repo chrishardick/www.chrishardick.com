@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<H1>RCS - Revision Control System</H1>
+
+<H2>ci - check in RCS Revisions</H2>
+<UL>
+<PRE>ci [options] file ...</PRE>
+</UL>
+
+<H2>co - check out RCS Revisions</H2>
+<UL>
+<PRE>co -l [options] file ... ## Checkout w/ lock</PRE>
+<PRE>co [options] file ...    ## Checkout w/o lock (copyout)</PRE>
+</UL>
+
+<H2>Other RCS Commands</H2>
+<UL>
+<PRE>rlog    ## Summary of changes to a file</PRE>
+<PRE>rcsdiff ## Diff 2 Revisions</PRE>
+</UL>
+
+</div>
+</body> 
+</html>
+  

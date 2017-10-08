@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>JavaScript - Client-Side Object Hierarchy and The DOM</h1>
+
+<h2>The Client Side Object Hierarchy</h2>
+<ul>
+<li><a href=#the_window_object>window</a>
+	<ul>
+	<li>frames[]
+	<li>location
+	<li>history
+	<li>screen
+	<li><a href=#the_document_object>document</a>
+		<ul>
+		<li>forms[]
+			<ul>
+			<li>elements[]
+			</ul>
+		<li>anchors[]
+		<li>links[]
+		<li>images[]
+		<li>...
+		</ul>
+	</ul>
+</ul>
+
+<h2 id="the_window_object">The Window Object</h2>
+<ul>
+<li>The <strong>Window</strong> Object represents the window or frame in which the document is displayed
+<li>It is the root of the client-side object hierarchy
+<li>It is the <a href="data_types_and_vars.html#the_global_object">Global Object</a> for client side JavaScript
+<li>The Window Object defines properties and methods which allow us to manipulate the web browser window
+<li>Variable Lifetime
+	<ul>
+	<li>When a user goes from one page to another, the Window object for the window or frame is restored to its default state
+	</ul>
+</ul>
+
+<h2 id="the_document_object">The Document Object</h2>
+<ul>
+<li>Most of the client-side object hierarchy descends from the Document object
+<li>The most commonly used object in client-side JavaScript programming
+<li>Defines the <span class=code>document.write( )</span> method to insert dynamic content into the document while it is being parsed
+	<ul>
+	<li>you can only use <span class=code>write ( )</span> to output HTML to the current document while the document is being parsed
+	<li>if you call <span class=code>write ( )</span> after the document is parsed and rendered (i.e. in an event handler) you will overwrite
+		the entire document, instead of appending text to it
+	<li>the <span class=code>write ( )</span> method can take a variable number of arguments -- they will be concatenated together
+	<li>there's also a <span class=code>writeln( )</span> method which is the same as <span class=code>write( )</span> excapt it appends
+		a newline character
+	</ul>
+<li>Defines properties which provide information about the document
+	<ul>
+	<li><span class=code>URL</span>
+		<ul>
+		<li>string. the URL of the current document
+		</ul>
+	<li><span class=code>lastModified</span>
+		<ul>
+		<li>string. last modification date of the document
+		</ul>
+	<li><span class=code>title</span>
+		<ul>
+		<li>string. <span class=code>&lt;title&gt;...&lt;/title&gt;</span> text
+		</ul>
+	<li><span class=code>bgColor, fgColor</span>
+		<ul>
+		<li>string. <span class=code>&lt;title&gt;...&lt;/title&gt;</span> text
+		</ul>
+	</ul>
+<li>The subtree of the client-side object hierarchy is known as the <strong>Document Object Model -- DOM</strong>
+</ul>
+
+
+</div>
+</body>
+</html>

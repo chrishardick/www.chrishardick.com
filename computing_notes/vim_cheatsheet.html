@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_vim");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>VIM</h1>
+
+<h2>Sample .vimrc</h2>
+<pre>
+".vimrc
+"vim initialization file
+"comments denoted from quotation mark (") to end of line
+
+"shut off vi compatible mode -- which some linux flavors enable
+set nocp
+
+
+"show line #'s
+set number
+
+"enable autoindentation; works off of the previous line
+set autoindent
+
+set expandtab
+set tabstop=4
+
+"syntax highlighting
+syntax on
+
+</pre>
+
+
+<h2>UNIX/DOS</h2>
+<ul>
+<li>to convert a file from dos to unix format:
+<pre>:set ff=unix
+:w</pre>
+<li>to convert a file from unix to dos format:
+<pre>:set ff=dos
+:w</pre>
+</ul>
+
+
+<h2>Back Reference</h2>
+1,$s/\(^.*$\)/\1 ..\/html_\1/
+
+</div>
+</body> 
+</html>
+  

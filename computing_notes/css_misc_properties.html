@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_css");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CSS - Misc Properties</h3>
+
+<!--
+IN ALPHABETICAL ORDER
+-->
+
+<h2>box-shadow</h2>
+<ul>
+<li>attaches a shadow to an element
+<li>h-shadow v-shadow blur_spread color
+<p style="border: 1px solid black; box-shadow: 5px 5px 5px gray">box-shadow: 5px 5px 5px gray</p>
+</ul>
+
+<h2>display</h2>
+<ul>
+<li>specifies the type of box used for a given HTML element
+<li>Valid values:
+    <ul>
+    <li><strong>none</strong> - the element will not be displayed. Frequently used in conjunction with javascript to allow an element to appear/disappear
+    <li><strong>block</strong> - display element as a block element. Block elements implicitly have a break added before and after the element. Examples include h1, h2, p. div is a block element in which browsers do not implicitly add any other style.
+    <li><strong>inline</strong> - display element as an inline element. Inline elements do not have an implicit break before and after the element. Examples include strong, em, a. span is an inline element in which browsers do not implicitly add any other style. 
+    <li><strong>flex</strong> - ???
+    <li><strong>inline-block</strong> - similar to block
+    <li><strong>inline-table</strong> - ???
+    <li><strong>list-item</strong> - the element is displayed as a li element
+    <li><strong>run-in</strong> - ???
+    <li><strong>table</strong> - the element is displayed as a table element
+    <li><strong>table-caption</strong> - the element is displayed as a caption element
+    <li><strong>table-column-group</strong> - the element is displayed as a colgroup element
+    <li><strong>table-header-group</strong> - the element is displayed as a thead element
+    <li><strong>table-footer-group</strong> - the element is displayed as a tfoot element
+    <li><strong>table-row-group</strong> -  the element is displayed as a tbody element
+    <li><strong>table-cell</strong> - the element is displayed as a td element
+    <li><strong>table-column</strong> - the element is displayed as a col element
+    <li><strong>table-row</strong> - the element is displayed as a tr element
+    <li><strong>initial</strong> - set property to default value
+    <li><strong>inherit</strong> - inherit property from parent element
+    </ul>
+</ul>
+
+<h2>float</h2>
+<ul>
+<li>elements after a floating element will flow around it.
+<li>Valid values:
+    <ul>
+    <strong>left</strong>
+    <strong>right</strong>
+    </ul>
+</ul>
+
+<h2>overflow</h2>
+<ul>
+<li>what happens if the content overflows an elements box. 
+<li>Valid values:
+    <ul>
+    <li><strong>visible</strong> - the default value. The overflow is not clipped. It renders outside the element's box.
+    <li><strong>hidden</strong> - the overflow is clipped. Clipped content will not be invisible
+    <li><strong>scroll</strong> - the overflow is clipped, but a scroll bar is added allowing the user to see the clipped content
+    <li><strong>auto</strong> - if the overflow is clipped, a scroll bar will be added allowing the user to see the clipped content
+    </ul>
+</ul>
+
+</div>
+</body>
+</html>

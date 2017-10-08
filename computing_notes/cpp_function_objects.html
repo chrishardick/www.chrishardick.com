@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>C++: Function Objects (Functors)</h1>
+
+<ul>
+<li>Similar in nature to a function pointer
+<li>The typical use of a function pointer is let another function know how you want something done. I.e. how should sorting occur, or similar
+<li>Functors do the same thing. However, since they're objects, they can also store state information which makes them more powerful
+<li>Functors are created by overloading operator()
+<li>See also <a href="cpp_transform.html">std::transform</a> for an example of using an stl transform to call a functor on a container and storing the results in a resultant container
+</ul>
+
+<pre>
+#include &lt;iostream&gt;
+
+using namespace std;
+
+//==========
+// AddX -- a function object which always adds X (set at construction) to the passed in number
+//==========
+class AddX
+{
+    private:
+        int d_x;
+
+    public:
+        AddX (int x) : d_x(x) { }
+
+        int operator() (int y) { return d_x + y; }
+};
+
+// using a function object
+AddX add10(10);
+
+cout &lt;&lt; add10(5) &lt;&lt; endl;
+</pre>
+
+</div>
+</body> 
+</html>

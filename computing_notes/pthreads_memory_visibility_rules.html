@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_pthreads");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Memory Visibility Rules</h1>
+
+<ul>
+<li>This page discusses memory visibility between threads (i.e. sharing data between threads)
+<li>It discusses the reasons why you have to use mutexes (or read-write locks) even if you 
+	have many reader thread(s) but only one writer thread of a particular area of memory
+<li>These rules exist because of the way multi-processor memory architectures are designed, 
+	with separate processors each having their own memory caches
+<li>With each processor having its own memory cache and the possibility of different threads running
+	in different processors attempting to share data between, these rules govern when the various 
+	caches (and main memory) are guaranteed to be sunk up
+</ul>
+
+<br><br>
+
+<ol>
+<li><strong>Whatever memory values thread T1 can see when it</strong> creates a new thread T2, can also be seen by T2
+	<UL>
+	<li>If T1 sets a global variable and then calls pthread_create( ) to create T2,
+		T2 is guaranteed to see the correct value for the global variable (that set before
+		the thread was created). On the otherhand, if T1 had created T2 prior to setting the
+		global variable, T2 is not guaranteed to see the correct value of the global variable.
+	</UL>
+
+<br>
+<li><strong>Whatever memory values thread T1 can see when it</strong> unlocks mutex M, can also be seen by thread T2 
+	when it unlocks mutex M
+
+<br><br>
+<li><strong>Whatever memory values thread T1 can see when it</strong> terminates, can also be seen by thread T2 that joins
+	with T1
+
+<br><br>
+<li><strong>Whatever memory values thread T1 can see when it</strong> signals or broadcasts a condition variable (CV) can also 
+	be seen by any thread (T2,...TN) that is awakened by the broadcast/signal. This is an important rule because
+	a thread need not hold a mutex lock when it broadcasts/signals a condition variable
+</ol>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Command Line Arguments & Options</h1>
+
+<h2>Command Line Arguments</h2>
+<ul>
+<pre>
+import sys
+
+# my_test.py
+#
+# if run as: my_test.py this is a test
+
+# sys.argv is ['my_test.py', 'this', 'is', 'a', 'test']
+print "sys.argv is ", sys.argv
+
+# num args is 5
+print "num args is ", len(sys.argv)
+</pre>
+<li><code>sys.argv</code> is the list of command line arguments
+<li><code>len(sys.argv)</code> is the # of command line arguments (including the executing script)
+<li><code>sys.argv[0]</code> is the name of the executing script
+</ul>
+
+<h2>Command Line Options</h2>
+<ul>
+<pre>
+# usage: my_test2.py [-h] [-i input]
+
+import sys, getopt
+
+in_file = ""
+
+# opts - list of (option, value) pairs where option will be user specified option (prepended with '-')
+# args - remaining command line arguments
+opts, args = getopt.getopt(argv,"hi:")
+
+for opt,arg in opts:
+    if opt == '-h':
+        usage()
+        sys.exit()
+
+    elif opt == '-i':
+        in_file = arg
+
+print "in_file: ", in_file
+print "remaining args: ", args
+</pre>
+</ul>
+
+</div>
+</body>
+</html>
+

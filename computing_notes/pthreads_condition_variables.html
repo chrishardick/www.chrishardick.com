@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_pthreads");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Pthreads: Condition Variables</h1>
+
+<br>
+
+<ul>
+<li><strong>Condition Variables</strong> are used for communicating state information of data shared betweeen threads
+<li>I.e. item arrived on a queue, queue is empty, etc. 
+<li>Each condition variable is associated with a <a href"mutexes.html">mutex</a>
+</ul>
+
+<br><br>
+<h2>1. CONDITION VARIABLE DATATYPE: PTHREAD_COND_T</h2>
+
+<ul>
+<pre>
+#include &ltpthread.h&gt
+
+pthread_cond_t my_cond;
+</pre>
+<li>an opaque type -- (see <A HREF="pthread_misc.html#OPAQUE">Opaque Datatypes</A>)
+<li>never copy a condition variable - the result is undefined (it's opaque)
+<li>if you need access to a condition variable, you can copy a pointer to a condition variable (into a function, etc.)
+</ul>
+
+<br><br>
+<h2>2. CONDITION VARIABLE CREATION & DESTRUCTION</h2>
+
+<ul>
+<li>In order to use a condition variable, it must first be initialized (and initialized only once)
+<li>There are two ways a condition variable can be initialized
+	<OL>
+	<li>static initialization
+	<li>dynamic initialization
+	</OL>
+</ul>
+
+<H3>A. STATIC INITIAliZATION</H3>
+
+<ul>
+
+<pre>
+/*
+ * statically initialize a condition variable using PTHREAD_COND_INITIAliZER macro
+ */
+pthread_mutex_t StaticMutex = PTHREAD_MUTEX_INITIAliZER;
+</pre>
+
+<li>statically initializes a condition variable with default attributes. 
+<li>if you need to specify attributes, you must use dynamic initialization
+<li>if you dynamically allocate a condition variable, you must use dynamic initialization
+<li>condition variables which are initialized statically do NOT need to be destroyed
+</ul>
+
+
+<H3>B. DYNAMIC INITIAliZATION</H3>
+
+<ul>
+
+<pre>
+/*
+ * dynamically initialize a condition variable
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_cond_init (pthread_cond_t* p_Cond,                // in
+                       pthread_mutexattr_t* p_CondAttr);      // in: pass NulL for default attributes
+</pre>
+
+<li>condition variables which are dynamically initialized need to be destroyed using pthread_mutex_destroy()
+<li>you can safely destroy a condition variable which has no thread(s) blocked on it & no additional thread(s) will try to wait on, signal, or broadcast the condition variable
+<li>how do you know if no threads are blocked on the condition variable & that no threads will try to use it in the future? You have to have a solid grasp of the program logic!!!
+
+<pre>
+/*
+ * destroy a dynamically initialized condition variable
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_cond_destroy (pthread_cond_t* p_Cond);           // in
+</pre>
+
+<pre>
+/*
+ * an example
+ */
+
+#include &ltpthread.h&gt
+#include &ltstring.h&gt      // for strerror_r()
+
+char szEMsg[80];
+
+pthread_cond_t* p_DynamicCond = (pthread_cond_t*) malloc (sizeof(pthread_cond_t));
+
+int iRC = pthread_cond_init (p_DynamicCond, NulL);
+
+if (iRC != 0)
+{
+	strerror_r(iRC, szEMsg, sizeof(szEMsg));
+
+	cout &lt&lt "ERR: UNABLE TO INIT DYNAMIC CONDITION VAR: " &lt&lt szEMsg &lt&lt endl;
+	
+	return false;
+}
+
+...
+
+iRC = pthread_cond_destroy (p_DynamicCond);
+
+if (iRC != 0)
+{
+	strerror_r(iRC, szEMsg, sizeof(szEMsg));
+
+	cout &lt;&lt; "ERR: UNABLE TO DESTROY DYNAMIC CONDITION VAR: " &lt;&lt; szEMsg &lt;&lt; endl;
+	
+	return false;
+}
+</pre>
+
+</ul>
+
+
+<br><br>
+<h2>3. WAITING ON A CONDITION VARIABLE</h2>
+
+<ul>
+<li>Use <strong>pthread_cond_wait( )</strong> & <strong>pthread_cond_timedwait( )</strong> to wait on a condition variable
+<li>In order to wait on a condition variable, you must obtain the mutex lock 
+<li>All threads that wait on the same condition variable concurrently must specify the same associated mutex
+<li>In other words, at any given point in time, each condition variable can be associated with at most one mutex
+<li>IMPORTANT TIP: Be sure to test the condition (1) after obtaining the mutex lock and before waiting on the condition variable -and-
+	(2) after returning from pthread_cond_wait ( ) (this should be done w/i a loop)
+
+<pre>
+/*
+ * wait on a condition variable - <a href="../Terms.html#BLOCKING_FXN">blocking call</A>
+ * - before calling, you must obtain the associated mutex lock
+ * - before blocking the thread, pthread_cond_wait() will unlock the mutex (release the mutex lock)
+ * - before returning, pthread_cond_wait() will obtain the mutex lock
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_cond_wait (pthread_cond_t* p_Cond,             // in 
+                       pthread_mutex_t* p_Mutex);          // in
+
+/*
+ * wait on a condition variable (w/ timeout)
+ * - just like pthread_cond_wait() - releases mutex lock and obtains mutex lock before returning
+ * - even if timeout occurs, still has to wait to obtain mutex lock (could return a lot later than timeout interval)
+ * - returns ETIMEDOUT on timeout
+ * - before returning an error on ETIMEOUT wakeup, always check condition (it might have turned true)
+ * - see time.h for struct timespec def'n
+ * - eg: memset (p_Expire,0,sizeof(struct timespec));
+ *       p_Expire-&gttv_sec = time(NulL) + timeout_interval'
+ * 
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_cond_timedwait (pthread_cond_t* p_Cond,             // in 
+                            pthread_mutex_t* p_Mutex,           // in
+                            struct timespec* p_Expire);         // in
+
+
+
+</pre>
+
+<pre>
+/**********
+ * an example
+ **********/
+
+struct Demo
+{
+     pthread_mutex_t Mutex;    // mutex
+     pthread_cond_t  Cond;     // condition variable
+     short nNumItems;          // # items on list
+     long lList[5];            // list
+};
+
+Demo gsDemo1 = { PTHREAD_MUTEX_INITIAliZER, PTHREAD_COND_INITIAliZER, 0, { 0L, 0L, 0L, 0L, 0L } };
+
+...
+
+// obtain lock
+int iRC = pthread_mutex_lock (&gsDemo1.Mutex);
+if (iRC != 0) exit -1;
+
+/*
+ * obtained mutex lock
+ * - check condition before and after waiting on condition variable 
+ */
+
+while (gsDemo1.nNumItems == 0)
+{
+     iRC = pthread_cond_wait (&gsDemo1.Cond,
+                              &gsDemo1.Mutex);
+
+     if (iRC != 0) exit -2;
+}
+
+/*
+ * if here, there are item(s) on list to process (gsDemo1.nNumItems != 0) 
+ * -AND- 
+ * we have mutex lock
+ */
+
+/*
+ * process the item(s)
+ * - for this demo...we'll print
+ */
+cout &lt;&lt; "gsDemo1.nNumItems: " &lt;&lt; gsDemo1.nNumItems &lt;&lt; endl;
+
+
+// unlock
+iRC = pthread_mutex_unlock (&gsDemo1.Mutex);    
+
+if (iRC != 0) exit -3;
+</pre>
+
+
+</ul>
+
+
+<br><br>
+<h2>4. WAKING (brOADCAST/SIGNAL) CONDITION VARIABLE WAITERS</h2>
+
+<ul>
+<li>Use <strong>pthread_cond_signal( )</strong> & <strong>pthread_cond_broadcast( )</strong> to wake condition variable waiters
+<li><strong>Signal</strong> wakes up ONE waiting thread
+<li><strong>Broadcast</strong> wakes up ALL waiting threads
+<li>Unlike waiting on a condition variable, you do not need to obtain the associated mutex lock prior to signalling or broadcasting
+<li>Before pthread_cond_wait() can return, the condition variable first needs to be signalled or broadcasted.
+	Second, it must wait to obtain the associated mutex. Upon the signal (or broadcast), a context switch will occur and 
+	if the mutex can not be obtained, another context switch will occur (you're sleeping waiting for the mutex).
+	This can be avoided if the waker (signaller or broadcaster) releases the mutex prior to signalling (or broadcasting)
+<li>When in doubt, broadcast. Why? Waiters should be programmed to handle <strong>spurious wakeups</strong> anyway (they check condition w/i while loop)
+<li>Use signal when only one thread needs to wake up and any thread will do.
+<li>I.e. you have an item on a queue which needs to be processed and many identical worker threads waiting to process it 
+
+<pre>
+/*
+ * wake @ most one waiter
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+int pthread_cond_signal (pthread_cond_t* p_Cond);            // in 
+
+/*
+ * wake all waiter(s)
+ *
+ * RETURN
+ * ======
+ * 0 = success
+ * else - see discussion on <A HREF="pthread_misc.html#PTHREADS_AND_ERRORS">pthreads and errors</A>
+ */
+
+int pthread_cond_broadcast (pthread_cond_t* p_Cond);         // in 
+</pre>
+
+</ul> 
+
+
+<br><br>
+<h2>5. AVOID USING ONE CONDITION VARIABLES FOR MULTIPLE CONDITIONS</h2>
+
+
+<ul>
+<li>I.e. a single condition variable to communicate that either the stack is empty or the stack has data
+<li>If you do, you'll have to broadcast (otherwise you might not wake the appropriate waiter(s))
+</ul>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<H1>Typecasting</H1>
+
+<UL>
+<li>typecasting is done implicitly anytime you perform mixed mode operations (i.e. adding a double and a float; the float is
+	first converted to a double (using a temporary memory location as to not change the physical value of the float) and
+	the operation is then performed
+<li>C++ also allows you to explicitly cast between different types
+<li>C style casts
+<pre>(type to convert to)(expression)</pre>
+<li>In addition to C style casts, C++ added 4 new cast types
+	<ul>
+	<li>static casts
+		<ul>
+		<li>the validity of the cast is checked @ compile time (statically)
+		<pre>static_cast&lttype to convert to&gt(expression)</pre>
+		</ul>
+	<li>dynamic casts
+		<ul>
+		<li>the validity of the cast is checked @ run time (dynamically)
+		<pre>dynamic_cast&lttype to convert to&gt(expression)</pre>
+		</ul>
+	<li>const casts
+		<ul>
+		<li>removing the 'const' from a expression
+		<pre>const_cast&lttype to convert to&gt(expression)</pre>
+		</ul>
+	<li>reinterpret casts
+		<ul>
+		<li>unconditional cast
+		<pre>unconditional_cast&lttype to convert to&gt(expression)</pre>
+		</ul>
+	</ul>
+</UL>
+
+</div>
+</BODY> 
+</HTML>

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Wireless</h1>
+
+<ul>
+<li>WPA/WPA2 -- Wi-Fi Protected Access & Wi-Fi Protected Access V2) are security protocols for encrypting Wi-Fi communication. WPA has been hacked and should no longer be considered secure. 
+<li>WPA2 is also called RSN
+<li>WPA/WPA2 (RSN) Enterprise -- requires a RADIUS server and is appropriate for large entities
+<li>WPA/WPA2 (RSN) Personal (a.k.a. WPA-PSK or WPA2-PSK) -- uses pre-shared keys. Appropriate for residential and small business settings.
+<li>WEP -- Wired Equivalency Protocol is another encryption mechanism. It has also been hacked and should no longer be considered secure.
+<li>WPS -- Wi-Fi Protected Set-up is a technology which allows you to easily set-up a connection to a wireless network. After your network has been established, WPS should be disabled.
+</ul>
+
+
+<h2>How to Connect to a WPA or WP2(RSN) network</h2>
+
+<ul>
+<li><code>lsusb</code> list usb devices
+<li><code>iw list</code> list wireless devices
+<li>Create a virtual interface -- <code>iw phy phy0 interface add &lt;name&gt; type &lt;type&gt</code>. For instance <code>iw phy phy0 interface add wlan0 type station</code> -- station connects to an AP (access point)
+<li>To delete a virtual interface -- <code>iw dev wlan0 del</code>
+</ul>
+<li>Here are the various types (modes):
+    <ul>
+    <li>AP (acess point) mode. To use AP mode, you need to use hostapd. 
+    <li>managed (station) mode. Connects to an AP
+    <li>ibss (ad-hoc). A wireless network without the need of an AP
+    <li>mp (mesh). A wireless network in which nodes can forward to other nodes -- which is useful if the nodes are sparsely populated.
+    <li>monitor mode. No packets are transmitted. All packets are handed over to the host machine unfiltered.
+    <li>wds mode.
+    </ul>
+<li>Check device status. Up or Down. <code>ip link show wlan0</code> -- should show that the device is down -- i.e. UP is NOT seen between the parenthesis
+<li>Bring the device Up. <code>ip link set wlan0 up</code> -- requires root access.
+<li>Check device status. <code>ip link show wlan0</code> -- you should now see that the device is UP -- i.e. UP is seen between the parenthesis
+<li>Check the connection status. <code>iw wlan0 link</code> -- which should report that you are NOT connected to a network
+<li>Scan available Wi-Fi networks. <code>iw wlan0 scan</code> -- note the SSID (network ID) and security protocol (WPA2 or RSN)
+<li><code>wpa_passphrase &lt;SSID&gt; &gt;&gt;/etc/wpa_supplicant.conf</code>. Press ENTER and enter the network password followed by ENTER. This requires root access.
+<li><code>wpa_supplicant -B -D wext -i wlan0 -c /etc/wpa_suppllicant.conf</code>. -B to run in the background (omit this for debugging). -D for the wireless driver. wext is a generic driver. 
+<li>Check the connection status. <code>iw wlan0 link</code> -- which should report that you are now connected to a network
+<li>Obtain IP address via DHCP. <code>chclient wlan0</code>
+<li>Test external connectivity. <code>ping www.google.com</code>
+</ul>
+
+<h2>Hostapd</h2>
+<ul>
+<li>Hostapd is a user space daemon for access point servers.
+</ul>
+
+</div>
+</body> 
+</html>
+  

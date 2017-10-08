@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_css");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CSS Content Area, Padding, Borders and Margins</h1>
+
+<pre>
+      +--------------------------+
+      |          margin          |
+      | +----------------------+ |
+      | |       border         | |
+      | | +------------------+ | |
+      | | |   padding (bg)   | | |
+      | | | +--------------+ | | |
+      | | | | content area | | | |
+      | | | +--------------+ | | |
+      | | +------------------+ | |
+      | +----------------------+ |
+      +--------------------------+
+</pre>
+
+
+<h2>Content Area</h2>
+
+<h3>width</h3>
+<ul>
+<li>Specify the width of the content area
+<li>Values: auto, &lt;length&gt;, &lt;percentage&gt;
+<li>Default value: auto
+<li>Applies to: block-level and replaced elements
+</ul>
+
+<h3>height</h3>
+<ul>
+<li>Specify the height of the content area
+<li>Values: auto, &lt;length&gt;
+<li>Default value: auto
+<li>Applies to: block-level and replaced elements
+</ul>
+
+<h2>Padding</h2>
+<ul>
+<li>The space immediately around the content area
+<li>Background extends into the padding, but not the margins
+</ul>
+
+<h3>padding</h3>
+<ul>
+<pre>padding: 10px;
+padding 5px 10px;
+padding 5px 10px 15px 20px;</pre> 
+<li>Values: &lt;length&gt;, &lt;percentage&gt;
+<li>Default value: not defined
+<li>Applies to: all elements
+<li>Negative values are not allowed
+</ul>
+
+<h2>Borders</h2>
+<ul>
+<li>Borders surround the padding of an element
+</ul>
+
+<h4>border-style</h4>
+<ul>
+<pre>p {border-style: solid;}</pre>
+<li>If you do not specify a border style, the other border properties will have no effect.
+<li>Values: solid, dotted, dashed, none, hidden
+</ul>
+
+<h4>border-width</h4>
+<ul>
+<pre>p {border-style: solid; border-width: 5px; }</pre>
+<li>border-width can be set via the border-width property
+</ul>
+
+<h4>border-color</h4>
+<ul>
+</ul>
+
+<h4>border</h4>
+<ul>
+<li>allows you to set all border properties in a single declaration
+<li>property order: border-width, border-style, border-color
+<pre>border: 20px solid red;</pre>
+</ul>
+
+<h4>border-radius</h4>
+<ul>
+<li>allows you to add rounded corners 
+<li>border-radius: 1-4 lengths
+<li>if 1 length is specified, the value is used for all 4 corners
+<li>if 2 lengths are specified, top-left/bottom-right top-right/bottom-left
+<li>if 3 lengths are specified, top-left top-right/bottom-left bottom-right
+<li>if 4 lengths are specified, top-left top-right bottom-right bottom-left
+<p style="border: 1px solid black; border-radius: 5px;">border_radius: 5px;</p>
+<p style="border: 1px solid black; border-radius: 5px 10px;">border_radius: 5px 10px;</p>
+<p style="border: 1px solid black; border-radius: 5px 10px 15px;">border_radius: 5px 10px 15px;</p>
+<p style="border: 1px solid black; border-radius: 5px 10px 15px 20px;">border_radius: 5px 10px 15px 20px;</p>
+</ul>
+
+<h3>Margins</h3>
+<ul>
+<li>The margin is the area surrounding the borders
+<li>The background does not extend into the margins
+</ul>
+
+<h4>margin</h4>
+<pre>margin: 5px 10px 15px 20px; /* top, right, bottom, left */
+margin: 5px 10px 15px; /* top, right/left, bottom */
+margin: 5px 10px; /* top/bottom, right/left */</pre>
+<ul>
+<li>Default value: 0
+<li>NOTE: negative values are allowed
+</ul>
+
+<h2>Box Sizing</h2>
+<ul>
+<li>specifies whether or not padding and border should be included in the element's total width and height
+</ul>
+
+<h3>box-sizing</h3>
+<ul>
+<li><code>border-box</code> - the given elements should have padding and border included in the elements total width and height
+</ul>
+
+
+</div>
+</body>
+</html>

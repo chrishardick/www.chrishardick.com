@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_css");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CSS - Specificity</h1>
+
+<ul>
+<li>It is possible that the same element is selected by two or more conflicting rules. 
+<li>When an element has two or more conflicting rules, the one with the highest <strong>specificity</strong> according to the following rules is the one which is applied.
+<li>inline styles (styles specified within the tag itself) have the highest specificity (priority)
+<li>ID selectors have the 2nd highest specificity (priority)
+<li>class selectors have the 3rd highest specificity (priority)
+<li>element selectors have the least specificity (priority)
+<li>When evaluating specificity, the html rendering engine will split declarations apart.
+<li>For example:
+<pre>h1.em { color: white; background: black; }</pre>
+<li>is treated as if it was two separate rules:
+<pre>
+h1.em { color: white; }
+h1.em { background: black; }
+</pre>
+</ul>
+
+<h2>Inheritance</h2>
+<ul>
+<li>Inheritance is the method by which style is applied not only to a given element, but also its depenedants
+<pre>body { color: red; }</pre>
+<li>Inherited values have no specificity 
+<li>Most box model properties (margins, borders, and padding) are not inherited. 
+</ul>
+
+<h2>Cascade</h2>
+<ul>
+<li>The cascade rule states that for rules of equal specificity, the later the rule appears in the document or style sheet, the higher its precedence
+</ul>
+
+</div>
+</body>
+</html>

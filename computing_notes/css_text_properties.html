@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_css");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CSS - Text Properties</h1>
+
+<h2>text-align</h2>
+<ul>
+<li>Horizontal alignment
+<li>Values: left, center, right, justify
+<div style="text-align: left; border: 1px solid black">left left left left left left left left left left left left left left left left left left left left left left left left left left left left left left left left left left left left left left </div>
+<div style="text-align: center; border: 1px solid black;">center center center center center</div>
+<div style="text-align: right; border: 1px solid black;">right</div>
+<div style="text-align: justify; border: 1px solid black;">justify justify justify justify justify justify justify justify justify justify justify justify justify justify justify justify justify justify justify justify justify justify </div>
+<li>Default value: html rendering agent specific
+<li>Applies to: block-level elements
+</ul>
+
+<h3>line-height</h3>
+<ul>
+<li>Line height
+<li>Values: normal, &lt;length&gt;, &lt;percentage&gt;, &lt;number&gt; 
+<li>Default value: normal
+<p style="line-height: 25%; border: 1px solid black;">25%<p>
+<p style="line-height: 50%; border: 1px solid black;">50%<p>
+<p style="line-height: 100%; border: 1px solid black;">100%</p>
+<p style="line-height: 200%; border: 1px solid black;">200%</p>
+</ul>
+
+<h3>vertical-align</h3>
+<ul>
+<li>Vertical alignment (e.g. subscript, superscript)
+<li>Values: baseline, sub, super, top, text-top, middle, bottom, text-bottom, &lt;length&gt;, &lt;percentage&gt;
+<li>Default value: baseline
+<li>regular <span style="vertical-align: baseline; border: 1px solid black;">baseline</span>
+<li>regular <span style="vertical-align: sub; border: 1px solid black;">sub</span>
+<li>regular <span style="vertical-align: super; border: 1px solid black;">super</span>
+<li>regular <span style="vertical-align: top; border: 1px solid black;">top</span>
+<li>regular <span style="vertical-align: text-top; border: 1px solid black;">text-top</span>
+<li>regular <span style="vertical-align: middle; border: 1px solid black;">middle</span>
+<li>regular <span style="vertical-align: bottom; border: 1px solid black;">bottom</span>
+<li>regular <span style="vertical-align: text-bottom; border: 1px solid black;">text-bottom</span>
+<li>Applies to: inline elements and table cells
+</ul>
+
+<h3>text-transform</h3>
+<ul>
+<li>Adjust capitalization
+<li>Values: none, uppercase, lowercase, capitalize
+<li style="text-transform: uppercase">uppercase</li>
+<li style="text-transform: lowercase">lowercase</li>
+<li style="text-transform: capitalize">capitalize</li>
+<li>Default value: none
+<li>Applies to: all elements
+</ul>
+
+<h3>text-decoration</h3>
+<ul>
+<li>Text decoration
+<li>Values: none, underline, overline, line-through, blink
+<li style="text-decoration: underline;">underline</li>
+<li style="text-decoration: overline;">overline</li>
+<li style="text-decoration: line-through;">line-through</li>
+<li style="text-decoration: blink;">blink</li>
+<li>Default value: none
+<li>Applies to: all elements
+</ul>
+
+<h3>text-shadow</h3>
+<ul>
+<li>Adds shadow to text
+<li><code>text-shadow: h-shadow v-shadow blur-radius color</code>
+<li><strong>h-shadow</strong> - Required. Position of the horizontal shadow. Negative values are allowed
+<li><strong>v-shadow</strong> - Required. Position of the vertical shadow. Negative values are allowed
+<li><strong>blur-radius</strong> - Optional. Default value is 0.
+<li><strong>color</strong> - Optional. The color of the shadow
+<p style="text-shadow: 5px 10px 5px black">5px 10px 5px rgba(0,0,0,1.0)</p>
+</div>
+</body>
+</html>
