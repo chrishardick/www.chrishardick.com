@@ -39,7 +39,7 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<h1>Regular Expressions</h1>
+<h1>Python: Regular Expressions</h1>
 
 <ul>
 <li>re module
@@ -48,7 +48,7 @@ import re
 </pre>
 </ul>
 
-<h3>meta characters</h3>
+<h2>meta characters</h2>
 <ul>
 <li><code>*</code> - 0 or more of the preceding RE
 <li><code>+</code> - 1 or more of the preceding RE
@@ -62,7 +62,7 @@ Appending a <code>?</code> after <code>'*', '+', '?'</code> produces a non-greed
 <li><code>{n,m}</code> -- matches at least n and at most m occurrences of the preceding expression
 </ul>
 
-<h3>character classes</h3>
+<h2>character classes</h2>
 <ul>
 <li><code>[abcd]</code> -- matches a, b, c, or d
 <li><code>[^abcd]</code> -- matches anything but a, b, c, d
@@ -71,7 +71,7 @@ Appending a <code>?</code> after <code>'*', '+', '?'</code> produces a non-greed
 <li><code>[0-9]</code> -- matches a digit
 </ul>
 
-<h3>search Function</h3>
+<h2>search Function</h2>
 <ul>
 <pre>
 # returns: a MatchObject on success, none on failure
@@ -107,7 +107,7 @@ else:
 <li>The <code>match()</code> function is similar except that that the match must start at the beginning of the string
 </ul>
 
-<h3>Substitution: sub function</h3>
+<h2>Substitution: sub function</h2>
 <ul>
 <pre>
 # replace all occurrences of the specified regular expression 

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: Set</h1>
+
+<ul>
+<li>A set is similar to a <a href="python_dictionary.html">dictionary</a> -- except it contains only keys (no values)
+<li>A set is written as a comma separated list of keys surrounded by curly braces
+<li>Use the <code>set()</code> function to create an empty set -- see below
+<li>Use the <code>add()</code> method to add a single element to a set
+<li>Use the <code>update()</code> method to add multiple elements to a set
+<li>Use the <code>discard()</code> method to remove an item from a set. 
+<code>remove()</code> is similar except it will throw an exception if the key does not exist
+<li>Use the <code>clear()</code> method to remove all items from a set
+<li>Sets are mutable
+
+<pre>
+states = {   'NY'
+            ,'NJ'
+         }
+
+# add an entry
+states.add('CO')
+
+# add multiple entries
+states.update(['OH','CA'])
+
+# an empty set
+# - reminder: empty curly braces creates a dictionary (not a set)
+a = set()
+
+
+# iterating thru a set
+# - note: will not print in any particular order
+for x in a:
+    print x
+
+# same thing -- but sorted
+for x in sorted(a):
+    print x
+</pre>
+</ul>
+
+<h2>Set Operations</h2>
+<ul>
+<li>union (or) <code>|</code>
+<li>intersection (and) <code>&</code>
+<li>difference <code>-</code>
+
+<pre>
+a = {1, 2, 3, 4, 5}
+b = {5, 6, 7, 8, 9}
+
+print "union: " + str((a | b))      # 1, 2, 3, 4, 5, 6, 7, 8, 9
+print "union: " + str(a.union(b))   # 1, 2, 3, 4, 5, 6, 7, 8, 9
+
+print "a: " + str(a)                # 1, 2, 3, 4, 5
+print "b: " + str(b)                # 5, 6, 7, 8, 9
+
+print "intersection: " + str(a & b)                     # 5
+print "intersection: " + str(a.intersection(b))         # 5
+
+print "a: " + str(a)                # 1, 2, 3, 4, 5 
+print "b: " + str(b)                # 5, 6, 7, 8, 9
+
+print "difference: " + str(a - b)                       # 1, 2, 3, 4
+print "difference: " + str(a.difference(b))             # 1, 2, 3, 4
+
+print "a: " + str(a)                # 1, 2, 3, 4, 5 
+print "b: " + str(b)                # 5, 6, 7, 8, 9
+</pre>
+
+</ul>
+
+
+#==========
+# loop thru a dictionary
+#==========
+for abbr in states:
+    print abbr, '--&gt;', states[abbr]
+
+#==========
+# loop thru a dictionary - sorted keys
+#==========
+for abbr in sorted(states):
+    print abbr, '--&gt;', states[abbr]
+
+# remove an item 
+del states['CO']
+
+# prints out the entire dictionary
+print states
+
+# check if key exists 
+# - use 'in' keyword
+if 'NY' in states:
+    print "Wooh!"
+else:
+    print "Boo!"
+
+# dictionary with tuple as key
+# i.e. a,b,c --&gt; value
+complex_dict = { 
+                     (1,2,3): "123"
+                    ,(2,3,4): "234"
+                    ,(1,5,9): "159"
+               }
+
+</pre>
+</ul>
+
+<h3>Dictionary methods</h3>
+<ul>
+<li><code>dict.clear()</code> -- remove all items from the dictionary
+</ul>
+
+
+</div>
+</body>
+</html>
+

@@ -264,6 +264,7 @@ function print_nav(f)
         <a href="js_functions.html">Functions</a>
         <a href="js_exceptions.html">Exceptions</a>
         <a href="js_date.html">Date class</a>
+        <a href="js_json.html">JSON</a>
         <a href="js_date_examples.html">Date class Examples</a>
         <a href="js_client_side.html">Client Side</a>
         <a href="js_dom.html">DOM</a>
@@ -296,9 +297,11 @@ function print_nav(f)
     <div class="panel">
         <a href="python_intro.html">Introduction</a>
         <a href="python_variables.html">Variables</a>
+        <a href="python_operators.html">Operators</a>
         <a href="python_list.html">List</a>
         <a href="python_tuple.html">Tuple</a>
         <a href="python_dictionary.html">Dictionary</a>
+        <a href="python_set.html">Set</a>
         <a href="python_control_structs.html">Control Structures</a>
         <a href="python_functions.html">Functions</a>
         <a href="python_cmd_line_args.html">Command Line Arguments</a>
@@ -312,6 +315,7 @@ function print_nav(f)
         <a href="python_executing_cmds.html">Executing Commands</a>
         <a href="python_environment_variables.html">Environment Variables</a>
         <a href="python_sqlite.html">Sqlite</a>
+        <a href="python_logging.html">Logging</a>
         <a href="python_json.html">JSON</a>
         <a href="python_guid.html">GUID</a>
         <a href="python_cgi.html">CGI</a>

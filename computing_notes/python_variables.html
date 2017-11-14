@@ -39,7 +39,7 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<h1>Variables</h1>
+<h1>Python: Variables</h1>
 
 <ul>
 <li>Like most scripting languages, variables in Python are untyped -- they can hold integers, floating point numbers, strings, booleans, etc.
@@ -81,19 +81,50 @@ print s[7:13]   # equivalent
 <pre>
 print r'c:\abc\def' # results in 'c:\abc\def'
 </pre>
-<li><code>split</code> method - split the string into a list of sub strings based on given delimiter (which defaults to whitespace if not specified)
-<li><code>isdigit</code> method - split the string into a list of sub strings based on given delimiter (which defaults to whitespace if not specified)
-<li>Examples:
-<pre>
-s = "Today is too beautiful a day to be spent inside."
-words = s.split() # results in ['Today', 'is', 'too', beautiful', 'a', 'day', 'to', 'be', 'spent', 'inside.']
+</ul>
 
+<h3>String Methods</h3>
+<ul>
+<li><code>string.isdigit()</code> - return true if all characters in the string are decimal characters. False otherwise. 
+<pre>
 s = "12345"
 t = "1234a"
 print s.isdigit()   # True
 print t.isdigit()   # False
-</pre> 
+</pre>
+
+<li><code>string.lower()</code> - return a copy of the string with all upper case characters converted to lowercase
+
+<li><code>string.split(sep=None,maxsplit=-1)</code> - split the string into a list of sub strings based on given delimiter (which defaults to whitespace if not specified). If maxsplit is specified, at most maxsplits are done.
+<pre>
+s = "Today is too beautiful a day to be spent inside."
+words = s.split() # results in ['Today', 'is', 'too', beautiful', 'a', 'day', 'to', 'be', 'spent', 'inside.']
+</pre>
+
+<li><code>string.translate (table[, deletechars])</code> method - returns a copy of the string translating characters as specified via the table (use maketrans() to construct the table). Optionally delete all chaters found in the string deletechars. 
+
 </ul>
+
+<h3>String Constants</h3>
+
+<dl>
+
+<dt>string.ascii_lowercase
+<dd>'abcdefghijklmnopqrstuvwxyz'
+
+<dt>string.ascii_uppercase
+<dd>'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+<dd>string.ascii_letters
+<dt>the concatenation of ascii_lowercase and ascii_uppercase
+
+<dt>string.digits
+<dt>'0123456789'
+
+<dd>string.hexdigits
+<dt>'0123456789AaBbCcDdEeFf'
+
+</dl>
 
 <h2>Built-in Constants</h2>
 <ul>

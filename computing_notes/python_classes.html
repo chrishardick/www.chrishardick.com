@@ -39,19 +39,27 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<h1>Classes</h1>
+<h1>Python: Classes</h1>
 
 <ul>
 <li>All members are public
 <li>Per class variables are declared within the class definition and are referenced only by using the classname prefix (e.g. Class.num_instances in the example below)
 <li>Per instance variables are declared within the __init__ method
-<li>Unlike C++, you must use <strong>self</strong> to reference an object methods and data members from its methods
 <li>Unused objects are cleaned up via garbage collection. Objects are cleaned up when their reference count goes to 0 (zero)
+<li><strong>self</strong>
+    <ul>
+    <li>Unlike C++, you must use <strong>self</strong> to reference an object methods and data members from its methods
+    <li><strong>self</strong> must be explicitly defined as the 1st parameter of every class method -- including __init__().
+    <li>You need not explicitly pass self when you call an object method, it will implicitly passed for you.
+    <li>It's worth noting that <strong>self</strong> need not be explicitly named <strong>self</strong>, it's only by convention
+    </ul>
+</ul>
+
 <pre>
 # class definition
 
 class Class():
-    '''a simple class'''
+    '''a demonstrative class'''
 
     # class variables go here
     
@@ -63,6 +71,7 @@ class Class():
     # 
     # - constructor
     # - Python does not support multiple constructors, but you can define default parameters
+    #  
     #==========
     def __init__(self,val=0):         # __init__() is the constructor
 
@@ -104,24 +113,28 @@ print "# foo calls:, Class.num_foo_calls
 
 </pre>
 
-<li>Inheritance
+
+<h2>Inheritance</h2>
+
+<ul>
+<li>All methods are virtual
+<li>Multiple base classes are supported
+<li>Constructors of base classes are not implicitly called for you. 
+</ul>
+
 <pre>
-class SubClass (ParentClass1[,ParentClass2, ...]:
+class SubClass (ParentClass1[,ParentClass2, ...]):
     '''doc string'''
 
     # class variables go here
 
-    def __init__ ()
+    def __init__ ():
 
         # instance variables go here
 
     ...
 </pre>
-<ul>
-<li>All methods are virtual
-<li>Multiple base classes are supported
-</ul>
-</ul>
+
 
 </div>
 </body>

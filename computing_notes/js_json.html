@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>Computing Notes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>JavaScript: JSON (JavaScript Object Notation)</h1>
+
+<ul>
+<li>a data format useful for interprocess communication -- intra or inter-node
+
+</ul>
+
+<h2>Object</h2>
+<ul>
+<li>an <strong>unordered</strong> set of name/value pairs
+<li>an object begins with a beginning curly brace ({) and ends with an ending curly brace (})
+<li>each name/value pair is separated by a comma (,)
+<pre>
+{ string1 : value1, ..., stringN : valueN }
+</pre>
+</ul>
+
+<h2>Array</h2>
+<ul>
+<li>an <strong>ordered</strong> list of values
+<li>an array begins with a beginning square brace ([) and ends with an ending square brace (])
+<li>values are separated by a comma (,)
+<pre>
+[ value1, ..., valueN ]
+</pre>
+</ul>
+
+<h2>Value</h2>
+<ul>
+<li>a value can be a string enclosed in double quotes, a number, a boolean (e.g. true or false), null (indicating the absence of a value),  an object or an array
+<pre>
+"Hello World!"
+</pre>
+</ul>
+
+<h2>String</h2>
+<ul>
+<li>strings in JSON must be <strong>enclosed in double quotes</strong>. 
+<li>The following can be escaped (i.e. \")
+    <ul>
+    <li>" (quotation mark)
+    <li>/ ([forward] slash)
+    <li>\ (back slash)
+    <li>t (tab)
+    <li>n (newline)
+    <li>u 4 digit hexadecimal number
+    <li>f (formfeed)
+    <li>r (carriage return)
+    <li>b (backspace)
+    </ul>
+<pre>
+"Hello World!"
+</pre>
+</ul>
+
+
+<h2>Number</h2>
+<ul>
+<li>numbers in JSON must be in decimal (i.e. octal and hexadecimal formats are not supported). Other than that, numbers can either have a decimal point (i.e. floating point) or an integers. Exponential notation is also supported (i.e. 1.5E4)
+<li>The following can be escaped (i.e. \")
+</ul>
+
+
+</div>
+</body> 
+</html>

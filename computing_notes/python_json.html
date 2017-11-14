@@ -39,16 +39,23 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<h1>JSON</h1>
+<h1>Python: JSON</h1>
 
 <ul>
-<li>json module
+<li>json (JavaScript Object Notation) module
+<li>Converts JSON string into a Python dictionary or list (or vice-versa)
+
 <pre>
 import json
+
+# JSON to Python dictionary or list
+dict_or_list = json.loads(json_str)
+
+# Python dictionary or list to JSON
+json_str = json.dumps(dict_or_list)
 </pre>
 </ul>
 
 </div>
 </body>
 </html>
-

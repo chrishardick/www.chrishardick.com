@@ -39,7 +39,7 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<h1>Command Line Arguments & Options</h1>
+<h1>Python: Command Line Arguments & Options</h1>
 
 <h2>Command Line Arguments</h2>
 <ul>
@@ -72,7 +72,7 @@ in_file = ""
 
 # opts - list of (option, value) pairs where option will be user specified option (prepended with '-')
 # args - remaining command line arguments
-opts, args = getopt.getopt(argv,"hi:")
+opts, args = getopt.getopt(sys.argv[1:],"hi:")
 
 for opt,arg in opts:
     if opt == '-h':

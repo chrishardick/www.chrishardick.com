@@ -39,11 +39,12 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<h1>List</h1>
+<h1>Python: List</h1>
 
 <ul>
 <pre>
 days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+weekdays = days[1:6]    # start:end -- note that end is not included
 </pre>
 <li>Similar to a vector in C++ -- I believe look-up is in constant time
 <li>A list is written as a list of comma separated values between square brackets
@@ -90,6 +91,14 @@ import operator
 lst_srt = sorted(lst, key=operator.itemgetter('lname','fname')
 </pre>
 
+<h2>Sub-lists</h2>
+<pre>
+# l[ix0:ixN] -- will create a list from index 0 thru indexN-1 of list l
+# note the value at the beginning index is included, the value at the ending index is not
+a = [1, 2, 3, 4, 5]
+
+b = a[1:4]                  # [2, 3, 4] 
+</pre>
 
 </div>
 </body>

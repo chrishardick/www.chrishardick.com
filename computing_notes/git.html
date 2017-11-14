@@ -96,9 +96,15 @@ git clone ssh://john.smith@smith.com:[port]/dir
 
 <h2>Diffs</h2>
 <ul>
+
+<li>To get a list of files which changed
+<pre>git diff --name-only tag_or_branch1 [tag_or_branch2]</pre>
+
 <li>Diff against master -- see handy script listed below
 <pre>git difftool --extcmd="diff -w" --no-prompt master &lt;file&gt; &gt;file.diff 2&gt;&1</pre>
+
 </ul>
+
 
 <h2><code>git add</code></h2>
 
