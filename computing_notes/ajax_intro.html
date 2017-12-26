@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>AJAX: Introduction</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>AJAX: Introduction</h1>
+
+<ul>
+<li>AJAX is an acronym - Asynchronous JavaScript And XML
+<li>Alows a web client to send a XMlHttpRequest object to a web server
+<li>AJAX is not restricted to XML -- you could easily use JSON or plain text
+</ul>
+
+<h2>Uses</h2>
+<ul>
+<li>Auto-complete
+</ul>
+<h2>XMLHttpRequest Object Methods</h2>
+
+<table>
+<tr><th>Method                                      </th><th>Description</th></tr>
+<tr><td>open(method, url,async, user, pswd)         </td><td>method: the request type - GET or POST. async is boolean</td></tr>
+<tr><td>send()                                      </td><td>send the GET (Get a HTML document) request to the server</td></tr>
+<tr><td>send(string)                                </td><td>send the POST (data) request to the server</td></tr>
+<tr><td>abort()                                     </td><td>Cancel tde current request</td></tr>
+<tr><td>getAllResponseHeaders()                     </td><td>Return header information</td></tr>
+<tr><td>getResponseHeader()                         </td><td>Return specific header</td></tr>
+<tr><td>sendRequestHeader()                         </td><td>Add a label/value pair to the header to be sent</td></tr>
+</table>
+
+<h2>XMLHttpRequest Object Properties</h2>
+
+<table>
+<tr><th>Property                                    </th><th>Description</th></tr>
+<tr><td>onreadystatechange                          </td><td>Defines a function to be called when the readyState property changes</td></tr>
+<tr><td>readyState                                  </td><td>Holds the status of the XMLHttpRequest.<br>
+                                                            0: request not initialized<br>
+                                                            1: server connection established<br>
+                                                            2: request received<br>
+                                                            3: processing request<br>
+                                                            4: request finished and response is ready
+                                                        </td></tr>
+<tr><td>responseText                                </td><td>Returns the response data as a string</td></tr>
+<tr><td>responseXML                                 </td><td>Returns the response data as XML data</td></tr>
+<tr><td>status                                      </td><td>Returns the status number of a request<br>
+                                                            200: "OK"<br>
+                                                            403: "Forbidden"<br>
+                                                            404: "Not Found"<br>
+                                                        </td></tr>
+<tr><td>statusText                                  </td><td>Return status in text format. i.e. "OK" or "Forbidden"</td></tr>
+</table>
+
+<h2>Example</h2>
+
+
+&lt;script&gt;
+function loadDoc() 
+{
+    alert ("I've been called!");
+
+    var xhttp = new XMLHttpRequest();
+
+    xhttp.onreadystatechange = function()
+    {
+        alert ("RESPONSE RECEIVED! readystate=" + this.readyState + " status=" + this.status);
+
+        if (this.readyState == 4 &amp;&amp;         // request is finished and response is ready
+            this.status == 200)                     // 200=OK
+        {
+            document.getElementById("demo").innerHTML = this.responseText;
+        }
+    }
+
+    alert ("calling open...");
+    xhttp.open("GET","ajax_info.txt", true);        // Get HTML document
+
+    alert ("calling send...");
+    xhttp.send();                                   // send without parameters -- send GET [HTML document] request
+}
+&lt;/script&gt;
+
+&lt;div id="demo"&gt;
+&lt;h2&gt;AJAX to change this text&lt;/h2&gt;
+&lt;button type="button" onclick="loadDoc()"&gt;Change Content&lt;/button&gt;
+
+
+
+</div>
+</body>
+</html>

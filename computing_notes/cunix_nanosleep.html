@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cunix");
+}
+</script>
+
+<title>C/UNIX: nanosleep()</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C/UNIX: nanosleep()</h1>	
+
+<ul>
+<li>Suspends the execution of the calling thread (i.e. put it to sleep) until either the time specified in req has elapsed, 
+a signal is fired, or an error occurs
+<li>If interrupted by a signal, errno will be set to EINTR and the remaining time is written to rem (assuming it was not 0) 
+-- which can then be passed to nanosleep again.
+</ul>
+
+<pre>
+#include &lt;time.h&gt;
+#include &lt;errno.h&gt;        // for errno - if needed 
+#include &lt;string.h&gt;       // for strerror() - if needed
+
+#include &lt;iostream&gt;       // if needed
+
+struct timespec
+{
+    time_t      tv_sec;     // seconds
+    long        tv_nsec;    // nanoseconds (10^-9) 
+};
+
+//
+// RETURN
+// ======
+//  0 = success
+// -1 = otherwise. check errno.
+//
+int nanosleep ( const struct timespec* req
+                ,struct timespec* rem           // optional. pass 0 if n/a 
+                );
+
+
+//
+// sample usage
+// 
+struct timespec ts;
+ts.tv_sec = 0;
+ts.tv_nsec = 200 * 1E6;     // 200 ms 
+
+int rc = nanosleep (&amp;ts, 0);
+
+if (rc != 0)
+{
+    std::cout &lt;&lt; "ERROR CALLING nanosleep. RC=" &lt;&lt; errno, &lt;&lt; " " &lt;&lt; strerror(errno) &lt;&lt; std::endl;
+}
+</pre>
+
+</div>
+</body> 
+</html>
+  

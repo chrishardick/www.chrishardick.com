@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: struct</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Python: struct</h1>
+
+<ul>
+<li>Useful for handling binary data (stored in files and/or from network connections).
+<li>Format Strings are used as a schema 
+</ul>
+
+<h2>Functions</h2>
+<dl>
+<dt>struct.pack(fmt, v1, v2, ...)
+<dd>return a string containing the values v1, v2, ... packed according to the given format string.
+The values must match the types required by the format string
+
+<dt>struct.unpack(fmt, string)
+<dd>unpack the given string according to the given format string. return corresponding tuple (immutable list).
+The string must be valid according to the given format string.
+</dl>
+
+<h2>Format Strings</h2>
+<ul>
+<li>By default, structs are stored in the machines native byte order (big endian/little endian) and alignment
+<li>However byte order, alignment and variable size can be overridden via the first character of the format string
+    <ul>
+    <li>@ - native byte order, alignment and variable size
+    <li>= - native byte order, no alignment, standardized variable size
+    <li>&lt; - little endian, no alignment, standardized variable size
+    <li>&rt; - big endian, no alignment, standardized variable size
+    <li>! - network (big endian), no alignment, standardized variable size -- equivalent to &rt;
+    <li>If the 1st character is not one of the above, @ is assumed
+    </ul>
+</ul>
+
+<h2>Standard Sizes</h2>
+<ul>
+<li>character types (char, signed char, unsigned char) - 1 byte
+<li>short integer types (short, unsigned short) - 2 bytes
+<li>integer types (int, unsigned int, long, unsigned long) - 4 bytes
+<li>64 bit integer types (long long, unsigned long long) - 8 bytes
+<li>float - 4 bytes
+<li>double - 8 bytes
+</ul>
+
+<h2>Format Characters</h2>
+<table border=1>
+<tr><th>Character</th><th>C Type                </th><th>Python Type    </th><th>Notes              </th></tr>
+<tr><td>c        </td><td>char                  </td><td>string         </td><td>                   </td></tr>
+<tr><td>b        </td><td>signed char           </td><td>integer        </td><td>                   </td></tr>
+<tr><td>B        </td><td>unsigned char         </td><td>integer        </td><td>                   </td></tr>
+<tr><td>x        </td><td>n/a                   </td><td>n/a            </td><td>1 byte pad         </td></tr>
+<tr><td>h        </td><td>short                 </td><td>integer        </td><td>                   </td></tr>
+<tr><td>H        </td><td>unsigned short        </td><td>integer        </td><td>                   </td></tr>
+<tr><td>i        </td><td>int                   </td><td>integer        </td><td>                   </td></tr>
+<tr><td>I        </td><td>unsigned int          </td><td>integer        </td><td>                   </td></tr>
+<tr><td>l        </td><td>long                  </td><td>integer        </td><td>                   </td></tr>
+<tr><td>L        </td><td>unsigned long         </td><td>integer        </td><td>                   </td></tr>
+<tr><td>q        </td><td>long long             </td><td>integer        </td><td>                   </td></tr>
+<tr><td>Q        </td><td>unsigned long long    </td><td>integer        </td><td>                   </td></tr>
+<tr><td>f        </td><td>float                 </td><td>float          </td><td>                   </td></tr>
+<tr><td>d        </td><td>double                </td><td>float          </td><td>                   </td></tr>
+</table>
+
+<h2>Examples</h2>
+<pre>
+import struct
+
+struct.pack('hhl', 1, 2, 3)
+'\x00\x01 \x00\x02 \x00\x00 \x00\x03'                       # spaces added for readability
+
+struct.unpack('hhl', '\x00\x01 \x00\x02 \x00\x00 \x00\x03'  # spaces added for readability
+(1, 2, 3)
+
+struct.calcsize('hhl')
+8
+</pre>
+
+
+<h2>Acknowledgements</h2>
+<ul>
+<li>python.org
+</ul>
+
+</div>
+</body>
+</html>
+

@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>Computing Notes</title>
+<title>Bash: Flow Control</title>
 
 </head>
 
@@ -38,7 +38,7 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>Flow Control - Conditionals & Looping</h1>
+<h1>Bash: Flow Control</h1>
 	
 <h2>Exit Status</h2>
 
@@ -80,7 +80,7 @@ fi
 <h2>Logically Combining Exit Statuses -- Short Circuit Evaluation</h2>
 
 <p>
-Bash allows you to logically combine exit statuses using && and || (logical and & logical or, respectively).  
+Bash allows you to logically combine exit statuses using &amp;&amp; and || (logical and &amp; logical or, respectively).  
 Short Circuit Evaluation is implemented; this means that both conditions are not evaluated if they do not need to be.  
 This deserves an example; let's say you have a logical and and the first condition is false, is there any reason to 
 evaluate the second condition?  Likewise, let's say you have a logical or and the first condition is true, is there 
@@ -91,7 +91,7 @@ any reason to evaluate the second condition?
 <pre>
 LOGICAL AND EXAMPLE
 
-if condition1 && condition2
+if condition1 &amp;&amp; condition2
 then
 	statement(s) #both condition1 and condition2 returned a 0 exit status
 else
@@ -287,7 +287,7 @@ Some Examples:
 
 # Change to $dir only if it's NOT null, it's a directory and you can search it!
 # Also shows use of -a inside the [ ... ] construct
-if [ -n "$dir" ] && [ \( -d "$dir" \) -a \( -x "$dir" \) ]; then
+if [ -n "$dir" ] &amp;&amp; [ \( -d "$dir" \) -a \( -x "$dir" \) ]; then
 	cd $dir
 fi
 
@@ -380,7 +380,7 @@ done
 <p>'list' is a list of names; if it is omitted, it defaults to "$@" (the command line arguements each enclosed in double
 quotes and seperated by spaces).
 
-<h2>while & until</h2>
+<h2>while &amp; until</h2>
 
 <h3>Syntax</h3>
 <font face=courier>

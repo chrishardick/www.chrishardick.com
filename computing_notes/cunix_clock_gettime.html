@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cunix");
+}
+</script>
+
+<title>C/UNIX clock_gettime()</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C/UNIX clock_gettime()</h1>	
+
+<ul>
+<li>Get/Set [High Resolution] Clocks in Linux
+<li>new and improved gettimeofday()
+</ul>
+
+<pre>
+#include &lt;time.h&gt;
+#include &lt;errno.h&gt;        // for errno - if needed 
+#include &lt;string.h&gt;       // for strerror() - if needed 
+
+#include &lt;iostream&gt;       // if needed
+
+struct timespec
+{
+    time_t      tv_sec;     // seconds 
+    long        tv_nsec;    // nanoseconds (10^-9)
+};
+
+//
+// RETURN
+// ======
+//  0 = success
+// -1 = otherwise. check errno.
+// 
+int clock_gettime (clockid_t clk_id             // in:  CLOCK_REALTIME, CLOCK_MONOTONIC, ...
+                ,struct timespec* tp            // out: 
+                );
+
+
+//
+// sample usage
+// - great for stats!
+// 
+struct timespec ts;
+ts.tv_sec = 0;
+ts.tv_nsec = 0;
+
+int rc = clock_gettime (CLOCK_MONOTONIC, &amp;ts)
+
+if (rc != 0)
+{
+    std::cout &lt;&lt; "ERROR CALLING clock_gettime. RC=" &lt;&lt; rc &lt;&lt; " -- " &lt;&lt; strerror(errno) &lt;&lt; std::endl;
+}
+</pre>
+
+<h2>SUPPORTED CLOCKS</h2>
+<dl>
+<dt>CLOCK_REALTIME
+<dd>wall clock. This clock is affected by discontinuous jumps in the system time (e.g. manual changes, ntp, etc.)
+<dt>CLOCK_REALTIME_COARSE
+<dd>similar to CLOCK_REALTIME except faster, but less precise.
+<dt>CLOCK_MONOTONIC
+<dd>Cannot be set. Represents monotonic time since some unspecified starting point. 
+Not affected by discontinuous jumps in the system time (e.g. manual changes, ntp, etc.).
+Useful for metrics -- i.e. elapsed # of nanoseconds, etc.
+<dt>See man page for other valid values
+</dl>
+
+</div>
+</body> 
+</html>

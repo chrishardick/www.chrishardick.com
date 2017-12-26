@@ -24,8 +24,11 @@ function print_title ()
 //    var title_html = `
 //    <span class="menutron" onclick="openNav()">&#9776;</span><a class="title" href="index.html">Computing Notes</a>` 
 
-    var title_html = `
-    <div class="title">Computing Notes</class>` 
+    var title_html = `<div class="title">Computing Notes</div>
+    <div class="searchbox"><form action='search.py' method='POST'><input type="text" name="searchbox">
+    <input type="submit" value="search">
+    </form></div>`
+    // onkeydown= "if (event.keyCode == 13) alert('Hello, World!')">
 
     document.getElementById('title').innerHTML = title_html;
 }
@@ -125,6 +128,8 @@ function print_nav(f)
         <a href="cunix_files.html">Files</a>
         <a href="cunix_signals.html">Signals</a>
         <a href="cunix_time.html">Time</a>
+        <a href="cunix_nanosleep.html">nanosleep()</a>
+        <a href="cunix_clock_gettime.html">clock_gettime()</a>
     </div>
     
     <button class="accordion" id="accordion_sockets_api">Sockets API (C/UNIX)</button>
@@ -250,6 +255,7 @@ function print_nav(f)
     <div class="panel">
         <a href="http_intro.html">Introduction</a>
         <a href="http_apache_http.html">Apache HTTP</a>
+        <a href="http_apache_virtual_hosts.html">Apache - Virtual Hosts</a>
         <a href="http_cookies.html">Cookies</a>
         <a href="http_redirection.html">Re-direction</a>
     </div>
@@ -267,6 +273,7 @@ function print_nav(f)
         <a href="js_json.html">JSON</a>
         <a href="js_date_examples.html">Date class Examples</a>
         <a href="js_client_side.html">Client Side</a>
+        <a href="js_client_objects.html">Client Side Objects</a>
         <a href="js_dom.html">DOM</a>
         <a href="js_clock.html">Clock</a>
         <a href="js_loan_calc.html">Loan Calculator</a>
@@ -319,6 +326,8 @@ function print_nav(f)
         <a href="python_json.html">JSON</a>
         <a href="python_guid.html">GUID</a>
         <a href="python_cgi.html">CGI</a>
+        <a href="python_struct.html">struct</a>
+        <a href="python_socket.html">sockets</a>
     </div>
 
     <button class="accordion" id="accordion_vim">Vim</button>

@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>Computing Notes</title>
+<title>Python: Logging</title>
 
 </head>
 
@@ -54,7 +54,10 @@ logging.basicConfig (   filename="logfile"
                         ,format='%(asctime)s %(process)s:%(thread)s %(filename)s:%(lineno)s %(funcName)s %(message)s'
                         )
 
-logging.info ("%s" % s)
+logging.info ("%s, %s",s1,s2)
+logging.warning ("%s",s)
+logging.error ("%s",s)
+logging.critical ("%s",s)
 </pre>
 </ul>
 

@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>Computing Notes</title>
+<title>C++ Friend Functions</title>
 
 </head>
 
@@ -39,7 +39,7 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<H1>Friend Functions (of a class)</H1>	
+<H1>C++ Friend Functions (of a class)</H1>	
 
 A function which is NOT a member of a class, but has access to all members of the class (public, private & protected). You can either include the prototype of the friend function in the class definition, or you can include the entire function definition. To indicate it's a friend function, simply prefix the prototype or function header with the keyword friend. Although, I've never seen the latter used, as it seems to me to be misleading. The friend function is NOT part of the class, and including its definition within the class may lead to some confusion. However, if you do find a use for this, remember that all functions which are defined within a class are automatically inline.
 

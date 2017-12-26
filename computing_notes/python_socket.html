@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: Sockets</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Python: Socket</h1>
+
+<ul>
+<li>This page attempts to document the socket and asyncode modules
+<li>The socket module provides low-level access to the BSD socket interface.
+There is basically a one-to-one relationship to the standard C interface
+<li>The asyncore module provides a basic interface for writing asynchronous socket clients and servers
+<li>As of now, I basically only document using the socket module to build a client and the asyncore module for building a server.
+</ul>
+
+
+<h2>socket module</h2>
+
+<h3>Functions</h3>
+
+<dl>
+<dt>socket.socket(family,type,proto)
+<dd>Create a new socket using the given address family, socket type and protocol number. 
+<dd>Address family: AF_INET (default), AF_INET6, AF_UNIX
+<dd>Socket type: SOCK_STREAM (default), SOCK_DGRAM
+<dd>Protocol number -- usually 0 (default)
+</dl>
+
+<h3>Socket Objects</h3>
+
+<h4>Socket Object methods</h4>
+<dl>
+<dt>socket.accept()
+<dd>blocking call. returns upon successfully completing connection. returns a pair (conn,  address)
+where conn is the new socket object and address is the address on the other end of the socket
+<dt>socket.bind()
+<dd>
+<dt>socket.close()
+<dd>
+<dt>socket.connect(address)
+<dd>
+<dt>socket.listen(backlog)
+<dd>
+<dt>socket.recv(bufsize[, flags])
+<dd>i.e. read(). returns the string representing the data received. 
+Bufsize is the maximum amount of data to be received at once.
+It is recommended to use a relatively small power of 2 (i.e. 4096).
+<dt>socket.send(string[, flags])
+<dd>send data to the socket. returns the number of bytes sent. 
+<dt>socket.sendall(string[, flags])
+<dd>send data to the socket. 
+Unlike send(), this method continues to send data from string until either all data has been sent or an error occurs. 
+None is returns on success. An exception is raised on an error. 
+<dt>socket.shutdown()
+<dd>
+</dl>
+
+<h2>asyncore module</h2>
+
+
+</div>
+</body>
+</html>
+
