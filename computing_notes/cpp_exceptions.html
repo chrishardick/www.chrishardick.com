@@ -83,6 +83,94 @@ C O N T E N T
 	will be searched.
 </UL>
 
+
+<H2>IV. Code</H2>
+
+<pre>
+#include &lt;iostream.h&gt;
+#include &lt;string&gt;
+#include &lt;exception.h&gt;
+#include &lt;stdlib.h&gt;
+
+
+struct foo_exception : public std::exception
+{
+        //  
+        // throw()
+        // - an exception specification
+        // - allows you to specify a comma delimited list as to which
+        //      exceptions the given function handles
+        // - throw(int), throw(int, const char*), ...
+        // - the absence of an exception specification means the funtion can throw any exception
+        // - throw() meant that the function did not throw exceptions
+        // - it has been deprecated in c++11
+        // - it could not be checked at compile time and was extra overhead at run time
+        // - however, it seems thow() has remained 
+        //  
+
+        virtual const char* what() const throw()
+        {   
+                return "foo_exception";
+        }   
+};
+
+
+void foo ()
+{
+    std::cout &lt;&lt; "foo: START" &lt;&lt; std::endl;
+    throw foo_exception();
+    std::cout &lt;&lt; "foo: END" &lt;&lt; std::endl;
+}
+
+void my_terminate ()
+{
+    std::cout &lt;&lt; "my_terminate has been called" &lt;&lt; std::endl;
+    abort();
+}
+
+int main (int argc, const char* argv[])
+{
+    std::set_terminate(my_terminate);
+
+    std::cout &lt;&lt; "main: START" &lt;&lt; std::endl;
+
+
+    //  
+    //  
+    //  
+
+    std::cout &lt;&lt; "A CAUGHT EXCEPTION..." &lt;&lt; std::endl;
+
+    try 
+    {   
+            foo();
+    }   
+    catch (std::exception&amp; e)
+    {   
+        std::cout &lt;&lt; "CAUGHT STD EXCEPTION. WHAT=|" &lt;&lt; e.what() &lt;&lt; "|" &lt;&lt; std::endl;
+    }   
+    catch (...)
+    {   
+        std::cout &lt;&lt; "CAUGHT UNKNOWN EXCEPTION" &lt;&lt; std::endl;
+    }   
+
+
+    //  
+    //  
+    //  
+
+    std::cout &lt;&lt; "AN UNCAUGHT EXCEPTION..." &lt;&lt; std::endl;
+
+    foo();
+
+
+    std::cout &lt;&lt; "main: END" &lt;&lt; std::endl;    
+
+
+    return 0;
+}
+</pre>
+
 </div>
 </BODY> 
 </HTML>
