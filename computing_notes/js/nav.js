@@ -248,6 +248,7 @@ function print_nav(f)
         <a href="css_color_and_bg_properties.html">Color and Background Properties</a>
         <a href="css_content_area_padding_borders_margins.html">Content Area, Padding, Borders and Margins</a>
         <a href="css_position_properties.html">Position Properties</a>
+        <a href="css_table_properties.html">Table Properties</a>
         <a href="css_misc_properties.html">Misc Properties</a>
     </div>
 
@@ -279,6 +280,11 @@ function print_nav(f)
         <a href="js_loan_calc.html">Loan Calculator</a>
         <a href="js_scratch_pad.html">Scratch Pad</a>
         <a href="js_jquery.html">jquery</a>
+    </div>
+
+    <button class="accordion" id="accordion_ajax">AJAX</button>
+    <div class="panel">
+        <a href="ajax_intro.html">Introduction</a>
     </div>
 
     <button class="accordion" id="accordion_linux">Linux</button>

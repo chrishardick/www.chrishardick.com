@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_css");
+}
+</script>
+
+<title>CSS - Table Properties</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CSS - Table Properties</h1>
+
+<h2>Borders</h2>
+<ul>
+<li><code>table, th, td {border: 1px solid black;} /* double border */</code>
+</ul>
+
+<h2>border-collapse</h2>
+<ul>
+<li>Use the border-collapse property to set whether or not table borders should be collapsed into a single border
+<li><code>table { border-collapse: collapse;}</code>
+</ul>
+<h2>Borders</h2>
+<ul>
+<li><code>border: 1px solid black;</code>
+</ul>
+
+<h2>text-align</h2>
+<ul>
+<li>Sets the horizontal alignment (left, right, center) for the contents of &lt;th&gt; and &lt;td&gt; elements. 
+<li>Values: left, right, center, justify
+<li>Default value: center (&lt;th&gt; elements), left (&lt;td&gt; elements)
+</ul>
+
+<h2>vertical-align</h2>
+<ul>
+<li>Sets the vertical alignment (top, bottom, middle) for the contents of &lt;th&gt; and &lt;td&gt; elements. 
+<li>Values: top, bottom, middle.
+<li>See <a href="css_text_properties.html">text properties</a> for more values
+<li>Default value: middle
+</ul>
+
+<h2>padding</h2>
+<ul>
+<li>Controls the space between the border and the contents of &lt;th&gt; and &lt;td&gt; elements
+<li>e.g. <code>
+</ul>
+
+<h2>border-bottom</h2>
+<ul>
+<li>Horozontal dividers
+<li>e.g. 1px solid #ddd
+</ul>
+
+<h2>:hover</h2>
+<ul>
+<li>Dynamically style of elements in which the mouse point is currently hovering over
+<li>e.g. <code>tr:hover background-color: #f5f5f5</code>
+</ul>
+
+<h2>:nth-child(even|odd)</h2>
+<ul>
+<li>For striped tables, use nth-child()
+<li>e.g. <code>tr:nth-child(even) background-color: #f2f2f2</code>
+</ul>
+
+<h2>background-color &amp; color</h2>
+<ul>
+<li>e.g. <code>th {background-color: black; color: white;}</code>
+</ul>
+
+<h2>Responsive Tables</h2>
+<ul>
+<li>To have tables display a scrollbar if they do not fit, surround the table with a &lt;div&gt; element with style="overflow-x:auto;"
+<li>e.g. <code>th {background-color: black; color: white;}</code>
+</ul>
+
+</div>
+</body>
+</html>
