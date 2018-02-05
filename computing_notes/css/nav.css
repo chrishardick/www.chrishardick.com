@@ -132,4 +132,10 @@ tr:hover
 table
 {
     border-collapse:    collapse;
-} 
+}
+
+dt
+{
+    margin-top:         10px;
+    margin-bottom:      2px;
+}

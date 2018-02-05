@@ -289,7 +289,7 @@ function print_nav(f)
 
     <button class="accordion" id="accordion_linux">Linux</button>
     <div class="panel">
-        <a href="linux_init.html">init</a>
+        <a href="linux_systemd.html">systemd</a>
         <a href="linux_cron.html">cron</a>
         <a href="linux_dhcp.html">DHCP</a>
         <a href="linux_iptables.html">IPTables</a>

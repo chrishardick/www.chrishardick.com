@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Linux - systemd</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Linux - systemd</h1>
+
+<ul>
+<li>systemd is a system and service manager for Linux.
+<li>It is currently the default system and service manager for most Linux distributions.
+<li>However, some believe that the scope of systemd is too large and it therefore runs contrary to the Unix philosophy of 
+    small interconnected utilities with narrowly defined functionality
+<li>Therefore, as of this writing, work is in progress to try to displace systemd
+<li>It was developed by developers at <a href="www.redhat.com">RedHat</a>
+<li>Items managed by Systemd are known as <strong>units</strong>
+<li>There are many types of units. The most common type of unit is a <strong>service</strong>
+</ul>
+
+<h2>Terms</h2>
+
+<dl>
+
+<dt>Active
+<dd>Currently executing
+
+<dt>Enabled
+<dd>Configured to automatically start at boot time
+
+</dl>
+
+
+<h2>Unit Types</h2>
+
+<ul>
+<li>systemd has 12 types (categories) of units. 
+<li>Each unit type has its own suffix. For example, <code>.service</code> indicates a service (which is the default and most common type).
+</ul>
+
+<p>Here is a list of all unit types:</p>
+
+<ul>
+<li>Service Units
+    <ul>
+    <li>Start and control daemons along with any related processes
+    <li>suffix: <code>.service</code>
+    <li>For more information: <code>man systemd.service</code>
+    </ul>
+<li>Socket Units
+    <ul>
+    <li>suffix: <code>.socket</code>
+    <li>For more informaation: <code>man systemd.socket</code>
+    </ul>
+<li>Target Units
+    <ul>
+    <li>useful to group units or provide well-known synchronization points during boot up. Similar to run levels in init.
+    <li>suffix: <code>.target</code>
+    <li>For more information: <code>man systemd.target</code>
+    </ul>
+<li>Device Units
+    <ul>
+    <li>Units can be started when a device becomes available
+    <li>suffix: <code>.device</code>
+    <li>For more information: <code>man systemd.device</code>
+    </ul>
+<li>Mount Units
+    <ul>
+    <li>suffix: <code>mount.</code>
+    <li>For more information: <code>man systemd.mount</code>
+    </ul>
+<li>Automount Units
+    <ul>
+    <li>suffix: <code>.automount</code>
+    <li>For more information: <code>man systemd.automount</code>
+    </ul>
+<li>Snapshot Units
+    <ul>
+    <li>suffix: <code>.snapshot</code>
+    <li>For more information: <code>man systemd.snapshot</code>
+    </ul>
+<li>Timer Units
+    <ul>
+    <li>suffix: <code>.timer</code>
+    <li>For more information: <code>man systemd.timer</code>
+    </ul>
+<li>Swap Units
+    <ul>
+    <li>suffix: <code>.swap</code>
+    <li>For more information: <code>man systemd.swap</code>
+    </ul>
+<li>Path Units
+    <ul>
+    <li>A unit can be started based on the activity or availability of a filesystem path (via utilizing inotify)
+    <li>suffix: <code>.path</code>
+    <li>For more information: <code>man systemd.path</code>
+    </ul>
+<li>Slice Units
+    <ul>
+    <li>For more information: <code>man systemd.slice</code>
+    <li>suffix: <code>.slice</code>
+    </ul>
+<li>Scope Units
+    <ul>
+    <li>suffix: <code>.scope</code>
+    <li>For more information: <code>man systemd.scope</code>
+    </ul>
+</ul>
+
+
+<h2>systemctl</h2>
+
+<p>The <code>systemctl</code> command allows you to control systemd.</p>
+
+<dl>
+
+<dt><code>systemctl start application[.service]</code>
+<dd>start a systemd service.
+
+<dt><code>systemctl stop application[.service]</code>
+<dd>stop a systemd service.
+
+<dt><code>systemctl restart application[.service]</code>
+<dd>restart (bounce) a systemd service.
+
+<dt><code>systemctl status application[.service]</code>
+<dd>check status of a systemd service
+
+<dt><code>systemctl enable application[.service]</code>
+<dd>to configure a systemd service to automatically start at boot time (creates a symlink)
+
+<dt><code>systemctl disable application[.service]</code>
+<dd>to configure a systemd service to no longer automatically start at boot (removes a symlink)
+
+<dt><code>systemctl [--all]</code>
+<dd>list all running services
+<dd>use the --all switch to list unts -- not just the currently active (executing) ones
+
+<dt><code>systemctl status</code>
+<dd>show system status
+
+<dt><code>systemctl --failed</code>
+<dd>list failed units
+
+<dt><code>systemctl list-unit-files --type=service</code>
+<dd>display the status of all installed services
+<dd>enabled - has a .wants directory???
+<dd>disabled - does not have a .wants directory
+<dd>static - means the service is missing the [Install] section in its init script, so you cannot enable or disable it. Static services are usually dependencies of other services and are controlled automatically
+
+<dt><code>systemctl reload application[.service]</code>
+<dd>have a systemd service reload its configuration (if supported)
+
+<dt><code>systemctl is-active application[.service]</code>
+<dd>check if a given systemd service is currently executing (will return a 0 exit code if active)
+
+<dt><code>systemctl is-enabled application[.service]</code>
+<dd>check if a given systemd service is enabled (i.e. configured to automatically start at boot time) - will return a 0 exit code if enabled
+
+<dt><code>systemctl is-failed application[.service]</code>
+<dd>check if a given systemd service is in a failed state (i.e. there was an error starting it) -- will return a 0 exit code if in failed state
+
+<dt><code>systemctl list-dependencies [--all] application[.service]</code>. 
+<dd>to show dependencies for the given service
+<dd>to expand dependent units recursively, pass the <code>--all</code> flag
+<dd>these are the services which systemd will attempt to activate when starting the unit
+<dd>use the <code>--reverse</code> flag to see what is dependent on a given application
+<dd>use the <code>--before</code> flag to show applications which depend on the specified application starting before them (the <code>--after</code> flag is similar)
+
+<dt><code>systemctl cat application[.service]</code>
+<dd>to see the contents of a unit file
+
+<dt><code>systemctl mask application[.service]</code>
+<dd>mask an application (make it unstartable -- either automatically or manually -- by linking it to /dev/null)
+<dd>use <code>unmask</code> to unmask it
+
+<dt><code>systemctl poweroff</code>
+<dt><code>systemctl reboot</code>
+<dt><code>systemctl rescue</code>
+
+</dl>
+
+
+<h2>Unit Files</h2>
+
+<p>An example (/etc/systemd/system/kidsnet_monitor_devices.service):</p>
+
+<pre>
+[Unit]
+Description     = kidsnet - keep device table up-to-date
+
+[Service]
+ExecStart       = /user2/kidsnet/kidsnet_monitor_dhcp.sh
+
+[Install]
+WantedBy        = multi-user.target
+</pre>
+
+<dl>
+<h3>Sections</h3>
+
+<ul>
+<li>The contents of unit files are organized into <strong>Sections</strong>
+<li>Sections are denoted via a section name enclosed in square brackets ([...])
+<li>A Section continues until the beginning of the next section or EOF
+<li>Section names are well defined and case-sensitive
+<li>Each section has directives which have the form <code>directiveN=value</code>
+<li>You can leave a directive unset by not assigning a value. E.g. <code>directiveN=</code>
+</ul>
+
+<h4>[Unit] Section</h4>
+
+<p>The Unit Section has the following directives:</p>
+
+<dt><code>Description=</code>
+<dd>Defines the name and basic functionality of the unit.
+<dd>It is returned by various systemd tools. 
+
+<dt><code>Documentation=</code>
+<dd>List of URI's for documentation.
+<dd>Ususally either man pages or web URL's
+<dd>It is returned by various systemd tools. 
+
+<dt><code>Requires=</code>
+<dd>Lists any units upon which this unit depends
+<dd>If the unit is active (currently running), all units in this list must also be active
+<dd>By default, these units are started in parallel with the current unit
+
+<dt><code>Wants=</code>
+<dd>Similar to Requires, but less strict. 
+<dd>Systemd will attempt to start any units here when the current unit is activated. 
+
+<dt><code>BindsTo=</code>
+<dd>Similar to Requires, but also causes the current unit to stop when these unit(s) terminate
+
+<dt><code>Before=</code>
+<dd>The units listed here will not be started until the corrent unit is marked as started if they are activated at the same time
+
+<dt><code>After=</code>
+<dd>The units here will be started before starting the current unit
+
+<dt><code>Conflicts=</code>
+<dd>The units here cannot be run at the same time as the current unit. 
+<dd>Starting a unit in the list will cause the other units to be stopped
+
+</dl>
+
+<h4>[Service] Section</h4>
+
+<ul>
+<li>applicable to service units ONLY. 
+</ul>
+
+<p>The Service Section has the following directives:</p>
+
+<dl>
+
+<dt><code>Type=</code>
+<dd>The Type directive can have one of the following values
+    <ul>
+    <li>simple - default type
+    <li>forking - used when the service forks a child process exiting the parent process.
+    <li>oneshot - a short-lived process. systemd shoudl wait for the process to exit before continuing with other units
+    <li>dbus - indicates that the unit will take a name on the D-Bus bus. 
+    <li>notify - indicates that the unit will issue a notification when it has finished starting up. systemd will wait for this before continuing with other units. 
+    <li>idle - indicates that the service will not be run until all jobs are dispatched.
+    </ul>
+
+<dt><code>ExecStart=</code>
+<dd>The full path and arguments of the command to be executed.
+<dd>If the path is preceeded by a dash (-), non-zero exit statuses will not mark the unit activation (i.e. currently running) as failed
+
+<dt><code>ExecStartPre=</code>
+<dd>This can be used to provide additional commands to be executed before the main process
+<dd>This directive is optional and can appear multiple times
+<dd>Full paths must be specified
+<dd>Dash prefix is supported
+
+<dt><code>ExecStartPost=</code>
+<dd>This can be used to provide additional commands to be executed after the main process
+<dd>This directive is optional and can appear multiple times
+<dd>Full paths must be specified
+<dd>Dash prefix is supported
+
+<dt><code>ExecReload=</code>
+<dd>The command to reload the service configuration -- if supported
+<dd>This directive is optional
+<dd>Full paths must be specified
+
+<dt><code>ExecStop=</code>
+<dd>The command to stop the service.
+<dd>If not specified, the process will be killed when the service is stopped
+
+<dt><code>ExecStopPost=</code>
+<dd>Optional directive used to specify commands to execute following the stop command
+
+<dt><code>Restart</code>
+<dd>Optional directive used to indicate when systemd shoudl attempt to automatically restart the service
+<ul>
+<li>always - 
+<li>on-success - 
+<li>on-failure - 
+<li>on-abnormal -
+<li>on-abort -
+<li>on-watchdog -
+</ul>
+
+<dt><code>RestartSec=</code>
+<dd>If automatically restarting the service is enabled, this is the amount of time to wait before attempting to restart the service
+</dl>
+
+<h4>[Install] Section</h4>
+
+<ul>
+<li>The last section. It is optional.
+<li>Used to define if a unit is enabled (automatically started at boot-time) or disabled (not automatically started at boot-time)
+<li>Usually this accomplished by associating the unit with another unit that is currently started at boot
+</ul>
+
+<p>The Install Section has the following directives:</p>
+
+<dl>
+
+<dt><code>WantedBy=</code>
+<dd>The most common way to specify that a unit should be enabled
+<dd>When a unit with this directive is enabled, a symbolic link to the unit named &lt;unit-name&gt;.wants will be added under the /etc/systemd/system/&lt;wanted-by-unit&gt; directory (e.g. <code>/etc/systemd/system/multi-user.target.wants</code>). The directory will be created if it did not already exist.
+
+<dt><code>RequiredBy=</code>
+<dd>Similar to the WantedBy= directive, but specifies a required dependency
+<dd>Instead of the .wants subdirectory, this directive uses a .requires subdirectory (e.g. <code>/etc/systemdsystem/multi-user.target.requires</code>)
+
+<dt><code>Alias=</code>
+<dd>Allows the unit to be enabled under another name
+
+<dt><code>Also=</code>
+<dd>Allows units to enabled or disabled as a set. 
+
+<dt><code>DefaultInstance=</code>
+<dd>Used for template units to give them more predictable names
+
+</dl>
+
+<h4>[Socket] Section</h4>
+<h4>[Mount] Section</h4>
+<h4>[Automount] Section</h4>
+<h4>[Swap] Section</h4>
+<h4>[Path] Section</h4>
+<h4>[Timer] Section</h4>
+<h4>[Slice] Section</h4>
+
+<ul>
+<li>applicable to the specific unit type ONLY. 
+<li>not covered
+</ul>
+
+
+<h3>Unit File Directories</h3>
+
+<dl>
+
+<dt><code>/lib/systemd/system</code>
+<dd>The system's copy of the unit files
+<dd>Generic, vanilla files.
+<dd>You should not edit files in this directory. Instead, you should override the file by placing another unit file directory which will supersede the 
+files in this directory
+
+<dt><code>/etc/systemd/system</code>
+<dd>Unit files in this directory take precedence over unit files in any other location
+<dd>If you need to override only specific directives from a system unit file (in /lib/systemd/system), you can do so via subdirectories to this directory
+<dd>Can contain sub-directories with .wants symbolic links (see above)
+
+<dt><code>/run/systemd/system</code>
+
+</dl>
+
+<h2>Unit Configuration Files</h2>
+
+<ul>
+<li>Each units is defined by its configuration file
+<li>Tye type of unit can be recognized by the configuration's file suffix (i.e. .service, etc.)
+</ul>
+
+<h2>Targets (Runlevels)</h2>
+
+<ul>
+<li><strong>Targets</strong> are groups of units. 
+<li>Similar to run levels in init. 
+<li>To view the default target that will be used at boot time: <code>systemctl get-default</code>
+<li>To change the default target that will be used at boot time: <code>systemctl set-default multi-user.target</code>
+<li>To see what unites are tied to a target: <code>systemctl list-dependencies multi-user.target</code>
+</ul>
+
+
+<h2>Other Commands</h2>
+
+<dl>
+
+<dt><code>systemd-analyze blame</code>
+<dd>show how long each service took to start up at start-up
+
+</dl>
+
+
+<h2>Run Levels</h2>
+
+<ul>
+<li>Run Level 0 -- system shutdown
+<li>Run Level 1 -- single user mode
+<li>Run Level 2 -- multi-user, network enabled, text mode
+<li>Run Level 3 -- multi-user, network enabled, text mode
+<li>Run Level 4 -- multi-user, network enabled, text mode
+<li>Run Level 5 -- multi-user, network enabled, graphical mode
+<li>Run Level 6 -- system reboot
+<li>5 - Run
+</ul>
+
+<h2>systemd</h2>
+<ul>
+<li>A system and service manager for Linux operating systems
+<li>Systemd manages <strong>units</strong>
+<li>Units can be services (probably what you're used to and similar to other init systems), but they can also be other objects (e.g. sockets, devices, filesystem mounts or activity, etc.)
+<li>Can be run in either user or system mode
+<li>/etc/systemd/system - init scripts
+<li>/etc/systemd/system/multi-user.target.wants/SERVICE.service
+<li><code>systemctl</code> - central tool for controlling the init system
+<li>Use systemctl to enable the service -- <code>sudo systemctl enable service.service</code>. This will create a symlink in /etc/systemd/system/multi-user.taget.wants 
+<li>The file should contain a line 'Restart=always' under the [Service] section of the file to enable the service to respawn after a crash
+<li>supports dependencies
+</ul>
+
+
+
+<h2>systemd unit files</h2>
+<ul>
+<li>Usually stored in <code>/lib/systemd/system</code> -- these are the default files
+<li>Files stored in <code>/etc/systemd/system</code> take precedence over their counterparts in the lib directory. If you wish to edit a file, you should edit the etc version. 
+</ul>
+
+<h2>Quick Start - Create a service which auto-starts at boot time</h2>
+<ul>
+<li>Create a Unit Configuration File (e.g. hello_world.service)
+<pre>
+[Unit]
+Description     = Hello, World! service
+
+[Service]
+ExecStart       = /user2/python/hello_world.py
+
+[Install]
+WantedBy        = multi-user.target
+</pre>
+
+<li>Install your Unit Configuration File to /etc/systemd/system/
+
+<li><code>systemctl start hello_world.service</code>
+    <ul>
+    <li>This will start up your service 
+    </ul>
+
+<li><code>systemctl enable hello_world.service</code>
+    <ul>
+    <li>This will enable your service to automatically start at boot time (creates a sylink under /etc/systemd/system/multi-user.target.wants/)
+    </ul>
+
+</ul>
+
+<h2>Debugging</h2>
+<ul>
+<li>You can use the <code>journalctl</code> command to debug systemd
+</ul>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li>wikipedia
+<li>digital ocean documentation
+<li>man pages
+</ul>
+
+</div>
+
+</body> 
+</html>
+  
