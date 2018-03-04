@@ -294,6 +294,7 @@ function print_nav(f)
         <a href="linux_dhcp.html">DHCP</a>
         <a href="linux_iptables.html">IPTables</a>
         <a href="linux_modules.html">Modules</a>
+        <a href="linux_debian.html">Debian</a>
         <a href="linux_raspberrypi.html">Raspberry Pi</a>
         <a href="linux_rcs.html">RCS</a>
         <a href="linux_rsync.html">rsync</a>

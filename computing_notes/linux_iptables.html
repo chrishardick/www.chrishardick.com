@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>Linux - IP Tables</title>
+<title>Linux - iptables</title>
 
 </head>
 
@@ -38,113 +38,186 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>Linux - IP Tables</h1>
+<h1>Linux - iptables</h1>
 
-<ul>
+<ul class="spaced">
 <li>Linux firewall
 <li>Works via packet filtering
-<li>More aptly called Iptables/Netfilter
-<li>Iptables is the userspace module. Netfilter is the kernel module
-<li>Iptables breaks down into tables (which are pre-defined). Each table has chains (both user and pre-defined), and each chain has a rule set which is an ordered set of rules
-<li>The type of traffic defines which tables and pre-defined chains are consulted. The network traffic (IP packets) are then checked against the appropriate rule sets and a decision is is made as to what action to take with each packet -- which usually breaks down to either DROP or ACCEPT
-<li>The actions are known as targets. 
-<li>Also provides NAT (Network Address Translation) -- which allows you to modify the source or destination addresses. See below.
-</ul>
-
-<h2>USEFUL COMMANDS</h2>
-<ul>
-<li><code>iptables -L [chain] -nv --line-numbers -Z</code> -- show currently loaded rules for specified chain (or all chains. -n to avoid dns lookups and display ip addresses, -v for verbose which will display byte and packet counts. -Z will atomically display and zero out byte counts
-<li><code>iptables -S [chain] -v</code> -- print  all  rules  in  the  selected chain in iptables-save format.  If no chain is selected, all chains are printed. -v for byte counts
-<li><code>lsmod | grep ip_tables</code> -- check if iptables module is loaded
-<li><code>ismod ip_tables</code> -- if your kernel has iptables support as a module and you need to load it
+<li>More aptly called iptables/netfilter
+<li>Iptables is the userspace module
+<li>Netfilter is the kernel module
+<li>Iptables breaks down into <strong>tables</strong> (which are all predefined)
+<li>Each table has <strong>chains</strong>. There are pre-defined or <strong>built-in chains</strong> (which cannot be deleted). You can also create your own <strong>user-defined chains</strong>
+<li>Each chain has a <strong>rule set</strong> which is an ordered set of rules
+<li>In other words, <strong>tables -&gt; chains -&gt; rules</strong> 
+<li>The type of traffic determines which tables and built-in chains (and therefore rules) are consulted. 
+<li>Iptables/netfilter also provides NAT (Network Address Translation) -- which allows you to modify the source or destination addresses
 </ul>
 
 <h2>TABLES</h2>
 
-<ul>
-<li>Notes on the various tables: filter, nat, mangle and raw
-<li>Taken more-or-less straight from the Linux man page
-</ul>
-
 <h3>1. filter</h3>
-<ul>
-<li>This is the default table (i.e. if the -t option is omitted)
-<li>Unless otherwise noted, these notes refer to this table
-<li>It contains 3 built-in <strong>chains</strong>: INPUT (for packets destined to local sockets), FORWARD (for packets being routed through the box), and OUTPUT (for locally-generated packets).
+<ul class="spaced">
+<li>The default table (i.e. if the -t option is omitted)
+<li>Unless otherwise noted, the notes on this page refer to this table
+<li>Has 3 built-in <strong>chains</strong>
+    <ul>
+    <li>INPUT (for packets destined for this machine)
+    <li>OUTPUT (for packets originating from this machine)
+    <li>FORWARD (for packets being routed through this machine -- i.e. when this machine is being used as a router)
+    </ul>
 </ul>
 
 <h3>2. nat</h3>
-<ul>
-<li>This table is for NAT (network address translation -- see below). 
+<ul class="spaced">
+<li>For NAT (network address translation -- see below). 
 <li>It is consulted when a packet that creates a new connection is encountered. 
-<li>It contains 3 built-in <strong>chains</strong>: PREROUTING (for altering packets as soon as they come in), OUTPUT (for altering locally-generated packets before routing), and POSTROUTING (for altering packets as they are about to go out).
+<li>Has 3 built-in <strong>chains</strong>
+    <ul>
+    <li>PREROUTING (for altering packets as soon as they come in)
+    <li>OUTPUT (for altering locally-generated packets before routing)
+    <li>POSTROUTING (for altering packets as they are about to go out)
+    </ul>
 </ul>
 
 <h3>3. mangle</h3>
-<ul>
-<li>This table is used for specialized packet alteration.
-<li>It has five built-in <strong>chains</strong>: PREROUTING (for altering incoming packets before routing), OUTPUT (for altering locally-generated packets before routing), INPUT (for packets coming into the box itself), FORWARD (for altering packets being routed through the box), and POSTROUTING (for altering packets as they are about to go out).
+<ul class="spaced">
+<li>Used for specialized packet alteration.
+<li>It has five built-in <strong>chains</strong>
+    <ul>
+    <li>PREROUTING (for altering incoming packets before routing)
+    <li>OUTPUT (for altering locally-generated packets before routing)
+    <li>INPUT (for packets coming into the box itself), FORWARD (for altering packets being routed through the box)
+    <li>POSTROUTING (for altering packets as they are about to go out)
+    </ul>
 </ul>
 
 <h3>4. raw</h3>
-<ul>
-<li>This table is used mainly for configuring exemptions from connection tracking in combination with the NOTRACK target. 
+<ul class="spaced">
+<li>Used mainly for configuring exemptions from connection tracking in combination with the NOTRACK target. 
 <li>It registers at the netfilter hooks with higher priority and is thus called before ip_conntrack, or any other IP tables. 
-<li>It provides the following built-in <strong>chains</strong>: PREROUTING (for packets arriving via any network interface) and OUTPUT (for packets generated by local processes)
+<li>It provides the following built-in <strong>chains</strong>
+    <ul>
+    <li>PREROUTING (for packets arriving via any network interface)
+    <li>OUTPUT (for packets generated by local processes)
+    </ul>
 </ul>
 
 
-<h2>filter TABLE: BUILT-IN CHAINS</h2>
-<ul>
-<li>By default, the iptable filter table has three built in chains -- which cannot be deleted.
-<li>INPUT -- all packets destined for our machine.
-<li>OUTPUT -- all packets orinating from our machine.
-<li>FORWARD -- all packets being routed by our machine. this chain is used if we are using our machine as a router. 
+<h2>CHAINS</h2>
+
+<ul class="spaced">
+<li>There are two types of chains -- <strong>built-in chains</strong> (which cannot be deleted) and <strong>user-defined chains</strong>
+<li>Based on the type of traffic, the rules of the appropriate built-in chain are consulted in order
+<li>Each rule has criteria and an action (target)
+<li>If the criteria of a rule is matched, the action of the rule is followed
+<li>Rule actions can be: ACCEPT (accept the packet), DROP (drop the packet) or jump to a user-defined chain.
+<li>User-defined chains are traversed similar to built-in chains. However, if no rule of the chain matches the packet, traversal resumes at the next rule of the calling chain
+<li>If all the rules of the built-in chain are traversed, the default action for the chain is taken -- which must be either ACCEPT or DROP
+<li>User-defined chains names must be &lt;= 31 characters and by convention are usually lowercase 
+<li>User-defined chains allow you to group related rules together
 </ul>
 
-<ul>
-<li><strong>Rules</strong> are added to each chain in a list. Each packet is checked against the rules of the corresponding chain. If it matches, the corresponding action is taken and no further rules are evaluated.
-<li>If no rules are matched, the default action for the given chain is taken -- which must be either ACCEPT or DROP
-</ul>
 
-<h2>OPTIONS</h2>
+
+<h2>iptables COMMAND USAGE</h2>
 
 <h3>Options to Manage an Entire Chain</h3>
-<ul>
-<li><code>-N chain</code> - create a new chain 
-<li><code>-X chain</code> - delete an empty chain 
-<li><code>-E old-chain new-chain</code> - rename chain
-<li><code>-X chain</code> - delete an empty chain
-<li><code>-L [chain]</code> - list the rules for a chain. Useful options are -n, -v, and -x. -n (numeric) causes iptables to print ip addresses rather than making remote calls to DNS which can be slow. It also causes port numbers to be displayed -- rather than a port name. -v (verbose) causes iptables to print out packet and byte counters (by default K, M, and G are used to kilobyte, megabyte and gigabyte -- use -x to display actual numbers).
-<li><code>-P chain target</code> - set default policy for given chain. Only pre-defined chains can have default policy and default policies cannot be another chain -- i.e. must be ACCEPT, DROP
-<li><code>-F [chain]</code>- flush (remove) rules in the specified chain
-<li><code>-Z [chain [rule-number]]</code> - zero packet and byte counters for the specified chain [and rule]. Defaults to all rules of all chains. Use together with -L to atomically report and reset the numbers
-</ul>
+
+<dl>
+
+<dt><code>-N chain</code>
+<dd>create a new chain 
+
+<dt><code>-X chain</code>
+<dd>delete an empty chain 
+
+<dt><code>-E old-chain new-chain</code>
+<dd>rename chain
+
+<dt><code>-L [chain] -nv --line-numbers -Z</code>
+<dd>list the rules for a chain (or all chains)
+<dd>-n to avoid dns lookups and display ip addresses
+<dd>-v for verbose - will display byte and packet counts
+<dd>-Z will atomically display and zero out byte counts
+
+<dt><code>-P chain target</code>
+<dd>set default policy for given chain. Only pre-defined chains can have default policy and default policies cannot be another chain -- i.e. must be ACCEPT, DROP
+
+<dt><code>-F [chain]</code>
+<dd>flush (remove) all rules in the specified chain
+
+<dt><code>iptables -S [chain] -v</code>
+<dd>print all rules in the selected chain in iptables-save format.  
+<dd>-v for verbose - will display byte counts
+
+</dl>
 
 <h3>Options to Manage Rules of a Chain</h3>
-<ul>
-<li><code>-A chain rule-specification</code> - append rule to the end of the selected chain
-<li><code>-I chain [rule#] rule-specification</code> - insert rule at specified rule number. 1 is the default rule number. i.e. 1st rule in the list (highest priority)
-<li><code>-D chain rule#</code> delete rule
-<li><code>-R chain rule# rule-specification</code> - replace rule
-</ul>
+
+<dl>
+
+<dt><code>-A chain rule-specification</code>
+<dd>append rule to the end of the selected chain
+
+<dt><code>-I chain [rule#] rule-specification</code>
+<dd>insert rule at specified rule number. 1 is the default rule number. i.e. 1st rule in the list (highest priority)
+
+<dt><code>-D chain rule#</code> 
+<dd>delete the specified rule
+
+<dt><code>-R chain rule# rule-specification</code>
+<dd>replace rule
+
+</dl>
+
 
 <h3>Options to Manage a Rule -- Selectors & Actions</h3>
-<ul>
-<li><code>-i [!] in interface</code> - lo (loopback), eth0, ... . An interface name ending with '+' will match all interfaces which begin with that string (e.g. eth+) .  (! negates)
-<li><code>-o [!] out interface</code> - see comments for in interface
-<li><code>-p [!] protocol</code> - ICMP, TCP, UDP. Case insensitive (! negates)
-<li><code>-s [!] source IP address[/mask]</code> - source IP address. do not use a name which needs to be looked up via remote call (e.g DNS). mask can either be a network mask (e.g. 255.255.255.0) or a plain number (e.g. 24), where the plain numbe is the number of 1's in the left side of the network mask. Whereby the mask specifies which part of the IP address are significant (! negates)
-<li><code>-d [!] destination address[/mask]</code> - destination address. see comments under source IP address. 
-<li><code>--sport port</code> -- source port
-<li><code>--dport port</code> -- destination port
-<li><code>-f</code> -- the rule only applies to the 2nd or later fragments. See section on fragments below.
-<li><code>-j action</code> -- action: ACCEPT, DROP, another chain name
+
+<dl>
+
+<dt><code>-i [!] in interface</code> 
+<dd>lo (loopback), eth0, ... . 
+<dd>An interface name ending with '+' will match all interfaces which begin with that string (e.g. eth+) . 
+<dd>! negates
+
+<dt><code>-o [!] out interface</code>
+<dd>see comments for in interface
+
+<dt><code>-p [!] protocol</code>
+<dd>ICMP, TCP, UDP. 
+<dd>Case insensitive 
+<dd>! negates
+
+<dt><code>-s [!] source IP address[/mask]</code>
+<dd>source IP address. 
+<dd>do not use a name which needs to be looked up via remote call (e.g DNS). 
+<dd>masks specify which part of the IP address is significant
+<dd>mask can either be a network mask (e.g. 255.255.255.0) or a plain number (e.g. 24), where the plain number is the number of 1's in the left side of the network mask. 
+<dd>! negates
+
+<dt><code>-d [!] destination address[/mask]</code>
+<dd>destination address. 
+<dd>see comments under source IP address. 
+
+<dt><code>--sport port</code>
+<dd>source port
+
+<dt><code>--dport port</code>
+<dd>destination port
+
+<dt><code>-f</code>
+<dd>the rule only applies to the 2nd or later fragments. See section on fragments below.
+
+<dt><code>-j action</code>
+<dd>action to take -- ACCEPT, DROP, another chain name
 </ul>
 
-<h2>MODULES</h2>
-<ul>
-<li>Both the kernel and iptables can be extended via modules
+
+<h2>iptable MODULES</h2>
+
+<ul class="spaced">
+<li>Both netfilter and iptables can be extended via modules
 <li>Kernel modules usually live in /lib/modules/2.XXX/kernel/net/ipv4/netfilter
 <li>Iptable modules are shared libraries (.so) which usually live in /usr/local/lib/iptables. However, distributions usually put them in /lib/iptables or /usr/lib/iptables
 <li>Modules come in two flavors: new targets (other than ACCEPT, DROP) and new matches (for example state matching)
@@ -153,28 +226,7 @@ C O N T E N T
 <li>Examples of target modules are LOG -- which provides kernel logging of matching packets, and REJECT which is similar to DROP except that the sender receives a ICMP port unreachable error message.
 </ul>
 
-<h2>User Defined Chains</h2>
-<ul>
-<li>Iptables (like its predecessor, ipchains), allows you to create user-defined chains. 
-<li>Usually this is done to group related rules together
-<li>User-defined chains names must be &lt;= 31 characters and by convention are usually lowercase 
-<li>When a packet matches a rule whose target is a user defined chain, the packet traverses the rules of the user defined chain
-<li>If no rules of the chain match the packet, traversal resumes on the next rule of the current chain.
-<li>User defined chains can jump to other user defined chains
-<li>Use -N option to create a new chain
-<li>Use -X option to delete a chain
-<li>Use -F option remove all rules from the chain
-<li>Use -L option to list all rules in a chain. The refcnt for each user defined chain is the number of rules which define this chain as their target. It must be zero before a given chain may be deleted. 
-</ul>
-
-<h2>FRAGMENTS</h2>
-<ul>
-<li>Sometimes, a packet is too large and it gets split into fragments
-<li>When this happens, only the initial fragment has the complete header
-<li>If you are doing NAT or are working with the INPUT chain, then all fragments will be merged into the origial packet before reaching the packet filtering engine
-</ul>
-
-<h2>SET UP BASIC FIREWALL</h2>
+<h2>A BASIC FIREWALL</h2>
 
 <pre>
 iptables -P INPUT ACCEPT                                                        # input chain -- temporarily allow all connections so we do not lose connection (if necesary)
@@ -241,6 +293,26 @@ echo 1 &gt;/proc/sys/net/ipv4/ip_forward
 <li>You can specify the source (-s) or destination (-d) IP addresses
 <li>You can the input (-i) or output (-o) interface to match. However, on the PREROUTING chain, you can only specify the input interface. Similarly, on the POSTROUTING chain, you can only specify the ouptut interface
 </ul>
+
+<h2>FRAGMENTS</h2>
+<ul>
+<li>Sometimes, a packet is too large and it gets split into fragments
+<li>When this happens, only the initial fragment has the complete header
+<li>If you are doing NAT or are working with the INPUT chain, then all fragments will be merged into the origial packet before reaching the packet filtering engine
+</ul>
+
+
+<h2>iptables MODULE</h2>
+
+<dl>
+
+<dt><code>lsmod | grep ip_tables</code>
+<dd>check if iptables module is loaded
+
+<dt><code>ismod ip_tables</code>
+<dd>if your kernel has iptables support as a module and you need to load it
+
+</dl>
 
 <h2>Acknowledgements</h2>
 <ul>

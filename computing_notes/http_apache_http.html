@@ -87,8 +87,18 @@ ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"
 </pre>
 
 <ul>
-<li>restart server: <code>sudo service apache2 restart<code>
+<li><code>systemctl restart apache2</code> - restart server
 </ul>
+
+<h2>Apache2 / Debian</h2>
+<ul>
+<li><code>a2enmod ssl</code> - enable ssl module
+</ul>
+
+<h2>htpasswd - Basic Authentication</h2>
+<pre>
+htpasswd -c /etc/apache2/.htpasswd &lt;username&gt;
+</pre>
 
 
 <h2>TODO</h2>

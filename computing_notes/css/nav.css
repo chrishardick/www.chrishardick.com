@@ -137,5 +137,21 @@ table
 dt
 {
     margin-top:         10px;
-    margin-bottom:      2px;
+    margin-bottom:      10px;
 }
+
+h3
+{
+    margin-bottom:      0px;
+}
+
+dd
+{
+    margin-top:         5px;
+}
+
+ul.spaced li
+{
+    padding: 5px 0px 5px 0px;       /* top, right, bottom, left */
+}
+

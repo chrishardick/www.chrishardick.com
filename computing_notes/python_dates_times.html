@@ -42,7 +42,7 @@ C O N T E N T
 <h1>Python: Dates and Times</h1>
 
 <ul>
-<li>Python supports <strong>naive</strong> and <strong>aware</strong> date, time and datetime objects. The former do not have timezone information set, the latter does.
+<li>Python supports <strong>native</strong> and <strong>aware</strong> date, time and datetime objects. The former do not have their timezone information set (i.e. equal to None), the latter does.
 </ul>
 
 <h2>class <code>datetime.datetime</code></h2>
@@ -151,20 +151,55 @@ sec_from_utc = epoch_lcl - epoch_utc
 
 <h2>pytz</h2>
 <ul>
-<li><code>localize()</code> - used to localize a native datetime. The input is assumed to be a datetime object already in the given timezone. localize simply adds the timezoe information to it.
-<pre>
-ny = pytz.timezone('America/New_York')
-loc_dt = ny.localize(datetime(2017,05,10,17,55,0,0))
-print loc_dt
-output: 2017-05-10 17:55:00-04:00       # where -04:00 indicates that 4 hours behind gmt
-</pre>
-<li><code>astimezone()</code> - convert a localized datetime into a localized datetime in another timezone
-<pre>
-utc = pytz.utc
-utc_td = utc.localize(datetime.datetime.utcnow())
+<li>pytz brings Olson tz database support into Python.
+<li>Almost all Olson timezones are supported
+</ul>
 
-ny_td = utc_dt.astimezone(ny)
+<pre>
+import pytz
+
+# datetime.datetime.tzinfo object
+# - NOTE: tzinfo is an abstract base class
+eastern_tz = pytz.timezone('US/Eastern')
+
+#
+# tzinfo.localize() method
+# - returns a datetime
+#
+eastern_dt = eastern_tz.localize(datetime(2017,05,10,17,55,0,0))
+print eastern_dt
+output: 2017-05-10 17:55:00-04:00       # where -04:00 indicates that 4 hours behind gmt
+
+# tzinfo.localize() method
+# - 2nd example
+utc = pytz.utc
+utc_dt = utc.localize(datetime.datetime.utcnow())
+
+# 
+# utc to eastern
+#
+eastern_dt2 = utc_dt.astimezone(eastern_tz)
 </pre>
+
+<h3><code>pytz.timezone()</code></h3>
+<ul>
+<li>input: Olson timezone string. e.g. <code>'US/Eastern'</code>
+<li>output: datetime.datetime.tzinfo object (NOTE: tzinfo is an abstract base class -- i.e. you cannot directly instantiate one)
+</ul>
+
+<h3><code>tzinfo.localize(datetime)</code></h3>
+<ul>
+<li>input: a datetime object without timezone information (native)
+<li>output: a datetime object with timzeone information set (aware)
+<li>note: only the tzinfo member of the datetime object is modified. I.e. year, month, hour, minute, second, and microsecond members are not changed.
+</ul>
+
+<h3><code>datetime.astimezone(datetime.datetime.tzinfo object)</code></h3>
+<ul>
+<li>convert a localized datetime into a localized datetime in another timezone
+<li>a datetime method
+<li>input: datetime.datetime.tzinfo object
+<li>output: datetime object
 </ul>
 
 <pre>
