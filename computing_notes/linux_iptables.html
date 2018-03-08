@@ -314,6 +314,20 @@ echo 1 &gt;/proc/sys/net/ipv4/ip_forward
 
 </dl>
 
+<h2>Auto-start</h2>
+<ul>
+<li>iptables-persistent/netfilter-persistent
+<li>to have something start-up before netfilter-persistent, place a script in /usr/share/netfilter-persistent/plugins.d
+<li>make sure it's executable
+<li>the number in the filename dictates the start-up order
+<li>For example, 14-my-ipset will start before 15-ip4tables
+<pre>
+#!/bin/sh
+# sample script
+ipset create myset ipset
+</pre>
+</ul>
+
 <h2>Acknowledgements</h2>
 <ul>
 <li>iptables howto

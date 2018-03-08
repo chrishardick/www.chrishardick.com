@@ -40,16 +40,52 @@ C O N T E N T
 <div id="content" class="content">
 <h1>Linux - systemd</h1>
 
-<ul>
-<li>systemd is a system and service manager for Linux.
+<ul class="spaced">
+<li><strong>systemd</strong> is a system and service manager for Linux.
 <li>It is currently the default system and service manager for most Linux distributions.
-<li>However, some believe that the scope of systemd is too large and it therefore runs contrary to the Unix philosophy of 
-    small interconnected utilities with narrowly defined functionality
-<li>Therefore, as of this writing, work is in progress to try to displace systemd
-<li>It was developed by developers at <a href="www.redhat.com">RedHat</a>
-<li>Items managed by Systemd are known as <strong>units</strong>
-<li>There are many types of units. The most common type of unit is a <strong>service</strong>
+<li>Developed by <a href="www.redhat.com">RedHat</a>
+<li>Some people believe the scope of systemd is too large and runs contrary to the Unix philosophy of 
+    small interconnected utilities with narrowly defined functionality. These people would like to see
+    systemd displaced.
+<li>Items managed by systemd are known as <strong>units</strong>
+<li>Units can be services (similar to other init systems -- and the most popular type of units). They can also be other objects (sockets, devices, a filesystem mount or activity, etc.)
 </ul>
+
+<h2>Quick Start</h2>
+<p>This quick start will show you how to quickly create a service which auto-starts at boot time</p>
+
+<ul class="spaced">
+<li>Create a Unit Configuration File (e.g. hello_world.service)
+<pre>
+[Unit]
+Description     = Hello, World! service
+
+[Service]
+ExecStart       = /user2/python/hello_world.py
+
+[Install]
+WantedBy        = multi-user.target
+</pre>
+
+<li>Install your Unit Configuration File to /etc/systemd/system/
+
+<li><code>systemctl start hello_world.service</code>
+    <ul>
+    <li>This will attempt to start up your service 
+    </ul>
+
+<li><code>systemctl enable hello_world.service</code>
+    <ul>
+    <li>This will enable your service to automatically start at boot time (creates a sylink under /etc/systemd/system/multi-user.target.wants/)
+    </ul>
+
+</ul>
+
+<h2>Debugging</h2>
+<ul>
+<li>You can use the <code>journalctl</code> command to debug systemd
+</ul>
+
 
 <h2>Terms</h2>
 
@@ -67,8 +103,8 @@ C O N T E N T
 <h2>Unit Types</h2>
 
 <ul>
-<li>systemd has 12 types (categories) of units. 
-<li>Each unit type has its own suffix. For example, <code>.service</code> indicates a service (which is the default and most common type).
+<li>There are 12 types (categories) of systemd units
+<li>Each unit type has a unique suffix. For example, a <code>.service</code> suffix indicates a service (the default and most common type of unit).
 </ul>
 
 <p>Here is a list of all unit types:</p>
@@ -93,7 +129,6 @@ C O N T E N T
     </ul>
 <li>Device Units
     <ul>
-    <li>Units can be started when a device becomes available
     <li>suffix: <code>.device</code>
     <li>For more information: <code>man systemd.device</code>
     </ul>
@@ -130,8 +165,8 @@ C O N T E N T
     </ul>
 <li>Slice Units
     <ul>
-    <li>For more information: <code>man systemd.slice</code>
     <li>suffix: <code>.slice</code>
+    <li>For more information: <code>man systemd.slice</code>
     </ul>
 <li>Scope Units
     <ul>
@@ -157,7 +192,7 @@ C O N T E N T
 <dd>restart (bounce) a systemd service.
 
 <dt><code>systemctl status application[.service]</code>
-<dd>check status of a systemd service
+<dd>check the status of a systemd service
 
 <dt><code>systemctl enable application[.service]</code>
 <dd>to configure a systemd service to automatically start at boot time (creates a symlink)
@@ -177,8 +212,8 @@ C O N T E N T
 
 <dt><code>systemctl list-unit-files --type=service</code>
 <dd>display the status of all installed services
-<dd>enabled - has a .wants directory???
-<dd>disabled - does not have a .wants directory
+<dd>enabled - will start at boot
+<dd>disabled - will not start at boot
 <dd>static - means the service is missing the [Install] section in its init script, so you cannot enable or disable it. Static services are usually dependencies of other services and are controlled automatically
 
 <dt><code>systemctl reload application[.service]</code>
@@ -206,6 +241,13 @@ C O N T E N T
 <dt><code>systemctl mask application[.service]</code>
 <dd>mask an application (make it unstartable -- either automatically or manually -- by linking it to /dev/null)
 <dd>use <code>unmask</code> to unmask it
+
+<dt><code>systemctl get-default</code>
+<dd>to view the default target which will be used at boot time
+
+<dt><code>systemctl set-default &lt;target&gt;</code>
+<dd>to view the default target which will be used at boot time
+<dd>E.g. systemctl set-default multi-user.target
 
 <dt><code>systemctl poweroff</code>
 <dt><code>systemctl reboot</code>
@@ -255,21 +297,28 @@ WantedBy        = multi-user.target
 <dd>It is returned by various systemd tools. 
 
 <dt><code>Requires=</code>
-<dd>Lists any units upon which this unit depends
-<dd>If the unit is active (currently running), all units in this list must also be active
-<dd>By default, these units are started in parallel with the current unit
+<dd>An example: <code>unit1.service</code> contains <code>Requires=unit2.service</code>
+<dd>Lists any units upon which this unit depends (e.g. unit1.service dspends on unit2.service)
+<dd>In other words, if unit2.service does not successfully start, unit1.service will also be deactivated
+<dd>Note: this has nothing to do with the order in which the services are brought up
+<dd>By default, these units (unit1.service and unit2.service) are started concurrently 
 
 <dt><code>Wants=</code>
-<dd>Similar to Requires, but less strict. 
-<dd>Systemd will attempt to start any units here when the current unit is activated. 
+<dd>An example: <code>unit1.service</code> contains <code>Wants=unit2.service</code>
+<dd>Similar to Requires, but the service will not be deactivated if any dependent services fail to start
+<dd>In our example, unit1.service will not be deactivated if unit2.service fails
 
 <dt><code>BindsTo=</code>
 <dd>Similar to Requires, but also causes the current unit to stop when these unit(s) terminate
 
 <dt><code>Before=</code>
+<dd>An example: <code>unit1.service</code> contains <code>Before=unit2.service</code>
+<dd>Deals with unit start-up order
+<dd>In our example, unit1.service will be executed fully before unit2.service starts
 <dd>The units listed here will not be started until the corrent unit is marked as started if they are activated at the same time
 
 <dt><code>After=</code>
+<dd>Deals with unit start-up order
 <dd>The units here will be started before starting the current unit
 
 <dt><code>Conflicts=</code>
@@ -330,12 +379,13 @@ WantedBy        = multi-user.target
 <dt><code>Restart</code>
 <dd>Optional directive used to indicate when systemd shoudl attempt to automatically restart the service
 <ul>
-<li>always - 
-<li>on-success - 
-<li>on-failure - 
-<li>on-abnormal -
-<li>on-abort -
-<li>on-watchdog -
+<li>always
+<li>on-success
+<li>on-failure
+<li>on-abnormal
+<li>on-abort
+<li>on-watchdog
+<li>E.g. <code>Restart=always</code> - enable the service to respawn
 </ul>
 
 <dt><code>RestartSec=</code>
@@ -406,23 +456,6 @@ files in this directory
 
 </dl>
 
-<h2>Unit Configuration Files</h2>
-
-<ul>
-<li>Each units is defined by its configuration file
-<li>Tye type of unit can be recognized by the configuration's file suffix (i.e. .service, etc.)
-</ul>
-
-<h2>Targets (Runlevels)</h2>
-
-<ul>
-<li><strong>Targets</strong> are groups of units. 
-<li>Similar to run levels in init. 
-<li>To view the default target that will be used at boot time: <code>systemctl get-default</code>
-<li>To change the default target that will be used at boot time: <code>systemctl set-default multi-user.target</code>
-<li>To see what unites are tied to a target: <code>systemctl list-dependencies multi-user.target</code>
-</ul>
-
 
 <h2>Other Commands</h2>
 
@@ -434,73 +467,6 @@ files in this directory
 </dl>
 
 
-<h2>Run Levels</h2>
-
-<ul>
-<li>Run Level 0 -- system shutdown
-<li>Run Level 1 -- single user mode
-<li>Run Level 2 -- multi-user, network enabled, text mode
-<li>Run Level 3 -- multi-user, network enabled, text mode
-<li>Run Level 4 -- multi-user, network enabled, text mode
-<li>Run Level 5 -- multi-user, network enabled, graphical mode
-<li>Run Level 6 -- system reboot
-<li>5 - Run
-</ul>
-
-<h2>systemd</h2>
-<ul>
-<li>A system and service manager for Linux operating systems
-<li>Systemd manages <strong>units</strong>
-<li>Units can be services (probably what you're used to and similar to other init systems), but they can also be other objects (e.g. sockets, devices, filesystem mounts or activity, etc.)
-<li>Can be run in either user or system mode
-<li>/etc/systemd/system - init scripts
-<li>/etc/systemd/system/multi-user.target.wants/SERVICE.service
-<li><code>systemctl</code> - central tool for controlling the init system
-<li>Use systemctl to enable the service -- <code>sudo systemctl enable service.service</code>. This will create a symlink in /etc/systemd/system/multi-user.taget.wants 
-<li>The file should contain a line 'Restart=always' under the [Service] section of the file to enable the service to respawn after a crash
-<li>supports dependencies
-</ul>
-
-
-
-<h2>systemd unit files</h2>
-<ul>
-<li>Usually stored in <code>/lib/systemd/system</code> -- these are the default files
-<li>Files stored in <code>/etc/systemd/system</code> take precedence over their counterparts in the lib directory. If you wish to edit a file, you should edit the etc version. 
-</ul>
-
-<h2>Quick Start - Create a service which auto-starts at boot time</h2>
-<ul>
-<li>Create a Unit Configuration File (e.g. hello_world.service)
-<pre>
-[Unit]
-Description     = Hello, World! service
-
-[Service]
-ExecStart       = /user2/python/hello_world.py
-
-[Install]
-WantedBy        = multi-user.target
-</pre>
-
-<li>Install your Unit Configuration File to /etc/systemd/system/
-
-<li><code>systemctl start hello_world.service</code>
-    <ul>
-    <li>This will start up your service 
-    </ul>
-
-<li><code>systemctl enable hello_world.service</code>
-    <ul>
-    <li>This will enable your service to automatically start at boot time (creates a sylink under /etc/systemd/system/multi-user.target.wants/)
-    </ul>
-
-</ul>
-
-<h2>Debugging</h2>
-<ul>
-<li>You can use the <code>journalctl</code> command to debug systemd
-</ul>
 
 <h2>Acknowledgements</h2>
 <ul>
