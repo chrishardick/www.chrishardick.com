@@ -13,7 +13,52 @@ function on_load (f)
     print_nav(f);
     print_title();
     setup_accordions();
+
+    var cookies = get_cookies();
+
+    var cookies_str = "";
+
+    var num_cookie = 0;
+
+    for (var i=0; i < cookies.length; i++)
+    {
+        cookies_str += i + "=" + cookies[i];
+
+        num_cookie++;
+    }
+
+    // alert ("cookies=|" + cookies_str + "| num=" + num_cookie);
 }
+
+function get_cookies ()
+{
+    var ret = { }
+
+    var all = document.cookie;  // all cookies. n1=v1; n2=v2; n3=v3; ...
+
+    if (all === "")
+    {
+        return ret;
+    }
+
+    var list = all.split("; ");
+
+    for (var i=0; i < list.length; i++)
+    {
+        var cookie = list[i];
+
+        var p = cookie.indexOf("=");
+
+        var n = cookie.substring(0,p);
+        var v = cookie.substring(p+1);
+
+        ret[n] = v;
+    }
+
+    return ret;
+}
+
+
 
 
 //==========
@@ -24,13 +69,50 @@ function print_title ()
 //    var title_html = `
 //    <span class="menutron" onclick="openNav()">&#9776;</span><a class="title" href="index.html">Computing Notes</a>` 
 
-    var title_html = `<div class="title">Computing Notes</div>
+    var title_html = `<div class="title"><span id="menu_icon" class="menu_icon"></span>Computing Notes</div>
     <div class="searchbox"><form action='search.py' method='POST'><input type="text" name="searchbox">
     <input type="submit" value="search">
     </form></div>`
     // onkeydown= "if (event.keyCode == 13) alert('Hello, World!')">
 
     document.getElementById('title').innerHTML = title_html;
+
+    document.getElementById('menu_icon').onclick = toggle_menu;
+}
+
+//
+//
+//
+function toggle_menu ()
+{
+    console.log ("toggle_menu");
+    
+    menu_icon   = document.getElementById('menu_icon')
+    nav         = document.getElementById('nav')
+    content     = document.getElementById('content')
+
+
+    //
+    // alternate between X and menu icon
+    //
+
+    menu_icon.classList.toggle("active");
+
+
+    if (nav.style.display === "block")
+    {
+        console.log ("nav - block to none");
+
+        nav.style.display           = "none";
+        content.style.marginLeft    = "5px";
+    }
+    else
+    {
+        console.log ("nav - none to block");
+
+        nav.style.display           = "block";
+        content.style.marginLeft    = "250px";
+    }
 }
 
 
@@ -70,7 +152,11 @@ function setup_accordions ()
     }
 }
 
-function toggle_active (o)
+
+//
+//
+//
+function toggle_active (o)      // object
 {
     console.log ("make_active");
 
@@ -91,6 +177,7 @@ function toggle_active (o)
         panel.style.display = "block";
     }
 }
+
 
 //==========
 // print_nav
@@ -264,7 +351,7 @@ function print_nav(f)
     <button class="accordion" id="accordion_js">JavaScript</button>
     <div class="panel">
         <a href="js_intro.html">Introduction</a>
-        <a href="js_data_types.html">Data Types</a>
+        <a href="js_variables_and_data_types.html">Variables and Data Types</a>
         <a href="js_control_structs.html">Control Structures</a>
         <a href="js_objects.html">Objects</a>
         <a href="js_variables.html">Variables</a>
@@ -298,6 +385,7 @@ function print_nav(f)
         <a href="linux_raspberrypi.html">Raspberry Pi</a>
         <a href="linux_rcs.html">RCS</a>
         <a href="linux_rsync.html">rsync</a>
+        <a href="linux_ssh.html">ssh</a>
         <a href="linux_sendmail.html">sendmail</a>
         <a href="linux_shutdown.html">shutdown</a>
         <a href="linux_sudo.html">sudo</a>

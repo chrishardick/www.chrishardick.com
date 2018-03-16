@@ -15,6 +15,18 @@ button.accordion
     transition:         0.4s;
 }
 
+span.menu_icon:before 
+{
+    content:            '\02630';           /* menu icon */
+    cursor:             pointer;
+    padding-right:      6px;
+}
+
+span.menu_icon.active:before
+{
+    content:            '\02716';           /* X */
+}
+
 button.accordion.active, button.accordion:hover
 {
     background-color:   #ddd;               /* light gray */
@@ -22,7 +34,7 @@ button.accordion.active, button.accordion:hover
 
 button.accordion:after
 {
-    content:        '\02795';
+    content:        '\02795';               /* + */
     font-size:      13px;
     color:          #777;
     float:          right;
@@ -31,7 +43,7 @@ button.accordion:after
 
 button.accordion.active:after
 {
-    content:        '\02796';
+    content:        '\02796';           /* dash */
 }
 
 div.panel
@@ -47,20 +59,21 @@ div.panel
     display:            block;
     padding:            4px 0;
 }
+
 div.title
 {
     z-index:            1;
     font-family:        "Trebuchet MS", Helvetica, sans-serif;
     position:           fixed;              /* fixed to viewport */
-    top:                30px;
-    left:               0;
+    top:                0px;
+    left:               0px;
     width:              100%;
     height:             30px;
     line-height:        30px;
     color:              white;
     background-color:   #444;
     padding:            0 0 0 10px;         /* top right bottom left */
-    margin:             -30px 5px 0px 5px;    /* top right bottom left */
+    margin:             0px 5px 0px 5px;    /* top right bottom left */
 }
 
 div.searchbox
@@ -90,16 +103,38 @@ div.nav
     left:               0;
     width:              240px;
     height:             100%;
-    padding:            30px 0 30px 10px; /* top right bottom left */
-    margin:             -30px 0px 0px 0px; /* top right bottom left */
+    padding:            0px 0px 30px 10px; /* top right bottom left */
+    margin:             0px 0px 0px 0px; /* top right bottom left */
     overflow:           scroll;
+    display:            none;
 } 
 
 .content
 {
     font-family:        "Trebuchet MS", Helvetica, sans-serif;
     margin-left:        250px;
+/*     margin-left:        250px; */
+    margin-left:        5px; 
     margin-top:         40px;
+}
+
+
+/*
+ * responsive
+ */
+/* @media screen and (max-width: 900px) */
+@media screen and (min-width: 900px)
+{
+    div.nav
+    {
+        /* display:        none; */
+        /* display:        block; */
+    }
+
+    .content
+    {
+        /* margin-left:    250px; */
+    }
 }
 
 pre

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Linux - ssh</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<H1>Linux - ssh</H1>
+
+<ul>
+</ul>
+
+<h2>Changing/Adding SSH Port for a Linux Server</h2>
+<ul>
+<li>Edit /etc/ssh/sshd_config and /modify the <code>Port 22</code> line or additional lines specifying additional ports
+<li>Restart service - <code>systemctl restart sshd</code>
+</ul>
+
+
+</div>
+</body> 
+</html>
+  
