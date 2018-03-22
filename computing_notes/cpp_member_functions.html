@@ -39,54 +39,72 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<H1>C++ Member Functions</H1>	
+<h1>C++ Member Functions</h1>    
 
-<UL>
-<LI>A function which has its definition or prototype within the class definition.
-<LI>If a member function has its definition within the class, it is implicitly declared as <a href="Inline.html">inline</a>
-<LI>It's a good practice to declare all member functions which do not alter the object as <A HREF=Constants.html>constant member functions</A>, 
-	which is accomplished by placing the keyword <strong>const</strong> after both the function prototype and header 
-	(only functions defined outside of the class definition have a function prototype). 
-	Declaring a member function as constant, ensures that it does not modify any of the object's data members.
-<LI>See also <a href=polymorphism.html#virtual_member_functions>Virtual Member Functions</a>
+<ul class=spaced>
+<li>A function which has its definition or prototype within the class definition.
+<li>If a member function has its definition within the class, it is implicitly declared as <a href="cpp_inline.html">inline</a>
+<li>It's a good practice to declare all member functions which do not alter the object as <a HREF=cpp_constants.html>constant member functions</a>, 
+    which is accomplished by placing the keyword <strong>const</strong> after both the function prototype and header.
+    Declaring a member function as constant, ensures that it does not modify any of the object's data members. 
+    Well, almost all of the objects data members -- constant functions can still modify data members declared as <strong>mutable</strong>
+<li>A typical example of a data member you'd declare as mutable is a mutex. 
+<LI>See also <a href=cpp_polymorphism.html#virtual_member_functions>Virtual Member Functions</a>
 <pre>
-/*
- * member fxn definition w/i the class
- */
-class CBox
+//
+// Box class
+// 
+class Box
 {
-	double m_dLength, m_dWidth, m_dHeight;
+    double d_length, d_width, d_height;
 
-	public:
-		// Constructor - Implicitly inline
-		CBox (double dL=0.0, double dW=0.0, double dH=0.0);
+    public:
 
-		// Volume() - Implicitly inline (a constant member function)
-		double Volume () const { return m_dLength * m_dWidth * m_dHeight; }
+        //
+        // CONSTRUCTOR
+        // - implicitly inline
+        //
+
+        Box (   double l=0.0        // default parameters
+                ,double w=0.0
+                ,double h=0.0
+                ) :
+                d_length(l)
+                ,d_width(w)
+                ,d_height(h)
+        {}
+
+
+        //
+        // volume() 
+        // - constant member function
+        // - implicitly inline 
+        //
+
+        double volume () const 
+        {
+            return length * width * d_height; 
+        }
+
+        void print_self (std::ostream&amp; os) const;
 };
 
-
-/*
- * member fxn definition outside the class
- * - in order to be inline, must be explicitly defined
- */
-class CBox
+void Box::print_self (std::ostream&amp; os) const
 {
-	double m_dLength, m_dWidth, m_dHeight;
+    os  &lt;&lt; d_length 
+        &lt;&lt; " " &lt;&lt; d_width
+        &lt;&lt; " " &lt;&lt; d_height
+        ;
+}
 
-	public:
-		// Constructor - Implicitly inline
-		CBox (double dL=0.0, double dW=0.0, double dH=0.0);
 
-		// Volume() 
-		double Volume ();
-};
-
-inline double CBox::Volume () const
+std::ostream& operator&lt;&lt; (std::ostream&amp; os, const Box& box)
 {
-	return m_dLength * m_dWidth * m_dHeight;
+    box.print_self(os);
+
+    return os;
 }
 </pre>
-</UL>
+</ul>
 
-</div></BODY></HTML>
+</div></body></html>

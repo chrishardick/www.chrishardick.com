@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jsclient");
+}
+</script>
+
+<title>JavaScript - Cookies</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>JavaScript - Cookies</h1>
+
+<ul class=spaced>
+<li>See also <a href="http_cookies.html">HTTP Cookies</a>
+</ul>
+
+<h2>Setting Cookies</h2>
+<ul class=spaced>
+<li>You set cookies using the <strong>document.cookie</strong> property
+<li>document.cookie seems like a normal text string -- but it's not.
+<li>When you set document.cookie, it only affects the specified name
+<li>When you read document.cookie, you read back a list of all applicable cookies
+<li><strong>name</strong> and <strong>value</strong> are the only required fields
+<li>If max-age is not specified, it is a transient cookie (expires when browser window is closed)
+</ul>
+
+<pre>document.cookie = "name=value; max-age=seconds; path=path; domain=domain; secure"
+
+// examples
+
+// creating a cookie
+document.cookie = "menu_open=true"
+
+// modifying a cookie
+document.cookie = "menu_open=false"
+
+// deleting a cookie
+// document.cookie = "menu_open=; max-age=0"
+</pre>
+
+<h2>Reading Cookies</h2>
+<ul class=spaced>
+<li>the <strong>document.cookie</strong> property returns a string containing all the cookies that apply to the current documnt
+<li>it's a list in the form name=value pairs separated from each other by a semicolon and a space
+<li>use the <strong>string.split()</strong> method to break it into individual name=value pairs
+</ul>
+<pre>
+function get_cookies ()
+{
+    var ret = { }
+
+    var all = document.cookie;  // all cookies. n1=v1; n2=v2; n3=v3; ...
+
+    if (all === "")
+    {
+        return ret;
+    }
+
+    var list = all.split("; ");
+
+    for (var i=0; i < list.length; i++)
+    {
+        var cookie = list[i];
+
+        var p = cookie.indexOf("=");
+
+        var n = cookie.substring(0,p);
+        var v = cookie.substring(p+1);
+
+        ret[n] = v;
+    }
+
+    return ret;
+}
+</pre>
+
+</div>
+</body> 
+</html>

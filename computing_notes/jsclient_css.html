@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jsclient");
+}
+</script>
+
+<title>Client Side JS - CSS</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Client Side JS - CSS</h1>
+
+<ul class=spaced>
+<li>CSS allows you to specify style for your website. I.e. it allows you to specify fonts, colors, etc.
+<li>It is also very useful for client-side JS developers 
+</ul>
+
+<h2>Scripting Inline Styles</h2>
+<ul class=spaced>
+<li>Allows you to alter the <strong>style</strong> attribute of individual document elements via the <code>style</code> property
+<li>Remember that the style attribute allows you to specify <strong>inline</strong> styles
+<li>inline styles have the highest specificity and therefore take precedence over other styles
+<li>The <code>style</code> property is an CSSStyleDeclaration object which represents all of the CSS properties specified by the style attribute
+<li>Because hyphens can cause problems with parsing, CSS style property names containing hyphens are referenced in JS via
+    removing the hyphen and capitalizing the letter immediately following the hyphen
+<li>For example, the <code>border-left</code> property in CSS is referenced via <code>style.borderLeft</code> in JS
+<li>Similarly, when a CSS property name is a reserved word (e.g. float), it is prefixed with <code>css</code> with the following letter capitalized in JS.
+<li>For example, the CSS <code>float</code> property is referenced via  <code>style.cssFloat</code> in JS
+<pre>
+// where o is a HTML document element
+// - all values are strings
+o.style.fontSize = "12pt";
+o.style.fontFamily = "sans-serif";
+o.style.color = "red";
+o.style.backgroundColor = "green";
+</pre>
+</ul>
+
+<h2>Querying Computed Styles</h2>
+<ul class=spaced>
+<li>Computed Styles take into account any styles applied to the given element (regardless if specified by inline, internal, or external style sheets)
+<li>You can obtain the computed style for a given element via <code>getComputedStyle()</code> method of the Window object. 
+<li>It accepts 2 arguments. The 1st argument is the element. The 2nd argument is required but hardly ever used -- pass <code>null</code>
+<li><code>getComputedStyle()</code> returns a CSSStyleDeclaration object -- because its computed, it's read-only
+<pre>
+computedStyle = getComputedStyle(o, null);
+</ul>
+
+<h2>Scripting CSS Classes</h2>
+<ul class=spaced>
+<li>Script the value of HTML class attribute
+<li>Since class is JS reserved word, the HTML class attibute is available in JS via the className property
+<li>However, keep in mind that the class attribute can specify more than one class
+<pre>
+// specify a class name
+// - you can specify multiple class names - space delimited)
+o.className = "important super-important ultra-super-important";
+
+// does element o's class attribute contain the "important" classname
+o.contains ("important")
+
+// removes/inserts the "important" classname from o's class list
+o.toggle("important")
+
+// cross browser solution
+if (! document.getElementById("MyElement").contains("important"))
+{
+    document.getElementById("MyElement") += " important";       // note the space before the class name
+}
+
+if (o.contains("important"))
+{
+    o.className = o.className.replace(/(?:^|\s)important(?!\S)/g , '' );
+}
+
+
+// HTML5 have support for clssList
+document.getElementById("MyElement").classList.add("important");
+document.getElementById("MyElement").classList.remove("important");
+
+if (document.getElementById("MyElement").classList.contains("important"))
+{
+    document.getElementById("MyElement").classList.remove("important");
+}
+
+documenet.getElementById("MyElement").classList.toggle("important")
+</pre>
+</ul>
+
+</div>
+</body> 
+</html>

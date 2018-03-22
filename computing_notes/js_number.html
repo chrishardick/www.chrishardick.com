@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>JavaScript - Numbers</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>JavaScript - Numbers</h1>
+
+<ul class=spaced>
+<li>All numbers in JavaScript are stored in 64 bit floating point format.
+<li>In other words, there is no distinction between integers and real numbers.
+<li>Bitwise operators are an exception -- they are performed on 32-bit integers.
+<li>Hexadecimal literals begin with 0x or 0X.
+<li>Floating point literals can be represented using exponential notation (real number followed by E (or e) followed by an integer exponent (which may be negative)
+<li>JavaScript supports the basic arithmetic operators
+	<ul>
+	<li>+ for addition
+	<li>- for subtraction
+	<li>* for multiplication
+	<li>/ for division
+	</ul>
+<li>In addition, JavaScript supports more complex arithmetic operations as part of the core language. These functions are accessed as <em>methods</em> of the Math class
+<li>The Math class has a toString( ) method which converts an integer to a string using the base specified by its argument (the base must be between 2 and 36)
+<pre>
+var x = 6;
+var y = x.toString(2); // y is "110"
+
+// you can also invoke the toString method on a literal
+// the parenthesis are requird to prevent the period (.) from being interpreted as a decimal point
+
+var y = (6).toString(2);
+</pre>
+<li>Special Numeric Values
+	<ul>
+	<li><em>Infinity</em> is used to represent a number larger than the largest possible number
+	<li>There's also <em>-Infinity</em> to represent a negative number lower than the lowest possible negative number
+	<li><em>NaN</em> is used to represent 'not a number'. To test for NaN, use <em>IsNaN( )</em>
+	<li>Use <em>isFinite( )</em> to test whether a number is not NaN, Infinity, nor -Infinity
+	</ul>
+</ul>
+
+</div>
+</body> 
+</html>

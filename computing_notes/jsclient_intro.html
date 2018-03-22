@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jsclient");
+}
+</script>
+
+<title>Client Side JavaScript</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Client Side JavaScript</h1>
+
+<ul>
+<li>JS is embedded within HTML using the <strong>script</strong> tag. 
+<li>You can define your code in-line or via an external file.
+<li>The ending <code>&lt;script&gt;</code> tag is required even for external files and when you use the src tag, all text between the opening and closing tag is ignored.
+<li>&lt;script&gt; tags can be placed anywhere on a page. Script execution is interleaved with HTML parsing and rendering.
+<li>You cannot manipulate objects before they have been created.
+<li>You must make sure any functions which are called in your event handlers have already been defined -- a simple way to guarantee this is to define all of your functions within the <span class=code>&lt;head&gt;</span> section
+<li>If multiple pages use code in the same JS external file, it only needs to be downloaded once, speeding up loading of subsequent pages
+<pre>
+&lt;!-- EXTERNAL FILE --&gt;
+&lt;script src="script1.js"&gt; This is ignored! &lt;/script&gt; 
+&lt;/head&gt;
+
+&lt;!-- ANOTHER EXTERNAL FILE --&gt;
+&lt;script src="script2.js&gt;&lt;/script&gt; 
+...
+&lt;script&gt;
+// AN INLINE SCRIPT
+document.write ("Hello, World!");
+&lt;/script&gt; 
+...
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+<h2>Same-Origin Policy</h2>
+<ul>
+<li>prevents JS in a document from one domain from interacting with content from another domain
+</ul>
+
+</div>
+</body> 
+</html>

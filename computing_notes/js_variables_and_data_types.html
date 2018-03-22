@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>JavaScript - Variables and Data Types</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>JavaScript - Variables and Data Types</h1>
+
+<ul class=spaced>
+<li>JavaScript (like most scripting languages) is an untyped language. 
+<li>In other words, a variable can hold any data type.
+<li>It's perfectly legal to declare a variable, assign a string to it and later assign a numerical value to it. 
+<li>JavaScript will automatically convert from one type to another as necessary
+<li>JavaScript supports 3 primitive data types - <strong>strings</strong>, <strong>numbers</strong>, <strong>booleans</strong>
+<li>JavaScript supports <strong>objects</strong>
+<li>In JavaScript, <strong>arrays</strong> and <strong>functions</strong> are implemented as objects
+<li>The core JavaScript language defines numerous pre-defined object classes inclding: <strong>Date</strong>, <strong>RegExp</strong>, and <strong>Error</strong>
+<li>Some JavaScript types are <strong>Reference Types</strong>. I.e. the actual variable contains only a pointer (reference) to the actual data. The data is dynamically allocated. Dynamically allocated data which is no longer referenced is cleaned up by the system via <strong>Garbage Collection</strong>
+<li>Strings, Objects, and Arrays are Reference Types
+</ul>
+
+<h2>Primitive Data Type Class Wrappers</h2>
+<ul class=spaced>
+<li>JavaScript predefines class wrappers for each of the primitive data types (numbers, strings, and booleans) named Number, String, and Boolean -- respectively
+<li>The wrapper contains the same primitive data value, but also defined properties and methods that can be used to manipulate the data
+<li>When you use a primitive type in an object context, JavaScript implicitly creates a wrapper object for the value. The object created is temporary, 
+it's created such that you can access the given property, then it's marked for deletion (such that it can be reclaimed by the system)
+<li>If you wish to create an non-temporary primitive data type object, you can create one just as you'd create any object
+<pre>var ex = new String("Hello World");</pre>
+<li>NOTE: the reverse is also true, when you use a primitive type object in primitive type context, a temporary primitive type is created
+</ul>
+
+
+<h2>Variables</h2>
+
+<ul class=spaced>
+<pre>
+var i,j,k;
+var a=0, b="abc", c=5.2;
+</pre>
+<li>Before you use a variable in JavaScript, it must be declared
+<li>Variables are explicitly declared with keyword <strong>var</strong>
+<li>If you don't explicitly declare a variable (with <strong>var</strong>), JavaScript will implicitly declare it for you
+<li>Remember, JavaScript is an untyped language, so there's no need to associate a type with a variable
+<li>If you don't specify an initial value for a variable w/i the var statement, the variables value is <strong>undefined</strong> until you initialize it
+<li>Variables declared w/ <strong>var</strong> are <strong>permanent</strong> -- they cannot be deleted
+</ul>
+
+<h3>Variable Scope/Lifetime</h3>
+
+<ul class=spaced>
+<li>Variables defined within a function and function parameters have local scope. Their scope and lifetime is from point of declaration to the end of the function
+<li>Local variables (defined within a function), must be declared using <strong>var</strong>
+<li><strong>let</strong> specifies block scope. However, it is not supported by all browsers
+<li>Local variables take precedence (i.e. hide) global variables of the same name
+<li>Global variables have file scope. Their scope and lifetime is from point of declaration to the end of the file. 
+</ul>
+
+<h3 id="the_global_object">The Global Object</h3>
+<ul>
+<li>When the JavaScript interpreter starts up, before executing any code, it instantiates the Global Object
+<li>When you declare a global variable, what you're actually doing is defining a property of the Global Object
+<li>In code which is not contained within a function block, you can use the keyword <strong>this</strong> to refer to the global object
+	(within functions, <strong>this</strong> has a different meaning)
+</ul>
+
+<h3>The Call Object</h3>
+
+<ul>
+<li>Local variables (declared within a function) are also properties of an object -- the Call Object
+<li>When you call a function, you implicitly instantiate a Call Object
+</ul>
+
+</div>
+</body> 
+</html>

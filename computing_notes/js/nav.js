@@ -1,190 +1,75 @@
 //==========
 // nav.js
+//
+// on_load()
+// toggle_menu() - onclick handler for menu. toggles between X and navicon
+// toggle_active() - onclick handler for sub-menus
 //==========
 
+var dbg = false;
 
 //==========
 // onload handler
 //==========
 function on_load (f)
 {
-    console.log("onload");
+    if (dbg)
+    {
+        alert ("on_load");
+    }
+
+    console.log("on_load: ENTER");
+
+
+    //
+    // print nav panel html
+    // - populates nav id
+    //
 
     print_nav(f);
+
+
+    //
+    // print title html
+    // - populates tltle id
+    //
+
     print_title();
+
+
+    //
+    // set-up onclick handlers for the accordions
+    //
+
     setup_accordions();
 
-    var cookies = get_cookies();
-
-    var cookies_str = "";
-
-    var num_cookie = 0;
-
-    for (var i=0; i < cookies.length; i++)
-    {
-        cookies_str += i + "=" + cookies[i];
-
-        num_cookie++;
-    }
-
-    // alert ("cookies=|" + cookies_str + "| num=" + num_cookie);
-}
-
-function get_cookies ()
-{
-    var ret = { }
-
-    var all = document.cookie;  // all cookies. n1=v1; n2=v2; n3=v3; ...
-
-    if (all === "")
-    {
-        return ret;
-    }
-
-    var list = all.split("; ");
-
-    for (var i=0; i < list.length; i++)
-    {
-        var cookie = list[i];
-
-        var p = cookie.indexOf("=");
-
-        var n = cookie.substring(0,p);
-        var v = cookie.substring(p+1);
-
-        ret[n] = v;
-    }
-
-    return ret;
-}
-
-
-
-
-//==========
-// print_title
-//==========
-function print_title ()
-{
-//    var title_html = `
-//    <span class="menutron" onclick="openNav()">&#9776;</span><a class="title" href="index.html">Computing Notes</a>` 
-
-    var title_html = `<div class="title"><span id="menu_icon" class="menu_icon"></span>Computing Notes</div>
-    <div class="searchbox"><form action='search.py' method='POST'><input type="text" name="searchbox">
-    <input type="submit" value="search">
-    </form></div>`
-    // onkeydown= "if (event.keyCode == 13) alert('Hello, World!')">
-
-    document.getElementById('title').innerHTML = title_html;
-
-    document.getElementById('menu_icon').onclick = toggle_menu;
-}
-
-//
-//
-//
-function toggle_menu ()
-{
-    console.log ("toggle_menu");
-    
-    menu_icon   = document.getElementById('menu_icon')
-    nav         = document.getElementById('nav')
-    content     = document.getElementById('content')
-
 
     //
-    // alternate between X and menu icon
+    // handle keeping menu open/closed as user changes pages
     //
 
-    menu_icon.classList.toggle("active");
+    handle_persistent_menu_open_close();
+   
 
-
-    if (nav.style.display === "block")
-    {
-        console.log ("nav - block to none");
-
-        nav.style.display           = "none";
-        content.style.marginLeft    = "5px";
-    }
-    else
-    {
-        console.log ("nav - none to block");
-
-        nav.style.display           = "block";
-        content.style.marginLeft    = "250px";
-    }
-}
-
-
-//==========
-// setup_accordions
-//==========
-function setup_accordions ()
-{
-    console.log ("setup_accordions");
-
-    var acc = document.getElementsByClassName("accordion");
-
-    for (let i=0; i<acc.length; i++)
-    {
-        console.log ("accordion");
-
-        acc[i].onclick = function() {
-            console.log ("I've been called");
-
-            this.classList.toggle("active");
-
-            var panel = this.nextElementSibling;
-
-            if (panel.style.display === "block")
-            {
-                console.log ("block to none");
-
-                panel.style.display = "none";
-            }
-            else
-            {
-                console.log ("none to block");
-
-                panel.style.display = "block";
-            }
-        }
-    }
+    console.log("on_load: LEAVE");
 }
 
 
 //
-//
-//
-function toggle_active (o)      // object
-{
-    console.log ("make_active");
-
-    o.classList.toggle("active");
-
-    var panel = o.nextElementSibling;
-
-    if (panel.style.display === "block")
-    {
-        console.log ("block to none");
-
-        panel.style.display = "none";
-    }
-    else
-    {
-        console.log ("none to block");
-
-        panel.style.display = "block";
-    }
-}
-
-
-//==========
 // print_nav
-//==========
+//
+// print html for nav panel
+//
+// populates nav id
+//
 function print_nav(f)
 {
-    console.log ("print_nav");
+    if (dbg)
+    {
+        alert ("print_nav");
+    }
+
+    console.log ("print_nav: ENTER");
 
     var nav_html = `
     <button class="accordion" id="accordion_bash">Bash</button>
@@ -352,21 +237,29 @@ function print_nav(f)
     <div class="panel">
         <a href="js_intro.html">Introduction</a>
         <a href="js_variables_and_data_types.html">Variables and Data Types</a>
+        <a href="js_string.html">Strings</a>
+        <a href="js_number.html">Numbers</a>
+        <a href="js_boolean.html">Booleans</a>
         <a href="js_control_structs.html">Control Structures</a>
         <a href="js_objects.html">Objects</a>
-        <a href="js_variables.html">Variables</a>
         <a href="js_functions.html">Functions</a>
         <a href="js_exceptions.html">Exceptions</a>
         <a href="js_date.html">Date class</a>
         <a href="js_json.html">JSON</a>
         <a href="js_date_examples.html">Date class Examples</a>
-        <a href="js_client_side.html">Client Side</a>
-        <a href="js_client_objects.html">Client Side Objects</a>
-        <a href="js_dom.html">DOM</a>
-        <a href="js_clock.html">Clock</a>
-        <a href="js_loan_calc.html">Loan Calculator</a>
-        <a href="js_scratch_pad.html">Scratch Pad</a>
-        <a href="js_jquery.html">jquery</a>
+    </div>
+
+    <button class="accordion" id="accordion_jsclient">JS Client-Side</button>
+    <div class="panel">
+        <a href="jsclient_intro.html">Intro</a>
+        <a href="jsclient_objects.html">Client Side Objects</a>
+        <a href="jsclient_dom.html">DOM</a>
+        <a href="jsclient_cookies.html">Cookies</a>
+        <a href="jsclient_css.html">CSS</a>
+        <a href="jsclient_clock.html">Clock</a>
+        <a href="jsclient_loan_calc.html">Loan Calculator</a>
+        <a href="jsclient_scratch_pad.html">Scratch Pad</a>
+        <a href="jsclient_jquery.html">jquery</a>
     </div>
 
     <button class="accordion" id="accordion_ajax">AJAX</button>
@@ -430,11 +323,16 @@ function print_nav(f)
         <a href="vim_cheatsheet.html">Cheat Sheet</a>
     </div>`
 
+
     document.getElementById('nav').innerHTML = nav_html;
 
     if (f)
     {
         console.log ("print_nav: f=" + f);
+
+        //
+        // make this active
+        //
 
         toggle_active(document.getElementById(f));
 
@@ -443,7 +341,308 @@ function print_nav(f)
         location="#";
         location=loc;
     }
+
+    console.log ("print_nav: LEAVE");
 }
+
+
+//
+// print_title
+//
+// print html for title
+//
+// populates title id
+//
+function print_title ()
+{
+    console.log("print_title: ENTER");
+
+
+//    var title_html = `
+//    <span class="menutron" onclick="openNav()">&#9776;</span><a class="title" href="index.html">Computing Notes</a>` 
+
+    var title_html = `<div class="title"><span id="menu_icon" class="menu_icon"></span>Computing Notes</div>
+    <div class="searchbox"><form action='search.py' method='POST'><input type="text" name="searchbox"> <input type="submit" value="search"> </form></div>`
+    // onkeydown= "if (event.keyCode == 13) alert('Hello, World!')">
+
+    document.getElementById('title').innerHTML = title_html;
+
+    //
+    // onclick handler
+    //
+
+    document.getElementById('menu_icon').onclick = toggle_menu;
+   
+
+    console.log("print_title: LEAVE");
+}
+
+
+//
+// setup_accordions
+//
+// set-up onclick handlers for the accordions
+//
+function setup_accordions ()
+{
+    if (dbg)
+    {
+        alert ("setup_accordions");
+    }
+
+
+    console.log ("setup_accordions: ENTER");
+
+    var acc = document.getElementsByClassName("accordion");
+
+    for (let i=0; i<acc.length; i++)
+    {
+        acc[i].onclick = function() {
+            toggle_active(this);
+        }
+    }
+    
+    console.log ("setup_accordions: LEAVE");
+}
+
+
+//
+// onclick handler for menu 
+// - toggles between X and navicon
+//
+function toggle_menu ()
+{
+    console.log ("toggle_menu: ENTER");
+
+    
+    menu_icon   = document.getElementById('menu_icon')
+    nav         = document.getElementById('nav')
+    content     = document.getElementById('content')
+
+
+    //
+    // alternate between X and menu icon
+    //
+
+    menu_icon.classList.toggle("active");
+
+
+    if (nav.style.display === "block")
+    {
+        //
+        // nav is currently displayed
+        // - hide it and slide over the contents
+        //
+
+        console.log ("toggle_menu: hide nav");
+
+        nav.style.display           = "none";
+        content.style.marginLeft    = "5px";
+
+        document.cookie = "menu_open=false;";
+        
+        console.log ("toggle_menu: cookie - menu_open=false")
+
+    }
+    else
+    {
+        //
+        // nav is currently hidden
+        // - display it and slide over the contents
+        //
+
+        console.log ("toggle_menu: display nav");
+
+        nav.style.display           = "block";
+        content.style.marginLeft    = "250px";
+        
+        document.cookie = "menu_open=true;";
+        
+        console.log ("toggle_menu: cookie - menu_open=true")
+    }
+}
+
+
+//
+// open_menu
+//
+function open_menu ()
+{
+    console.log ("open_menu: ENTER");
+
+    var menu_icon   = document.getElementById('menu_icon')
+    var nav         = document.getElementById('nav')
+    var content     = document.getElementById('content')
+
+
+    if (! (menu_icon.classList.contains("active")))
+    {
+        console.log ("open_menu: menu_icon NOT ACTIVE. setting ACTIVE");
+
+        menu_icon.classList.toggle("active");
+    }    
+
+
+    nav.style.display           = "block";
+    content.style.marginLeft    = "250px";
+   
+
+    console.log ("open_menu: LEAVE");
+}
+
+
+//
+// close_menu
+//
+function close_menu ()
+{
+    console.log ("close_menu: ENTER");
+
+    
+    menu_icon   = document.getElementById('menu_icon')
+    nav         = document.getElementById('nav')
+    content     = document.getElementById('content')
+
+
+    if (menu_icon.contains("active"))
+    {
+        menu_icon.classList.toggle("active");
+    }    
+
+
+    nav.style.display           = "none";
+    content.style.marginLeft    = "5px";
+}
+
+
+//
+// get_cookies
+//
+// returns object (hash) of cookies
+//
+function get_cookies ()
+{
+    console.log ("get_cookies: ENTER");
+
+    var ret = { }
+
+    var all = document.cookie;  // all cookies. n1=v1; n2=v2; n3=v3; ...
+
+    if (all === "")
+    {
+        console.log ("get_cookies: NO COOKIES");
+
+        return ret;
+    }
+
+    var list = all.split("; ");
+
+    console.log ("get_cookies: #cookies=" + list.length);
+
+    for (var i=0; i < list.length; i++)
+    {
+        var cookie = list[i];
+
+        var p = cookie.indexOf("=");
+
+        var n = cookie.substring(0,p);
+        var v = cookie.substring(p+1);
+
+        console.log ("get_cookies: " + n + "=" + v);
+
+        ret[n] = v;
+    }
+
+    return ret;
+}
+
+
+
+
+//
+//
+//
+function handle_persistent_menu_open_close()
+{
+    console.log ("handle_persistent_menu_open_close: ENTER");
+
+
+    // default to false
+
+    var menu_open = false;
+
+    
+    //
+    // get object (hash) of alll cookies
+    //
+
+    var cookies = get_cookies();
+
+
+    if (cookies.hasOwnProperty('menu_open'))
+    {
+        var val = cookies['menu_open'];
+
+        console.log ("handle_persistent_menu_open_close: user has 'menu_open' cookie. value=|" + val + "|");
+
+        if (val == "true")
+        {
+            menu_open = true;
+        }
+    }
+
+    if (menu_open == true)
+    {
+        open_menu();
+    }
+    
+    console.log ("handle_persistent_menu_open_close: LEAVE");
+
+}
+
+
+//
+// onclick handler for sub-menus
+//
+function toggle_active (o)      // object
+{
+    console.log ("toggle_active: ENTER");
+
+
+    //
+    // toggle adds the class name if not already present
+    // otherwise it removes it
+    //
+
+    o.classList.toggle("active");
+
+
+    id = o.id;
+
+    var panel = o.nextElementSibling;
+
+    if (panel.style.display === "block")
+    {
+        console.log ("toggle_active: block to none");
+
+        panel.style.display = "none";
+
+        // document.cookie = id + "=false";
+    }
+    else
+    {
+        console.log ("toggle_active: none to block");
+
+        panel.style.display = "block";
+        
+        // document.cookie = id + "=true";
+    }
+    
+    console.log ("toggle_active: LEAVE");
+}
+
+
+
 
 function findPos(e)
 {
