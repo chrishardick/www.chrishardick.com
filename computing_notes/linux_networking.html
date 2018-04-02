@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Linux - Networking</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Linux - Networking</h1>
+
+<h2><code>/etc/network/interfaces</code></h2>
+<ul class=spaced>
+<li><code>man interfaces</code>
+<li>Lines starting with # are ignored -- NOTE that end of line comments are not supported. Comments must be on their own line
+<li>Lines may extend across multiple lines by escaping the newline (making the last character a backslash (\))
+<li>Lines beginning with the word "auto" are used to identify the physical interfaces which are brought up when ifup is run with the -a option
+    -- which is used when the machine boots up
+<li>There can be multiple auto lines. ifup brings up the named interfaces up in the order listed
+<li>Stanzas defining local interfaces start with a line consisting of the word "iface" followed by the name of the logical interface followed the the address family
+    "inet" for TCP/IP, "inet6" for IPv6 networking. Following that is the name of the method used to configure the interface
+<li>Additional options can be given on subsequent lines in the stanza.
+<li>Options are indented for clarity -- but are not required to be.
+</ul>
+
+<pre>
+# bring up eth0 at boot-time
+auto eth0
+
+# static ip address
+iface eth0 inet static
+    address 192.168.1.6
+    netmask 255.255.255.0
+    gateway 192.168.1.1
+
+# dhcp
+auto eth1
+allow-hotplug eth1
+iface eth1 inet dhcp
+</pre>
+
+<h2>Nameservers</h2>
+<ul class=spaced>
+<li><code>/etc/resolv.conf</code> has a list of name servers
+</ul>
+<pre>
+nameserver 1.1.1.1
+nameserver 2.2.2.2
+</pre>
+
+</div>
+</body> 
+</html>
+  

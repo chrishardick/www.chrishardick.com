@@ -203,6 +203,7 @@ function print_nav(f)
         <a href="html_forms.html">Forms</a>
         <a href="html_dom_events.html">DOM Events</a>
         <a href="html_basic_template.html">Basic Template</a>
+        <a href="html_canvas.html">Canvas</a>
     </div>
 
     <button class="accordion" id="accordion_css">CSS</button>
@@ -271,6 +272,7 @@ function print_nav(f)
     <div class="panel">
         <a href="linux_systemd.html">systemd</a>
         <a href="linux_cron.html">cron</a>
+        <a href="linux_networking.html">Networking</a>
         <a href="linux_dhcp.html">DHCP</a>
         <a href="linux_iptables.html">IPTables</a>
         <a href="linux_modules.html">Modules</a>

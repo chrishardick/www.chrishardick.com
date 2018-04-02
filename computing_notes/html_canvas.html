@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_html");
+}
+</script>
+
+<title>HTML Canvas</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>HTML Canvas</h1>
+
+<canvas id="myCanvas" width="1000" height="500" style="border:1px solid black;"></canvas>
+
+<script>
+
+var canvas = document.getElementById("myCanvas");
+
+//
+// [0,0] = upper left corner
+
+var context = canvas.getContext("2d");
+
+context.fillStyle = "green";
+context.fillRect(0,0,150,75);           // x, y, width, height
+
+context.moveTo(0,0);                    // define starting point of the line
+context.lineTo(50,50);                  // define end point of the line
+context.stroke();                       // draw the line
+
+context.moveTo(50,0);                   // x, y
+context.lineTo(0,20);
+context.stroke();
+
+
+
+</script>
+
+</div>
+</body>
+</html>
+
