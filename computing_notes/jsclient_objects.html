@@ -41,7 +41,8 @@ C O N T E N T
 <h1>Client Side JavaScript - Window, Document and Element Objects</h1>
 
 <ul>
-<li>A web browser instance running on a client PC may contain several tabs. Each tab has its own Window object and can be thought of multiple browser instances.
+<li>Each browser tab has its own Window object (named <code>window</code>). 
+<li>It is the global object. Hence you need not prefix its methods and properties with <code>window.</code> -- although you can for clarity. 
 <li>The Window, Document & Event objets have event handler properties which allow you to specify functions to be envoked when events occur. 
 Event handler functions begin with 'on.' E.g. onclick, onload, etc.
 </ul>
@@ -50,10 +51,10 @@ Event handler functions begin with 'on.' E.g. onclick, onload, etc.
     THE WINDOW OBJECT
 -->
 
-<h2>The window object</h2>
+<h2>The Window object</h2>
 
 <ul>
-<li>The window object is the global object -- i.e. its properties and methods are effectively globals.
+<li>The Window object (<code>window</code>) is the global object -- i.e. its properties and methods are effectively globals.
 <li>You need not prefix window object properties & methods with <code>window</code>. You can for clarity, but it is not required.
 </ul>
 

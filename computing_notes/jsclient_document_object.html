@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jsclient");
+}
+</script>
+
+<title>Client Side JS - The Document Object</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Client Side JS - The Document Object</h1>
+
+<ul class=spaced>
+<li>The Window object has a <code>document</code> property. It refers to the Document Object for given window.
+<li>The Document Object represents the contents of the window.
+<li>Because <code>window</code> is the global object, you can drop the <code>window</code> prefix and access the Document Object via simply <code>document</code>
+<li>The Document Object inherits from <strong>Node</strong>.
+<li><strong>Node</strong> is an interface from which a number of DOM API object types inherit from -- Document, Element, and Text are examples
+</ul>
+
+<!--
+    DOCUMENT OBJECT - METHODS
+-->
+
+<h2>Document Object Methods</h2>
+
+
+<h3>getElementById()</h3>
+<ul class=spaced>
+<li>Obtain an Element Object via id attribute
+<li>id attributes should be unique per document. However, if a given document contains multiple elements with identical ID attributes, 
+    this method will return the first one encountered when traversing the document
+<li>Returns an Element Object or <code>null</code> if no elements exist with the given id
+<pre>
+var clock = document.getElementById("clock");
+
+if (clock == null)
+{
+    throw new Error ("element 'clock' not found");
+}
+</pre>
+
+</ul>
+
+<h4>getElementsByName()</h4>
+<ul class=spaced>
+<li>Obtain Element Objects by Name attribute
+<li>The original purpose of the name attribute was to name CGI form elements such that the server could parse incoming message. 
+<li>However, you can also select elements of a document by name using JS
+<li>Keep in mind that name values need not be unique 
+<pre>
+//
+// returns a NodeList object (behaves like read-only array of Element Objects)
+// - NodeList objects are live. The list of elements they contain will change as the document changes
+// - the elements are in document order
+// 
+var items = document.getElementsByName("breakfast_items");
+</pre>
+</ul>
+
+
+<h4>getElementsByTagName()</h4>
+<ul class=spaced>
+<li>Obtain Element Objects by Tag Name
+<pre>
+//
+// returns a NodeList object (see above)
+// - elements are in document order
+// - supports wildcard "*" to return all elements of the document
+//
+var h2_elements = document.getElementsByTagName("h2");
+
+//
+// select 1st h2
+var h2_1 = document.getElementsByTagName("h2")[0];
+
+var all_elements = document.getElementsByTagName("*");
+</pre>
+
+<li>the Element class also defines a method by the same name (<code>getElementsByTagName</code>). However, it only selects elements that are descendants of the given element
+</ul>
+
+<h4>getElementsByClassName()</h4>
+<ul class=spaced>
+<li>Obtain Element Objects via CSS Class Name
+<li>The parameter can be a single class name or it can be a space delimted list of class names
+<li>If a list of class names are specified, only elements which belong to all specified classes will be returned
+
+<pre>
+// return Element Objects which belong to the sprite class
+var sprite_elements = document.getElementsByClassName("sprite");
+
+// return Element Objects which have both the big and important classes
+var big_important_elements = document.getElementsByClassName("big important");
+</pre>
+
+</ul>
+
+
+<li>The Document Object has a property named 'cookie'
+<li>Window-&gt;Document&gt;cookie
+<li>cookie is a string property which allows you to create, modify and delete the cookie(s) that apply to
+	the current page
+</ul>
+
+
+</div>
+</body> 
+</html>

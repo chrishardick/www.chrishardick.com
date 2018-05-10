@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_html");
+}
+</script>
+
+<title>HTML - Tables</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<header>
+<h1>HTML - Tables</h1>
+</header>
+
+<h2>Basic Elements</h2>
+<dl>
+<dt><code>&lt;table&gt;</code>...<code>&lt;/table&gt;</code>
+<dd>Defines a table
+<dt><code>&lt;tr&gt;</code>...<code>&lt;/tr&gt;</code>
+<dd>Defines a table row
+<dt><code>&lt;th&gt;</code>...<code>&lt;/th&gt;</code>
+<dd>Defines a table header cell
+<dt><code>&lt;td&gt;</code>...<code>&lt;/td&gt;</code>
+<dd>Defines a table data cell
+</dl>
+
+<h2>Borders</h2>
+<ul>
+<li>Borders are defined for HTML tables using the CSS <code>border</code> property
+<li>Borders are usually defined for the <code>table</code>, <code>th</code> and <code>td</code> elements
+<li>Borders are usually collapsed into a single border using the CSS <code>border-collapse</code> property
+</ul>
+
+<pre>
+&lt;style&gt;
+table, th, td
+{
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+&lt;/style&gt;
+</pre>
+
+<h2>See Also</h2>
+<ul class=spaced>
+<li><a href="css_table_properties.html">CSS - Table Properties</a>
+</ul>
+
+
+</div>
+</body>
+</html>

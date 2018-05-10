@@ -193,6 +193,7 @@ function calculate()
     // apr 
     // - percent to decimal
     // - annual to monthly
+    // - parseFloat returns a floating point number
 
     var interest        = parseFloat(apr.value) / 100 / 12;
 
@@ -236,7 +237,7 @@ function calculate()
 function chart (principal
                 ,interest
                 ,monthly
-                ,payments
+                ,payments       // total # of payments
                 )
 {
     var graph = document.getElementById("graph");
@@ -254,13 +255,30 @@ function chart (principal
     var width   = graph.width;
     var height  = graph.height; 
 
+    //
+    // return x value
+    //
+
     function paymentToX(n)
-    {
-        return n * width/payments;
+    {   
+        //
+        // take total width and divide it by # of payments
+        //
+
+        return n * width/payments;          
     }
+
+    
+    //
+    // return y value
+    //
 
     function amountToY(n)
     {
+        //
+        // monthly * payments = total height + 5%
+        //
+
         return height-(n * height/(monthly*payments*1.05));
     }
 
@@ -332,8 +350,26 @@ function chart (principal
 
     for (var year=1; year*12 <= payments; year++)
     {
+        //
+        // fillRect(x               x coordinate upper-left
+        //          ,y              y coordinate upper left
+        //          ,width          width of rectange - in pixels
+        //          ,height         height of rectangle - in pixels
+        //          )
+        //
+        //
+
         var x = paymentToX(year*12);
-        g.fillRect(x-0.5,y-3,1,3);
+
+        g.fillRect( x-0.5
+                    ,y-3
+                    ,1              // width
+                    ,3              // height
+                    );
+
+        //
+        // fillText(text,xStart,yStart,maxWidthPixels)
+        //
 
         if (year == 1)
             g.fillText ("Year", x, y-5);

@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jsclient");
+}
+</script>
+
+<title>Client Side JS - Events</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Client Side JS - Events</h1>
+
+<ul class=spaced>
+<li>Event examples: clicked, changed, mouseover, mousemove, keypress, keydown, readystatechange
+<li>Events have a <strong>target</strong> - the object on which they occurred
+<li>Events can also have <strong>handlers</strong> - which are functions you define to handle the events
+<li><strong>Event objects</strong> are associated with the event and contain details about the event.
+<li>Event objects are passed as an argument to the event handler.
+<li>All event objects have a <code>type</code> property which specify the event type 
+and a <code>target</code> property which specifies the target
+</ul>
+
+<h2>Registering Event Handlers</h2>
+
+<p>There are three ways in which you can register event handlers. 
+You can:
+<ol class=spaced>
+<li>directly assign a JS code snippet to an HTML element attribute, 
+<li>assign a function to an element property, or
+<li>use <code>addEventListener()</code>
+</ol></p>
+
+
+<h3>1) HTML Attribute</h3>
+<ul class=spaced>
+<li>The simplest way to set an event handler is to directly assign a code snippet to an HTML attribute
+<li>The code should be surrounded by quotes
+<li>If multiple statements are required, they must be separated by semi-colons
+<li>It's generally a good idea to keep HTML and JS seperate.
+    Therefore this method should probably be used only in the simplest cases.
+<li>By convention, HTML attributes representing event handlers are named "on" followed by the event name -- i.e. <code>onclick</code>
+<li>Example:
+<pre>
+&lt;button onclick="alert('Event Handler via HTML attribute');"&gt;Click Me&lt;/button&gt;
+</pre>
+<li><button onclick="alert('Event Handler via HTML attribute');">Click Me</button>
+</ul>
+
+<h3>2) Element Properties</h3>
+<ul class=spaced>
+<li>By convention, event handler properties are named "on" followed by the event name -- i.e.
+    <code>onchange</code>, <code>onload</code>, <code>onmouseover</code>, ...
+<li>Event handler properties are case sensitive
+<li>Advantages: widely supported      
+<li>Disadvantages: assumes there will be at most one handler
+<li>Examples:
+<pre>
+window.onload = function() { ... };
+
+form = document.getElementById("form");
+form.onsubmit = function() { ... };
+</pre>
+<li><button id="property">Click Me</button>
+</ul>
+
+<script>
+var b1 = document.getElementById("property");
+b1.onclick = function() {alert ("Event Handler set via Element Property");};
+</script>
+
+<h3>3) <code>addEventListener()</code></h3>
+<ul class=spaced>
+<li>Supported by all browsers other than IE8 and earlier
+<li>All elements which can be an event target define an <code>addEventListener()</code> method
+    which you can use to register event handlers for the given target
+<li>You can register multiple listeners for the same element. 
+    The event handlers will be called in the order in which they were registered.
+<li>Calling <code>addEventListener()</code> more than once on the same object with the same argument set has no effect. 
+    The handler will only be called once
+<li><code>addEventListener()</code> takes three arguments. 
+    <ol>
+    <li>name of the event (not including the 'on' prefix)
+    <li>the function which should be invoked when the event occurs
+    <li>boolean - whether or not the event listener is a capturing event. Normally you just pass false.
+    </ol>
+<li>There is also a <code>removeEventListener()</code> method which accepts the same three arguments and 
+    removes the event handler from the object
+<pre>
+var e = document.getElementById("my_element");
+
+e.addEventListener("click", function() { alert ("Event Handler set via addEventListener"); }, false);
+</pre>
+<li>IE8 and earlier supported similar functionality via the <code>attachEvent()</code> and <code>detachEvent()</code> methods. 
+    They accept two parameters -- as they do not support event capturing and the first paramter accept the event name with the "on" prefix
+<li>IE9 was first released in March, 2011
+<li>Therefore, a common method to write portable code is: 
+<pre>
+var hndlr = function() { alert("Portable Code"); };
+
+e = document.getElementById("my_element");
+
+if (e.addEventListener)
+{
+    e.addEventListener("click", hndlr, false);
+}
+else if (e.attachEvent)
+{
+    e.attachEvent("onclick", hndlr);
+}
+</pre>
+<li><button id="add_listener">Click Me</button>
+</ul>
+
+<script>
+var b2 = document.getElementById("add_listener");
+
+b2.addEventListener("click", function() { alert ("Event Handler set via addEventListener - #1"); }, false);
+b2.addEventListener("click", function() { alert ("Event Handler set via addEventListener - #2"); }, false);
+b2.addEventListener("click", function() { alert ("Notice how this method allows us to define multiple event handlers."); }, false);
+</script>
+
+
+<h2>Event Handler Invocation</h2>
+
+<h3>Event Handler Argument</h3>
+<ul class="spaced">
+<li>Event handlers are normally invoked with an <strong>event object</strong> as their single argument
+<li>The properties of the event object provide details about the event
+<li>The <code>type</code> property specifies the type of event
+<li>Note that IE8 and before, event handlers registered by setting an element property are an exception to this. 
+    Rather than passed as an argument, the event object is accessed via <code>window.event</code>.
+    Event handlers registerd via <code>attachEvent()</code> are passed an event object (however they can also access 
+    the event object via <code>window.event</code>)
+<pre>
+// a portable handler
+function handler (event)
+{
+    lcl_event = event || window.event
+    ...
+}
+</pre>
+<li><button id=event_obj>Click Me!</button>
+</ul>
+
+<script>
+var b2 = document.getElementById("event_obj");
+
+b2.addEventListener("click",function(e) { alert ("Event Object=|" + e + "|. type=|" + e.type + "|"); });
+</script>
+
+<h3>Event Handler Context</h3>
+<ul class=spaced>
+<li>Event handlers which are registered either via an element property or via <code>addEventListener</code> are invoked as 
+    methods of the event target (the element which generated the event).
+<li>Therefore, <code>this</code> refers to the event target
+<li>This is not true for handlers registered via <code>attachElement()</code> - i.e. IE8 and prior 
+
+</ul>
+
+<h2>Client-side JS Threading Model - WebWorkers</h2>
+<ul class=spaced>
+<li>A web worker is a background thread for performing work without freezing the UI
+</ul>
+
+<h2>Form Events</h2>
+<ul class=spaced>
+<li>focus event
+<li>blur event
+</ul>
+
+<h2>Window Events</h2>
+<ul class=spaced>
+<li>load event
+<li>unload event
+<li>beforeunload event
+<li>focus event
+<li>blur event
+<li>resize event
+<li>scroll event
+</ul>
+
+<h2>Mouse Events</h2>
+<ul class=spaced>
+<li>All mouse event objects have <code>clientX</code> and <code>clientY</code> properties which specify the position of the mouse 
+<li>The <code>button</code> and <code>which</code> properties specify which mouse button was pressed
+<li>The <code>altKey</code>, <code>ctrlKey</code>, <code>metaKey</code>, and <code>shiftKey</code> properties are set to <code>true</code>
+    when the corresponding keyboard keys are also held down
+<li>mousemove event is triggered any time the user moves or drags the mouse
+<li>mouseover event is triggered any time the user moves the mouse over a new element
+<li>mouseout event is triggered any time the user moves the mouse is no longer over an element
+<li>mousedown event is triggered when the user presses a mouse button
+<li>mouseup event is triggered when the user releases a mouse button
+<li>click event is triggered after a mousedown/mouseup sequence
+<li>dblclick (double click) event is triggered after two mousedown/mouseup sequences in quick succession
+</ul>
+
+<h2>Key Events</h2>
+<ul class=spaced>
+<li>When a web browser has keyboard focus, it generates events each time the user presses or releases a key
+<li>Keyboard events are triggered on whatever document element has keyboard focus and then they bubble up to the document and window.
+<li>Keyboard event objects have a <code>keyCode</code> field which indicates which key was pressed or released
+<li>Keyboard event objects also have <code>altKey</code>, <code>ctrlKey</code>, <code>metaKey</code>, and <code>shiftKey</code> properties set to 
+    <code>true</code> when the corresponding modifier keys are also pressed
+<li><code>keydown</code> and <code>keyup</code> events are lowlevel events which are triggered whenever a key (even a modifier key) is pressed or released
+<li>When a <code>keydown</code> event generates a printable character, a <code>keypress</code> event is triggered after the <code>keydown</code>
+    event, but before the <code>keyup</code> event
+<li>The <code>keypress</code> event is a higher level event and its event object specifies the key that was generated, not the key that was pressed
+</ul>
+</div>
+</body> 
+</html>

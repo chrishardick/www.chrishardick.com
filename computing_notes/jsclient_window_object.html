@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jsclient");
+}
+</script>
+
+<title>Client Side JS - The Window Object</title>
+
+</head>
+
+<script>
+//
+// generic function to return an object as a string
+//
+function print_obj (obj)
+{
+    var ret = "";
+
+    for (var prop in obj)
+    {
+        var rhs = typeof(obj[prop]);
+
+        if (rhs === "string" || rhs === "boolean" || rhs === "number")
+        {
+            rhs = obj[prop];
+        }
+
+        ret += prop + "=" + rhs + "\n";
+    }
+
+    return ret;
+}
+</script>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Client Side JS - The Window Object</h1>
+
+<ul class=spaced>
+<li>The Window object is the global object for client side JavaScript programs
+<li>Each browser tab has its own Window object (named <code>window</code>). 
+<li>Since it is the global object, you do not need to prefix its properties and methods with <code>window</code> (although you can for clarity). 
+<li><button id=window_button>Click Me!</button>
+</ul>
+
+<script>
+var window_btn = document.getElementById("window_button");
+
+window_btn.addEventListener("click",function() { alert ("window properties and methods\nBEGIN\n" + print_obj(window) + "END"); }, false);
+</script>
+
+
+<h2>Window Object Properties</h2>
+
+<h3><code>document</code> Property</h3>
+<ul class=spaced>
+<li>refers to the Document object which represents the content displayed in the window -- see <a href="jsclient_document_object.html">Document Object</a>
+<li>has methods like <code>getElementById()</code> which allow you to access element objects
+<pre>var nav_element = document.getElementById("nav");</pre>
+<li><button id=document_button>Click Me!</button>
+</ul>
+
+<script>
+var document_btn = document.getElementById("document_button");
+
+document_btn.addEventListener("click",function() { alert ("document properties & methods\nBEGIN\n" + print_obj(document) + "END"); }, false);
+</script>
+
+<h3><code>location</code> Property</h3>
+<ul class=spaced>
+<li>Refers to a Location object which represents the current URL and allows you to load a new URL.
+<li>Equivalent to the location property of the Document object
+<pre>
+location = "www.chrishardick.com"
+
+location = "www.chrishardick.com#id"
+</pre>
+<li><button id=location_button>Click Me!</button>
+</ul>
+
+<script>
+var location_btn = document.getElementById("location_button");
+
+location_btn.addEventListener("click",function() { alert ("location properties & methods\nBEGIN\n" + print_obj(location) + "END"); }, false);
+</script>
+
+
+<h3><code>history</code> Property</h3>
+<ul class=spaced>
+<li>Refers to the History object for the window. 
+<li>allows you to move thru the browser history
+<li><code>back()</code> and <code>forward()</code> methods behave as the browser's back and forward buttons do. 
+<li><code>go()</code> accepts an argument and allows you to move forward (positive integer) or back (negative integer) in the browser history
+<li>If a window contains iframes, the browsing history of the child windows will be chronologically interleaved. 
+<li><button id=history_button>Click Me!</button>
+</ul>
+
+<script>
+var history_btn = document.getElementById("history_button");
+
+history_btn.addEventListener("click",function() { alert ("history properties & methods\nBEGIN\n" + print_obj(history) + "END"); }, false);
+</script>
+
+<h3><code>navigator</code> Property</h3>
+<ul class=spaced>
+<li>A Navigator object which contains browser vendor and version information.
+<li><code>appName</code> -- property which contains the full name of the web browser
+<li><code>appVersion</code> -- property which contains the version of the web browser
+<li><code>userAgent</code> -- property which contains the browser sends in the USER-AGENT HTTP header
+<li><code>platform</code> -- property which identifies the OS/platform in which the browser is running
+<li><code>onLine</code> -- property which specifies whether the browser is currently connected to the network
+<li><code>geolocation</code> -- a Geolocation object for determining the user's geographical location.
+<li><button id=navigator_button>Click Me!</button>
+</ul>
+
+<script>
+var navigator_btn = document.getElementById("navigator_button");
+
+navigator_btn.addEventListener("click",function() { alert ("navigator properties & methods\nBEGIN\n" + print_obj(navigator) + "END"); }, false);
+</script>
+
+<h3><code>screen</code> Property</h3>
+<ul class=spaced>
+<li>A Screen object that provides information about the size of the user's display (# pixels) and the number of colors available on it. 
+<li><code>height</code> and <code>width</code> properties specify the size of the physical display in pixels
+<li><code>availWidth</code> and <code>availHeight</code> properties specify the size in pixels that is available to the browser. They exclude space occupied by widgets the browser cannot occupy -- i.e. the taskbar, etc.
+<li>The <code>colorDepth</code> property specifies the # of bits per pixels
+<li><button id=screen_button>Click Me!</button>
+</ul>
+
+<script>
+var screen_btn = document.getElementById("screen_button");
+
+screen_btn.addEventListener("click",function() { alert ("screen properties & methods\nBEGIN\n" + print_obj(screen) + "END"); }, false);
+</script>
+
+<h3>Document Elements as Window Properties</h3>
+<ul class=spaced>
+<li>document elements which specify an <code>id</code> attribute -- so long as it does not conflict with a pre-existing Window object property -- becomes non-enumerable properties of the Window object whose name is the value of the id attribute and whose value is the HTMLElement object that represents the element. 
+<li>However -- for all of the same reasons to avoid global variables -- it's a better idea to use <code>var foo = document.getElementById(id)</code> to access the given element.
+</ul>
+
+
+<!--
+    THE WINDOW OBJECT - METHODS
+-->
+
+<h2>Window Object Methods</h2>
+
+<h3>Dialog Boxes</h3>
+<ul class=spaced>
+<li>The <code>alert()</code> method displays a [usually] modal dialog box with the specified text string (not HTML) and an OK button. Great for debugging!
+<li>The <code>confirm()</code> method displays a modal dialog box with the specified text string (not HTML) -- with OK or Cancel buttons. It returns a boolean.
+<li>The <code>prompt()</code> method displays a modal dialog box with the specified text string (not HTML). It allows the user to enter a string. It returns the string.
+<li>The <code>showModalDialog()</code> method displays a HTML formatted modal dialog box. The 1st parameter is the URL. The additional parameters are beyond the scope of this document.
+</ul>
+
+<h3><code>onerror()</code></h3>
+<ul class=spaced>
+<li>register a handler to be called when an uncaught JavaScript exception occurs
+</ul>
+
+<h3><code>onload()</code></h3>
+<ul class=spaced>
+<li>the <code>onload()</code> handler is triggered when the content of document has finished loading.
+<li>It's typically a great place to attach code.
+</ul>
+
+<h3><code>write()</code></h3>
+<ul class=spaced>
+<li>write text to the window
+</ul>
+
+</div>
+</body> 
+</html>

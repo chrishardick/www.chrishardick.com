@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_db");
+}
+</script>
+
+<title>PortgreSQL</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>PostgreSQL</h1>	
+
+<ul>
+<li>Relational Database Management System (RDBMS)
+<li>Client/server model
+<li>Server process - <code>postgres</code>
+<li>Multi-process - forks off a separate process for each connection
+</ul>
+
+
+<h2>PostgreSQL Administration</h2>
+
+<h3>Installing PostgreSQL</h3>
+<ul>
+<li>Debian based systems:
+<pre>apt-get update 
+apt-get install postgresql postgres-contrib     # -contrib package adds additional utilities and functionality</pre>
+</ul>
+
+<h3><code>pg_hba.conf</code></h3>
+<ul>
+<li>The <code>pg_hba.conf</code> file controls client authentication
+<li>hba - host based authentication
+<li>The file is usually located at <code>/etc/postgresql/[version]/main/pg_hba.conf</code> 
+<li>The file is read on server startup 
+<li>After editing the file, it is best to restart the server - <code>systemctl restart postgresql</code>
+<li>The file contains a set of records. One record per line. Records cannot extend beyond a single line
+<li>Blank lines are ignored, as is any text after the # (comment) character
+<li>Each record consists of whitespace (space and/or tab) delimited fields
+<li>Fields can contain whitespace if the field value is double-quoted
+<li>Field 1 - Connection type
+    <ul>
+    <li><code>local</code> - Unix domain socket
+    <li><code>host</code> - either a plain or SSL-encrypted socket
+    <li><code>hostssl</code> - SSL-encrypted socket
+    <li><code>hostnossl</code> - non SSL-encrypted socket
+    </ul>
+<li>Field 2 - Database
+    <ul>
+    <li><code>all</code> - all databases
+    <li><code>sameuser</code>
+    <li><code>samerole</code>
+    <li><code>replication</code>
+    <li><code>dbname</code>
+    <li><code>comma delimited list</code>
+    <li><code>@filename</code> - include names from file - filename
+    </ul>
+<li>Field 3 - User
+    <ul>
+    <li><code>all</code> - all users
+    <li><code>username</code>
+    <li><code>+groupname</code>
+    <li><code>comma delimited list</code>
+    <li><code>@filename</code> - include names from file - filename
+    </ul>
+<li>Field 4 - Address
+    <ul>
+    <li>N/A for <code>local</code>
+    </ul>
+<li>Field 5 - Method
+    <ul>
+    <li><code>trust</code> - do not require a password
+    <li><code>reject</code>
+    <li><code>md5</code> - send encrypted password
+    <li><code>password</code> - sends password in clear text
+    <li><code>gss</code>
+    <li><code>sspi</code>
+    <li><code>ident</code>
+    <li><code>peer</code>
+    <li><code>pam</code>
+    <li><code>ldap</code>
+    <li><code>radius</code>
+    <li><code>cert</code>
+    </ul>
+<li>Field 6 - Options
+    <ul>
+    <li>Set of options in the format NAME=VALUE
+    </ul>
+</ul>
+
+<h3><code>postgres</code> User</h3>
+<ul>
+<li>The <code>postgres</code> user is created automatically when postgreSQL is installed.
+<li>The login is locked. I.e. the login does not have a password. The only way you can log in to it is by using <code>su</code> as a superuser
+</ul>
+
+<h3>Database Roles</h3>
+<ul>
+<li>PostgreSQL manges database permissions using the concept of <strong>roles</strong>
+<li>Database Roles are global across a database cluster installation
+<li><code>CREATE ROLE role-name &lt;attribute list&gt;;</code>
+<li><code>DROP ROLE name;</code>
+<li>You can also use the postgreSQL UNIX command <code>createrole --interactive</code> to create a role via the UNIX command line.
+    The interactive flag will cause createrole to prompt you for the necessary values
+<li>Database Roles can have a number of attributes:
+    <ul>
+    <li><strong><code>LOGIN</code></strong> - specifies a given role has LOGIN privileges
+    <li><strong><code>SUPERUSER</code></strong> - specifies a given role has SUPERUSER privileges. A superuser bypasses all permission checks 
+        - except the right to login in. Only a superuser roll can do this.
+    <li><strong><code>CREATEDB</code></strong> - specifies a given role has permission to create databases
+    <li><strong><code>CREATEROLE</code></strong> - specifies a given role has permission to create, alter or drop roles. 
+        A role with this attribute can also grant or revoke membership to a given role.
+        Superuser status is required to alter a superuser role.
+    <li><strong><code>REPLICATION</code></strong> - specifies a given role has permission to initiate streaming replication. 
+        A role used for streaming replication must also have LOGIN privileges - i.e. <code>CREATE ROLE name REPLICATION LOGIN</code>
+    <li><strong><code>PASSWORD</code></strong> - specifies a password required for the given role - i.e. <code>CREATE ROLE name PASSWORD 'string'</code>
+        A password is only significant if the client authentication method requires the user to supply a password when connecting to the database.
+    </ul>
+<li><strong><code>ALTER ROLE</code></strong> can be used to modify the attributes of a role after creation
+<li>It's a good idea to create a role that has both <strong><code>CREATEDB</code></strong> and <strong><code>CREATEROLE</code></strong> privileges to 
+    avoid using superuser privileges for tasks which do not require it
+</ul>
+
+<h3>Role Membership</h3>
+<ul>
+<li>In PostgreSQL, you can create a role that represents a group
+<li>Typically a role being used as a group would not have the <code>LOGIN</code> attriute
+<li><strong><code>CREATE ROLE groupname attribute_list</code></strong>
+<li>Once the group role exists, you can add and remove members using the <strong><code>GRANT</code></strong> and <strong><code>REVOKE</code></strong> commands
+<li><strong><code>GRANT group_role TO role1, ...;</code></strong>
+<li><strong><code>REVOKE group_role FROM role1, ...</code></strong>
+<li>You have to specify the <strong><code>INHERIT</code></strong> attribute in order to use the privileges of group roles which you are a member. 
+    Otherwise you need to use <strong><code>SET ROLE role</code></strong> to temporarily become the group role (and no longer in your login role)
+</ul>
+
+<h3>Quick Start - Create User</h3>
+<ul>
+<li>Edit <code>/etc/postgresql[version]/main/pg_hba.conf</code> to have this line -- which will allow local connections without a password:
+<pre>local   all             all                                     trust</pre>
+<li>Restart the postgreSQL server
+<pre>systemctl restart postgresql</pre>
+<li>As superuser, use <code>su</code> to log in as the postgres user
+<pre>su - postgres</pre>
+<li>Create a new role (as user postgres). The interactive mode will cause you to be prompted to enter the necessary values.
+<pre>createuser --interactive</pre>
+<li>Create a database with the same name as the role (as user postgres). PostgreSQL requires there to be a datbase with the same name as the role being used to login 
+    which the role has access to.
+<pre>createdb &lt;rolename&gt;</pre>
+<li>Using a regular UNIX login you should now be able to access <code>psql</code> 
+<pre>psql [dbname [username]]</pre>
+</ul>
+
+<h2><code>psql</code></h2>
+<ul>
+<li>Terminal based PostgreSQL front-end. It is a regular PostgreSQL client application
+<li>All SQL statements entered into <code>psql</code> must be terminated via a semicolon(;). This allows statements to span multiple lines
+<li><code>psql [options] [dbname [username]]</code>
+<li>Options
+    <ul>
+    <li><code>-U username</code>
+    <li><code>-d dbname</code>
+    <li><code>-h hostname</code> - specifies the host name of the machine in which he server is running
+    <li><code>-H</code> - turn on HTML tabular output
+    <li><code>-l</code> - list all available databases and then exit
+    <li><code>-V</code> - print psql version information and exit
+    </ul>
+</ul>
+
+<h3><code>psql</code> - Internal Commands</h3> 
+<ul>
+<li>Internal Commands are non-SQL statements which begin with backslash and do not need to be terminated by a semicolon
+    <ul>
+    <li><code>\h</code> - help
+    <li><code>\?</code> - show more internal commands
+    <li><code>\q</code> - quit
+    <li><code>\du</code> - display list of roles
+    <li><code>\H</code> - turn on HTML tabular output
+    <li><code>\conninfo</code> - show connection information
+    </ul>
+<li>SQL statemenets in psql can be multi-line and must always be terminated by a semi-colon
+</ul>
+
+<h2>Other PostgreSQL Utilities</h2>
+<ul>
+<li><strong><code>createdb [demodb]</code></strong> - create a database
+<li><strong><code>dropdb [demodb]</code></strong> - remove a database
+</ul>
+
+<h3>SQL</h3>
+
+<dl>
+<dt><strong><code>SELECT version();</code></strong>
+<dd>Show version information
+<dt><strong><code>SELECT current_date;</code></strong>
+<dd>Show current date
+<dt><strong><code>CREATE TABLE user (fname varchar(20), lname varchar(20), bday date);</code></strong>
+<dd>Create a table
+<dt><strong><code>DROP TABLE tablename</code></strong>
+<dd>Delete a table
+</dl>
+
+</div>
+</body> 
+</html>

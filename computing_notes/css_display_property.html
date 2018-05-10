@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_css");
+}
+</script>
+
+
+<script>
+function set_visibility_hidden ()
+{
+    event.target.style.visibility = "hidden";
+}
+
+function set_display_none ()
+{
+    event.target.style.display = "none";
+}
+</script>
+
+<style>
+.block_ex           {
+                        display:    block;
+                        width:      150px;
+                        height:     75px;
+                        margin:     10px;
+                        border:     1px solid black;
+                    }
+
+.inline_ex          {
+                        border:     1px solid black;
+                        margin:     10px;
+                    }
+
+.inline_block_ex    {
+                        display:    inline-block;
+                        width:      200px;
+                        height:     100px;
+                        margin:     10px;
+                        border:     1px solid black;
+                    }
+</style>
+
+<title>CSS - Display Properties</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CSS - Display Properties</h3>
+
+<h2>display</h2>
+<ul>
+<li>Specifies how an element should be displayed
+<li>Valid values:
+    <ul>
+    <li><strong>none</strong>
+        <ul>
+        <li>The element will not be displayed
+        <li>Frequently used in conjunction with javascript to allow an element to appear/disappear
+        <li>Similar to <code>visibility: hidden</code> except that an element with <code>display: none</code> will not allocate any physical space on the screen
+        whereas an element with <code>visibility: hidden</code> will have space allocated for the element -- it just will not be visible 
+        </ul>
+    <li><strong>block</strong> 
+        <ul>
+        <li>display element as a block element. 
+        <li>Block elements implicitly have a break added before and after the element. 
+        <li>Examples include: <code>h1</code>, <code>h2</code>, <code>p</code>. 
+        <li><code>div</code> is a generic block element. i.e. a block element without any other added style.
+        <li>block elements respect height and width settings
+        </ul>
+    <li><strong>inline</strong> 
+        <ul>
+        <li>display element as an inline element. 
+        <li>Inline elements do not have an implicit break before and after the element. 
+        <li>Examples include: <code>strong</code>, <code>em</code>, <code>a</code>. 
+        <li><code>span</code> is a generic inline element. i.e. an inline element without any other added style. 
+        <li>inline elements do not respect height and width settings
+        </ul>
+    <li><strong>inline-block</strong>
+        <ul>
+        <li>inline elements which can have a width and height -- normally only block level elements can have a height and width
+        <li>creates a rectangular region without any newlines
+        <li>allows you to create a grid of boxes which fill up the browser width and wraps nicely when the browser is resized
+        <li>see example below
+        </ul>
+    <li><strong>flex</strong> - ???
+    <li><strong>inline-table</strong> - ???
+    <li><strong>list-item</strong> - the element is displayed as a li element
+    <li><strong>run-in</strong> - ???
+    <li><strong>table</strong> - the element is displayed as a table element
+    <li><strong>table-caption</strong> - the element is displayed as a caption element
+    <li><strong>table-column-group</strong> - the element is displayed as a colgroup element
+    <li><strong>table-header-group</strong> - the element is displayed as a thead element
+    <li><strong>table-footer-group</strong> - the element is displayed as a tfoot element
+    <li><strong>table-row-group</strong> -  the element is displayed as a tbody element
+    <li><strong>table-cell</strong> - the element is displayed as a td element
+    <li><strong>table-column</strong> - the element is displayed as a col element
+    <li><strong>table-row</strong> - the element is displayed as a tr element
+    <li><strong>initial</strong> - set property to default value
+    <li><strong>inherit</strong> - inherit property from parent element
+    </ul>
+</ul>
+
+<h2>visibility</h2>
+<ul>
+<li>Specifies whether or not an element is visible
+<li>Valid values: <code>hidden</code>, <code>visible</code>
+</ul>
+
+
+<h2>Examples</h2>
+
+<h3>Inline and Block Elements Example</h3> 
+<span class="inline_ex">Inline Element 1</span>
+<span class="inline_ex">Inline Element 2</span>
+<div class="block_ex">Block Element 1</div>
+<span class="inline_ex">Inline Element 3</span>
+<span class="inline_ex">Inline Element 4</span>
+<div class="block_ex">Block Element 2</div>
+<span class="inline_ex">Inline Element 5</span>
+<span class="inline_ex">Inline Element 6</span>
+
+<h3>Inline-block Element Example</h3> 
+<div class="inline_block_ex">Inline Block Element 1</div>
+<div class="inline_block_ex">Inline Block Element 2</div>
+<div class="inline_block_ex">Inline Block Element 3</div>
+<div class="inline_block_ex">Inline Block Element 4</div>
+<div class="inline_block_ex">Inline Block Element 5</div>
+<div class="inline_block_ex">Inline Block Element 6</div>
+<div class="inline_block_ex">Inline Block Element 7</div>
+<div class="inline_block_ex">Inline Block Element 8</div>
+<div class="inline_block_ex">Inline Block Element 9</div>
+<div class="inline_block_ex">Inline Block Element 10</div>
+
+
+<h3>display: none vs. visibility: hidden</h3> 
+<div class="inline_block_ex" onclick="set_visibility_hidden()">Inline Block Element - Click for visibility: hidden</div>
+<div class="inline_block_ex" onclick="set_display_none()">Inline Block Element - Click for display: none</div>
+<div class="inline_block_ex">Inline Block Element - default</div>
+
+</div>
+</body>
+</html>

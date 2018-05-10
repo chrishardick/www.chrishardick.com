@@ -185,6 +185,7 @@ function print_nav(f)
     <div class="panel">
         <a href="db_transactions.html">Transactions</a>
         <a href="db_sqlite.html">SQLite</a>
+        <a href="db_postgresql.html">PostgreSQL</a>
         <a href="db_mysql.html">MySQL</a>
         <a href="db_mysql_join.html">MySQL - join</a>
         <a href="db_mysql_sql_cmds.html">MySQL - SQL</a>
@@ -198,12 +199,12 @@ function print_nav(f)
     <button class="accordion" id="accordion_html">HTML</button>
     <div class="panel">
         <a href="html_intro.html">Introduction</a>
+        <a href="html_tables.html">Tables</a>
         <a href="html_colors.html">Colors</a>
         <a href="html_color_test.html">Color Tester</a>
         <a href="html_forms.html">Forms</a>
         <a href="html_dom_events.html">DOM Events</a>
         <a href="html_basic_template.html">Basic Template</a>
-        <a href="html_canvas.html">Canvas</a>
     </div>
 
     <button class="accordion" id="accordion_css">CSS</button>
@@ -220,6 +221,7 @@ function print_nav(f)
         <a href="css_text_properties.html">Text Properties</a>
         <a href="css_color_and_bg_properties.html">Color and Background Properties</a>
         <a href="css_content_area_padding_borders_margins.html">Content Area, Padding, Borders and Margins</a>
+        <a href="css_display_property.html">Display Properties</a>
         <a href="css_position_properties.html">Position Properties</a>
         <a href="css_table_properties.html">Table Properties</a>
         <a href="css_misc_properties.html">Misc Properties</a>
@@ -253,14 +255,21 @@ function print_nav(f)
     <button class="accordion" id="accordion_jsclient">JS Client-Side</button>
     <div class="panel">
         <a href="jsclient_intro.html">Intro</a>
-        <a href="jsclient_objects.html">Client Side Objects</a>
+        <a href="jsclient_window_object.html">Window Object</a>
+        <a href="jsclient_document_object.html">Document Object</a>
+        <a href="jsclient_element_object.html">Element Object</a>
+        <a href="jsclient_node_object.html">Node Object</a>
+        <a href="jsclient_events.html">Events</a>
+        <a href="jsclient_timers.html">Timers</a>
         <a href="jsclient_dom.html">DOM</a>
         <a href="jsclient_cookies.html">Cookies</a>
         <a href="jsclient_css.html">CSS</a>
         <a href="jsclient_clock.html">Clock</a>
         <a href="jsclient_loan_calc.html">Loan Calculator</a>
         <a href="jsclient_scratch_pad.html">Scratch Pad</a>
+        <a href="jsclient_debugging.html">Debugging</a>
         <a href="jsclient_jquery.html">jquery</a>
+        <a href="jsclient_canvas.html">Canvas</a>
     </div>
 
     <button class="accordion" id="accordion_ajax">AJAX</button>
@@ -283,6 +292,7 @@ function print_nav(f)
         <a href="linux_ssh.html">ssh</a>
         <a href="linux_sendmail.html">sendmail</a>
         <a href="linux_shutdown.html">shutdown</a>
+        <a href="linux_su.html">su</a>
         <a href="linux_sudo.html">sudo</a>
         <a href="linux_tcpdump.html">tcpdump</a>
         <a href="linux_wireless.html">wireless</a>

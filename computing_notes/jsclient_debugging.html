@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jsclient");
+}
+</script>
+
+<title>Client Side JS - Debugging</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>JS Client - Debugging</h1>
+
+<h2>Window Object</h2>
+<ul>
+<li>Each browser tab has its own Window object (named <code>window</code>). 
+<li>It is the global object. Hence you need not prefix its methods and properties with <code>window.</code> -- although you can for clarity. 
+<li>The Window object has the <code>alert()</code> method which is probably the simplest way to debug. It displays a modal pop-up with the passed in string
+</ul>
+
+<h2>Console Object</h2>
+<ul>
+<li>The global property <code>console</code> refers to a Console object
+<li>The Console object has methods which aid in debugging.
+<li>The most commonly used methods are <code>console.log()</code>, <code>console.info()</code>, 
+    <code>console.debug()</code>, <code>console.warn()</code> and <code>console.error()</code> 
+    -- which are useful for producing log, info, debug, warning and error trace to the browser console. 
+</ul>
+
+</div>
+</body>
+</html>
+

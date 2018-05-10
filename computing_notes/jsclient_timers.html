@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jsclient");
+}
+</script>
+
+<title>Client Side JS - Timers</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Client Side JS - Timerst</h1>
+
+<h2><code>setTimeout()</code></h2>
+<ul class=spaced>
+<li>a method of the Window object
+<li>schedules a single function run after a specified number of milliseconds elapses
+</ul>
+<pre>
+//
+// schedule a single function run after a specified number of milliseconds elapse
+// - returns a value which can be passed to clearTimeout() to cancel the scheduled execution
+// - accepts a variable number of arguments. 
+// - 1st argument is the handler
+// - 2nd argument is the number of milliseconds
+// - any additional paramters are passed to the indicated function -- not supported in IE (i.e. not portable)
+// 
+var rc = setTimeout(update_clock, 1000 /* ms */);
+
+
+func update_clock ()
+{
+    var c = document.getElementById("clock");
+
+    var now = new Date();
+
+    x.innerHTML = now.toLocalTimeString();
+
+    rc = setTimeout(update_clock, 1000);
+}
+
+// cancel future execution of scheduled function
+clearTimeout(rc);
+</pre>
+
+<h2><code>setInterval()</code></h2>
+<ul class=spaced>
+<li>a method of the Window object
+<li>registers a function to be invoked repeatedly at a specified interval
+</ul>
+
+<pre>
+//
+// schedule a single function to be invoked repeatedly at the specified interval (# ms)
+// - returns a value which can be passed to clearInterval() to cancel all future scheduled executions
+// - accepts a variable number of arguments. 
+// - 1st argument is the handler
+// - 2nd argument is the number of milliseconds
+// - any additional paramters are passed to the indicated function -- not supported in IE (i.e. not portable)
+// 
+var rc = setInterval(update_clock, 1000 /* ms */);
+
+// cancel all future executions of scheduled function
+clearInterval(rc);
+</pre>
+
+ *
+ * schedules function f to run after ms milliseconds elapse
+ * returns a value that can be passed to clearTimeout to cancel the scheduled execution
+ * any additional arguments are passed to f
+ */
+setTimeout(f, ms, ...);
+</pre>
+
+<pre>
+/*
+ * setInterval
+ *
+ * schedules function f to run repeatedly at the specified interval (# ms)
+ * returns a value that can be passed to clearTimeout to cancel the scheduled execution
+ * any additional arguments are passed to f
+ */
+setInterval(f, ms, ...);
+</pre>
+
+
+</div>
+</body> 
+</html>

@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Linux - su</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<H1>Linux - su</H1>
+
+<ul>
+<li><code><strong>su [options] [username]</strong></code>
+<li>Change user ID or become superuser
+<li>Invoked without a username, su defaults to becoming the superuser
+<li>The optional argument <code><strong>-</strong></code> invokes a login shell after switching users.
+    what the user would expect had the user logged in directly. e.g. <code>su - username</code>.
+    This is equivaent to <code> su -l username</code>
+<li>If you are not a super user, you will be prompted for the password of the user you're becoming
+</ul>
+
+
+</div>
+</body> 
+</html>
+  

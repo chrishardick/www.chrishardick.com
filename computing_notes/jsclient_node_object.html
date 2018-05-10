@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jsclient");
+}
+</script>
+
+<title>Client Side JS - The Node Object</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Client Side JS - The Node Object</h1>
+
+<ul class=spaced>
+<li>The Node Object is an interface in which a number of other classes inherit from.
+<li>The Document Object, Element Object and Text Object all inherit from the Node Object
+</ul>
+
+<h2>Node Object Properties</h2>
+
+<h3><code>parentNode</code></h3>
+<ul class=spaced>
+<li>The parent node for the given Node Object
+<li><code>null</code> for nodes (like the Document Object) which do not have a parent
+</ul>
+
+<h3><code>childNode</code></h3>
+<ul class=spaced>
+<li>A NodeList object 
+<li>live -- i.e. it will automatically update as the document changes
+</ul>
+
+<h3><code>firstChild</code>, <code>lastChild</code></h3>
+<ul class=spaced>
+<li>The Node Object of the first or last child node
+<li><code>null</code> for nodes which do not have children
+</ul>
+
+<h3><code>nextSibling</code>, <code>previousSibling</code></h3>
+<ul class=spaced>
+<li>The Node Object of the next or previous sibling node
+<li>Sibling nodes have the same parent
+</ul>
+
+<h3><code>nodeType</code></h3>
+<ul class=spaced>
+<li>The type of node this is
+<li>9 = Document node
+<li>1 = Element node
+<li>3 = Text node
+<li>8 = Comment node
+</ul>
+
+<h3><code>nodeValue</code></h3>
+<ul class=spaced>
+<li>The text content of a Text or Comment node
+</ul>
+
+<h3><code>nodeName</code></h3>
+<ul class=spaced>
+<li>The tag name of the element - converted to uppercase
+</ul>
+
+<pre>
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;Best HTML Doc Ever!&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;Hello, World&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+</div>
+</body> 
+</html>

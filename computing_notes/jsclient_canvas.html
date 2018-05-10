@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jsclient");
+}
+</script>
+
+<title>Client Side JS - Canvas</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>JS Client - Canvas</h1>
+
+<ul>
+<li>HTML5 provides a canvas element which allows you to draw graphics including rectangles, lines, text, circles, etc.
+<li>When defining a canvas element, it's always a good idea to specify alternative content (the content between the beginning and
+ending canvas tags). The alternative content is rendered if the browser is unable to render the canvas. This can happen because JS
+is disabled, lack of browser support, etc.
+</ul>
+
+<h2>Coordinates</h2>
+<ul>
+<li>Here is a diagram which helps with canvas coordinates:
+<li>X is width
+<li>Y is height
+</ul>
+
+<canvas id="coordinates" width="500" height="250" style="border: 1px solid black;">
+This is alternative content. It is displayed if the browser is unable to render the canvas
+</canvas>
+
+<script>
+var coordinates = document.getElementById("coordinates");
+var context = coordinates.getContext("2d");
+
+var height  = coordinates.height;
+var width   = coordinates.width;
+
+var x = 0;
+var y = 0;
+
+context.font = "12pt sans-serif";
+
+            //                      x       y
+context.fillText("(0,0)"            ,0      , 12);
+context.fillText("(0,maxY-1)"       ,0      ,250-11);
+context.fillText("(maxX-1,0)"       ,500-80 , 12);
+context.fillText("(maxX-1,maxY-1)"  ,500-130 ,250-11);
+
+</script>
+
+</ul>
+
+
+<h2>Context</h2>
+<ul>
+<li>When dealing with a HTML Canvas, you need to obtain a <strong>context object</strong>
+<li>A "2d" context object allows you to draw rectangles, lines, text, circles, etc. on the canvas
+<pre>
+&lt;canvas id="graph" width="1440" height="500" style="border:1px solid black;"&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+var graph = document.getElementById("graph");
+
+//
+// obtain a 2d context object
+//
+var context = graph.getContext("2d");
+...
+&lt;/script&gt;
+</pre>
+</ul>
+
+<h2>Rectangles</h2>
+
+<h3><code>context.rect(x, y, width, height)</code></h3>
+<ul>
+<li>Draw an unfilled rectangle at the specified coordinates
+<li>x is the upper left x coordinate
+<li>y is the upper left y coordinate
+<li>height and width are specified in pixels
+<li>A method of the context object
+</ul>
+
+<h3><code>context.fillRect(x, y, width, height)</code></h3>
+<ul>
+<li>Draw a solid rectangle at the specified coordinates
+<li>x is the upper left x coordinate
+<li>y is the upper left y coordinate
+<li>height and width are specified in pixels
+<li>A method of the context object
+</ul>
+
+<h3><code>context.clearRect (x,y,width,height)</code></h3>
+<ul>
+<li>similar to <code>rect()</code> and <code>fillRect()</code> except it clears the specified region
+</ul>
+
+
+<h2>Lines</h2>
+
+<h3><code>context.beginPath()</code></h3>
+<ul>
+<li>Begin a path or reset the current path
+<li>A method of the context object
+</ul>
+
+<h3><code>context.moveTo(x, y)</code></h3>
+<ul>
+<li>Move the path to the specified point on the canvas without creating a line
+<li>A method of the context object
+</ul>
+
+<h3><code>context.lineTo(x, y)</code></h3>
+<ul>
+<li>create a line from the current point in the path to the specified point
+<li>A method of the context object
+</ul>
+
+<h3><code>context.stroke()</code></h3>
+<ul>
+<li>physically draw the specified path
+<li>A method of the context object
+</ul>
+
+<h3><code>context.fill()</code></h3>
+<ul>
+<li>Fill in the specified path
+<li>A method of the context object
+<li>The default color is black.
+<li>Use <code>context.fillStyle</code> property to specify a different color, gradient or pattern to use
+</ul>
+
+<h3><code>context.isPointInPath(x, y)</code></h3>
+<ul>
+<li>Returns boolean
+<li>A method of the context object
+</ul>
+
+
+<h2>Text</h2>
+
+<h3><code>context.font</code></h3>
+<ul>
+<li>Specify or return the current font proerties for text content on the canvas
+<li>Accepts the same syntax as the CSS font property
+<li>Default value: 10px sans-serif
+<li>A property of the context object
+</ul>
+
+<h3><code>context.fillText(text, x, y)</code></h3>
+<ul>
+<li>Physically draw the specified text on the canvas with solid characters
+<li>A method of the context object
+</ul>
+
+<h3><code>context.strokeText(text, x, y)</code></h3>
+<ul>
+<li>Similar to <code>fillText()</code> except tha the text is not filled in
+<li>A method of the context object
+</ul>
+
+</div>
+</body>
+</html>
+
