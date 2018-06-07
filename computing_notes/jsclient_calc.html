@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jsclient");
+}
+</script>
+
+<title>Client Side JS - Canvas</title>
+
+<style>
+
+/*
+ * inline elements which can have a width and height
+ * - allows you to create a grid of boxes which fill up the browser width and wrap nicely when the browser is resized
+ */
+.inline_block_wrapper
+{
+    display:            inline-block;
+    border:             1px solid black;
+}
+
+table, th, td
+{
+    border-collapse:    collapse;
+    border:             1px solid black;
+}
+
+th, td
+{
+    font-family:        sans-serif;
+    padding:            20px;
+    text-align:         center;
+}
+
+.input
+{
+    font-family:        sans-serif;
+    font-size:          large;
+    text-align:         right;
+}
+
+</style>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+
+<!--
+
+-----------------
+|               |
+-----------------
+| C |   |   | / |
+-----------------
+| 7 | 8 | 9 | * |
+-----------------
+| 4 | 5 | 6 | - |
+-----------------
+| 1 | 2 | 3 | + |
+-----------------
+| 0     | . | = |
+-----------------
+
+-->
+
+
+<!-- calculator -->
+
+<span class=inline_block_wrapper>
+<table>
+<tr>
+<td colspan=4><input class=input type=text id=input></td>
+</tr>
+
+<tr>
+<td class=cell id=clear>C</td>
+<td></td>
+<td></td>
+<td class=cell id=div>/</td>
+</tr>
+
+<tr>
+<td class=cell id=7>7</td>
+<td class=cell id=8>8</td>
+<td class=cell id=9>9</td>
+<td class=cell id=mult>x</td>
+</tr>
+
+<tr>
+<td class=cell id=4>4</td>
+<td class=cell id=5>5</td>
+<td class=cell id=6>6</td>
+<td class=cell id=sub>-</td>
+</tr>
+
+<tr>
+<td class=cell id=4>1</td>
+<td class=cell id=5>2</td>
+<td class=cell id=6>3</td>
+<td class=cell id=add>+</td>
+</tr>
+
+<tr>
+<td class=cell id=0 colspan=2>0</td>
+<td class=cell id=decimal>.</td>
+<td class=cell id=equal>=</td>
+</tr>
+
+</table>
+</span>
+
+<!-- debug window -->
+
+<span class=inline_block_wrapper>
+<table>
+
+<tr>
+<td>state</td>
+<td id=state></td>
+</tr>
+
+<tr>
+<td>buf</td>
+<td id=buf></td>
+</tr>
+
+<tr>
+<td>op1</td>
+<td id=op1></td>
+</tr>
+
+<tr>
+<td>op2</td>
+<td id=op2></td>
+</tr>
+
+<tr>
+<td>op</td>
+<td id=op></td>
+</tr>
+
+</table>
+<span>
+
+<script src="js/js_calc.js"></script>
+</div>
+</body>
+</html>
+

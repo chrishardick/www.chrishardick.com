@@ -49,7 +49,16 @@ function on_load (f)
     //
 
     handle_persistent_menu_open_close();
-   
+
+
+    if (f)
+    {
+        //
+        // scroll to the element id specified
+        //
+
+        document.getElementById(f).scrollIntoView(true);
+    }
 
     console.log("on_load: LEAVE");
 }
@@ -265,11 +274,12 @@ function print_nav(f)
         <a href="jsclient_cookies.html">Cookies</a>
         <a href="jsclient_css.html">CSS</a>
         <a href="jsclient_clock.html">Clock</a>
-        <a href="jsclient_loan_calc.html">Loan Calculator</a>
-        <a href="jsclient_scratch_pad.html">Scratch Pad</a>
         <a href="jsclient_debugging.html">Debugging</a>
         <a href="jsclient_jquery.html">jquery</a>
         <a href="jsclient_canvas.html">Canvas</a>
+        <a href="jsclient_calc.html">Basic Calculator</a>
+        <a href="jsclient_loan_calc.html">Loan Calculator</a>
+        <a href="jsclient_scratch_pad.html">Scratch Pad</a>
     </div>
 
     <button class="accordion" id="accordion_ajax">AJAX</button>
@@ -346,12 +356,20 @@ function print_nav(f)
         // make this active
         //
 
-        toggle_active(document.getElementById(f));
+        var active_element = document.getElementById(f);
 
-        loc = "#" + f;
+        toggle_active(active_element);
 
-        location="#";
-        location=loc;
+//        console.log ("print_nav: calling scrollIntoView...");
+
+//        active_element.scrollIntoView();
+
+//        console.log ("print_nav: calling scroll...");
+//        window.scroll(0,findPos(active_element));
+
+//        window.scrollTo(0,1000);
+
+        window.location = '#' + f;
     }
 
     console.log ("print_nav: LEAVE");
