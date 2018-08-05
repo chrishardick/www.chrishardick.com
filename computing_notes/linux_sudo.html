@@ -46,9 +46,11 @@ C O N T E N T
 <li>As opposed to <code>su</code>, users specify their own password, as opposed to the password of the user they're acting on behalf of
 <li>The sudo config file is <code>/etc/sudoers</code>
 <li>As a correct sudoers file is very important for the system, you should edit the sudoers file with <code>visudo</code>. It insures correctness before applying changes.
+<li>By default, <code>visudo</code> uses the <code>nano</code> editor. run <code>update-alternatives --config editor</code> to change
+<li>If your <code>sudoers</code> file utilizes includes, you can modify the included files by using: <code>visudo -f file_name</code>
 </ul>
 
-<h2>sudoers File</h2>
+<h2><code>sudoers</code> File</h2>
 <ul>
 <li>Typically <code>/etc/sudoers</code>
 <li>Use <code>visudo</code> to edit. It insures correctness before applying changes

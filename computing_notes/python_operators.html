@@ -41,98 +41,97 @@ C O N T E N T
 
 <h1>Python: Operators</h1>
 <ul>
-<li>Arithmetic Operators
-<li>Comparison Operators
-<li>Assignment Operators
-<li>Logical Operators
-<li>Bitwise Operators
-<li>Membership Operators
-<li>Identity Operators
+<li><a href='#arithmetic'>Arithmetic Operators</a>
+<li><a href='#comparison'>Comparison Operators</a>
+<li><a href='#assignment'>Assignment Operators</a>
+<li><a href='#logical'>Logical Operators</a>
+<li><a href='#bitwise'>Bitwise Operators</a>
+<li><a href='#membership'>Membership Operators</a>
+<li><a href='#identity'>Identity Operators</a>
 </ul>
 
-<h2>Arithmetic Operators</h2>
+<h2 id='arithmetic'>Arithmetic Operators</h2>
 <ul>
-<li>+
-<li>-
-<li>*
-<li>/
-<li>% - Mod[ulus]
-<li>** - Exponent
-<li>// - Floor division. Similar to integer division except if one of the operands is negative, the result is floored (rounded down -- towards negative infinity)
+<li><code>+</code> - Addition
+<li><code>-</code> - Subtraction
+<li><code>*</code> - Multiplication
+<li><code>/</code> - Division
+<li><code>%</code> - Mod (modulus)
+<li><code>**</code> - Exponent
+<li><code>//</code> - Floor division. Similar to integer division except if one of the operands is negative, the result is floored (rounded down -- towards negative infinity)
 </ul>
 
-<h2>Comparison Operators</h2>
+<h2 id='comparison'>Comparison Operators</h2>
 <ul>
-<li>==
-<li>!= or &lt;&gt;
-<li>&gt;
-<li>&lt;
-<li>&ge;
-<li>&le;
+<li><code>==</code> - equal
+<li><code>!=</code> or <code>&lt;&gt;</code> - not equal
+<li><code>&gt;</code> - greater than
+<li><code>&lt;</code> - less than
+<li><code>&ge;</code> - greater than or equal to
+<li><code>&le;</code> - less than or equal to
 </ul>
 
-<h2>Assignment Operators</h2>
+<h2 id='assignment'>Assignment Operators</h2>
 <ul>
-<li>=
-<li>+=
-<li>-=
-<li>*=
-<li>/=
-<li>%=
-<li>**=
-<li>//=
+<li><code>=</code>
+<li><code>+=</code>
+<li><code>-=</code>
+<li><code>*=</code>
+<li><code>/=</code>
+<li><code>%=</code>
+<li><code>**=</code>
+<li><code>//=</code>
 </ul>
 
-<h2>Logical Operators</h2>
+<h2 id='logical'>Logical Operators</h2>
 <ul>
-<li>and
-<li>or
-<li>not
+<li><code>and</code> - a short circuit operator. The 2nd operand is only evaluated if the first one is true.
+<li><code>or</code> - a short circuit operator. The 2nd operand is only evaluated if the first one is false.
+<li><code>not</code>
 </ul>
 
-<h2>Bitwise Operators</h2>
+<h2 id='bitwise'>Bitwise Operators</h2>
 <ul>
-<li>& - binary AND
-<li>| - binary OR
-<li>^ - exclusive OR
-<li>~ - binary one's complement (reverses all bits)
-<li>&lt;&lt; - binary left shift
-<li>&gt;&gt; - binary right shift
+<li><code>&amp;</code> - binary AND
+<li><code>|</code> - binary OR
+<li><code>^</code> - exclusive OR
+<li><code>~</code> - binary one's complement (reverses all bits)
+<li><code>&lt;&lt;</code> - binary left shift
+<li><code>&gt;&gt;</code> - binary right shift
 </ul>
 
-<h2>Membership Operators</h2>
+<h2 id='membership'>Membership Operators</h2>
 <p>test for ownership in a list, dictionary, etc. I.e. is the given value present in the list or not </p>
 <ul>
-<li>in
-<li>not in
+<li><code>in</code>
+<li><code>not in</code>
 </ul>
 
-<h2>Identity Operators</h2>
+<h2 id='identity'>Identity Operators</h2>
 <p>Compares the memory location of two objects</p>
 <ul>
-<li>is - true if two operands point to the same object. false otherwise
-<li>is not - true if the two operands do not point to the same object. false otherwise
+<li><code>is</code> - true if two operands point to the same object. false otherwise
+<li><code>is not</code> - true if the two operands do not point to the same object. false otherwise
 </ul>
 
 <h2>Operator Precedence</h2>
 <p>From highest to lowest</p>
 <ul>
-<li>** (exponent)
-<li>~, +, - (unary operators - complement, +, -)
-<li>*i, /, %, // (multiply, divide, modulus, floor division)
-<li>+ - (binary operators)
-<li>&gt;&gt; &lt;&lt; (bit shift)
-<li>& (bitwise and)
-<li>^, | (exclusive or regular bitwise OR)
-<li>&le;, &lt;, &gt;, &ge; (comparison operators)
-<li>==, !=, &lt;&gt; (comparison operators for equivalence)
-<li>=, %=, /=, //=, -=, +=, *=, **= (assignment operators)
-<li>is, is not (identity operators)
-<li>in, not in (membership operators)
-<li>not, or, and (logical operators)
+<li><code>**</code> (exponent)
+<li><code>~ + -</code> (unary operators - complement, +, -)
+<li><code>* / % //</code> (multiply, divide, modulus, floor division)
+<li><code>+ -</code> (binary operators)
+<li><code>&gt;&gt; &lt;&lt;</code> (bit shift)
+<li><code>&amp;</code> (bitwise and)
+<li><code>^ |</code> (exclusive or regular bitwise OR)
+<li><code>&le; &lt; &ge; &gt;</code> (comparison operators)
+<li><code>== != &lt;&gt;</code> (comparison operators for equivalence)
+<li><code>= %= /= //= -= += *= **=</code> (assignment operators)
+<li><code>is</code>, <code>is not</code> (identity operators)
+<li><code>in</code>, <code>not in</code> (membership operators)
+<li><code>not or and</code> (logical operators)
 </ul>
 
 </div>
 </body>
 </html>
-

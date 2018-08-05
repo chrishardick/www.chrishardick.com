@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_postgres");
+}
+</script>
+
+<title>PortgreSQL: Data Types</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>PostgreSQL: Data Types</h1>	
+
+<table>
+
+<tr>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td><code>BOOL</code>, <code>BOOLEAN</code></td>
+<td><code>true</code>, <code>false</code>. Implicit conversions are also done. E.g. 1, yes, y, t are converted to true. 0, no, n are converted to false </td>
+<tr>
+
+<tr>
+<td><code>CHAR(n)</code></td>
+<td>Fixed length, space padded character field. If you insert a longer string, PostgreSQL will return an error.</td>
+<tr>
+
+<tr>
+<td><code>VARCHAR(n)</code></td>
+<td>Variable length character field. Not space padded. You cannot store more than n characters</td>
+<tr>
+
+<tr>
+<td><code>TEXT</code></td>
+<td>Variable length character field with unlimited length</td>
+</tr>
+
+<tr>
+<td><code>SMALLINT</code></td>
+<td>2-byte signed integer. Range -32,768 to 32,767</td>
+</tr>
+
+<tr>
+<td><code>INT</code></td>
+<td>4-byte signed integer. Range -2,147,483,648 to 2,147,483,647
+</tr>
+
+<tr>
+<td><code>SERIAL</code></td>
+<td>The same as <code>INT</code> except that PostgreSQL will automatically populate values on inserts. 
+Similar to <code>AUTO_INCREMENT</code> in MySQL</td>
+</tr>
+
+<tr>
+<td><code>REAL</code> or <code>FLOAT8</code></td>
+<td>a double precision (8 byte) floating point number</td>
+</tr>
+
+<tr>
+<td><code>NUMERIC(precision, scale)</code></td>
+<td>a decimal floating point number where precision is the total number of digits and scale is the scale is the number of digits to the right of the decimal.
+e.g. 1234.567 - precision=7 and scale=3. Precision and scale are optional. If omitted, they default to the max values.
+Attempting to store a value with more digits to the right of the decimal point than the field allows will result in PostgreSQL rounding the value.
+Attempting to store a value with more total digits than the field allows will result in an error</td>
+</tr>
+
+<tr>
+<td><code>DATE</code></td>
+<td>Stores date values only. Stored using 4 bytes. Use <code>yyyy-mm-dd</code> format. 
+</td>
+<tr>
+
+<tr>
+<td><code>TIME</code></td>
+<td>Stores time values only. Stored using 8 bytes. Use the following formats: 
+<code>hh:mm[.pppppp]</code>,
+<code>hh:mm:ss[.pppppp]</code>,
+<code>hhmmss[.pppppp]</code>
+</td>
+<tr>
+
+<tr>
+<td><code>TIMESTAMP</code></td>
+<td>Stores both date and time values. Stored using 8 bytes. Use format 'YYYY-MM-DD HH:MM:SS-pppppp'. 
+</td>
+<tr>
+
+<tr>
+<td><code>TIMESTAMPZ</code></td>
+<td>Stores both date and time values - timezone aware. Stored using 8 bytes. Value is stored in UTC. Use format 'YYYY-MM-DD HH:MM:SS-pppppp'.
+</td>
+<tr>
+
+<tr>
+<td><code>INTERVAL</code></td>
+<td>Stores periods of time in years, months, days, hours, minutes, seconds, etc. Stored using 16 bytes. 
+</td>
+<tr>
+
+<tr>
+<td><code>UUID</code></td>
+<td>A Universally Unique Identifier. E.g. GUID (globally unique Identifier). A 128-bit (16 byte) value. A better alternative to <code>SERIAL</code>.
+PostgreSQL provides storage and comparision functions for UUID's, but does not include a function for generating UUID's. Usually written using 32 hexadecimal digits 
+with 4 dashes (36 characters in total) e.g. 01234567-0123-0123-0123-012345678901.
+</td>
+<tr>
+
+<tr>
+<td><code>ARRAY</code></td>
+<td>Used for storing arrays
+</td>
+<tr>
+
+<tr>
+<td>JSON</td>
+<td>
+</td>
+<tr>
+
+<tr>
+<td>hstore</td>
+<td>key-value pair</td>
+<tr>
+
+</table>
+
+</div>
+</body> 
+</html>

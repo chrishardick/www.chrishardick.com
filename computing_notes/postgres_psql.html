@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_postgres");
+}
+</script>
+
+<title>PortgreSQL: psql / Other Utilties</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>PostgreSQL: psql / Other Utilities</h1>	
+
+<h2><code>psql</code></h2>
+<ul>
+<li>Terminal based PostgreSQL front-end. It is a regular PostgreSQL client application
+<li>All SQL statements entered into <code>psql</code> must be terminated via a semicolon(;). This allows statements to span multiple lines
+<li><code>psql [options] [dbname [username] [host] [port]]</code>
+<li>Arguments
+    <ul>
+    <li><code>dbname</code>
+    <li><code>username</code> - defaults to current user's user name
+    <li><code>host</code>
+    <li><code>port</code>
+    </ul>
+<li>Options
+    <ul>
+    <li><code>-l</code> - list all available databases and then exit
+    <li><code>-U username</code>
+    <li><code>-d dbname</code>
+    <li><code>-h hostname</code> - specifies the host name of the machine in which he server is running
+    <li><code>-H</code> - turn on HTML tabular output
+    <li><code>-V</code> - print psql version information and exit
+    </ul>
+</ul>
+
+<h3><code>psql</code> - Internal Commands</h3> 
+<ul>
+<li>Internal Commands are non-SQL statements which begin with backslash and do not need to be terminated by a semicolon
+    <ul>
+    <li><code>\h</code> - help
+    <li><code>\?</code> - show more internal commands
+    <li><code>\q</code> - quit
+    <li><code>\dt</code> - display list of tables in the current datbase
+    <li><code>\d+ <em>table</em></code> - display table definition
+    <li><code>\du</code> - display list of roles
+    <li><code>\connect database_name</code> - switch databases
+    <li><code>\H</code> - turn on HTML tabular output
+    <li><code>\conninfo</code> - show connection information
+    </ul>
+<li>SQL statemenets in psql can be multi-line and must always be terminated by a semi-colon
+</ul>
+
+<h2>Other PostgreSQL Utilities</h2>
+<ul>
+<li><strong><code>createdb [-U username] [dbname]</code></strong> - create a database
+<li><strong><code>dropdb [demodb]</code></strong> - remove a database
+</ul>
+
+</div>
+</body> 
+</html>

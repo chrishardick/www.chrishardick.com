@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>Databases: Transaction Based Processing</title>
+<title>Databases: Transactions</title>
 
 </head>
 
@@ -38,7 +38,7 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<H1>Databases: Transaction Based Processing</H1>
+<H1>Databases: Transactions</H1>
 
 <H2>I. What's a Transaction?</H2>
 <UL>
@@ -58,28 +58,28 @@ When discussing transactional based processing, there are two main topics:
 <BR><BR>
 
 
-<H2 ID="Recovery">II. Recovery</H2>
+<h2 id="Recovery">II. Recovery</h2>
 
-<DL>
+<dl>
 
-<DT>What's Recovery?
-<DD> Restoring a database to a valid state after some failure has rendered the current state invalid (or at least suspect)
+<dt>What's Recovery?
+<dd> Restoring a database to a valid state after some failure has rendered the current state invalid (or at least suspect)
 
-<DT>Commit (Transaction)
-<DD>Successful End-of-Transaction
+<dt>Commit (Transaction)
+<dd>Successful End-of-Transaction
 
-<DT>Rollback (Transaction)
-<DD>Unsuccessful End-of-Transaction. The transaction will be undone, in order to insure the database is in a valid state.
+<dt>Rollback (Transaction)
+<dd>Unsuccessful End-of-Transaction. The transaction will be undone, in order to insure the database is in a valid state.
 
-</DL>
+</dl>
 
 
-<H2 ID="Concurrency">III. Concurrency</H2>
+<h2 id="Concurrency">III. Concurrency</h2>
 
-<DL>
+<dl>
 
-<DT>What's Concurrency?
-<DD>Concurrency is when multiple applications (or at least multiple processes, or multiple threads) are all accessing the same database, simultaneously. For example, there can be a web application, a UNIX application & a Windows application which all access & update the same database, possibliy stored on another machine (e.g. a database server). These multiple threads (to use the smallest level of granularity) can interfere with one another. In systems where this is unacceptable, some kind of <strong>concurrency control mechanism</strong> is required.
+<dt>What's Concurrency?
+<dd>Concurrency is when multiple applications (or at least multiple processes, or multiple threads) are all accessing the same database, simultaneously. For example, there can be a web application, a UNIX application and a Windows application which all access and update the same database, possibliy stored on another machine (e.g. a database server). These multiple threads (to use the smallest level of granularity) can interfere with one another. In systems where this is unacceptable, some kind of <strong>concurrency control mechanism</strong> is required.
 <BR><BR>
 
 <DT>What problems can occur when concurrency exists?
@@ -168,14 +168,23 @@ I.e. Ta is waiting for Tb to release a lock & Tb is waiting for Ta to release a 
 A given interleaved execution of a set of transactions (Ta, Tb, ..., Tn) is considered correct if it is "serializable." 
 i.e. it produces the same result as some serial execution of the same transactions<BR><BR>
 
-<UL>
 <STRONG>PROOF</STRONG>
+<UL>
 <LI>Individual Transactions are "Correct." Remember, transactions transform the database from one valid state to another.
 <LI>Executing a set of transactions (Ta, Tb, ..., Tn) one at a time, in any order, is therefore always correct.
 <LI>An interleaved execution of Ta, Tb, ..., Tn is therefore correct, if it is equivalent to some serial execution of the same transactions.
 </UL>
 
+<h2>ACID</h2>
+<p>ACID is a set of properties database transactions</p>
+<ul>
+<li><strong>Atomic</strong> - a transaction is treated as a single unit which either succeeds or fails
+<li><strong>Consistency</strong> - the database moves from one valid state to another valid state
+<li><strong>Isolation</strong> - currently executing transactions behave as though they were executed in isolation
+<li><strong>Durability</strong> - once a transaction has been committed, it will remain in the database - regardless of a system failure 
+</ul>
+
 </div>
-</BODY> 
-</HTML>
+</body> 
+</html>
   

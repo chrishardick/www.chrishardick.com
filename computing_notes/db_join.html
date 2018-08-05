@@ -1,0 +1,114 @@
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_db");
+}
+</script>
+
+<title>Databases: Join Types</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Databases: Join Types</h1>
+
+<h2>Sample Tables</h2>
+
+<ul>
+<li>The following tables will be used to illustrate the different join types (inner joins and outer joins)
+<li><strong>INVOICE TABLE</strong>
+<table border=1>
+<tr><th>ID</th><th>CASE_ID</th><th>DATE      </th><th>NOTES</th></tr>
+<tr><td> 1</td><td>      5</td><td>2004-12-26</td><td>NULL </td></tr>
+<tr><td> 2</td><td>      5</td><td>2004-12-27</td><td>NULL </td></tr>
+<tr><td> 3</td><td>      6</td><td>2004-12-28</td><td>NULL </td></tr>
+<tr><td> 4</td><td>      6</td><td>2004-12-29</td><td>NULL </td></tr>
+</table>
+
+<li><strong>PAYMENT TABLE</strong>
+<table border=1>
+<tr><th>ID</th><th>INVOICE_ID</th><th>       AMT</th><th>      DATE</th></tr>
+<tr><td> 1</td><td>         1</td><td>     50.00</td><td>2004-12-26</td></tr>
+<tr><td> 2</td><td>         1</td><td>    100.00</td><td>2004-12-27</td></tr>
+<tr><td> 3</td><td>         2</td><td>    150.00</td><td>2004-12-28</td></tr>
+<tr><td> 4</td><td>         2</td><td>    200.00</td><td>2004-12-29</td></tr>
+</table>
+</ul>
+
+<h2>I. Inner Join</h2>
+<ul>
+<li><i>table1,table2</i>
+<li>Same as <i>table1</i> JOIN <i>table2</i>
+<li>Same as <i>table1</i> CROSS JOIN <i>table2</i>
+<li>Only rows which match the condition(s) of the <i>where</i> clause are selected
+<li>For example, the following <i>joined table</i> would only show rows in which payment.invoice_id = invoice.id
+<pre>
+SELECT invoice.id, payment.amt, payment.date, payment.notes FROM payment,invoice WHERE payment.invoice_id=invoice.id;
+</pre>
+<table border=1>
+<tr><th>invoice.id</th><th>payment.amt</th><th>payment.date</th><th>payment.notes</th></tr>
+<tr><td>         1</td><td>      50.00</td><td>  2004-12-26</td><td>NULL         </td></tr>
+<tr><td>         1</td><td>     100.00</td><td>  2004-12-27</td><td>NULL         </td></tr>
+<tr><td>         2</td><td>     150.00</td><td>  2004-12-28</td><td>NULL         </td></tr>
+<tr><td>         2</td><td>     200.00</td><td>  2004-12-29</td><td>NULL         </td></tr>
+</table>
+<br>
+<li>The tables are joined in the manner that the SQL Engine deems most efficient
+<li>The SQL Engine can accomplish this query in one of two ways
+	<ul>
+	<li>For each invoice, get all payment(s)
+		<ul>
+		<li>probably the algorithm the SQL Engine uses
+		<li>the payment table probably has an index for this 
+		<li>only display invoices which have payment(s)
+		</ul>
+	<li>For each payment, get all invoice(s) 
+		<ul>
+		<li>there will only be 1
+		<li>probably no index for this - i wouldn't create one
+		<li>only display payments which have invoice(s) 
+		</ul>
+	</ul>
+<li>Either way, we'll only display invoices with payments (or vice-versa, payments with invoices)
+<li>There's no way to get invoices without payments (or payments without invoices - which would be a referential integrity violation).
+	For this, we'll need an outer join.
+</ul>
+
+
+<h2>II. [Left] Outer Join</h2>
+<ul>
+<li><i>table1</i> LEFT [OUTER] JOIN <i>table2</i> ON <i>clause</i>
+<li>Selects all rows from table1
+<li>If table2 does not have a matching row, a row of NULLs is used to join with table1 
+</ul>
+
+
+</div>
+</body> 
+</html>

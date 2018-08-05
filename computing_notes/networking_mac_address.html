@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_networking");
+}
+</script>
+
+<title>MAC Address</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>MAC Address</h1>
+
+<ul>
+<li>Media Access Control Address (MAC Address)
+<li>Unique identifier for a given NIC (Network Interface Controller)
+<li>48 bit (6 byte) value
+<li>2^48 (281,474,976,710,656) possible values
+<li>A MAC address may include the manufacturer's OUI (organizationally unique identifier)
+<li>MAC addresses are formed according to one of three numbering name spaces managed by IEEE - MAC-48, EUI-48 and EUI-64
+<li>MAC-48 - used for network hardware (an obsolete term)
+<li>EUI-48 - used for other devices and software
+<li>EUI-64 - encompasses MAC-48 and EUI-48. 
+</ul>
+
+<h2>Unicast vs. Multicast</h2>
+
+<ul>
+<li>If the least significant bit of the 1st octet of a MAC address is 0 (zero), it's unicast
+<li>If the least significant bit of the 1st octet of a MAC address is 1 (zero), it's multicast
+</ul>
+
+
+<h2>Universal vs. Local Addresses</h2>
+
+<ul>
+<li>Universally Administered Addresses can usually be distinguished from Locally Administered Addresses via the 2nd least significant bit of the 
+    1st octet of the address.
+<li>This bit is known as the U/L bit
+<li>0 indicates universally administered
+<li>1 indicates locally adminstered
+</ul>
+
+<h3>Universally Administered Addresses</h3> 
+<ul>
+<li>Uniquely assigned to a device by its manufacturer
+<li>1st 3 octets (bytes) identify the organization that issued the identifier. It is known as the OUI (Organizationally Unique Identifier)
+<li>The remainder (3 octets) of the address is assigned by the organization
+</ul>
+
+
+<h3>Locally Administered Addresses</h3> 
+
+<ul>
+<li>A Locally Administered Address is assigned to a device by a network administer, overriding its Universally Administered Address
+</ul>
+
+<h2>Acknowldgements</h2>
+<ul>
+<li>Wikipedia
+</ul>
+
+</div>
+</body>
+</html>

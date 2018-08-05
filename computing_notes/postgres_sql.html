@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_postgres");
+}
+</script>
+
+<title>PortgreSQL: SQL</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>PostgreSQL: SQL</h1>	
+
+<dl>
+<dt><strong><code>SELECT version();</code></strong>
+<dd>Show version information
+
+<dt><strong><code>SELECT current_date;</code></strong>
+<dd>Show current date
+
+<dt><strong><code>CREATE TABLE table_name (field_name1 field_type1, field_name2 field_type2, ...);</code></strong>
+<dd>Create a table
+<dd><code>CREATE TABLE ingredient (id UUID, name VARCHAR(180));</code>
+<dd><code>CREATE TABLE category (id UUID, name VARCHAR(180));</code>
+<dd><code>CREATE TABLE recipe (id UUID, name varchar(180), directions text);</code>
+<dd><code>CREATE TABLE recipe_ingredient (recipe_id UUID, ingredient_id UUID, amount VARCHAR(180));</code>
+<dd><code>CREATE TABLE recipe_category (recipe_id UUID, category_id UUID);</code>
+
+
+<dt><strong><code>CREATE [UNIQUE ] INDEX [ name ] ON table (column1, column2, ...)</code></strong>
+<dd>Create an index
+<dd><code>CREATE UNIQUE INDEX ingredient_id ON ingredient (id);</code>
+<dd><code>CREATE UNIQUE INDEX ingredient_name ON ingredient (name);</code>
+<dd><code>CREATE UNIQUE INDEX category_id ON category (id);</code>
+<dd><code>CREATE UNIQUE INDEX category_name ON category (name);</code>
+<dd><code>CREATE UNIQUE INDEX recipe_id ON recipe (id);</code>
+<dd><code>CREATE UNIQUE INDEX recipe_name ON recipe (name);</code>
+<dd><code>CREATE UNIQUE INDEX recipe_id_ingredient_id ON recipe_ingredient (recipe_id, ingredient_id);</code>
+<dd><code>CREATE UNIQUE INDEX recipe_id_category_id ON recipe_category (recipe_id, category_id);</code>
+
+
+<dt><strong><code>DROP TABLE tablename</code></strong>
+<dd>Delete a table
+</dl>
+
+</div>
+</body> 
+</html>

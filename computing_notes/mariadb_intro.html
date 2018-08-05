@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_mariadb");
+}
+</script>
+
+<title>MariaDB</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>MariaDB</h1>	
+
+<ul>
+<li>Multithreaded DB Engine
+<li>Seperate threads for each incoming connection
+<li>Main thread to manage connections
+<li>A Forking Daemon. As soon as it starts, it forks and exits. Leaving the forked process to run in the background
+<li>safe_mysql. A script which starts the mysql daemon and continuously verifies that mysqld stays running. If mysqld exits, safe_mysql will restart it. Execute safe_mysql in the background (e.g. safe_mysql &amp;)
+<li>Databases are simply files in a specific file. You can use the OS to copy and rename databases
+<li>MySQL Data Structure - depending on the version of MySQL you're running, you may see some variation here.
+As far as I've seen, MySQL database formats are backward compatible. 
+	<ul>
+	<li>.isd = Data File
+	<li>.ism = Keys and other internal data
+	<li>.frm = Table Structure Info
+	</ul>
+</ul>
+
+
+<h2>MariaDB vs. MySQL</h2>
+<ul>
+<li>MariaDB is a fork of MySQL intended to remain free under the GNU GPL
+<li>Built by the some of the original developers of MySQL
+<li>Intended to maintain high compatibility with MySQL -- such that it can be a drop-in replacement
+<li>Note - these pages were originally written for MySQL
+</ul>
+
+<h2>mysql DATABASE</h2>
+<ul>
+<li>Used for security (who is permissioned to do what)
+<li>contains 5 tables
+	<OL>
+	<li>user
+		<ul>
+		<li>sets permissions for the server as a whole
+		<li>Columns (basically all of type enum ('N','Y'))
+		<li>Select_priv -- perform SELECT statements
+		<li>Insert_priv -- perform INSERT statements
+		<li>Update_priv -- perform UPDATE statements
+		<li>Delete_priv -- perform DELETE statements
+		<li>Create_priv -- perform CREATE statements
+		<li>Drop_priv   -- perform DROP statements
+		<li>Index_priv  -- the ability to create or drop indicies
+		<li>Alter_priv  -- perform ALTER TABLE statements
+		<li>Here's a statement to add (a pretty powerful) user
+<pre>
+INSERT INTO user (Host     ,User           ,Password       ,Select_priv,Insert_priv,Update_priv,Delete_priv,Create_priv,Drop_priv,Index_priv,Alter_priv)
+	  VALUES (localhost,chris@localhost,password('xyz'),'Y',       ,'Y'        ,'Y'        ,'Y'        ,'Y'        ,'Y'      ,'Y'       ,'Y'       );</pre>
+		
+		</ul>
+	<li>db
+		<ul>
+		<li>sets permissions for individual databases
+		</ul>
+	<li>host
+	<li>tables_priv
+	<li>colums_priv
+	</OL>
+</ul>
+
+<h2>Utilities</h2>
+
+<h3><code>mysqladmin</code></h3>
+<ul>
+<li>Client to administer a MariaDB server
+<li>Set root password
+	<pre>mysqladmin -u root password 'newpasswd'</pre>
+</ul>
+
+<h3><code>mysql</code></h3>
+<ul>
+<li>MariaDB SQL client
+<li>To log in:
+    <pre>mysql -u root -p</pre>
+
+<li>To add a user record to 'user' table and host record to 'host' table
+	<ul>
+	<li>log in as mysql user root (see above)
+	<li>add record to user table
+	<li>add record to host table
+	</ul>
+</ul>
+
+<h2>Porting An Existing MySQL Database</h2>
+<ul>
+<li>Copy directory to /var/lib/mysql
+<li>Add the following record to the 'db' table
+<pre>insert into db set host='localhost',db='HomeAuto',user='chris',select_pre_priv='y',create_priv='y',drop_priv='y',references_priv='y',index_priv='y',alter_priv='y';</pre>
+</ul>
+
+
+</div>
+</body> 
+</html>

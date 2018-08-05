@@ -49,11 +49,15 @@ C O N T E N T
 import logging
 
 # init logging
-logging.basicConfig (   filename="logfile"
-                        ,level=logging.INFO
-                        ,format='%(asctime)s %(process)s:%(thread)s %(filename)s:%(lineno)s %(funcName)s %(message)s'
-                        )
 
+logging.basicConfig (   filename=logfile
+                        ,level=logging.INFO     # logging threshold level. everything info or above will be logged (debug will not be logged)
+                        ,format='%(asctime)s %(process)s:%(thread)s %(filename)s:%(lineno)s %(levelname)s %(funcName)s %(message)s')
+
+
+# logging examples
+
+logging.debug ("%s, %s",s1,s2)
 logging.info ("%s, %s",s1,s2)
 logging.warning ("%s",s)
 logging.error ("%s",s)

@@ -1,0 +1,47 @@
+/**********
+ * tbl_sort.css
+ *
+ * css for client side table sorting
+ *
+ * chris hardick
+ **********/
+
+
+/*
+ * not a sorted column
+ */
+th.tblsort_nonsort_col
+{
+        background: #eee;
+}
+
+/*
+ * a sort column
+ */
+th.tblsort_sort_col
+{
+        cursor: pointer;
+        background: #eee;
+        color: #0000ff;
+}
+
+/*
+ * the currently sorted col
+ */
+th.tblsort_cursort_col
+{
+        cursor: pointer;
+        background: #ffd;
+        color: navy;
+}
+
+    
+img.tblsort_sort_indicator 
+{
+        margin-left: 5px;
+}
+
+body.wait
+{
+	cursor: wait;
+}

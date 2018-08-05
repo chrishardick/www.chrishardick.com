@@ -41,23 +41,77 @@ C O N T E N T
 
 <h1>Python: Exceptions</h1>
 
+<h2>Handling Exceptions</h2>
+
 <ul>
+<li>Exceptions are handled via a <code>try/except</code> block
+<li>If an exception is not handled, the program will immediately terminate
+</ul>
+
 <pre>
 try:
-    if input &gt; 500:
-        raise RuntimeError("sorry -- that's too large :-(")
+    // code which might raise an exception
+    ...
+    
+except ExceptionTypeI as eI:                        # catch ExceptionTypeI
+    
+    print "Exception Occurred. ", eI.value
 
-except RuntimeError as e:
-    print "Exception Occurred. ", e.value
+except ExceptionTypeII as eII:                      # catch ExecptionTypeII
+    
+    print "Exception Occurred. ", eII.value
 
-except:     # catch all exceptions
+except:     # catch all exceptions                  # catch all other exeptions
+
+    print "Exception Occurred"
 
 else:       # executed if no exceptions trigger -- you cannot use both else and finally
 
 finally:    # always executed -- you cannot use both else and finally 
+
+# execution continues here
+
+print "execution continues!"
 </pre>
+
+
+<h2>Raising Exceptions</h2>
+
+<ul>
+<li>You can raise an exception via the <code>raise</code> statement
 </ul>
 
+<h3>Syntax</h3>
+<pre>
+raise [Exception [,args [, traceback]]]
+</pre>
+
+<ul>
+<li>An exception can be a string or an object
+</ul>
+
+<pre>
+// Exception Object 
+if input &gt; 500:
+
+    raise RuntimeError("sorry -- that's too large :-(")
+
+
+// Exception string
+if input &gt; 500:
+
+    raise "Invalid Input", input
+</pre>
+
+<h3>Standard Exceptions</h3>
+
+<p>Here is a few commonly encountered exceptions</p>
+
+<table>
+<tr><th>Exception</th><th>Description</th></tr>
+<tr><td>SystemExit</td><td>Raised by <code>sys.exit()</code></td><tr>
+<tr><td>RuntimeError</td><td>Runtime Error</td><tr>
+</table>
 </div>
 </body>
 </html>

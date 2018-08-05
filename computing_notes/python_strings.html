@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: Strings</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: Strings</h1>
+
+<ul>
+
+<li>Strings can be defined using either double or single quotes
+<pre>
+s1 = "Hello, World!"
+s2 = 'hello, world!'
+</pre>
+
+<li>String literals can also be defined using triple quotes -- which make it easier to define multi-line string literals (newlines will be included)
+<pre>
+print '''line 1
+line 2
+line 3
+line 4'''
+
+# equivalent
+print 'line 1\nline 2\nline 3\nline4'
+
+both produce:
+line 1
+line 2
+line 3
+line 4
+</pre>
+
+<li>Use the built-in function <code>len()</code> to obtain the length of the string</li>
+<pre>
+s = "Hello, World!"
+print len(s)            # 13
+</pre>
+
+<li>You may be access individual characters of a string via indexing (square brackets). Like C/C++, indexing starts from 0 (zero)
+<pre>
+print s[0] # H
+</pre>
+
+<li>Slicing</li>
+<pre>
+print s[0:5]    # Hello
+print s[:5]     # equivalent
+print s[7:13]   # World
+print s[7:13]   # equivalent
+</pre> 
+<li>Notice with slicing, the beginning character is included and the last character is excluded
+
+<li>Raw strings. Treat backslashes as literals -- rather than escape characters. Raw strings are prefixed with an 'r'
+<pre>
+print r'c:\abc\def' # results in 'c:\abc\def'
+</pre>
+
+</ul>
+
+<h3>String Methods</h3>
+<ul>
+<li><code>string.isdigit()</code> - return true if all characters in the string are decimal characters. False otherwise. 
+<pre>
+s = "12345"
+t = "1234a"
+print s.isdigit()   # True
+print t.isdigit()   # False
+</pre>
+
+<li><code>string.lower()</code> - return a copy of the string with all uppercase characters converted to lowercase
+
+<li><code>string.rstrip([chars])</code> - similar to perl chomp(). Returns a copy of the string with trailing characters removed. chars is optional (defaults to whitespace -- SPACE, TAB, NEW LINE (\n), LINE FEED, FORM FEED, CARRIAGE RETURN, etc. if not specified)
+
+<li><code>string.split(sep=None,maxsplit=-1)</code> - split the string into a list of sub strings based on given delimiter (which defaults to whitespace if not specified). If maxsplit is specified, at most maxsplits are done.
+<pre>
+s = "Today is too beautiful a day to be spent inside."
+words = s.split() # results in ['Today', 'is', 'too', beautiful', 'a', 'day', 'to', 'be', 'spent', 'inside.']
+</pre>
+
+<li><code>string.translate (table[, deletechars])</code> method - returns a copy of the string translating characters as specified via the table (use maketrans() to construct the table). Optionally delete all chaters found in the string deletechars. 
+
+</ul>
+
+<h3>String Constants</h3>
+
+<dl>
+
+<dt>string.ascii_lowercase
+<dd>'abcdefghijklmnopqrstuvwxyz'
+
+<dt>string.ascii_uppercase
+<dd>'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+<dt>string.ascii_letters
+<dd>the concatenation of ascii_lowercase and ascii_uppercase
+
+<dt>string.digits
+<dd>'0123456789'
+
+<dt>string.hexdigits
+<dd>'0123456789AaBbCcDdEeFf'
+
+</dl>
+
+</div>
+</body>
+</html>
+

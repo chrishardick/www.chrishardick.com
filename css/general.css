@@ -1,0 +1,328 @@
+/**********
+ * general.css
+ *
+ * chris hardick
+ **********/
+
+body 		
+{ 
+	font: 10pt Verdana, sans-serif;
+	
+}
+
+.red_bg
+{
+	background: red;
+}
+
+.smallprint
+{
+	font-size: 8pt;
+}
+
+.one_point_five_space
+{
+	margin-bottom: 0.5em;
+}
+
+.left_indent
+{
+	margin-left: 1.5em;
+}
+
+div.footer
+{
+	text-align: center;
+	font: 8pt Verdana, sans-serif;
+	padding: 3px;
+	padding-left: 10px;
+	margin-bottom: 10px;
+}
+
+.center
+{
+	text-align: center;
+}
+
+.right
+{
+	text-align: right;
+}
+
+h1, div.pagetitle
+{
+	font: 10pt Verdana, sans-serif; 
+	color: white;
+	background: navy;
+	padding: 3px;
+	padding-left: 10px;
+	margin-bottom: 10px;
+}
+
+.green
+{
+    color: green;
+}
+
+.red
+{
+    color: red;
+}
+
+h1
+{
+	margin-bottom: 30px;
+}
+
+div.pagetitle a 
+{
+	color: white;
+	background: navy;
+	text-decoration: none;
+}
+
+
+table.reporttable
+{
+	/* table-layout: fixed; */
+	font-size: 9pt;
+}
+
+table.reporttable_condensed
+{
+	/* table-layout: fixed; */
+	font-size: 8pt;
+}
+
+table.reporttable th.number   , table.reporttable_condensed th.number, 
+table.reporttable td.number   , table.reporttable_condensed td.number, 
+table.reporttable th.date     , table.reporttable_condensed th.date, 
+table.reporttable td.date     , table.reporttable_condensed td.date,
+table.reporttable th.timestamp, table.reporttable_condensed th.timestamp, 
+table.reporttable td.timestamp, table.reporttable_condensed td.timestamp, 
+{
+	text-align: right;
+}
+
+table.reporttable_condensed th,
+table.reporttable_condensed td
+{
+	border-spacing: 50px, 50px;
+	/* width: : 50px, 50px; */
+	padding-left: 5px;
+	padding-right: 15px;
+}
+
+table.reporttable th.date,   table.reporttable_condensed th.date,
+table.reporttable td.date,   table.reporttable_condensed td.date
+{
+	width: 10ex;
+}
+
+table.reporttable th.timestamp,   table.reporttable_condensed th.timestamp,
+table.reporttable td.timestamp,   table.reporttable_condensed td.timestamp
+{
+	width: 25ex;
+}
+
+.arrow
+{
+	font-size: 10pt;
+}
+
+.sorted 
+{
+	color: white;
+	background: fuchsia;
+}
+
+.sorted a:visited, .sorted a:link
+{
+	color: white;
+	background: fuchsia
+}
+
+.top
+{
+	vertical-align: top;
+}
+
+th
+{
+	border-top: solid 1px;
+	border-bottom: solid 1px;
+	/*border-left: solid 5px; */
+	border-right: solid 1px;
+	text-align: left;
+}
+
+td
+{
+	border-top: solid 1px;
+	border-bottom: solid 1px;
+	/* border-left: solid 5px; */
+	border-right: solid 1px;
+}
+
+th.thickleft
+{
+    border-left: solid 5px;
+}
+
+td.thickleft
+{
+    border-left: solid 5px;
+}
+
+
+table
+{
+	font: 10pt Verdana, sans-serif;
+	border: solid 1px;
+	/* border-collapse: separate; */
+	border-collapse: collapse;
+	empty-cells: show;
+}
+
+table.noborder, td.noborder
+{
+	border: 0px;
+}
+
+td.date
+{
+	width: 8ex;
+}
+
+.formtable
+{
+	border-spacing: 5px;
+}
+
+.legalmgmtlink
+{
+	font-size: 8pt;
+	color: navy;
+	margin-top: 10px;
+}
+
+.clickable
+{
+	cursor: pointer;
+	cursor: hand;
+}
+
+.margin_top_10px
+{
+	margin-top: 10px;
+}
+
+/*
+ * login screen
+ */
+
+body.login
+{
+	/* background-color: rgb(60%,60%,60%); */
+	/* background-color: #dddddd; */
+	background-color: "ButtonFace";
+}
+
+.login_tbl
+{
+    margin-left: auto;
+    margin-right: auto;
+	border-style: none;
+	border-width: 0px;
+	border-collapse: collapse;
+	border-color: "ButtonFace";
+	margin-bottom: 30px;
+}
+
+.login_err
+{
+	text-align: 	center;
+	color:      	red;
+	margin-top:	    10px;
+	margin-bottom:	10px;	
+}
+
+.login_noerr
+{	
+	color:          navy;
+	margin-top:     10px;
+	margin-bottom:  10px;	
+}
+
+.login_tbl_lbl
+{
+	width: 20ex;
+    border-width: 0px;
+}
+
+.login_tbl_lbl_ext
+{
+	width: 30ex;
+    border-width: 0px;
+}
+
+.login_tbl_fld
+{
+	border-style: solid;
+	border-width: 1;
+	border-color: navy;
+	width: 30ex;
+}
+
+.clickable
+{
+	color: navy;
+	cursor: pointer;
+	cursor: hand;
+	text-decoration: underline;
+}
+
+.go
+{
+	color: green;
+}
+
+.stop
+{
+	color: red;
+}
+
+td.border_padding
+{
+	padding: 10px;
+}
+
+td.highlight
+{
+	background: #eee;
+}
+
+.tooltip
+{
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext
+{
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff; 
+    text-align: center;
+    padding 5px 0;
+    border-radius: 6px;
+    position: absolute;
+    z-index: 1;
+}
+
+.tooltip:hover .tooltiptext
+{
+    visibility: visible;
+}

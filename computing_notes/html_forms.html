@@ -63,27 +63,86 @@ elements making up the form
 
 <h2>&lt;input&gt; Element</h2>
 
-<h3>input Element Types</h3>
+<h3>input <code>type</code> Attribute Values</h3>
 <ul>
-<li>text -- 1 ine text input field
+
+<li>text -- 1 line text input field 
+<pre>&lt;input type='text' name='demo_txt'&gt;&lt;/input&gt;</pre>
+<p><input type='text' name='demo_txt'></input></p>
+
 <li>radio -- radio button (allowing for selection of a single choice)
+<pre>&lt;input type='radio' name='demo_radio' value='value0' checked&gt;Value0&lt;/input&gt; 
+&lt;input type='radio' name='demo_radio' value='value1'&gt;Value1&lt;/input&gt;</pre>
+<p><input type='radio' name='demo_radio' value='value0'checked>Value0</input> <input type='radio' name='demo_radio' value='value1'>Value1</input></p>
+
 <li>checkbox -- checkbox button (allowing for selection of zero or more choices)
+<pre>&lt;input type='checkbox' name='demo_checkbox' value='value0' checked&gt;Value0&lt;/input&gt; 
+&lt;input type='checkbox' name='demo_checkbox' value='value1' checked&gt;Value1&lt;/input&gt;</pre>
+<p><input type='checkbox' name='demo_checkbox' value='value0' checked>Value0 </input><input type='checkbox' name='demo_checkbox' value='value1' checked>Value1</input></p>
+
 <li>file -- widget allowing user to specify a filename 
+<pre>&lt;input type='file' name='demo_file'&gt;&lt;/input&gt;</pre>
+<p><input type='file' name='demo_file'></input></p>
+
 <li>password -- defines a password field
+<pre>Password: &lt;input type='password' name='demo_password'&gt;&lt;/input&gt;</pre>
+<p>Password: <input type='password' name='demo_password'></input></p>
+
 <li>range -- range widget
+<pre>&lt;input type='range' name='demo_range' min=1 max=100&gt;&lt;/input&gt;</pre>
+<p><input type='range' name='demo_range' min=1 max=100></input></p>
+
 <li>submit -- submit button (for submitting the form)
+<pre>&lt;input type='submit' name='demo_submit'&gt;&lt;/input&gt;</pre>
+<p><input type='submit' name='demo_submit'></input></p>
+
 <li>reset -- reset button (to reset all form values to default values
+<pre>&lt;input type='reset' name='demo_reset'&gt;&lt;/input&gt;</pre>
+<p><input type='reset' name='demo_reset'></input></p>
+
 <li>number -- defines a numeric input field
+<pre>&lt;input type='number' name='demo_number'&gt;&lt;/input&gt;</pre>
+<p><input type='number' name='demo_number'></input></p>
+
 <li>date -- defines a date input field
+<pre>&lt;input type='number' name='demo_number'&gt;&lt;/input&gt;</pre>
+<p><input type='date' name='demo_date'></input></p>
+
 <li>month -- defines a month input field
+<pre>&lt;input type='number' name='demo_number'&gt;&lt;/input&gt;</pre>
+<p><input type='month' name='demo_month'></input></p>
+
 <li>week -- defines a week input field
+<pre>&lt;input type='number' name='demo_number'&gt;&lt;/input&gt;</pre>
+<p><input type='week' name='demo_week'></input></p>
+
 <li>time -- defines a time input field
+<pre>&lt;input type='number' name='demo_number'&gt;&lt;/input&gt;</pre>
+<p><input type='time' name='demo_time'></input></p>
+
 <li>datetime-local -- defines a date/time input field (w/o time zone)
+<pre>&lt;input type='number' name='demo_number'&gt;&lt;/input&gt;</pre>
+<p><input type='datetime-local' name='demo_datetime-local'></input></p>
+
 <li>url -- defines a url input field
+<pre>&lt;input type='url' name='demo_url'&gt;&lt;/input&gt;</pre>
+<p><input type='url' name='demo_url'></input></p>
+
 <li>email -- defines a e-mail input field
+<pre>&lt;input type='email' name='demo_email'&gt;&lt;/input&gt;</pre>
+<p><input type='email' name='demo_email'></input></p>
+
 <li>color -- defines a color input field
+<pre>&lt;input type='color' name='demo_color'&gt;&lt;/input&gt;</pre>
+<p><input type='color' name='demo_color'></input></p>
+
 <li>tel -- defines a telephone # field (currently only supported in safari)
+<pre>&lt;input type='tel' name='demo_tel'&gt;&lt;/input&gt;</pre>
+<p><input type='tel' name='demo_tel'></input></p>
+
 <li>search -- defines a search field
+<pre>&lt;input type='search' name='demo_search'&gt;&lt;/input&gt;</pre>
+<p><input type='search' name='demo_search'></input></p>
 </ul>
 
 <h3>input Attributes</h3>
@@ -105,25 +164,6 @@ elements making up the form
 <li>checked - specifies the valid number intervals. can be used with min and max 
 </ul>
 
-<pre>
-&lt;input type="text" name="my_var"&gt;
-
-&lt;input type="radio" name="complexity" value="simple"&gt;
-&lt;input type="radio" name="complexity" value="complex"&gt;
-
-&lt;input type="checkbox" name="icecream_toppings" value="hot_fudge"&gt; hot fudge
-&lt;input type="checkbox" name="icecream_toppings" value="colored_sprinkles"&gt; colored sprinkles
-&lt;input type="checkbox" name="icecream_toppings" value="whip_cream" checked&gt; whip cream
-</pre>
-
-
-<h3>submit input</h3>
-<ul>
-<pre>
-&lt;input type="submit" value"Submit"&gt;
-</pre>
-</ul>
-
 <h2>Drop-down List: &lt;select&gt; Element</h2>
 <ul>
 <pre>
@@ -132,6 +172,7 @@ elements making up the form
 &lt;option value="white" selected&gt;white&lt;/option&gt;
 &lt;option value="blue"&gt;blue&lt;/option&gt;
 &lt;/select&gt;
+</pre>
 </ul>
 
 <h2>Multi-line Input Field: &lt;textarea&gt; Element</h2>

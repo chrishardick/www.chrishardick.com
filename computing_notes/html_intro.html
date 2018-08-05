@@ -48,13 +48,21 @@ C O N T E N T
 </ul>
 
 <h2>Tags</h2>
+
 <dl>
-<dt>div
-<dd>generic block element. provides no default style.
-<dt>link
-<dd>href attribute - a link beginning with a slash is relative to the base element (e.g. assuming the current page is www.chrishardick.com/dir1/page1.html), href="/dir2/page2.html" would point to www.chrishardick.com/dir2/page2 whereas href="dir2/page2.html" would point to www.chrishardick.com/dir1/dir2/page2.html"
-<dt>span
-<dd>generic inline element. provides no default style.
+<dt><code>&lt;a&gt;</code>
+<dd>anchor - e.g. hyperlink. <code>href</code> attribute - a link beginning with a slash is relative to the base element (e.g. assuming the current page is www.chrishardick.com/dir1/page1.html), href="/dir2/page2.html" would point to www.chrishardick.com/dir2/page2 whereas href="dir2/page2.html" would point to www.chrishardick.com/dir1/dir2/page2.html"
+<dd><code>&lt;a&gt; href='http://www.chrishardick.com/interesting_page.html#interesting_id'&gt;An Interesting Page.ID&lt;/a&gt;</code>
+
+<dt><code>&lt;div&gt;</code>
+<dd>A generic block element. I.e. provides no default style.
+
+<dt><code>&lt;link&gt;</code>
+<dd>A link defines a link between a document and an external resource (i.e. a style sheet). See note above re: href attribute.
+
+<dt><code>&lt;span&gt;</code>
+<dd>A Generic inline element. I.e. provides no default style.
+
 </dl>
 
 <h2>JavaScript</h2>
@@ -83,7 +91,7 @@ var obj = getElementById("MyElement");
 <li>always specify id, width &amp; height attributes
 <li>well suited for graphic intensive games
 <li>you can save the resulting image as .png or .jpg
-<li><a href="canvas.html">canvas</a>
+<li><a href="jsclient_canvas.html">canvas</a>
 </ul>
 
 <h2>SVG -- Scalable Vector Graphics</h2>
@@ -107,10 +115,6 @@ var obj = getElementById("MyElement");
 <li>If your site will serve audio, mp3 is the suggested format for HTML5
 <li>audio element
 </ul>
-
-<footer>
-<p>&copy; 2016 Chris Hardick. All rights reserved.</p>
-</footer>
 
 </body>
 </html>

@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_mariadb");
+}
+</script>
+
+<title>MariaDB: Data Types</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>MariaDB: Data Types</h1>	
+
+<h2>Numeric Data Types</h2>
+
+<h3><code>SIGNED</code>, <code>UNSIGNED</code>, <code>ZEROFILL</code></h3>
+<ul>
+<li><code>SIGNED</code> - default. 
+<li><code>UNSIGNED</code> 
+<li><code>ZEROFILL</code>
+</ul>
+
+<p>Here is a table of frequently used numeric data types:</p>
+
+<table>
+
+<tr>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td><code>TINYINT</code></td>
+<td>1 byte integer. Signed by default. Signed range: -128 to 127. Unsigned range: 0 to 255</td>
+<tr>
+
+<tr>
+<td><code>BOOL</code>, <code>BOOLEAN</code></td>
+<td>Synonyms for TINYINT. Values - <code>true</code>, <code>false</code>. A value of zero is considered false. Non-zero values are considered true.</td> 
+<tr>
+
+<tr>
+<td><code>SMALLINT</code></td>
+<td>2 byte integer. Signed by default. Signed range: -32,768 to 32,767. Unsigned range: 0 to 65,535</td>
+<tr>
+
+<tr>
+<td><code>INT</code>, <code>INTEGER</code></td>
+<td>8 byte integer. Signed by default. Signed range: -2,147,483,648 to 2,147,483,647. Unsigned range: 0 to 4,294,967,295</td>
+<tr>
+
+<tr>
+<td><code>DECIMAL[(M[,D])]</code>, <code>DEC</code>, <code>NUMERIC</code>, <code>FIXED</code></td>
+<td>a decimal floating point number. M is the total number of digits (precision) and D is the number of digits after the decimal point (scale).
+M defaults to 10 and D defaults to 0 (no decimal places).
+e.g. 1234.567 - M=7 and D=3. Precision and scale are optional.
+</td>
+<tr>
+
+<tr>
+<td><code>DOUBLE[(M,D)]</code>, <code>REAL</code></td>
+<td>a double precision (8 byte) floating point number. M is the total number of digits (precision) and D is the number of digits after the decimal point (scale).
+If M and D are omitted, they default to the limits allowed by the hardware. Double precision floating point numbers are accurate until 15 significant digits 
+</td>
+</tr>
+
+</table>
+
+<h3><code>AUTO_INCREMENT</code> attribute</h3>
+
+<ul>
+<li>Used to generate unique values per row. 
+<li>When you insert a new record into a table and the auto_increment field is NULL, the value will automatically computed.
+<li>AUTO_INCREMENT columns start from 1 by default.
+<li>Each table can have only one AUTO_INCREMENT column and it must be defined as part of a key.
+If part of a multi-column key, it must be the first column.
+</ul>
+
+<h2>String Data Types</h2>
+
+<p>Here is a table of frequently used string data types:</p>
+
+<table>
+
+<tr>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td><code>CHAR(n)</code></td>
+<td>Fixed length, right space padded character field. n defaults to 1. n range: 0 to 255. CHAR(0) can only store 2 values NULL and an empty string.</td>
+<tr>
+
+<tr>
+<td><code>VARCHAR(n)</code></td>
+<td>Variable length character field (not space padded) where n is the maximum column length. n range: 0 to 65,535. 
+65,535 is actually the maximum row size in bytes. Hence the effective maximum length of a VARCHAR might be less than 65,535 -- for example UTF8 characters can take up to 3 bytes per character. VARCHAR columns can be indexed as opposed to TEXT fields</td>
+<tr>
+
+<tr>
+<td><code>TEXT(n)</code></td>
+<td>Variable length character field. Maximum size is 65,535 characters. Cannot be indexed </td>
+</tr>
+
+</table>
+
+
+<h2>Date and Time Data Types</h2>
+
+<p>Here is a table of frequently used string date and time types:</p>
+
+<table>
+
+<tr>
+<th>Data Type</th>
+<th>Description</th>
+</tr>
+
+<tr>
+<td><code>DATE</code></td>
+<td>Stores date values only. Use <code>yyyy-mm-dd</code> format.</td>
+</tr>
+
+<tr>
+<td><code>TIME</code></td>
+<td>Stores time values only. Use <code>hh:mm:ss.mmmmmm</code> format.</td>
+</tr>
+
+<tr>
+<td><code>DATETIME</code></td>
+<td>Stores date/time values. Use <code>yyyy-mm-dd hh:mm:ss.mmmmmm</code> format.</td>
+<td></td>
+</tr>
+
+<tr>
+<td><code>TIMESTAMP (microsecond precision)</code></td>
+<td>Used to define a field which is automatically stores the current timestamp when a record was added or updated.
+If a record has multiple timestamp fields, only the first TIMESTAMP field will be automatically updated. 
+Format: <code>yyyy-mm-dd hh:mm:ss.mmmmmm</code>. The microsecond resolution can be from 0-6 -- 0 (no microseconds) is the default.
+Values are stored in UTC (although displayed in current time zone)
+<code>DEFAULT CURRENT_TIMESTAMP</code> and <code>ON UPDATE CURRENT_TIMESTAMP</code> are by default applied to a timestamp field and enable the default behavior
+</td>
+<tr>
+
+</table>
+
+</div>
+</body> 
+</html>
