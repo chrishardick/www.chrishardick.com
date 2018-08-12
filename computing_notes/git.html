@@ -84,11 +84,13 @@ git clone ssh://john.smith@smith.com:[port]/dir
 <h2><code>git checkout</code></h2>
 
 <ul>
-<li>Create a new branch and switch to it. <code>git checkout -b &lt;branch&gt;</code> (-b create a new branch)
-<li>Omit -b if you simply want to switch to a branch
+<li>Switch branches or restore working tree files
+<li><code>git checkout -b new_branch</code> - create a new branch and switch to it
+<li><code>git checkout branch</code> - switch to an existing branch
+<li><code>git checkout commit_hash</code> - restore to previous commit - use <code>git log</code> for a list of commit hashes
 <li>Always create a branch rather than working in master. I.e. <code>dev</code>
 <li>Before switching branches, make sure all your changes are committed. If not, you will be warned that changes will be lost.
-<li><code>git checkout -b dev</code>
+<li>For example: <code>git checkout -b dev</code>
 </ul>
 
 <h2><code>git branch</code></h2>
@@ -171,6 +173,9 @@ git clone ssh://john.smith@smith.com:[port]/dir
 <h3>Show History</h3>
 <ul>
 <li><code>git log [-p]</code> - lists commits in reverse chronological order. -p shows diffs
+</ul>
+
+
 <h2>Appendix</h2>
 <ul>
 <li>Handy diff script -- mygitdiff.sh
@@ -196,7 +201,7 @@ echo ""                                                   &gt;&gt;$file.diff
 echo "==================================================" &gt;&gt;$file.diff
 echo ""                                                   &gt;&gt;$file.diff
 
-git difftool --extcmd="diff -w" --no-prompt master $file &gt;&gt;$file.diff 2&gt;&1
+git difftool --extcmd="diff -w" --no-prompt master $file &gt;&gt;$file.diff 2&gt;&amp;1
 done
 </pre>
 

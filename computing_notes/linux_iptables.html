@@ -40,7 +40,7 @@ C O N T E N T
 <div id="content" class="content">
 <h1>Linux - iptables</h1>
 
-<ul class="spaced">
+<ul>
 <li>Linux firewall
 <li>Works via packet filtering
 <li>More aptly called iptables/netfilter
@@ -57,7 +57,7 @@ C O N T E N T
 <h2>TABLES</h2>
 
 <h3>1. filter</h3>
-<ul class="spaced">
+<ul>
 <li>The default table (i.e. if the -t option is omitted)
 <li>Unless otherwise noted, the notes on this page refer to this table
 <li>Has 3 built-in <strong>chains</strong>
@@ -69,7 +69,7 @@ C O N T E N T
 </ul>
 
 <h3>2. nat</h3>
-<ul class="spaced">
+<ul>
 <li>For NAT (network address translation -- see below). 
 <li>It is consulted when a packet that creates a new connection is encountered. 
 <li>Has 3 built-in <strong>chains</strong>
@@ -81,7 +81,7 @@ C O N T E N T
 </ul>
 
 <h3>3. mangle</h3>
-<ul class="spaced">
+<ul>
 <li>Used for specialized packet alteration.
 <li>It has five built-in <strong>chains</strong>
     <ul>
@@ -93,7 +93,7 @@ C O N T E N T
 </ul>
 
 <h3>4. raw</h3>
-<ul class="spaced">
+<ul>
 <li>Used mainly for configuring exemptions from connection tracking in combination with the NOTRACK target. 
 <li>It registers at the netfilter hooks with higher priority and is thus called before ip_conntrack, or any other IP tables. 
 <li>It provides the following built-in <strong>chains</strong>
@@ -106,7 +106,7 @@ C O N T E N T
 
 <h2>CHAINS</h2>
 
-<ul class="spaced">
+<ul>
 <li>There are two types of chains -- <strong>built-in chains</strong> (which cannot be deleted) and <strong>user-defined chains</strong>
 <li>Based on the type of traffic, the rules of the appropriate built-in chain are consulted in order
 <li>Each rule has criteria and an action (target)
@@ -216,7 +216,7 @@ C O N T E N T
 
 <h2>iptable MODULES</h2>
 
-<ul class="spaced">
+<ul>
 <li>Both netfilter and iptables can be extended via modules
 <li>Kernel modules usually live in /lib/modules/2.XXX/kernel/net/ipv4/netfilter
 <li>Iptable modules are shared libraries (.so) which usually live in /usr/local/lib/iptables. However, distributions usually put them in /lib/iptables or /usr/lib/iptables
@@ -250,11 +250,43 @@ service iptables save                                                           
 </pre>
 
 
+
 <h2>NAT -- Network Address Translation</h2>
+
+<h3>Port Forwarding</h3>
+<pre>
+#
+# firewall
+# public ip address     203.0.113.2     (interface eth0)
+# private ip address    192.0.2.2       (interface eth1)
+#
+# webserver
+# ip address            192.168.1.15
+
+# let the 1st packet (which establishes a connection), through the firewall
+# from eth0 to eth1
+# new connecdtions are identified by the conntrack extension and will be represented by a TCP SYN packet
+# ***OK*** should be able to add
+iptables -A FORWARD -i eth0 -o eth1 -p tcp --syn --dport 80 -m conntrack --ctstate NEW -j ACCEPT
+
+# allow ESTABLISHED and RELATED from eth0 to eth1 and vice-versa
+# ***OK*** we already have this due to MASQUERADE
+iptables -A FORWARD -i eth0 -o eth1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+iptables -A FORWARD -i eth1 -o eth0 -m conntrack --ctstate ESTABLIEHED,RELATED -j ACCEPT
+
+# DNAT - alter packet's destination address
+# - PREROUTING chain (for altering packets as soon as they come in)
+# - from eth0:80 to 192.0.2.2 (webserver)
+iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 192.0.2.2
+
+# SNAT - alter packet's source address (to firewall's private ip address)
+# - POSTROUTING chain (for altering packets right before they leave)
+iptables -t nat -A POSTROUTING -o eth1 -p tcp --dport 80 -d 192.0.2.2 -j SNAT --to-source 192.0.2.15
+</pre>
 
 <h3>What is NAT?</h3>
 <ul>
-<li>Normally packets on a network travel from their source to their destination -- possibily thru a myriad of routers -- not really being altered
+<li>Normally packets on a network travel from their source to their destination not really being altered
 <li>With NAT, this is not true. NAT alters the source or the destination of the packets
 <li>NAT comes in two flavors: Source NAT (SNAT) and Destination NAT (DNAT). 
 <li>Source NAT is when you alter the source address of the first packet. It is always done post-routing. Masquerading is an example of SNAT.
@@ -278,8 +310,11 @@ modprobe iptables_nat
 # - you do not need to specify the source address
 iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
 
-# turn on IP forwarding
+# temporarily turn on IP forwarding
 echo 1 &gt;/proc/sys/net/ipv4/ip_forward
+
+# edit /etc/sysctl.conf and uncomment the following line to make it permanent
+net.ipv4.ip_forward=1
 </pre>
 
 <ul>

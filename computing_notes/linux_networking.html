@@ -79,8 +79,40 @@ nameserver 1.1.1.1
 nameserver 2.2.2.2
 </pre>
 
+<h2>Routing Table</h2>
+<ul>
+<li>To display the Routing Table - <code>netstat -rn</code>
+<li>Typical Routing Table
+<pre>
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags   MSS Window  irtt Iface
+
+# any packet with a destination without another route will be sent out via eth1
+# using 192.168.1.1 as a gateway
+0.0.0.0         192.168.1.1     0.0.0.0         UG        0 0          0 eth1
+
+# any packet with a destination of 192.168.1.0 thru 192.168.1.255 will be sent out via eth1
+192.168.1.0     0.0.0.0         255.255.255.0   U         0 0          0 eth1
+
+# any packet with a destination of 192.168.42.0 thru 192.168.42.255 will be sent out via eth2
+192.168.42.0    0.0.0.0         255.255.255.0   U         0 0          0 eth2
+</pre>
+<li>Destination - The destination network or host
+<li>Gateway - 
+<li>Genmask - netmask
+<li>Iface - interface to which packets for this route will be sent
+<li>Flags
+    <ul>
+    <li>U - device is up
+    <li>G - Use Specified Gateway for this route
+    </ul>
+<li>MSS - Maximum Segment Size for TCP connections over this route
+<li>Window - Default Window Size for TCP connections over this route
+<li>irtt - Initial Round Trip for this route. Used to route away from slow hosts
+</ul>
+
 <h2>Network Manager</h2>
-<ul class=spaced>
+<ul>
 <li>GUI
 <li>/etc/NetworkManager
 <li>service: network-manager
