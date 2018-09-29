@@ -38,7 +38,7 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<H1>Linux - ssh</H1>
+<h1>Linux - ssh</h1>
 
 <ul>
 </ul>
@@ -49,6 +49,43 @@ C O N T E N T
 <li>Restart service - <code>systemctl restart sshd</code>
 </ul>
 
+<h2>SSH With Authentication Key and Optional Passphrase Instead of Password Authentication</h2>
+
+<p>
+<h3>On the Client</h3>
+
+<p>Basically we're going to generate a public/private key pair and install the private key on the client machine</p>
+
+<ol>
+<li>Generate RSA Public/Private Key Pairs via <code>ssh-keygen</code>. This will generate two files in ~/.ssh (by default)
+    <code>id_rsa</code> - private key. <code>id_rsa.pub</code> - public key.
+    For extra protection, you can enter a passphrase which will encrypt the private key (recommended if not an automated login).
+    Every time you wish to access the private key, you'll have to enter the passphrase. 
+    The file will be useless without the passphrase
+
+<li>Install public keys on applicable servers. You can use <code>ssh-copy-id -i ~/.ssh/id_rsa.pub &lt;username@remote_server&gt;</code>.
+    <code>ssh-copy-id</code> is a utility which adds the contents of the given file to the server's </code>~/.ssh/authorized_keys</code>
+
+<li>verify you can log in to the server using the newly generated keys.
+    <code>ssh user@remote_server</code>
+    
+</ol>
+
+<h3>On the Server(s)</h3>
+
+<p>Basically we're going to generate a public/private key pair and install the private key on the client machine</p>
+
+<ol>
+
+<li>Lock the account for password authentication. On linux, this is accomplished via <code>passwd -l &lt;username&gt;</code>
+-- which will disable log in via password for the given account (key authentication will still be possible).
+It prepends the user's encrypted password with an explamation point (!). 
+You can use <code>passwd -u &lt;username&gt;</code> to re-enable log in via password for the given account (which will remove the prepended '!') 
+
+
+<li>From the client, verify you can no longer log in via password
+
+</ol>
 
 </div>
 </body> 

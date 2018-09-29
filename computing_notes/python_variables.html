@@ -43,6 +43,55 @@ C O N T E N T
 
 <ul>
 <li>Like most scripting languages, variables in Python are untyped -- they can hold integers, floating point numbers, strings, booleans, etc.
+<li>It's usually not recommended, but a single variable can hold different types of values at different points of the program execution.
+<li>It's perfectly legal to assign an integer to a variable i and later assign a dictionary to it
+<li>To create a new variable, simply assign a value to it
+
+<pre>
+// i as an integer with value of 0 (zero)
+i = 0
+
+// i as an empty dictionary
+i = { }
+</pre>
+</ul>
+
+<h2>Variable Scope and Lifetime</h2>
+
+<h3>Local Variables</h3>
+<ul>
+<li>A variable defined inside a function is local to that function
+<li>It is visible (i.e. its scope) is from the point at which its defined to the end of the function
+<li>Parameters are similar to local variables
+
+<pre>
+// global variables
+x = 1
+y = 2
+z = 3
+
+def foo():
+
+    print x         # 1 will print out. in other words, it's possible to access global variables inside of functions
+
+    y = 20          # by default, assignment will create a new local variable
+
+    print y         # 20 will print out
+
+    globals z       # using the globals keyword to specify that we want to use the global variable z (rather than create a new local variable)
+
+    z = 30
+
+    print z         # 30 will print out
+
+
+# back in main
+print x             # 1 will print out
+
+print y             # 2 will print out -- foo() did not update the global variable
+
+print z             # 30 will print out -- foo() did update the global variable
+</pre>
 </ul>
 
 <h2>Built-in Constants</h2>

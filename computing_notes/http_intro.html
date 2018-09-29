@@ -38,39 +38,104 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<H1>HTTP</H1>
+<h1>HTTP</h1>
 
 <ul>
-<li>hypertext transfer protocol
-<li>a line based protocol (all lines are delimited by CR LF)
-<li><strong>requests</strong> from clients and <strong>responses</strong> from servers
+<li>Hypertext Transfer Protocol
+<li>An application layer protocol
+<li>Usually sent over TCP or TLS-encrypted TCP. However could be sent over any reliable protocol
+<li>HTTP is stateless, but not session-less
+<li>HTTP/1.0 opened up a new TCP connection for each request/response. 
+<li>HTTP/1.1 introduced pipelining (allowing several simultaneous requests to be sent without waiting for responses) and persistent connections - the TCP connection could be partially controlled using the Connection header
+<li>HTTP/2 multiplexed messages over a single connection
+<li>HTTP/1.0 and HTTP/1.1 messages are human-readable. 
+<li>HTTP/2 messages are encapsulated in a binary structure (frames) making them impossible to read directly -- however the basic messaging still remains the same
+<li><strong>requests</strong> are sent from clients (user agents) and <strong>responses</strong> from web servers
 </ul>
 
+<h2>Basic HTTP Message Flow</h2>
+<ol>
+<li>TCP connection opened
+<li>Send HTTP Request
+<li>Read HTTP Resonse
+<li>TCP connection closed (HTTP/1.0) or left open for re-use (HTTP/1.1 or above)
+</ol>
+
+<h2>HTTP Message Structure</h2>
+<ol>
+<li><strong>Start-line</strong> - for Requests - specifies the request type, path and protocol; for Responses - specifies the protocol along with the return code for the corresponding request (basically success or failure). For responses, the start-line is more aptly called a <strong>Status line</strong>
+<li><strong>Headers</strong> - Optional. Tag: Value
+<li><strong>Blank line</strong> - Indicating al meta data has been sent
+<li><strong>Body</strong> - Optional. Data associated with the message. The size of the body is specified in the Headers
+</ol>
+
 <h2>Request Methods</h2>
+
+<h3>GET</h3>
+
 <ul>
-<li>GET
-	<ul>
-	<li>Get an HTML document
-	</ul>
-<li>POST
-	<ul>
-	<li>Includes a body of data after the headers
-	<li>Normally, the data is handled by a dynamic module (cgi or similar) which processes the data
-	</ul>
-<li>HEAD
-	<ul>
-	<li>Return info about the document, but not the physical document
-	</ul>
-<li>PUT
-	<ul>
-	<li>Send a new document to the server to publish @ the given URI or replace an existing document
-	<li>For security reasons, this request method is normally disabled by default
-	</ul>
-<li>DELETE
-	<ul>
-	<li>Delete the specified document
-	<li>For security reasons, this request method is normally disabled by default
-	</ul>
+<li>Get an HTML document
+
+<li>Request and Response
+<pre>
+REQUEST (from client)                       RESPONSE (from server)
+
+GET / HTTP/1.1                              HTTP/1.1 200 OK
+Host: www.chrishardick.com                  Connection: Keep-Alive
+Accept-Language: en                         Keep-Alive: timeout=5, max=999
+                                            Date: Thu, 06 Sep 2018 20:49:02 GMT
+                                            Server: Apache
+                                            Last-Modified: Wed 05 Sep 2018 15:20:19 GMT
+                                            ETag: "11111111-2222-3333333333333"
+                                            Accept-Ranges: bytes
+                                            Content-Length: 12345
+                                            Content-Type: text/html; charset=utf-8
+
+                                            &lt;!DOCTYPE html... -- 12,345 byte document...
+</pre>
+
+<li>Request Details
+    <ul>
+    <li><code>GET</code> - method
+    <li><code>/</code> - path. in this case we're requesting the home page of the website.
+    <li><code>HTTP/1.1</code> - protocol version
+    <li><code>tag : value</code> - optional headers (line delimited)
+    <li>Blank line - indicating all meta data has been sent
+    <li><code>body</code> - the above request does not contain a body
+    </ul>
+
+<li>Response Details
+    <ul>
+    <li><code>HTTP/1.1</code> - protocol version
+    <li><code>200</code> - status code. E.g. 200=OK/success; 404=Not Found; 401=Unauthorized; 403=Forbidden; 301=Moved Permanently
+    <li><code>OK</code> - status text. Purely informational (to make more human readable)
+    <li><code>tag : value</code> - headers
+    <li><code>&lt;!DOCTYPE html...</code> - message body
+    </ul>
+</ul>
+
+<h3>POST</h3>
+<ul>
+<li>Post a set of values from an HTML form
+<li>Includes a body of data after the headers
+<li>Normally, the data is handled by a dynamic module (cgi or similar) which processes the data
+</ul>
+
+<h3>HEAD</h3>
+<ul>
+<li>Return info about the document, but not the physical document
+</ul>
+
+<h3>>PUT</h3>
+<ul>
+<li>Send a new document to the server to publish @ the given URI or replace an existing document
+<li>For security reasons, this request method is normally disabled by default
+</ul>
+
+<h3>DELETE</h3>
+<ul>
+<li>Delete the specified document
+<li>For security reasons, this request method is normally disabled by default
 </ul>
 
 </div>

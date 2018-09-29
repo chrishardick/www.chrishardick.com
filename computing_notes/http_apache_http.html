@@ -91,8 +91,15 @@ ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"
 </ul>
 
 <h2>Apache2 / Debian</h2>
+
+<h3>Modules</h3>
 <ul>
 <li><code>a2enmod ssl</code> - enable ssl module
+</ul>
+
+<h3>Virtual Hosts</h3>
+<ul>
+<li><code>a2ensite default-ssl.conf</code> - enable ssl virtual host
 </ul>
 
 <h2>htpasswd - Basic Authentication</h2>

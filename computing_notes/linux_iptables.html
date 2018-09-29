@@ -44,19 +44,25 @@ C O N T E N T
 <li>Linux firewall
 <li>Works via packet filtering
 <li>More aptly called iptables/netfilter
-<li>Iptables is the userspace module
-<li>Netfilter is the kernel module
-<li>Iptables breaks down into <strong>tables</strong> (which are all predefined)
-<li>Each table has <strong>chains</strong>. There are pre-defined or <strong>built-in chains</strong> (which cannot be deleted). You can also create your own <strong>user-defined chains</strong>
-<li>Each chain has a <strong>rule set</strong> which is an ordered set of rules
-<li>In other words, <strong>tables -&gt; chains -&gt; rules</strong> 
-<li>The type of traffic determines which tables and built-in chains (and therefore rules) are consulted. 
-<li>Iptables/netfilter also provides NAT (Network Address Translation) -- which allows you to modify the source or destination addresses
+<li><strong>iptables</strong> is the userspace module 
+<li><strong>netfilter</strong> is the kernel module
 </ul>
 
-<h2>TABLES</h2>
+<h2>TABLES, CHAINS, RULES</h2>
+<ul>
+<li>iptables breaks down into <strong>tables</strong> (which are all predefined)
+<li>Each table has <strong>chains</strong>
+<li>There are <strong>built-in chains</strong> (pre-defined and cannot be deleted). You can also create your own <strong>user-defined chains</strong>
+<li>Each chain has a <strong>rule set</strong> (an ordered set of rules)
+<li>In other words, <strong>TABLES -&gt; CHAINS -&gt; RULES</strong> 
+<li>The type of traffic determines which tables and built-in chains (and therefore rules) are consulted. 
+<li>iptables/netfilter also provides <strong>NAT (Network Address Translation)</strong> -- which allows you to modify the source or destination addresses of packets
+</ul>
 
-<h3>1. filter</h3>
+<h3>TABLES</h3>
+
+<h4>1. filter</h4>
+
 <ul>
 <li>The default table (i.e. if the -t option is omitted)
 <li>Unless otherwise noted, the notes on this page refer to this table
@@ -68,17 +74,51 @@ C O N T E N T
     </ul>
 </ul>
 
+<pre>
+filter Table
+
+                                              FORWARD Chain
+                   (packets being routed thru this machine - i.e. the machine is a router)
+                                                   |
+                                          +--------|----------+
+                                          |        |          |
+                          INPUT Chain  -----&gt;      |        -----&gt;  OUTPUT Chain
+              (packets destined for this machine)  |  (packets originating from this machine)
+                                          |        |          |
+                                          |        |          |
+                                          |        |          |
+                                          +--------|----------+
+                                                   |
+                                                  \ /
+</pre>
+
 <h3>2. nat</h3>
 <ul>
 <li>For NAT (network address translation -- see below). 
+<li>NAT alters the source or destination address of packets
 <li>It is consulted when a packet that creates a new connection is encountered. 
 <li>Has 3 built-in <strong>chains</strong>
     <ul>
     <li>PREROUTING (for altering packets as soon as they come in)
-    <li>OUTPUT (for altering locally-generated packets before routing)
     <li>POSTROUTING (for altering packets as they are about to go out)
+    <li>OUTPUT (for altering packets sent from app on local machine) - app &gt; OUTPUT &gt; POSTROUTING &gt; interface
+    <li>INPUT (for altering packets destined for the local machine) - interface &gt; PREROUTING &gt; INPUT &gt; app
     </ul>
 </ul>
+
+<pre>
+nat Table
+
+                                          +-------------------+
+                                          |                   |
+                      PREROUTING Chain  -----&gt;          OUTPUT Chain
+         (altering packets as soon as they arrive)          -----&gt;
+                                          |                   |
+                     POSTROUTING Chain  &lt;-----                |
+      (altering packets as they're about to depart)           |
+                                          |                   |
+                                          +-------------------+
+</pre>
 
 <h3>3. mangle</h3>
 <ul>
@@ -104,10 +144,10 @@ C O N T E N T
 </ul>
 
 
-<h2>CHAINS</h2>
+<h3>CHAINS</h3>
 
 <ul>
-<li>There are two types of chains -- <strong>built-in chains</strong> (which cannot be deleted) and <strong>user-defined chains</strong>
+<li>There are two types of chains - <strong>built-in chains</strong> (cannot be deleted) and <strong>user-defined chains</strong>
 <li>Based on the type of traffic, the rules of the appropriate built-in chain are consulted in order
 <li>Each rule has criteria and an action (target)
 <li>If the criteria of a rule is matched, the action of the rule is followed
@@ -126,30 +166,30 @@ C O N T E N T
 
 <dl>
 
-<dt><code>-N chain</code>
-<dd>create a new chain 
-
-<dt><code>-X chain</code>
-<dd>delete an empty chain 
-
-<dt><code>-E old-chain new-chain</code>
-<dd>rename chain
-
-<dt><code>-L [chain] -nv --line-numbers -Z</code>
+<dt><code>iptables [-t table] -L [chain] -nv --line-numbers -Z</code>
 <dd>list the rules for a chain (or all chains)
 <dd>-n to avoid dns lookups and display ip addresses
 <dd>-v for verbose - will display byte and packet counts
 <dd>-Z will atomically display and zero out byte counts
 
-<dt><code>-P chain target</code>
-<dd>set default policy for given chain. Only pre-defined chains can have default policy and default policies cannot be another chain -- i.e. must be ACCEPT, DROP
-
-<dt><code>-F [chain]</code>
-<dd>flush (remove) all rules in the specified chain
-
-<dt><code>iptables -S [chain] -v</code>
+<dt><code>iptables [-t table] -S [chain] -v</code>
 <dd>print all rules in the selected chain in iptables-save format.  
 <dd>-v for verbose - will display byte counts
+
+<dt><code>iptables [-t table] -N &lt;chain&gt;</code>
+<dd>create a new chain 
+
+<dt><code>iptables [-t table] -X &lt;chain&gt;</code>
+<dd>delete an empty chain 
+
+<dt><code>iptables [-t table] -E &lt;old-chain&gt; &lt;new-chain&gt;</code>
+<dd>rename chain
+
+<dt><code>iptables [-t table] -P &lt;chain&gt; &lt;target&gt;</code>
+<dd>set default policy for given chain. Only pre-defined chains can have default policy and default policies cannot be another chain -- i.e. must be ACCEPT, DROP
+
+<dt><code>iptables [-t table] -F [chain]</code>
+<dd>remove (flush) all rules in the specified chain
 
 </dl>
 
@@ -157,22 +197,22 @@ C O N T E N T
 
 <dl>
 
-<dt><code>-A chain rule-specification</code>
+<dt><code>iptables [-t table] -A &lt;chain&gt; &lt;rule-specification&gt;</code>
 <dd>append rule to the end of the selected chain
 
-<dt><code>-I chain [rule#] rule-specification</code>
+<dt><code>iptables [-t table] -I &lt;chain&gt; [rule#] &lt;rule-specification&gt;</code>
 <dd>insert rule at specified rule number. 1 is the default rule number. i.e. 1st rule in the list (highest priority)
 
-<dt><code>-D chain rule#</code> 
-<dd>delete the specified rule
+<dt><code>iptables [-t table] -D &lt;chain&gt; &lt;rule#&gt;</code> 
+<dd>delete rule
 
-<dt><code>-R chain rule# rule-specification</code>
+<dt><code>iptables [-t table] -R &lt;chain&gt; &lt;rule#&gt; &lt;rule-specification&gt;</code>
 <dd>replace rule
 
 </dl>
 
 
-<h3>Options to Manage a Rule -- Selectors & Actions</h3>
+<h3>Options to Manage a Rule - Selectors & Actions</h3>
 
 <dl>
 
@@ -182,7 +222,7 @@ C O N T E N T
 <dd>! negates
 
 <dt><code>-o [!] out interface</code>
-<dd>see comments for in interface
+<dd>see comments for <code>-i</code>
 
 <dt><code>-p [!] protocol</code>
 <dd>ICMP, TCP, UDP. 
@@ -211,7 +251,7 @@ C O N T E N T
 
 <dt><code>-j action</code>
 <dd>action to take -- ACCEPT, DROP, another chain name
-</ul>
+</dl>
 
 
 <h2>iptable MODULES</h2>
@@ -219,7 +259,7 @@ C O N T E N T
 <ul>
 <li>Both netfilter and iptables can be extended via modules
 <li>Kernel modules usually live in /lib/modules/2.XXX/kernel/net/ipv4/netfilter
-<li>Iptable modules are shared libraries (.so) which usually live in /usr/local/lib/iptables. However, distributions usually put them in /lib/iptables or /usr/lib/iptables
+<li>iptable modules are shared libraries (.so) which usually live in /usr/local/lib/iptables. However, distributions usually put them in /lib/iptables or /usr/lib/iptables
 <li>Modules come in two flavors: new targets (other than ACCEPT, DROP) and new matches (for example state matching)
 <li>Use the -m option to load an extension
 <li>State matching. See example above. The following states are supported: NEW (a packet which creates a new connection), ESTABISHED (a packet which belongs to an existing connection), RELATED (a packet which is related to, but not a part of, an existing connection -- for instance a packet establishing a ftp data connection), INVALID (a packet which could not be identified)
@@ -237,7 +277,7 @@ iptables -A INPUT -i lo -j ACCEPT                                               
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT                # input chain -- append rule (-A) accept all packets on previously established connections
 iptables -A INPUT -p tcp --dport 22 -j ACCEPT                                   # input chain -- append rule (-A) allow ssh
 iptables -A INPUT -s 192.168.0.0/255.255.255.0 -j ACCEPT                        # input chain -- append rule (-A) allow connections from known ip addresses
-iptables -A INPUT -s 192.168.1.1 -m mac --mac-source AA:BB:CC:DD:EE -j ACCEPT   # input chain -- append rule (-A) allow connections from known ip and mac address 
+
 iptables -P INPUT DROP                                                          # input chain -- default policy -- DROP
 
 iptables -P FORWARD DROP                                                        # forward chain -- default policy -- DROP
@@ -246,54 +286,36 @@ iptables -P OUTPUT ACCEPT                                                       
 
 iptables -L -v                                                                  # list the rules 
 
-service iptables save                                                           # save the rule set such that it's reloaded upon reboot
+iptables-save &gt;/etc/iptables/rules.v4                                           # save the rule set such that it's reloaded upon reboot (requires iptables-persistent)
 </pre>
 
 
 
-<h2>NAT -- Network Address Translation</h2>
-
-<h3>Port Forwarding</h3>
-<pre>
-#
-# firewall
-# public ip address     203.0.113.2     (interface eth0)
-# private ip address    192.0.2.2       (interface eth1)
-#
-# webserver
-# ip address            192.168.1.15
-
-# let the 1st packet (which establishes a connection), through the firewall
-# from eth0 to eth1
-# new connecdtions are identified by the conntrack extension and will be represented by a TCP SYN packet
-# ***OK*** should be able to add
-iptables -A FORWARD -i eth0 -o eth1 -p tcp --syn --dport 80 -m conntrack --ctstate NEW -j ACCEPT
-
-# allow ESTABLISHED and RELATED from eth0 to eth1 and vice-versa
-# ***OK*** we already have this due to MASQUERADE
-iptables -A FORWARD -i eth0 -o eth1 -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
-iptables -A FORWARD -i eth1 -o eth0 -m conntrack --ctstate ESTABLIEHED,RELATED -j ACCEPT
-
-# DNAT - alter packet's destination address
-# - PREROUTING chain (for altering packets as soon as they come in)
-# - from eth0:80 to 192.0.2.2 (webserver)
-iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to-destination 192.0.2.2
-
-# SNAT - alter packet's source address (to firewall's private ip address)
-# - POSTROUTING chain (for altering packets right before they leave)
-iptables -t nat -A POSTROUTING -o eth1 -p tcp --dport 80 -d 192.0.2.2 -j SNAT --to-source 192.0.2.15
-</pre>
+<h2>NAT - Network Address Translation</h2>
 
 <h3>What is NAT?</h3>
 <ul>
-<li>Normally packets on a network travel from their source to their destination not really being altered
-<li>With NAT, this is not true. NAT alters the source or the destination of the packets
-<li>NAT comes in two flavors: Source NAT (SNAT) and Destination NAT (DNAT). 
-<li>Source NAT is when you alter the source address of the first packet. It is always done post-routing. Masquerading is an example of SNAT.
-<li>Destination NAT is when you alter the destination address of the first packet. DNAT is always done pre-routing -- when the packet first comes off the wire. Port forwarding and proxying are examples of DNAT.
+<li>NAT alters the source or destination address of packets
+<li>The NAT table has two main chains. The <code><strong>PREROUTING</strong></code> chain allows altering of packets before they reach the <code><strong>INPUT</strong></code> chain. The <code><strong>POSTROUTING</strong></code> chain allows you to alter packets after they exit the <code><strong>OUTPUT</strong></code> chain
+<li>NAT comes in two flavors: <strong>Source NAT (SNAT)</strong> and <strong>Destination NAT (DNAT)</strong>. 
+<li><strong>Source NAT (SNAT)</strong> is when you alter the source address before it leaves the system (i.e. on the way to internet). It is always done post-routing. The destination will return the packet to the NAT device. Therefore the NAT enabled device must keep track of all packets in which it changed such that it can deliver any related packets the proper source.
+<pre># SNAT Example
+iptables -t nat -A POSTROUTING -o eth0 -s 192.168.1.0/24 -j SNAT --to-source &lt;public-address&gt;
+</pre>
+
+<li>Masquerading is a special case of SNAT in which the source address is taken from the interface
+<pre># MASQUERADE Example
+iptables -t nat -A POSTROUTING -o eth0 -s 192.168.1.0/24 -j MASQUERADE
+</pre>
+
+<li>Destination NAT (DNAT) is when you alter the destination address. It's typically used to allow packets from the internet to be redirected to an internal server in your DMZ. DNAT is always done pre-routing -- when the packet first comes off the wire. Port forwarding and proxying are examples of DNAT.
+<pre># DNAT Example
+iptables -t nat -A PREROUTING -p tcp --dport &lt;incoming-port&gt; -j DNAT --to-destination &lt;destination-ip&gt;:&lt;destination-port&gt;
+</pre>
+
 </ul>
 
-<h3>NAT -- Main Uses</h3>
+<h3>NAT - Main Uses</h3>
 
 <ul>
 <li>Share your internet connection with other machines that do not have a public IP address. In order to accompish this, you must alter the source address of the packets leaving the local network and the destination address of the packets destinated for the local network. This is commonly known as IP masquerading.
@@ -301,27 +323,47 @@ iptables -t nat -A POSTROUTING -o eth1 -p tcp --dport 80 -d 192.0.2.2 -j SNAT --
 <li>Proxying. Routing packets which are being routed through the current host are instead routed to a program running on the local host
 </ul>
 
-<h3>Quick And Easy Masquerading</h3>
+<h3>DNAT Quick Start</h3>
 <pre>
-# load nat module
-modprobe iptables_nat
+# all incoming tcp connections to port 80 should be sent to 192.168.1.2:8080
+iptables -A PREROUTING -t nat -i &lt;in-interface&gt; -p tcp --dport 80 -j DNAT --to-destination 192.168.1.2:8080
 
-# NAT table (-t NAT), append rule to chain POSTROUTING (-A) with action masquerade (-j MASQUERADE)
-# - you do not need to specify the source address
-iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+# allow forwarding to 192.168.1.2:8080
+iptables -A FORWARD -p tcp -d 192.168.1.2 --dport 8080 -j ACCEPT
+</pre>
 
+
+<h3>Masquerading Quick Start</h3>
+<ul>
+<li>Masquerading is actually a specialized case of source NAT (SNAT).
+</ul>
+
+<pre>
 # temporarily turn on IP forwarding
 echo 1 &gt;/proc/sys/net/ipv4/ip_forward
 
 # edit /etc/sysctl.conf and uncomment the following line to make it permanent
 net.ipv4.ip_forward=1
-</pre>
 
-<ul>
-<li>Masquerading is actually a specialized case of source NAT (SNAT).
-<li>The NAT HOWTO states that it should only be used with dynamic ip addresses. I'm not sure if this is true, or that it should only be used with internal ip addresses
-<li>
-</ul>
+# NAT table (-t NAT), append rule to chain POSTROUTING (-A) with action masquerade (-j MASQUERADE)
+# output interface (-o) eth0 -- the interface which speaks to the outside world
+# POSTROUTING alters packets as they're about to depart
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+# allow all forwarding communication from eth1 (internal network) to eth0 (outside world) 
+iptables -A FORWARD -i eth1 -o eth0 -j ACCEPT
+
+# allow all established forwarding communication from eth0 (outside world) to eth1 (internal network)
+iptables -A FORWARD -i eth0 -o eth1 -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# verify firewall settings
+# -S = iptables-save format
+iptables -t nat -S
+iptables -S
+
+# save firewall settings so they'll be restored upon reboot (via iptables-persistent)
+iptables-save &gt;/etc/iptables/rules.v4
+</pre>
 
 <h3>NAT Options to Manage a Rule</h3>
 <ul>
@@ -362,6 +404,30 @@ net.ipv4.ip_forward=1
 ipset create myset ipset
 </pre>
 </ul>
+
+<h2>Netfilter Packet Traversal</h2>
+
+<h3>Incoming Packets: Internet to Local Machine</h3>
+<pre>
+conntrack &gt; mangle.prerouting &gt; nat.prerouting (dnat) &gt; mangle.input &gt; ?nat.input? &gt; filter.input &gt; local_app
+</pre>
+
+<h3>Incoming Packets: Internet to Machine on LAN</h3>
+<pre>
+conntrack &gt; mangle.prerouting &gt; nat.prerouting (dnat) &gt; mangle.forward &gt; filter.forward &gt; LAN
+</pre>
+
+<h3>Outgoing Packets: Local Machine to Internet</h3>
+<pre>
+conntrack &gt; mangle.output &gt; nat.output &gt; filter.output &gt; mangle.postrouting &gt; nat.postrouting (snat/masquerading)
+</pre>
+
+<h3>Outgoing Packets: Machine on LAN to Internet </h3>
+<pre>
+mangle.forward &gt; filter.forward &gt; mangle.postrouting &gt; nat.postrouting (snat/masquerading)
+</pre>
+
+See <a href="http://linux-ip.net/nf/nfk-traversal.png">Netfilter Packet Traversal Diagram</a>
 
 <h2>Acknowledgements</h2>
 <ul>

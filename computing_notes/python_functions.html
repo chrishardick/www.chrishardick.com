@@ -44,9 +44,15 @@ C O N T E N T
 <ul>
 <pre>
 # function definition
-def foo(n):
+def foo(x, y, z=None):
     print "foo: Hello, World"
-    print "foo: n=" , n
+    print "foo: x=" ,x
+    print "foo: y=" ,y
+
+    if z != None:
+        print "foo: z=" ,z
+
+    return x
 
 # function call
 foo (5)
@@ -58,7 +64,7 @@ def bar (s1="hello", s2="world"):
     print s1, s2
 
 </pre>
-<li>functions are defined with the keyword def, followed by the function name, followed by a list of optional parameters surrounded by paranthesis, followed by a colon (:)
+<li>functions are defined with the keyword <code>def</code>, followed by the function name, followed by a list of optional parameters surrounded by paranthesis, followed by a colon (:)
 <li>the code block of the function must be indented
 <li>functions must be defined before they are called. I.e. it is not legal to call a function which is defined later in the same source code
 <li>when calling a function, you can specify parameters either by name or by position
@@ -66,7 +72,50 @@ def bar (s1="hello", s2="world"):
 <li>all objects passed into a function are passed by reference
 </ul>
 
-<h2>Anonymous Functions</h2>
+<h2>Function Return Values</h2>
+<ul>
+<li>Functions can return values by using the <code>return</code> keyword
+<li>when a <code>return</code> statement is reached, control immediately exits the function
+<li>You can specify a return value after the <code>return</code> statement.
+<li>Functions can only return a single value -- however it can be a <code>list</code>, <code>tuple</code>, or <code>dictionary</code>
+<li>By default (i.e. if you do not specify one), all functions return <code>None</code>
+</ul>
+
+<h2>Default Parameter Values</h2>
+<ul>
+<li>Python does not support <code>function overloading</code> - i.e. for a given namespace, there can be only one function with a given name.
+    If you define a second function with the same name, it will overrite the first function
+<li>Python does support <strong>default parameter values</strong>
+<li>A parameter with a default value is also called an <strong>optional parameter</strong>
+<li>Optional parameters must come after all required parameters
+<pre>
+# mname (middle name defaults to a blank string
+def foo (fname, lname, mname=""):
+    ...
+</pre>
+</ul>
+
+<h2>Positional vs. Keyword (Named) Parameters</h2>
+<ul>
+<li>When calling a function which accepts input parameters, you can pass the parameters as <strong>positional parameters</strong> 
+(i.e. passing the parameters in the order in which they were defined in the function definition)
+<pre>
+foo ("chris", "hardick")
+</pre>
+<li>You can also pass the parameters via name i.e. (<strong>keyword parameters</strong>) -- in which case you can specify the parameters in any order
+<pre>
+foo (lname="hardick", fname="chris")
+</pre>
+<li>For functions with multiple optional arguments, keyword parameters allow you to pass one optional parameter without passing another one - regardless 
+of the order in which they were defined
+<li>You can also mix positional and keyword parameters, however the keyword parameters must come after any positional parameters
+</ul>
+
+<h2>Decorators</h2>
+<ul>
+</ul>
+
+<h2>Anonymous Functions (Lambdas)</h2>
 <ul>
 <li>a.k.a. lambda functions
 </ul>

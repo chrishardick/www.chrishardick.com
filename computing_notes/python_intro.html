@@ -71,6 +71,14 @@ print "Hello, World!"
 <li>start with a pound sig (#) and continue until the end of line
 </ul>
 
+<h2>Misc</h2>
+<ul>
+<li><code>sys.exit([arg])</code> - exit script. <code>arg</code> is usually an integer to return to the os; it defaults to 0 - which usually indicates success. 
+    If an object is passed, it is printed to stderr and results in an exit code of 1. e.g. <code>sys.exit("bad argument")</code>.
+    <code>sys.exit()</code> throws a <code>SystemExit</code> exception -- so it's possible to catch the exception and handle any clean-up operations
+    which may need to be accomplished prior to script termination
+</ul>
+
 </div>
 </body>
 </html>
