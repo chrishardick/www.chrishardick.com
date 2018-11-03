@@ -72,6 +72,20 @@ conn.close()
 </pre>
 </ul>
 
+<h2><code>sqlite3.connect(database[, timeout, detect_types, isolation_level, check_same_thread, factory, cached_statements])</code></h2>
+<ul>
+<li><code>timeout</code> - how long a connection should wait for the lock to be released before raising an exception. Default is 5 (seconds)
+<li><code>isolation_level</code> - DEFFERRED (default), IMMEDIATE, EXCLUSIVE. Set to <code>None</code> if you want autocommit mode.
+    This controls which type of begin statement sqlite3 implicitly executes (BEGIN, BEGIN IMMEDIATE, BEGIN EXCLUSIVE or none)
+</ul>
+
+<h2>Transactions</h2>
+<ul>
+<li>By default, sqlite3 implicitly opens a transaction before a modification statement (i.e. INSERT/UPDATE/DELETE/REPLACE) and implicitly commits transactions
+    before a non-modification, non-query (i.e. not select) statement
+<li>In other words, if you are within a transaction and execute a CREATE TABLE
+</ul>
+
 </div>
 </body>
 </html>

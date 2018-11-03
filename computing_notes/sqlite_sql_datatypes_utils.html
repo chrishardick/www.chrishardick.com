@@ -56,6 +56,13 @@ C O N T E N T
 <pre>CREATE UNIQUE INDEX src_dest_proto_timestamp ON data (src, dest, proto, timestamp)</pre>
 </ul>
 
+<h3>DROP INDEX</h3>
+<ul>
+<pre>DROP INDEX [IF EXISTS] index-name</pre>
+<li>Example(s):
+<pre>DROP INDEX blahblah</pre>
+</ul>
+
 <h3>INSERT</h3>
 <ul>
 <pre>INSERT INTO table-name (column-list) VALUES (value-list)</pre>
@@ -67,14 +74,35 @@ C O N T E N T
 <ul>
 <pre>UPDATE table-name SET col1=expr1,col2=expr2,... [WHERE expr]</pre>
 <li>Example(s):
-<pre>INSERT INTO data (src,dest,proto,num_pkts,num_bytes,timestamp) VALUES (...)</pre>
+<pre>INSERT INTO foo (src,dest,proto,num_pkts,num_bytes,timestamp) VALUES (...)</pre>
+</ul>
+
+<h3>UPSERT</h3>
+<ul>
+<li>Insert if no conflict, otherwise update
+<li>CAUTION - Only supported in very recent SQLite versions (3.24 or later)
+<pre>INSERT INTO table-name (col1, col2, ...) VALUES (...) ON CONFLICT(col_list) DO UPDATE SET col1=col1+1, col2=col2+2, ...</pre>
+<li>Example(s):
+<pre>INSERT INTO foo (blah1, blah2, blah3) VALUES (...) ON CONFLICT(blah1) DO UPDATE SET blah1 = blah1+1, blah2 = blah2+2, blah3 = blah3+3</pre>
 </ul>
 
 <h2>Command Line Shell -- sqlite3</h2>
 <ul>
-<li>.tables -- show tables
-<li>.schema -- show table schemas
+<li>.tables - show tables
+<li>.schema - show table schemas
+<li>.header on - display column headers
+<li>.mode column - display output as columns
+<li>.help - display all options
 <li>CTRL-D to exit
+<li>To start:
+<pre>
+sqlite3 dbname
+</pre>
+<li>Easy way to get data dictionary
+<pre>
+echo ".tables" | sqlite3 dbname &gt;dbname.tables
+echo ".schema" | sqlite3 dbname &gt;dbname.schema
+</pre>
 </ul>
 
 <h2>Storage Classes</h2>
@@ -185,6 +213,31 @@ BEGIN
 COMMIT          # atomically commit changes to the database
 ROLLBACK        # undo transactions since last commit or rollback
 </pre>
+<li>Transactions can be <strong>deferred</strong> (the default), <strong>immediate</strong>, or <strong>exclusive</strong>. 
+<li><strong>Deferred</strong> - no locks are acquired until the database is first accessed. 
+    <code><strong>BEGIN</strong></code> does nothing to the file system. Locks are not acquired until the first read or write operation.
+    The first read operation against the database creates a <strong>shared</strong> lock and the first write operation creates a <strong>reserved</strong> lock. 
+<li><strong>Immediate</strong> - <strong>reserved</strong> locks are acquired on all databases as soon as the <code><strong>BEGIN</strong></code> command is executed.
+    After <code>BEGIN</code>, no other database connection will be able to write to the database or execute a <code>BEGIN IMMEDIDATE</code> or a <code>BEGIN EXCLUSIVE</code>.
+    Other processes will be able to read from the database.
+<li><strong>Exclusive</strong> - <strong>exclusive</strong> locks are acquired on the database as soon as the <code><strong>BEGIN</strong></code> command is executed.
+    After <code>BEGIN</code>, no other processes except for <code><strong>read uncommitted</strong></code> connections will be able to read the database
+    and no other connection will be able to write until the transaction is complete
+</ul>
+
+<h2>Locking</h2>
+<ul>
+<li><strong>UNLOCKED</strong> - no locks are held. The database may not be read or written
+<li><strong>SHARED</strong> - a process which obtained a shared lock may read the database, but cannot write to the database. 
+<li><strong>RESERVED</strong> - a process with a reserved lock is planning on writing to the database at some point in the future but is currently just reading. 
+    Only one RESERVED lock may be active at one time. However, multiple SHARED locks can coexist with a single RESERVED lock
+<li><strong>PENDING</strong> - the process holding the lock wants to write to the database as soon as possible and is just waiting on all current SHARED locks 
+    to clear such that it can get an EXCLUSIVE lock. No new SHARED locks are permitted against the database if a PENDING lock is active. Existing SHARED locks
+    are unaffected.
+<li><strong>EXCLUSIVE</strong> - an EXCLUSIVE lock is needed in order to write to the database. Only one EXCLUSIVE lock is allowed on the file and no other
+    locks of any kind are allowed to coexist with an EXCLUSIVE lock. In order to maximize concurrency, you should try to minimize the amount of time EXCLUSIVE
+    locks are held. 
+
 </ul>
 
 </div>

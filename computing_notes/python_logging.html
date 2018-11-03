@@ -42,8 +42,10 @@ C O N T E N T
 <h1>Python: Logging</h1>
 
 <ul>
-
 <li>logging module
+</ul>
+
+<h2>Quick Start</h2>
 
 <pre>
 import logging
@@ -63,6 +65,70 @@ logging.warning ("%s",s)
 logging.error ("%s",s)
 logging.critical ("%s",s)
 </pre>
+
+<h2>Basic Classes</h2>
+
+<ul>
+<li><strong><code>Loggers</code></strong> - expose the interface which application code uses
+<li><strong><code>Handlers</code></strong> - send log records to the appropriate destination
+<li><strong><code>Filters</code></strong> - filter out which log records to output
+<li><strong><code>Formatters</code></strong> - specify the layout of log records in the final output
+</ul>
+
+<h2>logging.Logger Objects</h2>
+
+<h3>Logger: Attributes and Methods</h3>
+
+<h4><code>Logger.propagate</code></h4>
+<ul>
+<li>If true, logging events will be passed to the handlers of higher level (ancestor) loggers in addition to any handlers attached to this logger
+<li>Events will be passed directly to the ancestor logger handlers without considering filters or levels
+<li>Default value - <code>True</code>
+</ul>
+
+<h4><code>Logger.setLevel(level)</code></h4>
+<ul>
+<li>Set threshold for this logger to <code>level</code>
+<li>Log messages which are less severe than <code>level</code> will be ignored
+<li>Default value - <code>NOTSET</code>
+<li>Level - Numeric value
+<li><code>CRITICAL</code> 50
+<li><code>ERROR</code> 40
+<li><code>WARNING</code> 30
+<li><code>INFO</code> 20
+<li><code>DEBUG</code> 10
+<li><code>NOTSET</code> 0
+</ul>
+
+<h4><code>Logger.debug(msg, *args, **kwargs)</code></h4>
+<ul>
+<li>Log a message with level DEBUG on this logger
+</ul>
+
+<h4><code>Logger.info(msg, *args, **kwargs)</code></h4>
+<ul>
+<li>Log a message with level INFO on this logger
+</ul>
+
+<h4><code>Logger.warning(msg, *args, **kwargs)</code></h4>
+<ul>
+<li>Log a message with level WARNING on this logger
+</ul>
+
+<h4><code>Logger.error(msg, *args, **kwargs)</code></h4>
+<ul>
+<li>Log a message with level ERROR on this logger
+</ul>
+
+<h4><code>Logger.critical(msg, *args, **kwargs)</code></h4>
+<ul>
+<li>Log a message with level CRITICAL on this logger
+</ul>
+
+
+<h3>Acknowledgements</h3>
+<ul>
+<li><a href="https://docs.python.org">docs.python.org</a>
 </ul>
 
 </div>

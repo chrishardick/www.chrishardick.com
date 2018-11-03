@@ -48,7 +48,7 @@ C O N T E N T
 <li>Use the <code>add()</code> method to add a single element to a set
 <li>Use the <code>update()</code> method to add multiple elements to a set
 <li>Use the <code>discard()</code> method to remove an item from a set. 
-<code>remove()</code> is similar except it will throw an exception if the key does not exist
+<code>remove()</code> is similar except it will throw an exception if the key does not exist. It does not return any value.
 <li>Use the <code>clear()</code> method to remove all items from a set
 <li>Sets are mutable
 
@@ -82,7 +82,7 @@ for x in sorted(a):
 <h2>Set Operations</h2>
 <ul>
 <li>union (or) <code>|</code>
-<li>intersection (and) <code>&</code>
+<li>intersection (and) <code>&amp;</code>
 <li>difference <code>-</code>
 
 <pre>
@@ -95,7 +95,7 @@ print "union: " + str(a.union(b))   # 1, 2, 3, 4, 5, 6, 7, 8, 9
 print "a: " + str(a)                # 1, 2, 3, 4, 5
 print "b: " + str(b)                # 5, 6, 7, 8, 9
 
-print "intersection: " + str(a & b)                     # 5
+print "intersection: " + str(a &amp; b)                     # 5
 print "intersection: " + str(a.intersection(b))         # 5
 
 print "a: " + str(a)                # 1, 2, 3, 4, 5 
@@ -108,48 +108,6 @@ print "a: " + str(a)                # 1, 2, 3, 4, 5
 print "b: " + str(b)                # 5, 6, 7, 8, 9
 </pre>
 
-</ul>
-
-
-#==========
-# loop thru a dictionary
-#==========
-for abbr in states:
-    print abbr, '--&gt;', states[abbr]
-
-#==========
-# loop thru a dictionary - sorted keys
-#==========
-for abbr in sorted(states):
-    print abbr, '--&gt;', states[abbr]
-
-# remove an item 
-del states['CO']
-
-# prints out the entire dictionary
-print states
-
-# check if key exists 
-# - use 'in' keyword
-if 'NY' in states:
-    print "Wooh!"
-else:
-    print "Boo!"
-
-# dictionary with tuple as key
-# i.e. a,b,c --&gt; value
-complex_dict = { 
-                     (1,2,3): "123"
-                    ,(2,3,4): "234"
-                    ,(1,5,9): "159"
-               }
-
-</pre>
-</ul>
-
-<h3>Dictionary methods</h3>
-<ul>
-<li><code>dict.clear()</code> -- remove all items from the dictionary
 </ul>
 
 
