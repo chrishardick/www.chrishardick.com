@@ -48,7 +48,7 @@ C O N T E N T
 <h2>class <code>datetime.datetime</code></h2>
 
 <ul>
-<li>Attributes:
+<li>Attributes (read-only):
     <ul>
     <li><code>year</code>
     <li><code>month</code> -- 1-12
@@ -72,6 +72,7 @@ C O N T E N T
 <li>Methods:
     <ul>
     <li><code>strftime (format string)</code> - return string representation of the date controlled by format string -- see format codes below
+    <li><code>replace ([year,[,month[,day[,hour[,minute[,second[,microsecond[,tzinfo]]]]]]]])</code> - return a datetime with the same attributes except for those attributes which which have been replaced. Note that <code>tzinfo=None</code> can be used to create a native datetime from an aware datetime
     </ul>
 </ul>
 

@@ -69,35 +69,48 @@ logging.critical ("%s",s)
 <h2>Basic Classes</h2>
 
 <ul>
-<li><strong><code>Loggers</code></strong> - expose the interface which application code uses
-<li><strong><code>Handlers</code></strong> - send log records to the appropriate destination
+<li><strong><code>Loggers</code></strong> - expose the interface which application code uses to log. Loggers create <strong><code>Log Records</code></strong>
+<li><strong><code>Log Records</code></strong> - the packages that the logging module creates when it wants to log something 
+<li><strong><code>Handlers</code></strong> - serialize and send <strong><code>Log Records</code></strong> to the appropriate destination
+    <ul>
+    <li>There are multiple file handlers that can write to files - <strong><code>TimeRotated</code></strong>, <strong><code>SizeRotated</code></strong>, <strong><code>Watched</code></strong>
+    <li><strong><code>StreamHandler</code></strong> write to streams like stderr or stdout
+    <li><strong><code>SMTPHandler</code></strong> write via e-mail
+    <li><strong><code>SocketHandler</code></strong> write to sockets
+    </ul>
 <li><strong><code>Filters</code></strong> - filter out which log records to output
-<li><strong><code>Formatters</code></strong> - specify the layout of log records in the final output
+<li><strong><code>Formatters</code></strong> - specify the layout of log records in the final output - e.g. '%(asctime)s %(levelname)s %(name)s: %(message)s'
 </ul>
 
 <h2>logging.Logger Objects</h2>
 
 <h3>Logger: Attributes and Methods</h3>
 
-<h4><code>Logger.propagate</code></h4>
+<h4><code>Logger.getLogger(name)</code></h4>
 <ul>
-<li>If true, logging events will be passed to the handlers of higher level (ancestor) loggers in addition to any handlers attached to this logger
-<li>Events will be passed directly to the ancestor logger handlers without considering filters or levels
-<li>Default value - <code>True</code>
+<li>Factory method - returns a Logger object
+<li>Multiple calls passed the same name will return a reference to the same Logger object
 </ul>
 
 <h4><code>Logger.setLevel(level)</code></h4>
 <ul>
 <li>Set threshold for this logger to <code>level</code>
 <li>Log messages which are less severe than <code>level</code> will be ignored
-<li>Default value - <code>NOTSET</code>
+<li>Default value - <code>logging.NOTSET</code>
 <li>Level - Numeric value
-<li><code>CRITICAL</code> 50
-<li><code>ERROR</code> 40
-<li><code>WARNING</code> 30
-<li><code>INFO</code> 20
-<li><code>DEBUG</code> 10
-<li><code>NOTSET</code> 0
+<li><code>logging.CRITICAL</code> 50
+<li><code>logging.ERROR</code> 40
+<li><code>logging.WARNING</code> 30
+<li><code>logging.INFO</code> 20
+<li><code>logging.DEBUG</code> 10
+<li><code>logging.NOTSET</code> 0
+</ul>
+
+<h4><code>Logger.propagate</code></h4>
+<ul>
+<li>If true, logging events will be passed to the handlers of higher level (ancestor) loggers in addition to any handlers attached to this logger
+<li>Events will be passed directly to the ancestor logger handlers without considering filters or levels
+<li>Default value - <code>True</code>
 </ul>
 
 <h4><code>Logger.debug(msg, *args, **kwargs)</code></h4>

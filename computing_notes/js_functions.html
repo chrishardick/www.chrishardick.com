@@ -38,14 +38,19 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<H1>JavaScript - Functions</H1>
+<h1>JavaScript - Functions</h1>
 
-<UL>
-<LI>As in any language, there are built-in and user defined functions
-<LI>As in any language, the two basic operations you want to do with functions are: (1) define a function (not applicable for built-in functions) and invoke a function
-<LI>If you pass a primative type (number, boolean or string), JS uses pass-by-value. If you pass an object, JS uses pass-by-reference
-</UL>
+<ul>
+<li>As in any programming language, JavaScript has built-in and user-defined functions
+<li>As in any programming language, the two basic operations you want to do with functions are: defining functions (not applicable for built-in functions) and invoking
+functions
+</ul>
 
+<h2>Pass by Value, Pass by Reference</h2>
+<ul>
+<li>If you pass a primative type (number, boolean or string), JS uses pass-by-value. 
+<li>If you pass an object, JS uses pass-by-reference
+</ul>
 
 <h2>Defining Functions</h2>
 <ul>
@@ -53,7 +58,7 @@ C O N T E N T
 <li>keyword <strong>function</strong>
 <li>The basic method to create a function is with the following syntax:
 <pre>
-function identifier ([parameter1, ... , parameterN])
+function identifier ([parameter1[ = defaultValue1], ... , parameterN[= defaultValueN]])
 {
      statement(s)
 
@@ -77,85 +82,118 @@ var add_func = function (a, b)
     return a+b;
 }
 </pre>
-</UL>
+</ul>
 
 
-<H3>Function Return Value</H3>
-<UL>
-<LI>The <strong>return</strong> keyword may only be used within a function
-<LI>It's used to terminate execution of the function and to optionally return a value from a function 
-</UL>
+<h3>Function Return Value</h3>
+<ul>
+<li>The <strong>return</strong> keyword may only be used within a function
+<li>It's used to terminate execution of the function and to optionally return a value from a function 
+</ul>
 
+<h3>Function Parameters</h3>
+<ul>
+<li>In JS, parameter passing is optional.
+<li>I.e. even if you specified that your function accepts 3 parameters, it's possible the caller did not pass any 
+<li>Parameters not passed will default to <code>undefined</code>
+<li>JS also supports default values for parameters 
+</ul>
 
-<H3>In JavaScript, Functions are Objects (a Data Type)</H3>
-<UL>
-<LI>In JavaScript, functions are objects (i.e. they're implemented as a data type). This is similar to function pointers in C/C++
-<LI>Since they're implemented as a data type, they can be:
-	<UL>
-	<LI>assigned to variables
-	<LI>assigned to array elements
-	<LI>stored as object properties (in which case they're called <strong>methods</strong>)
-	<LI>passed as arguments to other functions
-	<LI>etc.
-	</UL>
-<PRE>
+<pre>
+function foo (x, y, z)
+{
+    if (x === undefined)
+    {
+        ...
+    }
+
+    if (y === undefined)
+    {
+        ...
+    }
+
+    if (z === undefined)
+    {
+        ...
+    }
+}
+
+// default value example
+function boo (x=1, y=1, z=1)
+{
+    return x*y*z;
+}
+</pre>
+
+<h3>In JavaScript, Functions are Objects (a Data Type)</h3>
+<ul>
+<li>In JavaScript, functions are objects (i.e. they're implemented as a data type). This is similar to function pointers in C/C++
+<li>Since they're implemented as a data type, they can be:
+	<ul>
+	<li>assigned to variables
+	<li>assigned to array elements
+	<li>stored as object properties (in which case they're called <strong>methods</strong>)
+	<li>passed as arguments to other functions
+	<li>etc.
+	</ul>
+<pre>
 function multiply (x,y)
 {
      return x*y;
 }
-</PRE>
-<LI>In JavaScript, here's what we did:
-	<OL>
-	<LI>Created a new function object 
-	<LI>Assigned the new function object to the variable <em>multiply</em>
-	<LI>Now we can assign multiply to other variables, to array elements, pass it into other functions, etc.
-</UL>
+</pre>
+<li>In JavaScript, here's what we did:
+	<ol>
+	<li>Created a new function object 
+	<li>Assigned the new function object to the variable <em>multiply</em>
+	<li>Now we can assign multiply to other variables, to array elements, pass it into other functions, etc.
+</ul>
 
 
-<H3>The Call Object</H3>
-<UL>
-<LI>When you call a function, you implicitly instantiate an object named call (<strong>the call object</strong>)
-<LI>All of the functions local variables (declared using <strong>var</strong>) are implicitly members of the call object - as
+<h3>The Call Object</h3>
+<ul>
+<li>When you call a function, you implicitly instantiate an object named call (<strong>the call object</strong>)
+<li>All of the functions local variables (declared using <strong>var</strong>) are implicitly members of the call object - as
 	the call object is an object, we can be more precise and call the data members <strong>properties</strong>
-<LI>call objects also have another property: <strong>the arguments object</strong> -- which has array-like properties
-</UL>
+<li>call objects also have another property: <strong>the arguments object</strong> -- which has array-like properties
+</ul>
 
-<H3>The Arguments Object</H3>
-<UL>
-<LI>A property of the call object. It's <strong>an object which has array-like properties</strong>
-	<UL>
-	<LI>The Arguments Object provides an alternate mechanism to access the function's parameters via number.
-		<UL>
-		<LI>arguments[0] is an alias to the 1st argument, 
-		<LI>arguments[1] is an alias to the 2nd argument, 
-		<LI>etc.
-		</UL>
-	<LI>The Arguments Object provides access to un-named parameters (i.e. if your function only named 3 parameters, but
+<h3>The Arguments Object</h3>
+<ul>
+<li>A property of the call object. It's <strong>an object which has array-like properties</strong>
+	<ul>
+	<li>The Arguments Object provides an alternate mechanism to access the function's parameters via number.
+		<ul>
+		<li>arguments[0] is an alias to the 1st argument, 
+		<li>arguments[1] is an alias to the 2nd argument, 
+		<li>etc.
+		</ul>
+	<li>The Arguments Object provides access to un-named parameters (i.e. if your function only named 3 parameters, but
 		the caller passed 4 - you can access the 4th using arguments[3]). This can be used to code a function which
 		takes a variable number of parameters
-	<LI>Like all arrays, arguments has a <strong>length property</strong> which you can use to determine how many 
+	<li>Like all arrays, arguments has a <strong>length property</strong> which you can use to determine how many 
 		parameters were actually passed in
-	<LI>The elements of the arguments object are true aliases to the named parameters -- i.e. changing the value arguments[1]
+	<li>The elements of the arguments object are true aliases to the named parameters -- i.e. changing the value arguments[1]
 		is changing the same memory address as the 2nd named parameter
-	</UL>
-<LI>The Arguments Object defines a <strong>callee</strong> property which points to the function which is currently being executed 
+	</ul>
+<li>The Arguments Object defines a <strong>callee</strong> property which points to the function which is currently being executed 
 	-- useful for unnamed functions
-</UL>
+</ul>
 
-<H3>The Function Object</H3>
-<UL>
-<LI>As stated above, in JavaScript, functions are objects
-<LI>Like all objects, they have properties and methods
-<LI>Function properties are available inside and outside of the function -- global scope and lifetime
-<LI>Built-in Properties
-	<UL>
-	<LI>The <strong>length</strong> property - defines the number of parameters the function expects. I.e. the number of 
+<h3>The Function Object</h3>
+<ul>
+<li>As stated above, in JavaScript, functions are objects
+<li>Like all objects, they have properties and methods
+<li>Function properties are available inside and outside of the function -- global scope and lifetime
+<li>Built-in Properties
+	<ul>
+	<li>The <strong>length</strong> property - defines the number of parameters the function expects. I.e. the number of 
 		named parameters it has
-	<LI>The <strong>prototype</strong> property - useful when the function is used as a constructor
-	</UL>
-<LI>You can also <strong>define your own function object properties</strong> which (like built-in function properties) 
+	<li>The <strong>prototype</strong> property - useful when the function is used as a constructor
+	</ul>
+<li>You can also <strong>define your own function object properties</strong> which (like built-in function properties) 
 	have scope and lifetime of the executing program (akin to <strong>static data members in C/C++</strong>)
-<PRE>
+<pre>
 // a user defined function property (i.e. similar to a static data member in C/C++)
 // this initialization takes place prior to any code executing
 getUniqueID.id = 0;
@@ -164,32 +202,31 @@ function getUniqueID ( )
 {
      return getUniqueID.id++;
 }
-</PRE>
-</UL>
+</pre>
+</ul>
 
 
-<H2>Invoking Functions</H2>
-<UL>
-<LI>Once a function has been defined, it can be invoked using the function call operator <em>( )</em>
-<PRE>function_identifer ([expression1, ... , expressionN]);</PRE>
-</UL>
+<h2>Invoking Functions</h2>
+<ul>
+<li>Once a function has been defined, it can be invoked using the function call operator <em>( )</em>
+<pre>function_identifer ([expression1, ... , expressionN]);</pre>
+</ul>
 
 
-<H2>Prototypes/Parameter Mismatch Support</H2>
-<UL>
-<LI>JavaScript does NOT verify the number of parameters passed to a function and since it's an untyped
-	language, obviously the types can not be verified
-<LI>However, you can add your own run-time checks to make sure the caller passed in the correct number of parameters 
+<h2>Prototypes/Parameter Mismatch Support</h2>
+<ul>
+<li>JavaScript does NOT verify the number of parameters passed to a function
+<li>However, you can add your own run-time checks to make sure the caller passed in the correct number of parameters 
 	by comparing the length property of the arguments object with the length property of the function
-<PRE>
+<pre>
 function foo (x, y, z)
 {
      if (arguments.length != length)
      {
           throw new Error ("foo: Parameter Mismatch: Expected: " + length + " Actual: " + arguments.length);
 }
-</PRE>
-</UL>
+</pre>
+</ul>
 
 </div>
 </body> 

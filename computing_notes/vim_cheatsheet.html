@@ -65,19 +65,27 @@ syntax on
 </pre>
 
 
-<h2>UNIX/DOS</h2>
+<h2>Misc</h2>
+
 <ul>
-<li>to convert a file from dos to unix format:
+
+<li>Global .vimrc for all users
+<pre>/etc/vim/vimrc</pre>
+
+<li>Convert a file from DOS to UNIX format
 <pre>:set ff=unix
 :w</pre>
-<li>to convert a file from unix to dos format:
+
+<li>Convert a file from UNIX to DOS format: 
 <pre>:set ff=dos
 :w</pre>
+
+<li>Back Reference
+<pre>1,$s/\(^.*$\)/\1 ..\/html_\1/</pre>
+
 </ul>
 
 
-<h2>Back Reference</h2>
-1,$s/\(^.*$\)/\1 ..\/html_\1/
 
 </div>
 </body> 

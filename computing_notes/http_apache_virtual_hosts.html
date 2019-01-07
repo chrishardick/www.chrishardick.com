@@ -44,6 +44,7 @@ C O N T E N T
 <ul>
 <li>Running more than one web site on a single machine
 <li>Virtual hosts can be IP-based (i.e. a different IP address for every web site) or Name-based (multiple names running on a single IP address)
+<li>To test on Linux/UNIX/Mac, edit the hosts file (/etc/hosts)
 </ul>
 
 <h2>Name-based Virtual Hosts</h2>
@@ -51,7 +52,7 @@ C O N T E N T
 <li>The server relies on the client to report the hostname as part of the HTTP headers
 <li>DNS simply maps each hostname to the same IP address
 <li>Eases the demand for IP addresses (which are becoming scarse)
-<li>When a request arrives, the web server will find the best (most specific) matching &ltVirtualHost&gt entry based on the IP address an port used by the request. 
+<li>When a request arrives, the web server will find the best (most specific) matching &lt;VirtualHost&gt; entry based on the IP address an port used by the request. 
 <li>If there is more than one virtual host containing the best match address and port combination, Apache will then compare the ServerName and ServerAlias directives to the server name present in the request.
 <li>If ServerName is not present in a name-based virtual hsot, the server will default to a fully qualified doman name (FQDN) derived from the system hostname
 <li>If no matching ServerName or ServerAlias is found in the set of virtual hosts containing the most specific matching IP address/port, then the 1st listed virtual host that matches will be used.
@@ -78,6 +79,14 @@ C O N T E N T
     DocumentRoot "/www/anotherexample"
 &lt;/VirtualHost&gt;
 </pre>
+
+<h2>SNI</h2>
+<ul>
+<li>TLS Extension: Server Name Indication
+<li>Allows you to have a single IP address with multiple names using TLS
+<li>e.g. https://foo and https:://bar could both point to the same IP address, receive the requests and respond appropriately according to the requested name
+<li>Browsers also need to support SNI
+</ul>
 
 </div>
 </body>

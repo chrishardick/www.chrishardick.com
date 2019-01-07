@@ -8,17 +8,26 @@
 
 var dbg = false;
 
+function set_viewport ()
+{
+    console.log("set_viewport: ENTER");
+
+    var metaElement = document.createElement('meta');
+    metaElement.name = "viewport";
+    metaElement.content = "width=device-width, initial-scale=1.0";
+
+    document.getElementsByTagName('head')[0].appendChild(metaElement);
+}
+
+
 //==========
 // onload handler
 //==========
 function on_load (f)
 {
-    if (dbg)
-    {
-        alert ("on_load");
-    }
-
     console.log("on_load: ENTER");
+
+    set_viewport();
 
 
     //
@@ -202,6 +211,7 @@ function print_nav(f)
     <button class="accordion" id="accordion_http">HTTP</button>
     <div class="panel">
         <a href="http_intro.html">Introduction</a>
+        <a href="http_headers.html">Headers</a>
         <a href="http_apache_http.html">Apache HTTP</a>
         <a href="http_apache_virtual_hosts.html">Apache - Virtual Hosts</a>
         <a href="http_cookies.html">Cookies</a>
@@ -267,6 +277,12 @@ function print_nav(f)
         <a href="linux_wireless.html">wireless</a>
         <a href="linux_inotifywait.html">inotifywait</a>
         <a href="linux_tape_info.html">Tapes</a>
+    </div>
+
+    <button class="accordion" id="accordion_mac">Mac</button>
+    <div class="panel">
+        <a href="mac_hosts_file.html">Hosts File</a>
+        <a href="mac_root_user.html">Root User</a>
     </div>
 
     <button class="accordion" id="accordion_mariadb">MariaDB</button>

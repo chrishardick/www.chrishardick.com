@@ -81,6 +81,20 @@ git clone ssh://john.smith@smith.com:[port]/dir
 <li>To see which remote servers you have configured, run <code>git remote</code>
 </ul>
 
+<h2><code>git remote add &lt;remote_name&gt; &lt;url&gt;</code></h2>
+
+<ul>
+<li>Add a new remote
+<li><code>git add remote blah chris@blah.com:[port]/dir</code>
+</ul>
+
+<ul>
+<li>To see which remote servers you have configured, run <code>git remote</code> -- if you've cloned your repository, you should see at least <code>origin</code>.
+    This will display the shortname for the remote server
+<li>Use the -v option to also see the actual URL of the remote server
+<li>To see which remote servers you have configured, run <code>git remote</code>
+</ul>
+
 <h2><code>git checkout</code></h2>
 
 <ul>
@@ -146,7 +160,6 @@ git clone ssh://john.smith@smith.com:[port]/dir
 
 <ul>
 <li>this is only necessary if the remote master branch is ahead of our local master branch
-<li>
 <li><code>git checkout master # make master the current branch (Make sure all your changes have been committed to local development branches (otherwise you will not be permitted to switch branches)</code>
 <li><code>git pull origin master # bring local master up-to-date with remote repo</code>
 </ul>

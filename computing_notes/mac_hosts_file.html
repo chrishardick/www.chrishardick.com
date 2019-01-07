@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_mac");
+}
+</script>
+
+<title>Mac - hosts file</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Mac - hosts file</h1>
+
+<pre>
+#
+# 1) edit hosts file as necessary
+#    - useful for testing, etc.
+#
+sudo vi /etc/hosts
+
+#
+# 2) flush DNS cache
+#    - HUP is the hangup signal
+#    - hangup usually causes the process to restart and re-read its configuration
+#
+sudo killall -HUP mDNSResponder
+</pre>
+
+</div>
+</body> 
+</html>
+  

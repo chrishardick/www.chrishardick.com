@@ -38,8 +38,149 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-
 <h1>C++ List</h1>
+
+<ul>
+<li>Doubly linked list
+<li>constant time insertion and deletion
+<li>Like any list, lacks random access
+</ul>
+
+
+<h2>Header File</h2>
+<pre>#include &lt;list&gt;
+
+using namespace std;</pre>
+
+
+<h2>Constructors</h2>
+
+<ul>
+<li>Default Constructor
+	<ul>
+	<li>Create an empty list
+	</ul>
+<pre>list&lt;T&gt; lst;</pre>
+
+<li>Copy Constructor
+	<ul>
+	<li>Copy supplied list
+	</ul>
+<pre>list lst(const list&lt;T&gt;&amp; rhs);</pre>
+
+<li>Range [first,last)
+<pre>list lst(InputIterator first, InputIterator last);</pre>
+</ul>
+
+
+<h2>Destructor</h2>
+<ul>
+<li>Destruct all elements (destructor called for each) and destruct the container itself
+<pre>~list()</pre>
+</ul>
+
+
+<h2>Member Functions</h2>
+<ul>
+
+<li>begin()
+<pre>iterator begin();
+const_iterator begin() const;</pre>
+    <ul>
+    <li>Returns an iterator to first element
+    </ul>
+
+<li>end()
+<pre>iterator end();
+const_iterator end() const;</pre>
+    <ul>
+    <li>Returns an iterator just past last element
+    </ul>
+
+<li>front()
+<pre>reference front();
+const_reference front() const;</pre>
+    <ul>
+    <li>Similar to <code>begin()</code> - except returns a reference rather than an iterator
+    <li>Undefined behavior if called on an empty list
+    </ul>
+
+<li>back()
+<pre>reference back();
+const_reference back() const;</pre>
+    <ul>
+    <li>Similar to <code>end()</code>. However, returns a reference to the last element, rather than
+        an iterator just past the last element.
+    <li>Undefined behavior if called on an empty list
+    </ul>
+
+<li>empty()
+<pre>bool empty()</pre>
+    <ul>
+    <li>Boolean method - is this list is empty.
+    </ul>
+
+<li>size()
+<pre>size_type size() const;</pre>
+	<ul>
+	<li>returns # of elements
+	</ul>
+
+<li>push_back()
+<pre>void push_back(const T&iamp; t);</pre>
+	<ul>
+	<li>add element to the end of the list
+	<li>t - value to be copied to the new element
+	</ul>
+
+<li>push_front()
+<pre>void push_frontk(const T&iamp; t);</pre>
+	<ul>
+	<li>add element to the front of the list
+	<li>t - value to be copied to the new element
+	</ul>
+
+<li>pop_back()
+<pre>void pop_back();</pre>
+	<ul>
+	<li>delete last element -- destructing the removed element
+	</ul>
+
+<li>pop_front()
+<pre>void pop_front();</pre>
+	<ul>
+	<li>delete first element -- destructing the removed element
+	</ul>
+
+<li>insert()
+<pre>void insert(iterator position, InputIterator first, InputIterator last);</pre>
+	<ul>
+	<li>insert range [first,last) into the list @ position
+	</ul>
+
+<li>erase()
+<pre>iterator erase(iterator position);</pre>
+	<ul>
+	<li>erase the element located at position
+	<li>returns iterator to 1 position past where the element was erased or end() if the last element was erased
+	</ul>
+
+<li>erase()
+<pre>iterator erase(iterator first, iterator last);</pre>
+	<ul>
+	<li>erase range [first,last) into the list @ position
+	<li>returns iterator to 1 position past the last element erased or end() if the last element was erased
+	</ul>
+
+<li>clear()
+<pre>void clear();</pre>
+	<ul>
+	<li>erase all elements in the list
+	<li>equivalent to list.erase(list.begin(), list.end());
+	</ul>
+
+
+</ul>
 
 </div>
 </body> 

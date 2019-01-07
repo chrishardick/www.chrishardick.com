@@ -43,7 +43,7 @@ C O N T E N T
 
 <ul>
 
-<li>sqlite3 module
+<li>sqlite3 module from Python standard library
 
 <pre>
 import sqlite3
@@ -78,6 +78,11 @@ conn.close()
 <li><code>isolation_level</code> - DEFFERRED (default), IMMEDIATE, EXCLUSIVE. Set to <code>None</code> if you want autocommit mode.
     This controls which type of begin statement sqlite3 implicitly executes (BEGIN, BEGIN IMMEDIATE, BEGIN EXCLUSIVE or none)
 </ul>
+
+<h2>Variable Binding</h2>
+<pre>
+cursor.execute ("INSERT INTO table (f1, f2, f3, create_timestamp,last_update) VALUES (?, ?, ?, DATETIME('now'),DATETIME('now'))", (v1, v2, v3))
+</pre>
 
 <h2>Transactions</h2>
 <ul>
