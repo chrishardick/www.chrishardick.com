@@ -1,0 +1,78 @@
+/*
+ CHRIS HARDICK
+
+ CSS
+*/
+
+html, body 
+{
+    font-family:    "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+}
+
+.tooltip
+{
+    position:           relative;
+    display:            inline-block;
+}
+
+.tooltip .tooltiptext
+{
+    font-size:          10px;
+    visibility:         hidden;
+    width:              120px;
+    top:             25%;
+    left:               50%;
+    margin-left:        -60px;      /* center = 1/2 width (120/2) */
+
+    background-color:   black;
+    color:              #fff;
+    text-align:         center;
+    padding:            5px 0;
+    border-radius:      6px;
+
+    position:           absolute;
+    z-index:            1;
+}
+
+.tooltip:hover .tooltiptext
+{
+    visibility:         visible;
+}
+
+.ch_centered
+{
+    text-align:     center;
+}
+
+.ch_padding64
+{
+    padding-top:        64px;
+    padding-bottom:     64px;
+}
+
+.ch_padding_large
+{
+    padding:        12px 24px;  /* top/bot, left/right */
+}
+
+.ch_padding
+{
+    padding:        8px 16px;   /* top/bot, left/right */
+}
+
+h2:hover
+{
+    background-color:   #ccc;
+    color:              #000;
+    text-decoration:    none;
+}
+
+a
+{
+    text-decoration:    none;
+    color:              inherit;
+}
+.ch_text_gray
+{
+    color:          #757575;
+}

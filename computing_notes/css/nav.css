@@ -24,7 +24,8 @@ span.menu_icon:before
 
 span.menu_icon.active:before
 {
-    content:            '\02716';           /* X */
+    content:            '\0D7';           /* X */
+    cursor:             pointer;
 }
 
 button.accordion.active, button.accordion:hover
@@ -157,7 +158,7 @@ pre
 th
 {
     text-align:         left;
-    background-color:   black;
+    background-color:   gray; 
     color:              white;
 }
 
@@ -174,6 +175,18 @@ tr:hover
 table
 {
     border-collapse:    collapse;
+    width: 100%;
+}
+
+table.type1 th, td
+{
+    text-align: left;
+    padding: 8px;
+}
+
+table.type1 tr:nth-child(even)
+{
+    background-color: #f2f2f2;
 }
 
 dt

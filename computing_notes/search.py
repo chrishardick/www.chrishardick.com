@@ -1,6 +1,14 @@
 #!/usr/bin/python
 #==========
 # search.py
+#
+# in (form data)
+# ==============
+# searchbox: search string
+#
+# phrase search - "search string" - i.e. surrounded by double quotes
+# or search - termA OR termB ...
+# and search - otherwise
 #==========
 
 import cgi

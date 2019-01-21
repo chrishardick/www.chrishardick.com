@@ -6,7 +6,8 @@
 
 body 		
 { 
-	font: 10pt Verdana, sans-serif;
+    font: 13px "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	/* font: 10pt Verdana, sans-serif; */
 	
 }
 
@@ -67,6 +68,11 @@ h1, div.pagetitle
 .red
 {
     color: red;
+}
+
+.orange
+{
+    color: orange;
 }
 
 h1

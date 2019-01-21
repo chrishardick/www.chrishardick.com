@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_http");
+}
+</script>
+
+<title>Apache SSL</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Apache SSL</h1>
+
+<h2>Generate a Certificate Signing Request</h2>
+
+<pre>
+#
+# req 
+#   the command we're executing (certiciate creation request in PKCS#10 format) 
+#
+# -new
+#   new certificate request
+#   you will be prompted for relevant field values
+#
+# -newkey rsa:2048
+#   creates a new certiciate request and a new private key
+#   rsa:nbits - generates a RSA key nbits in size
+#
+# -nodes
+#   private key will not be encrypted
+#
+# -keyout 
+#   specified the filename to write the newly created private key (yourdomain.key)
+#
+# -out filename
+#   specifies the ouptut filename (stdout by default)
+#   yourdoman.csr
+#   certificate signing request
+# 
+openssl req -new -newkey rsa:2048 -nodes -keyout yourdomain.key -out yourdomain.csr
+</pre>
+
+<h2>Config File</h2>
+
+<h3><code>SSLCertificateFile</code></h3>
+<ul>
+<li>Server PEM-encoded X.509 certicate data file
+<li>File with certificate data in PEM format
+<li>At a minimum, it must include an end-entity (leaf) certificate. 
+</ul>
+<pre>SSLCertificateFile "/usr/local/apache2/conf/ssl.crt/server.crt"</pre>
+
+<h3><code>SSLCertificateKeyFile</code></h3>
+<ul>
+<li>Server PEM-encoded private key file
+<li>If the private key is encrypted, the pass phrase dialog is forced at startup time
+</ul>
+<pre>SSLCertificateKeyFile "/usr/local/apache2/conf/ssl.key/server.key"</pre>
+
+<h3><code>SSLCACertificatePath</code></h3>
+<ul>
+</ul>
+<pre>SSLCACertificatePath "/usr/local/apache2/conf/ssl.crt/"</pre>
+
+
+<h2>Restart Server</h2>
+
+<ul>
+<li><code>systemctl restart apache2</code>
+</ul>
+
+</div>
+</body>
+</html>
+  

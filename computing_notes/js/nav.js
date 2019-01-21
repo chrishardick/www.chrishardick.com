@@ -8,6 +8,17 @@
 
 var dbg = false;
 
+
+//==========
+//
+// set_viewport
+//
+// Responsive web pages look good on all devices, regardless of size. 
+//
+// When constructing responsive web pages, it's important to add the 
+// following <meta> element 
+//
+//==========
 function set_viewport ()
 {
     console.log("set_viewport: ENTER");
@@ -26,6 +37,11 @@ function set_viewport ()
 function on_load (f)
 {
     console.log("on_load: ENTER");
+
+    //
+    // set viewport
+    // - for a more responsive web page
+    //
 
     set_viewport();
 
@@ -174,6 +190,7 @@ function print_nav(f)
         <a href="css_display_property.html">Display Properties</a>
         <a href="css_position_properties.html">Position Properties</a>
         <a href="css_table_properties.html">Table Properties</a>
+        <a href="css_cursor_properties.html">Cursor Properties</a>
         <a href="css_misc_properties.html">Misc Properties</a>
     </div>
 
@@ -206,6 +223,7 @@ function print_nav(f)
         <a href="html_forms.html">Forms</a>
         <a href="html_dom_events.html">DOM Events</a>
         <a href="html_basic_template.html">Basic Template</a>
+        <a href="html_unicode.html">Unicode</a>
     </div>
 
     <button class="accordion" id="accordion_http">HTTP</button>
@@ -214,6 +232,7 @@ function print_nav(f)
         <a href="http_headers.html">Headers</a>
         <a href="http_apache_http.html">Apache HTTP</a>
         <a href="http_apache_virtual_hosts.html">Apache - Virtual Hosts</a>
+        <a href="http_apache_ssl.html">Apache - SSL</a>
         <a href="http_cookies.html">Cookies</a>
         <a href="http_redirection.html">Re-direction</a>
     </div>
@@ -276,6 +295,7 @@ function print_nav(f)
         <a href="linux_tcpdump.html">tcpdump</a>
         <a href="linux_wireless.html">wireless</a>
         <a href="linux_inotifywait.html">inotifywait</a>
+        <a href="linux_speedtest.html">Network Speed Test</a>
         <a href="linux_tape_info.html">Tapes</a>
     </div>
 
@@ -628,8 +648,6 @@ function get_cookies ()
 
     return ret;
 }
-
-
 
 
 //
