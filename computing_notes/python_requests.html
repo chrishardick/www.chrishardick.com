@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: Requests</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: Requests</h1>
+
+<p><strong>Requests</strong> - a Python library for HTTP
+
+<h2>Quick Start</h2>
+
+<pre>
+import requests
+
+#
+# get request
+# - get a HTML document
+# - r = Response object
+#
+r = requests.get('https://www.foo.com/api', qstr = {'key1':'value1', 'key2':'value2',...})
+
+#
+# post request
+#
+r = requests.post('https://www.foo.com/api', data = {'key1':'value1', 'key2':'value2',...})
+
+
+# response - as text
+r.text
+
+
+# response as byte string (binary response)
+r.content 
+
+
+# json response
+try:
+    r.json()
+
+except:
+
+    // HANDLE JSON DECODING ERROR
+</pre>
+
+<h3>Query String</h3>
+
+<pre>
+url = 'https://foo.com/api'
+qstr = { 'key1': 'value1', 'key2':['value2a', 'value2b'] }
+
+r = requsts.get(url,parms=qstr)
+
+#
+# ready for python urlparse library
+# - query string elements are separated by &amp;
+# - lists are supported
+#
+print r.url     # https://foo.com/api?key2=value2a&amp;key2=value2b&amp;key1=value1
+</pre>
+
+
+<h2>Installation</h2>
+
+<h3>Debian</h3>
+
+<pre>
+apt-get install python-requests
+</pre>
+
+</div>
+</body>
+</html>
+

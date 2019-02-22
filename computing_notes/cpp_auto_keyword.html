@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ - auto keyword</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ - auto keyword</h1>
+
+
+<ul>
+<li>Type inference
+<li>Automatic data type deduction of an expression
+<li>Types are deduced at compile time
+<li>The type of the variable which is being declared will be automatically deduced from its initializer
+</ul>
+
+<pre>
+auto a = 4;             // integer
+auto b = 4.2            // double
+auto ptrA = &amp;a;         // ptr-to-integer
+
+vector&lt;int&gt; v;
+
+for (auto i = v.begin(); i != v.end(); i++)     // vector&lt;int&gt;::iterator
+    cout &lt;&lt; *i &lt;&lt; endl;
+</pre>
+
+</div>
+</body> 
+</html>

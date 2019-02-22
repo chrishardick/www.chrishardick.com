@@ -43,6 +43,16 @@ C O N T E N T
 <ul>
 <li>Hypertext Transfer Protocol
 <li>An application layer protocol
+<li>A line based protocol
+<li>All HTTP Messages have the same basic format:
+
+<pre>
+START-LINE (typical request - GET / HTTP/1.1) (typical response: HTTP/1.1 200 OK)
+HEADERS (optional tag:value lines)
+BLANK LINE (indicating the end of the header)
+BODY (optional. the data associated with the message. The size of the body is usually specified in the headers.)
+</pre>
+
 <li>Usually sent over TCP or TLS-encrypted TCP. However could be sent over any reliable protocol
 <li>HTTP is stateless, but not session-less
 <li>HTTP/1.0 opened up a new TCP connection for each request/response. 

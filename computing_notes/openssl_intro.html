@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_openssl");
+}
+</script>
+
+<title>OpenSSL: Introduction</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>OpenSSL: Introduction</h1>
+
+<ul>
+<li>General Purpose Cryptography Library
+<li>SSL/TLS Toolkit
+<li>SSL Secure Sockets Layer
+<li>TLS - Transport Layer Security
+</ul>
+
+<h2>Version and Configuration</h2>
+<pre>
+openssl version
+</pre>
+
+<pre>
+# detailed version information
+# OPENSSLDIR - where OpenSSL will look for its configuration and certificates
+openssl version -a
+</pre>
+
+<h2>Key and Certificate Management</h2>
+
+<p>Given the following nomenclature</p>
+
+<dl>
+<dt>foo.key
+<dd>private key
+
+<dt>foo-public.key
+<dd>public key
+
+<dt>foo.csr
+<dd>certificate signing request
+
+<dt>foo.crt
+<dd>certificate 
+</dl>
+
+<pre>
+# generate an RSA key protected with AES-128 - 2048 bit long modulus
+openssl genrsa -aes128 -out foo.key 2048
+
+# private keys are stored in PEM format (text)
+cat foo.key
+-----BEGIN RSA PRIVATE KEY-----
+...
+-----END RSA PRIVATE KEY-----
+
+# to view the structure of the key
+openssl rsa -text -in foo.key
+Private-Key: (2048 bit)
+modulus:
+...
+publicExponent:
+privateExponent:
+...
+prime1:
+...
+prime2:
+...
+exponent1:
+...
+exponent2:
+...
+coefficient:
+...
+writing RSA key
+-----BEGIN RSA PRIVATE KEY-----
+...
+-----END RSA PRIVATE KEY-----
+
+# generate a public key from the private key
+openssl rsa -in foo.key -pubout -out foo-public.key
+
+cat foo-public.key
+-----BEGIN PUBLIC KEY-----
+...
+-----END PUBLIC KEY-----
+</pre>
+
+
+<h3>1) Private Key Generation</h3>
+
+<p>Private Key files have a .key extension</p>
+
+<h4>Key Algorithms</h4>
+<ul>
+<li>OpenSSL supports RSA, DSA and ECDSA keys
+<li>For web server keys, everyone uses RSA
+<li>For SSH, DSA and RSA are widely used
+</ul>
+
+<h4>Key Size</h4>
+<ul>
+<li>The default key sizes might not be secure
+<li>RSA default size is 512 bits (insecure)
+<li>2048 RSA keys are considered secure
+<li>2048 bit DSA keys are considered secure
+<li>256 bits ECDSA keys are considered secure
+</ul>
+
+<h4>Passphrase</h4>
+<ul>
+<li>Private keys with a passphrase will be encrypted
+<li>Passphrases should be viewed as a mechanism for protecting privatre keys when they are not in production machines
+<li>Optional, but strongly recommended
+<li>Useful for storing and transporting a private key
+<li>However, it's generally considered ok to store passphrases on a production machine
+<li>For example, the alternative is having to type in your passphrase every time you need to restart your web server
+<li>This is because once activated, private keys will be kept unprotected in program memory
+</ul>
+
+<h3>2) Create a Certificate Signing Request (CSR) and Send it to a CA</h3>
+
+<p>CSR files usually have a .csr extension</p>
+
+<ul>
+<li>Once you have a private key, you can create a CSR (Certificate Signing Request) 
+<li>A CSR is a formal request to a CA to sign a certificate
+<li>It contains the public key and some auxiliary information
+</ul>
+
+<pre>
+# private key to CSR
+openssl req -new -key foo.key -out foo.csr
+
+# to check a CSR
+openssl req -text -in foo.csr -noout
+</pre>
+
+<h3>2a) Signing Your Own Certificate</h3>
+
+<pre>
+# .csr to .crt (certificate)
+openssl x509 -req -days 365 -in foo.csr -signkey foo.key -out foo.crt
+
+# .key to .crt
+openssl req -new -x509 -days 365 -key foo.key -out foo.crt
+</pre>
+
+<h3>2b) Creating Certificates Valid for More Than One Hostname</h3>
+
+<ul>
+<li>E.g. www.chrishardick.com and chrishardick.com
+<li>There are two ways to accomplish this by 
+    using a X.509 extension called SAN (Subject Alternative Name)  [recommended]  or using wildcards
+</ul>
+
+<pre>
+# create the following file (foo.ext)
+subjectAltName = DNS:*.chrshardick.com, DNS:chrishardick.com
+
+# when using the x509 command to issue a certificate, specify the extension file
+openssl x509 -req -days 365 -in foo.csr -signkey foo.key -out foo.crt -extfile foo.ext
+</pre>
+
+<h3>Install the CA-provided Certificate in your web server</h3>
+
+<h2>Programming with OpenSSL</h2>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://www.feistyduck.com/library/openssl%2dcookbook/online/">OpenSSL Cookbook</a>
+</ul>
+
+</div>
+</body>
+</html>
+

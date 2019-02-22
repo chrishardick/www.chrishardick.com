@@ -171,6 +171,12 @@ function print_nav(f)
         <a href="cpp_string.html">String</a>
         <a href="cpp_transform.html">Transform</a>
         <a href="cpp_iostreams.html">iostreams</a>
+        <a href="cpp_auto_keyword.html">auto keyword</a>
+    </div>
+
+    <button class="accordion" id="accordion_crypto">Cryptography</button>
+    <div class="panel">
+        <a href="crypto_hash_functions.html">Cryptographic Hash Functions</a>
     </div>
 
     <button class="accordion" id="accordion_css">CSS</button>
@@ -235,6 +241,7 @@ function print_nav(f)
         <a href="http_apache_ssl.html">Apache - SSL</a>
         <a href="http_cookies.html">Cookies</a>
         <a href="http_redirection.html">Re-direction</a>
+        <a href="http_web_services.html">Web Services</a>
     </div>
 
     <button class="accordion" id="accordion_js">JavaScript</button>
@@ -313,10 +320,20 @@ function print_nav(f)
         <a href="mariadb_data_types.html">Data Types</a>
     </div>
 
+    <button class="accordion" id="accordion_networking">Networking</button>
+    <div class="panel">
+        <a href="networking_mac_address.html">MAC Addresses</a>
+    </div>
+
     <button class="accordion" id="accordion_nosql">NoSQL</button>
     <div class="panel">
         <a href="nosql_intro.html">Introduction</a>
         <a href="nosql_cassandra.html">Cassandra</a>
+    </div>
+
+    <button class="accordion" id="accordion_openssl">OpenSSL</button>
+    <div class="panel">
+        <a href="openssl_intro.html">Introduction</a>
     </div>
 
     <button class="accordion" id="accordion_postgres">PostgreSQL</button>
@@ -368,12 +385,15 @@ function print_nav(f)
         <a href="python_executing_cmds.html">Executing Commands</a>
         <a href="python_environment_variables.html">Environment Variables</a>
         <a href="python_sqlite.html">Sqlite</a>
+        <a href="python_mysql.html">MySQL</a>
         <a href="python_logging.html">Logging</a>
         <a href="python_json.html">JSON</a>
         <a href="python_guid.html">GUID</a>
         <a href="python_cgi.html">CGI</a>
         <a href="python_struct.html">struct</a>
         <a href="python_socket.html">sockets</a>
+        <a href="python_hashlib.html">hashlib</a>
+        <a href="python_requests.html">requests - HTTP library</a>
     </div>
 
     <button class="accordion" id="accordion_sockets_api">Sockets API (C/UNIX)</button>
@@ -454,7 +474,7 @@ function print_title ()
 //    var title_html = `
 //    <span class="menutron" onclick="openNav()">&#9776;</span><a class="title" href="index.html">Computing Notes</a>` 
 
-    var title_html = `<div class="title"><span id="menu_icon" class="menu_icon"></span>Computing Notes</div>
+    var title_html = `<div class="title"><span id="menu_icon" class="menu_icon"></span><a href="index.html" style="color: white; text-decoration: none;">Computing Notes</a></div>
     <div class="searchbox"><form action='search.py' method='POST'><input type="text" name="searchbox"> <input type="submit" value="search"> </form></div>`
     // onkeydown= "if (event.keyCode == 13) alert('Hello, World!')">
 

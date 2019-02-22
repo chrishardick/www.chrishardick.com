@@ -41,43 +41,14 @@ C O N T E N T
 
 <h1>Python: MySQL</h1>
 
-<ul>
-
-<li>sqlite3 module
-
-<pre>
-import sqlite3
-
-# create Connection object
-# - if the db does not yet exist, it will be created for you
-# - use ':memory:' for in memory database
-conn = sqlite3.connect('demodb')
-
-# create Cursor object
-c = conn.cursor()
-
-# use c.fetchone() to retrieve the next row of a query set result as a tuple or None when no more data is available
-# use c.fetchall() to get a list of all (remaining) rows -- returns a list of tuples. An empty list is returned when no rows are available
-
-# you can also treat the cursor as an iterator
-
-for row in c.execute('select a,b,c from foo'):
-    print row
-   
-# commit changes
-conn.commit()
-
-# close the connection
-conn.close()
-</pre>
-</ul>
-
 <h2>Installation</h2>
 
 <h3>Debian based Systems</h3>
 <ul>
 <li><code>apt-get install python-mysqldb</code>
 </ul>
+
+
 </div>
 </body>
 </html>

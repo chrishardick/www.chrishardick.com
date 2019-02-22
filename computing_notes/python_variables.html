@@ -45,6 +45,7 @@ C O N T E N T
 <li>Like most scripting languages, variables in Python are untyped -- they can hold integers, floating point numbers, strings, booleans, etc.
 <li>It's usually not recommended, but a single variable can hold different types of values at different points of the program execution.
 <li>It's perfectly legal to assign an integer to a variable i and later assign a dictionary to it
+<li>In Python, there are no declarations. 
 <li>To create a new variable, simply assign a value to it
 
 <pre>
@@ -100,6 +101,14 @@ print z             # 30 will print out -- foo() did update the global variable
 <li><code>True</code> - The true value of the bool type
 <li><code>None</code> - Used to represent the absence of a value
 </ul>
+
+<h2><code>isinstance()</code></h2>
+<pre>
+is_int = isinstance (10, int)
+
+if isinstance(x, datetime.datetime):
+    print "x is a Python datetime!"
+</pre>
 
 </div>
 </body>

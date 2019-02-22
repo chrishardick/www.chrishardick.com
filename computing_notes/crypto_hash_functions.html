@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_crypto");
+}
+</script>
+
+<title>Cryptographic Hash Funcions</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Cryptographic Hash Funcions</h1>
+
+<p>A hash function which has properties which make it suitable to use in cryptography</p>
+
+<ul>
+<li>Maps data of any size to a fixed size hash (digest)
+<li>As all hash functions, it must be deterministic
+<li>Should be quick to compute
+<li>Input data is typically called a <strong>message</strong>
+<li>Output data is typically called a <strong>hash</strong> or <strong>digest</strong>
+<li>Should be a one way function
+<li>I.e. Should be infeasible to invert without a brute-force search
+<li>A small change in input should result in a hash which appears uncorrelated to previous hash value
+<li>Should be infeasible for two different messages to generate the same hash values
+</ul>
+
+<h2>MD5</h2>
+<ul>
+<li>Produces 128 bit (16 byte) digest
+<li>Insecure. Too many collisions
+</ul>
+
+<h2>SHA-1</h2>
+<ul>
+<li>Produces 160 bit (20 byte) digest
+<li>Insecure. Too many collisions
+</ul>
+
+<h2>SHA-2</h2>
+<ul>
+<li>Secure Hash Algorithm 2
+<li>Developed by US NSA (National Security Agency)
+<li>Contains 2 Algorithsm: SHA-256 and SHA-512
+</ul>
+
+<h3>SHA-256</h3>
+<ul>
+<li>32 byte (256 bit) hash
+</ul>
+
+<h3>SHA-512</h3>
+<ul>
+<li>64 byte (512 bit) hash
+<li>more secure than SHA-256 and usually faster on 64 bit machines
+</ul>
+
+<h2>SHA-3</h2>
+<ul>
+<li>
+</ul>
+
+<h2>Acknowledgements</h2>
+
+<ul>
+<li><a href="https://www.wikipedia.org">Wikipedia</a>
+</ul>
+
+</div>
+</body> 
+</html>
+  

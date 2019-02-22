@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: hashlib</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Python: <code>hashlib</code></h1>
+
+<ul>
+<li>Secure hash library
+<li>Supports multiple secure hash algorithms including:
+    <ul>
+    <li>MD5 (insecure)
+    <li>SHA1 (insecure)
+    <li>SHA256 (secure)
+    <li>SHA512 (more secure and generally faster on 64 bit machines)
+    </ul>
+<li>Very useful for passwords
+<li>See also <a href="http://crypto_hash_functions.html">Cryptographic Hash Functions</a>
+</ul>
+
+<pre>
+import hashlib
+
+m = hashlib.md5()
+m.update ("Hello, World!")
+m.update (" It's me, Chris!")       # multiple calls to update will concatenate
+d = m.digest()                      # the output to a hash function is called a digest
+
+#
+# all the secure hash functions work similarly
+# - they just have a different constructor
+#
+
+s1 = hashlib.sha1()
+...
+
+s256 = hashlib.sha256()
+...
+
+s512 = hashlib.sha512()
+...
+</pre>
+
+</div>
+</body>
+</html>
+

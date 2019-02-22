@@ -149,32 +149,101 @@ git clone ssh://john.smith@smith.com:[port]/dir
 <li>commit changes (marked via <code>git add</code>) to the local repository
 </ul>
 
+<h2><code>git merge</code></h2>
+
+<ul>
+<li>Merges changes into the current branch
+<li>For instance, let's say you've been working on branch <code>foo</code> and all your changes have been committed
+<li>Let's also say that you're ready to merge your changes into master
+<li>The following would merge your changes into <code>master</code>
+
+<pre>
+# switch to master branch
+git checkout master
+
+# merge changes in foo to master branch
+git merge foo
+</pre>
+
+</ul>
+
+<h2><code>git fetch</code></h2>
+
+<ul>
+<li>Download branches and/or tags from another repository 
+<li>By default, <strong>tags</strong> are not pulled down, if you want to copy tags, use the following:
+
+<pre>
+git fetch
+git fetch --tags
+
+# you can now switch to a tag
+git checkout your_tag
+</pre>
+
+</ul>
+
+<h2><code>git pull</code></h2>
+
+<ul>
+<li>Performs a <code>git fetch</code> followed by a <code>git merge</code>
+<li>In other words, download from the remote repository and merge its changes into the current repository
+</ul>
 
 <h2>Updating Remote Repositories</h2>
 
-<ul>
-<li><strong>BEFORE ATTEMPTING TO UPDATE REMOTE BRANCHES, ALL CHANGES MUST HAVE 1ST BEEN COMMITTED TO THE LOCAL REPOSITORY DEVELOPMENT BRANCH(ES)</strong>
-</ul>
+<p><strong>KEY CONCEPT:</strong> Before attempting to update remote branches, all changes must have already been committed to the local repository</p>
 
 <h3>Bring Local Master Up-to-Date</h3>
 
 <ul>
 <li>this is only necessary if the remote master branch is ahead of our local master branch
-<li><code>git checkout master # make master the current branch (Make sure all your changes have been committed to local development branches (otherwise you will not be permitted to switch branches)</code>
-<li><code>git pull origin master # bring local master up-to-date with remote repo</code>
+
+<pre>
+#
+# Switch to local master branch
+# - make sure all your changes have been committed. Otherwise, you'll receive an error
+#
+git checkout master
+
+#
+# bring local master up-to-date with 'origin master'
+# - git pull is the equivalent of git fetch followed by git merge
+#
+git pull origin master
+</pre>
+
 </ul>
 
 
 <h3>Merge Changes -- Development Branch</h3>
 <ul>
-<li><code>git checkout &lt;branch&gt; # e.g. dev. switch to your development branch</code>
-<li><code>git rebase master # merge changes into your dev branch</code>
+<pre>
+#
+# switch to your development branch
+#
+git checkout &lt;branch&gt;
+
+#
+# merge remote changes to master into your development branch
+#
+git rebase master
+</pre>
 </ul>
 
 <h3>Merge Changes -- Master Branch</h3>
 <ul>
-<li><code>git checkout master; # switch to master branch</code>
-<li><code>git merge &lt;branch&gt;</code>
+<pre>
+#
+# switch to master branch
+# 
+git checkout master
+
+#
+# merge changes from development branch into master
+#
+git merge &lt;branch&gt;
+</pre>
 </ul>
 
 <h3>Push Changes to Remote Repository</h3>

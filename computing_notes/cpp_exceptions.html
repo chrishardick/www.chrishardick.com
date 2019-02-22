@@ -38,53 +38,60 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<H1>C++ Exceptions</H1>
+<h1>C++ Exceptions</h1>
 
 
-<UL>
-<LI>A method of handling runtime errors
-<LI>Provides a standard mechanism for handling runtime errors
-<LI>3 new keywords: <i>try</i>, <i>throw</i>, & <i>catch</i>
-</UL>
+<ul>
+<li>A method of handling runtime errors
+<li>Provides a standard mechanism for handling runtime errors
+<li>3 new keywords: <i>try</i>, <i>throw</i>, and <i>catch</i>
+</ul>
 
-<H2>I. <i>try</i> block</H2>
-<UL>
-<LI>defines a region of code where an exception may be thrown
-<LI>when an exception is thrown, control immediatly goes to the <i>catch</i> block. 
-	The catch block is executed & when complete, execution continues with the 
-	statement following the catch block
-<LI>if an exception is not thrown, the catch block is not executed
-<LI>the <i>throw</i> statement throws an exception
-<LI>the operand following the throw statement determines the <strong>exception type</strong>
-<LI>exceptions can also be thrown in functions called from within a try block & caught
-	by a catch block following the try block
-</UL>
+<h2>I. <i>try</i> block</h2>
+<ul>
+<li>defines a region of code where an exception may be thrown
+<li><strong>When an exception is thrown</strong>:
+    <ol>
+    <li><strong>Destructors</strong> are invoked for any automatic objects defined within the block 
+    <li>Control goes to the <i>catch</i> block and the catch block is executed
+	<li>When The catch block completes, execution continues with the statement immediately following the catch block
+    </ol>
+<li>If an exception is not thrown, the catch block is not executed
+<li>The <i>throw</i> statement throws an exception
+<li>The operand following the throw statement determines the <strong>exception type</strong>
+<li>If an exception is not caught by the function which generated the exception, 
+    it will be delivered to the calling function, and if not caught there, the calling function's caller, 
+    down the entire call stack until the exception is caught.
+<li>One of the benefits (and complexities) of using exceptions is that they can be handled high up in a given module 
+<li>If the exception is never caught, the program will terminate by calling the registered terminate handler or 
+    abort() -- the default terminate handler -- see discussion below.
+</ul>
 
-<H2>II. <i>catch</i> block</H2>
-<UL>
-<LI>catch any exception of a given type
-<LI>you must specify @ least 1 catch block for a try block
-<LI>catch block must immediately follow the try block
-<LI>a catch block will catch all exceptions (of the correct type) that occur anywhere 
+<h2>II. <i>catch</i> block</h2>
+<ul>
+<li>catch any exception of a given type
+<li>you must specify @ least 1 catch block for a try block
+<li>catch block must immediately follow the try block
+<li>a catch block will catch all exceptions (of the correct type) that occur anywhere 
 	in the immediately proceding try block--including any functions which are
-	called from within the try block (& the functions which they call... etc.)
-<LI>you can specify that a catch block should handle all exceptions (regardless of type) 
+	called from within the try block (and the functions which they call... etc.)
+<li>you can specify that a catch block should handle all exceptions (regardless of type) 
 	by placing an elipse within the parenthesis--rather than an explicit type.
 	If you're going to use this catch block along with others, make sure this is the
 	last one you define.
-</UL>
+</ul>
 
 
-<H2>III. Nested try blocks</H2>
-<UL>
-<LI>you may nest try blocks within one another
-<LI>if an exception is thrown from within an inner try block which is not handled in a catch block
+<h2>III. Nested try blocks</h2>
+<ul>
+<li>you may nest try blocks within one another
+<li>if an exception is thrown from within an inner try block which is not handled in a catch block
 	immediately following the nested try block, the catch handlers for the outer try block
 	will be searched.
-</UL>
+</ul>
 
 
-<H2>IV. Code</H2>
+<h2>IV. Code</h2>
 
 <pre>
 #include &lt;iostream.h&gt;
@@ -96,19 +103,20 @@ C O N T E N T
 struct foo_exception : public std::exception
 {
         //  
-        // throw()
+        // <strong>throw()</strong>
         // - an exception specification
         // - allows you to specify a comma delimited list as to which
         //      exceptions the given function handles
         // - throw(int), throw(int, const char*), ...
         // - the absence of an exception specification means the funtion can throw any exception
         // - throw() meant that the function did not throw exceptions
-        // - it has been deprecated in c++11
+        // - this was deprecated in c++11
         // - it could not be checked at compile time and was extra overhead at run time
-        // - however, it seems thow() has remained 
+        // - however, it seems throw() - i.e. specifying that the method does not throw exceptions - has remained 
+        // - here, we're specifying what() does not throw exceptions
         //  
 
-        virtual const char* what() const throw()
+        virtual const char* what() const <strong>throw()</strong>
         {   
                 return "foo_exception";
         }   
@@ -130,6 +138,12 @@ void my_terminate ()
 
 int main (int argc, const char* argv[])
 {
+    //
+    // a terminate handler is a function automatically called when exception
+    // handling cannot continue -- usually becasue no catch handler is defined
+    //
+    // if you do not register a terminate handler, the default terminate handler is abort()
+    //
     std::set_terminate(my_terminate);
 
     std::cout &lt;&lt; "main: START" &lt;&lt; std::endl;
