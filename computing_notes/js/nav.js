@@ -474,7 +474,7 @@ function print_title ()
 //    var title_html = `
 //    <span class="menutron" onclick="openNav()">&#9776;</span><a class="title" href="index.html">Computing Notes</a>` 
 
-    var title_html = `<div class="title"><span id="menu_icon" class="menu_icon"></span><a href="index.html" style="color: white; text-decoration: none;">Computing Notes</a></div>
+    var title_html = `<div class="title"><span id="menu_icon" class="menu_icon"></span><a href="index.html" style="color: white; text-decoration: none;">Notes</a></div>
     <div class="searchbox"><form action='search.py' method='POST'><input type="text" name="searchbox"> <input type="submit" value="search"> </form></div>`
     // onkeydown= "if (event.keyCode == 13) alert('Hello, World!')">
 
