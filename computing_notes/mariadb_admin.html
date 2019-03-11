@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>MariaDB: Administration and Utilities</title>
+<title>MySQL / MariaDB: Administration and Utilities</title>
 
 </head>
 
@@ -38,75 +38,80 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>MariaDB: Administration and Utilities</h1>	
+<h1>MySQL / MariaDB: Administration and Utilities</h1>    
 
 <h2><code>mysql</code> DATABASE</h2>
 <ul>
 <li>The <code>mysql</code> database is used for permissioning 
 <li>It contains numerous tables. 
-<li>Here are the primary tables which deal with permissioning:
-	<ul>
-	<li><code>user</code>
-		<ul>
-		<li>sets permissions for the server as a whole
-		<li>Columns (basically all of type enum ('N','Y'))
-		<li>Select_priv -- perform SELECT statements
-		<li>Insert_priv -- perform INSERT statements
-		<li>Update_priv -- perform UPDATE statements
-		<li>Delete_priv -- perform DELETE statements
-		<li>Create_priv -- perform CREATE statements
-		<li>Drop_priv   -- perform DROP statements
-		<li>Index_priv  -- the ability to create or drop indicies
-		<li>Alter_priv  -- perform ALTER TABLE statements
-		<li>Here's a statement to add (a pretty powerful) user
-
-        <pre>INSERT INTO user (Host,User,Password,Select_priv,Insert_priv,Update_priv,Delete_priv,Create_priv,Drop_priv,Index_priv,Alter_priv)
-VALUES ('localhost','chris@localhost',password('chris'),'Y','Y','Y','Y','Y','Y','Y','Y');</pre>
-		
-		</ul>
-	<li><code>db</code>
-		<ul>
-		<li>sets permissions for individual databases
-		</ul>
-	<li><code>host</code>
-	<li><code>tables_priv</code>
-	<li><code>colums_priv</code>
-	</ol>
+<li>Below are the primary tables which deal with permissioning:
 </ul>
 
-<h2>Utilities</h2>
+<h3><code>user</code> TABLE</h3>
+<ul>
+<li>sets permissions for the server as a whole
+<li>Columns (basically all of type enum ('N','Y'))
+<li>Select_priv -- perform SELECT statements
+<li>Insert_priv -- perform INSERT statements
+<li>Update_priv -- perform UPDATE statements
+<li>Delete_priv -- perform DELETE statements
+<li>Create_priv -- perform CREATE statements
+<li>Drop_priv   -- perform DROP statements
+<li>Index_priv  -- the ability to create or drop indicies
+<li>Alter_priv  -- perform ALTER TABLE statements
+<li>Here's a statement to add (a pretty powerful) user
+
+<pre>INSERT INTO user (Host,User,Password,Select_priv,Insert_priv,Update_priv,Delete_priv,Create_priv,Drop_priv,Index_priv,Alter_priv)
+VALUES ('localhost','chris@localhost',password('chris'),'Y','Y','Y','Y','Y','Y','Y','Y');</pre>
+        
+</ul>
+
+<h3><code>db</code> TABLE</h3>
+<ul>
+<li>sets permissions for individual databases
+</ul>
+
+<h3><code>host</code> TABLE</h3>
+
+<h3><code>tables_priv</code> TABLE</h3>
+
+<h3><code>colums_priv</code> TABLE</h3>
+
+<br>
+<h2>UTILITIES</h2>
 
 <h3><code>mysqladmin</code></h3>
 <ul>
-<li>Client to administer a MariaDB server
+<li>Client to administer a MySql/MariaDB server
 <li>Set root password
-	<pre>mysqladmin -u root password 'newpasswd'</pre>
+    <pre>mysqladmin -u root password 'newpasswd'</pre>
 </ul>
 
-<h2>safe_mysql</h2>
 
+<h3><code>safe_mysql</code></h3>
 <ul>
 <li>A script which starts mysqld (the mysql (mariaDB) daemon) and continuously verifies mysqld stays up.
 <li>If mysqld exits, safe_mysql will restart it. 
 <li>Execute safe_mysql in the background (e.g. <code>safe_mysql &amp;</code>)
 </ul>
 
+
 <h3><code>mysql</code></h3>
 <ul>
-<li>MariaDB SQL client
+<li>SQL client
 <li>To log in with a given username (you will be prompted for a password):
     <pre>mysql -u username -p</pre>
 <li>For example, to log in as the mysql <code>root</code> user: 
     <pre>mysql -u root -p</pre>
 
-<li>To add a user record to 'user' table and host record to 'host' table
-	<ul>
-	<li>Log in as mysql user root (see above)
+<li>To add a user record to 'user' table and host record to 'host' table:
+    <ul>
+    <li>Log in as mysql user root (see above)
     <li>Execute the following:
     <pre>mysql&gt; CREATE USER 'chris'@'localhost' IDENTIFIED by 'password';
 mysql&gt; GRANT ALL PRIVILEGES ON * . * TO 'chris'@'localhost';     // *.* indicates all databases, all tables - respectively
 mysql&gt; FLUSH PRIVILEGES;</pre>
-	</ul>
+    </ul>
 </ul>
 
 <h2>Porting An Existing MySQL Database</h2>
@@ -122,11 +127,31 @@ mysql&gt; FLUSH PRIVILEGES;</pre>
 <h2>Mysql Database Files</h2>
 <ul>
 <li>depending on the version of MySQL/MariaDB you're running, you may see some variation here.
-	<ul>
-	<li>.isd = Data File
-	<li>.ism = Keys and other internal data
-	<li>.frm = Table Structure Info
-	</ul>
+    <ul>
+    <li>.isd = Data File
+    <li>.ism = Keys and other internal data
+    <li>.frm = Table Structure Info
+    </ul>
+</ul>
+
+<h2>Config File</h2>
+<ul>
+<li><code>/etc/mysql/my.cnf</code>
+</ul>
+
+<h3>To Set Server Timezone to UTC</h3>
+<ul>
+<li>Edit config file
+<pre>
+[mysqld]
+...
+# default timezone = UTC
+default-time-zone = "+00:00"
+</pre>
+<li>Restart Server
+<pre>
+systemctl restart mysql
+</pre>
 </ul>
 
 </div>

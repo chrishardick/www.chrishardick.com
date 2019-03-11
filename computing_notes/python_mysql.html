@@ -41,13 +41,60 @@ C O N T E N T
 
 <h1>Python: MySQL</h1>
 
+<h2>Create Connection</h2>
+<pre>
+import mysql.connector
+
+#
+# returns a MySQLConnection object
+#
+
+db_conn = mysql.connector.connect ( host="localhost"
+                                    ,user="mysql_username"
+                                    ,passwd="password"
+                                    ,database="dbname"      # optional
+                                    )
+</pre>
+
+<h2>Create Database</h2>
+<pre>
+import mysql.connector
+
+host    = "localhost"
+user    = "bhah"
+passwd  = "blah"
+
+db_conn = mysql.connector.connect (host=host, user=user, passwd=passwd)
+
+#
+# all DDL (Data Definition Language) statements are executed using a cursor (a handle data structure)
+# - DDL statements implicitly xecute commit 
+# - a DDL statement is a statement which alters the structure of the database itself 
+# - e.g. CREATE, ALTER, DROP
+#
+
+db_cursor = db_conn.cursor()
+
+db_cursor.execute ("CREATE DATABASE foo")
+
+db_cursor.execute ("USE foo")
+
+db_cursor.execute ("CREATE TABLE bar (bar1 VARCHAR(255), bar2 VARCHAR(255))")
+
+
+
+
+db_cursor.execute ("CREATE DATABASE blah")
+
+db_cursor.execute ("USE blah")
+</pre>
+
 <h2>Installation</h2>
 
 <h3>Debian based Systems</h3>
 <ul>
 <li><code>apt-get install python-mysqldb</code>
 </ul>
-
 
 </div>
 </body>

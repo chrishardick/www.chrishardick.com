@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>JavaScipt: JSON (JavaScript Object Notation)</title>
+<title>JavaScipt: JSON</title>
 
 </head>
 
@@ -38,68 +38,23 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>JavaScript: JSON (JavaScript Object Notation)</h1>
+<h1>JavaScript: JSON</h1>
 
 <ul>
-<li>a data format useful for interprocess communication -- intra or inter-node
-<li>JSON does not support comments
+<li>JavaScript Object Notation
+<li>see also <a href="json_intro.html">JSON</a> - which documents the specification
+<li>This page documents the JavaScript JSON library
 </ul>
 
-<h2>Object</h2>
+<h2><code>JSON.parse()</code></h2>
 <ul>
-<li>an <strong>unordered</strong> set of name/value pairs
-<li>an object begins with a beginning curly brace ({) and ends with an ending curly brace (})
-<li>each name/value pair is separated by a comma (,)
-<pre>
-{ string1 : value1, ..., stringN : valueN }
-</pre>
+<li>convert a JSON string to a JavaScript object
 </ul>
 
-<h2>Array</h2>
+<h2><code>JSON.stringify()</code></h2>
 <ul>
-<li>an <strong>ordered</strong> list of values
-<li>an array begins with a beginning square brace ([) and ends with an ending square brace (])
-<li>values are separated by a comma (,)
-<pre>
-[ value1, ..., valueN ]
-</pre>
+<li>convert a JavaScript object to a JSON string
 </ul>
-
-<h2>Value</h2>
-<ul>
-<li>a value can be a string enclosed in double quotes, a number, a boolean (e.g. true or false), null (indicating the absence of a value),  an object or an array
-<pre>
-"Hello World!"
-</pre>
-</ul>
-
-<h2>String</h2>
-<ul>
-<li>strings in JSON must be <strong>enclosed in double quotes</strong>. 
-<li>The following can be escaped (i.e. \")
-    <ul>
-    <li>" (quotation mark)
-    <li>/ ([forward] slash)
-    <li>\ (back slash)
-    <li>t (tab)
-    <li>n (newline)
-    <li>u 4 digit hexadecimal number
-    <li>f (formfeed)
-    <li>r (carriage return)
-    <li>b (backspace)
-    </ul>
-<pre>
-"Hello World!"
-</pre>
-</ul>
-
-
-<h2>Number</h2>
-<ul>
-<li>numbers in JSON must be in decimal (i.e. octal and hexadecimal formats are not supported). Other than that, numbers can either have a decimal point (i.e. floating point) or an integers. Exponential notation is also supported (i.e. 1.5E4)
-<li>The following can be escaped (i.e. \")
-</ul>
-
 
 </div>
 </body> 

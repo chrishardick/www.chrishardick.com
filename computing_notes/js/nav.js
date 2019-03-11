@@ -281,6 +281,11 @@ function print_nav(f)
         <a href="jsclient_scratch_pad.html">Scratch Pad</a>
     </div>
 
+    <button class="accordion" id="accordion_json">JSON</button>
+    <div class="panel">
+        <a href="json_intro.html">Intro</a>
+    </div>
+
     <button class="accordion" id="accordion_linux">Linux</button>
     <div class="panel">
         <a href="linux_systemd.html">systemd</a>
@@ -312,7 +317,7 @@ function print_nav(f)
         <a href="mac_root_user.html">Root User</a>
     </div>
 
-    <button class="accordion" id="accordion_mariadb">MariaDB</button>
+    <button class="accordion" id="accordion_mariadb">MySQL / MariaDB</button>
     <div class="panel">
         <a href="mariadb_intro.html">Introduction</a>
         <a href="mariadb_admin.html">Administration and Utilities</a>

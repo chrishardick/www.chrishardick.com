@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>MariaDB</title>
+<title>MySQL / MariaDB</title>
 
 </head>
 
@@ -38,7 +38,7 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>MariaDB</h1>	
+<h1>MySQL / MariaDB</h1>	
 
 <ul>
 <li>Multithreaded DB Engine
@@ -64,70 +64,6 @@ As far as I've seen, MySQL database formats are backward compatible.
 <li>Intended to maintain high compatibility with MySQL - such that it can be a drop-in replacement
 <li>These pages were originally written for MySQL
 </ul>
-
-<h2>mysql DATABASE</h2>
-<ul>
-<li>Used for security (who is permissioned to do what)
-<li>contains 5 tables
-	<ol>
-	<li>user
-		<ul>
-		<li>sets permissions for the server as a whole
-		<li>Columns (basically all of type enum ('N','Y'))
-		<li>Select_priv -- perform SELECT statements
-		<li>Insert_priv -- perform INSERT statements
-		<li>Update_priv -- perform UPDATE statements
-		<li>Delete_priv -- perform DELETE statements
-		<li>Create_priv -- perform CREATE statements
-		<li>Drop_priv   -- perform DROP statements
-		<li>Index_priv  -- the ability to create or drop indicies
-		<li>Alter_priv  -- perform ALTER TABLE statements
-		<li>Here's a statement to add (a pretty powerful) user
-<pre>
-INSERT INTO user (Host     ,User           ,Password       ,Select_priv,Insert_priv,Update_priv,Delete_priv,Create_priv,Drop_priv,Index_priv,Alter_priv)
-	  VALUES (localhost,chris@localhost,password('xyz'),'Y',       ,'Y'        ,'Y'        ,'Y'        ,'Y'        ,'Y'      ,'Y'       ,'Y'       );</pre>
-		
-		</ul>
-	<li>db
-		<ul>
-		<li>sets permissions for individual databases
-		</ul>
-	<li>host
-	<li>tables_priv
-	<li>colums_priv
-	</OL>
-</ul>
-
-<h2>Utilities</h2>
-
-<h3><code>mysqladmin</code></h3>
-<ul>
-<li>Client to administer a MariaDB server
-<li>Set root password
-	<pre>mysqladmin -u root password 'newpasswd'</pre>
-</ul>
-
-<h3><code>mysql</code></h3>
-<ul>
-<li>MariaDB SQL client
-<li>To log in:
-    <pre>mysql -u root -p</pre>
-
-<li>To add a user record to 'user' table and host record to 'host' table
-	<ul>
-	<li>log in as mysql user root (see above)
-	<li>add record to user table
-	<li>add record to host table
-	</ul>
-</ul>
-
-<h2>Porting An Existing MySQL Database</h2>
-<ul>
-<li>Copy directory to /var/lib/mysql
-<li>Add the following record to the 'db' table
-<pre>insert into db set host='localhost',db='HomeAuto',user='chris',select_pre_priv='y',create_priv='y',drop_priv='y',references_priv='y',index_priv='y',alter_priv='y';</pre>
-</ul>
-
 
 </div>
 </body> 
