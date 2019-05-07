@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: Base64</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: Base64</h1>
+
+<h2>Basics</h2>
+<ul>
+<li>Convert binary data into 6-bit segments - 2^6 = 64 possibilities (0-63) - hence Base64
+<li>A Base64 encoding table is then used to convert each value (0-63) into an ASCII value
+<li>If the size of the original data is not equally divisible by 3, pad characters must be added 
+    - the padding algorithm is beyond the scope of this document
+<li>The most common use of Base64 is to accurately transfer binary data as ASCII
+</ul>
+
+<h2>Example</h2>
+<pre>
+import base64
+
+original_data   = "Hello, World!"
+
+encoded_data    = base64.b64encode(original_data)
+
+decoded_data    = base64.b64decode(encoded_data)
+</pre>
+
+<h2>Base64 Encoding Table</h2>
+<p>tbd</p>
+</div>
+</body>
+</html>

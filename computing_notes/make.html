@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_make");
+}
+</script>
+
+<title>make</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>make</h1>
+
+<ul>
+<li>A build utility which can help manage the compilation and linkage of programs 
+</ul>
+
+<h2>Basic Usage</h2>
+
+<pre>
+make [-f makefile] [option(s)] [target(s)]
+</pre>
+
+<ul>
+<li>If you do not specify a makefile, make looks for a file named  <code>Makefile</code> or <code>makefile</code> (in that order) in the current directory
+</ul>
+
+
+<h2>Makefiles</h2>
+
+<ul>
+<li>Makefiles essentially consists of rules
+<li>Each rule specifies a <strong>target</strong>, a list of <strong>dependencies</strong>, and a list of <strong>commands</strong>
+<li>The list of commands is also known as a <strong>recipe</strong>. 
+<li>Each line in the recipe must start with a tab (or the first character in the value of the .RECIPEPREFIX variable)
+<li>The first rule listed in a makefile is the <strong>default rule</strong>. 
+    I.e. it is the rule executed if you do not specify a target when invoking <strong>make</strong>
+<li><strong>automake</strong> is a tool which can help you generate makefiles
+<li><strong>autoconf</strong> and <strong>cmake</strong> are tools which help generate platform specific build instructions
+</ul>
+
+<h3>Comments</h3>
+
+<ul>
+<li>Make supports single line comments which start from a hash symbol (<code>#</code>) to the end of a line
+</ul>
+
+<h3>Rules</h3>
+
+<pre>
+target [target ...]: [dependencies]
+    commands
+</pre>
+
+<pre>
+# a rule example
+foo.o: foo.cpp foo.h
+    g++ -c foo.cpp
+</pre>
+
+<h3>Macros</h3>
+
+<ul>
+<li>A macro is a variable which holds a string
+</ul>
+
+<pre>
+MACRO = definition      # by convention, macros are usually defined in uppercase
+
+# macro expansion
+$(MACRO)
+${MACRO}    # equivalent
+</pre>
+
+<pre>
+# a macro example
+CXX=g++
+
+foo.o: foo.cpp foo.h bar.h
+    $(CXX) $(CXXFLAGS) -c foo.cpp
+</pre>
+
+
+<h3>Implicit Rules</h3>
+<ul>
+<li>Some rules are so frequently used, they are defined by implicit rules
+<li>There are both built-in and user-defined implicit rules
+<li>Built in implicit rules use a bunch of predefined variables - a few of which are listed below
+<li>An example of a build-in implicit rule is generating an object file from a c or c++ source file
+</ul>
+
+<h4>Predefined Variables</h4>
+
+<dl>
+
+<dt><code>CC</code>
+<dd>program used to compile C programs
+
+<dt><code>CXX</code>
+<dd>program used to compile C++ programs
+
+<dt><code>AR</code>
+<dd>archive program used to make libraries
+
+<dt><code>CFLAGS</code>
+<dd>options to give the C compiler
+
+<dt><code>CXXFLAGS</code>
+<dd>options to give the C++ compiler
+
+<dt><code>ARFLAGS</code>
+<dd>options to give the archive program
+
+</dl>
+
+<h3>Pattern Rules</h3>
+<ul>
+<li>You can define an implicit rule by writing a pattern rule
+<li>In a pattern rule, the target contains a '%' character (exactly one of htem).
+<li>$&lt; target file name
+<li>$@ source file
+
+<pre>
+%.o: %.c
+    $(CC) -c $(CFLAGS) $&lt; $@
+</pre>
+
+</ul>
+
+</div>
+</body> 
+</html>

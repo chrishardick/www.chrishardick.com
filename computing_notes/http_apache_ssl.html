@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>Apache SSL</title>
+<title>Apache SSL/TLS</title>
 
 </head>
 
@@ -39,44 +39,165 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<h1>Apache SSL</h1>
+<h1>Apache SSL/TLS</h1>
 
-<h2>Generate a Certificate Signing Request</h2>
+<ul>
+<li>SSL/TLS are protocols for encrypting infomation between two points
+</ul>
+
+<h2>Terms</h2>
+
+<dl>
+
+<dt>X.509
+<dd>A standard defining the format for public key certificates. 
+<dd>The public keys can either be signed by a certificate authority (CA) or they can be self signed. 
+<dd>X.509 also defines a certification path validation algorithm which allows certificates to be signed by intermediate CA certificates 
+<dd>X.509 also defines certificate revocation lists which are a means to distribute information about certificates which have been deemed invalid
+    by a signing authority
+
+<dt>PEM
+<dd>PEM (Privacy Enhanced Mail) which was a failed format for secure e-mail 
+<dd>Never-the-less, it's used for certificates 
+<dd>Both private key files (<code>.key</code>) and certificate files (<code>.crt</code>) are in this format
+<dd>Sometimes utilizes a <code>.pem</code> extension
+
+</dl>
+
+<h2>File Types</h2>
+
+<dl>
+
+<dt>Certificate Signing Request (CSR) (PKCS10 format)
+<dd><code>.csr</code>
+<dd>It contains identify information (hostname, organization, individual) and the public key for the host requesting the certificate
+<dd>Encoded in PKC10 format
+
+
+<dt><code>.key</code>
+<dd>private key file (PEM format)
+
+<dt><code>.crt</code>
+<dd>certificate file (PEM format)
+
+</dl>
+
+<h2>SSL/TLS Handshake</h2>
+<ul>
+<li>Client: Hello (Cipher Suite, Client Random)
+<li>Server: Hello (Certificate)
+<li>Client: Authentication and Pre-Master Secret 
+    <ul>
+    <li>Client authenticates the server certificate
+    <li>Client creates a pre-master secret for the session, encrypts it with the server's public key and sends it to the server
+    </ul>
+<li>Server: Decryption and Master Secret
+    <ul>
+    <li>Server uses its private key to decrypt the pre-master secret
+    <li>Client and Server generate master secret with agreed cipher
+    </ul>
+<li>Encryption and Session Key
+</ul>
+
+<h2>Generating A Self Signed Certificate</h2>
+
+<pre>
+#
+# -nodes 
+#   private key will not be encrypted
+#
+# -newkey rsa:2048
+#   creates a new certificate request and a new private key
+#   rsa:nbits - generates a RSA key nbits in size
+#
+# -keyout 
+#   private key file to be generated (yourdomain.key)
+#
+# -out filename
+#   certificate file to be generated (yourdomain.crt)
+#
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout yourdomain.key -out yourdomain.crt
+</pre>
+
+<h2>Generating a Certificate Signing Request (CSR)</h2>
+
+<ul>
+<li>A CSR is an encoded block of text (using ASN.1 - according to the PKCS #10 specication) given to a 
+    Certificate Authority (CA) when applying for a SSL Certificate
+<li>It is generated on the server where the certificate will be installed and contains information to be included 
+    in the certificate (organization name, domain name, etc. - see below). It also contains the public key which will be included
+    in the certificate. 
+<li>A private key is also generated at the same time. 
+<li>A CA will use the CR to create your SSL Certificate.
+<li>A certificate will only work with the private key that is was generated with. 
+</ul>
+
+
 
 <pre>
 #
 # req 
-#   the command we're executing (certiciate creation request in PKCS#10 format) 
+#   the command we're executing (certificate creation request in PKCS#10 format) 
 #
 # -new
 #   new certificate request
 #   you will be prompted for relevant field values
 #
 # -newkey rsa:2048
-#   creates a new certiciate request and a new private key
+#   creates a new certificate request and a new private key
 #   rsa:nbits - generates a RSA key nbits in size
 #
 # -nodes
 #   private key will not be encrypted
 #
 # -keyout 
-#   specified the filename to write the newly created private key (yourdomain.key)
+#   private key file to be generated (yourdomain.key)
 #
 # -out filename
-#   specifies the ouptut filename (stdout by default)
-#   yourdoman.csr
-#   certificate signing request
+#   certificate signing rqeuest file to be generated (yourdomain.csr)
 # 
 openssl req -new -newkey rsa:2048 -nodes -keyout yourdomain.key -out yourdomain.csr
 </pre>
 
-<h2>Config File</h2>
+<h3>CSR contents</h3>
+<table>
+<tr><th>Name                </th><th>Description                                    </th><th>Example                                    </th></tr>
+<tr><td>Common Name         </td><td>Fully Qualified Domain Name                    </td><td>www.fredsoftware.com<br>*.fredsoftware.com </td></tr>
+<tr><td>Organization        </td><td>Legal Name of the organization                 </td><td>Fred Software                              </td></tr>
+<tr><td>Organizational Unit </td><td>Organization Division Handling Certificate     </td><td>IT Department                              </td></tr>
+<tr><td>City/Locality       </td><td>City of the Organization                       </td><td>Northport                                  </td></tr>
+<tr><td>State/County/Region </td><td>State/Regaion of the Organization              </td><td>New York                                   </td></tr>
+<tr><td>Country             </td><td>Two letter ISO code for Organization's Country </td><td>US                                         </td></tr>
+<tr><td>E-Mail Address      </td><td>E-mail address used to contact the organization</td><td>webmast@fredsoftware.com                   </td></tr>
+<tr><td>Public Key          </td><td>Public Key which will be included in Cert      </td><td>                                           </td></tr>
+</table>
+
+<h3>Decoding Your CSR</h3>
+<pre>
+openssl req -in yourdomain.csr -noout -text
+</pre>
+
+
+<h2>Installing a Certificate</h2>
+
+<pre>
+SSLEngine on
+
+# Server's Certicate
+SSLCertificateFile      /etc/ssl/crt/yourdomain.csr
+
+# Server's Private Key
+SSLCertificateKeyFile   /etc/ssl/crt/yourdomain.key
+</pre>
+
+<h2>Config File Settings</h2>
 
 <h3><code>SSLCertificateFile</code></h3>
 <ul>
-<li>Server PEM-encoded X.509 certicate data file
+<li>Server's X.509 Certificate File (PEM-encoded) 
+<li>An X.509 certificate contains a public key and an identity - hostname, organization or individual). 
+    It is either signed by a certificate authority (CA) or it is self-signed
 <li>File with certificate data in PEM format
-<li>At a minimum, it must include an end-entity (leaf) certificate. 
 </ul>
 <pre>SSLCertificateFile "/usr/local/apache2/conf/ssl.crt/server.crt"</pre>
 
@@ -89,9 +210,60 @@ openssl req -new -newkey rsa:2048 -nodes -keyout yourdomain.key -out yourdomain.
 
 <h3><code>SSLCACertificatePath</code></h3>
 <ul>
+<li>Client Side Certificates
+<li>Directory where you keep the Certificates of Certification Authorities (CA's) whose clients you deal with
+<li>These are used to verify client certificates on Client Authentication
 </ul>
+
 <pre>SSLCACertificatePath "/usr/local/apache2/conf/ssl.crt/"</pre>
 
+<h3><code>SSLCACertificateFile</code></h3>
+<ul>
+<li>Client Side Certificates
+<li>All-in-one file where you can assemble the Certificates of Certication Authorities (CA's) whose clients you deal with.
+<li>Concatenation of the various PEM-encoded Certicate files, in order of preference. 
+<li>
+</ul>
+
+<h2>Client Side Certificates</h2>
+
+<ul>
+<li>Server - Generate a root CA key and certificate. The CA is used for signing the client's public key
+<pre>
+#
+# -x509     
+#   outputs a self signed certificate instead of a certificate request.
+#
+# -new
+#   new certificate request
+#
+# -nodes    
+#   do not encrypt private key
+#
+# -key
+#   file containing private key
+#
+# -days
+#   number of days to certify the certificate for
+#
+openssl req -x509 -newkey rsa:2048 -nodes -keyout CA.key -days 7300 -out CA.pem
+</pre>
+
+<li>Client - generates private key and certificate (or certificate request)
+<li>
+</ul>
+
+<h3>Generating Your Own Certificate</h3>
+
+<pre>
+SSLVerifyClient none
+SSLCACertificateFile "conf/ssl.crt/ca.crt"
+
+&lt;Location "/var/www/blah"&gt;
+SSLVerifyClient require
+SSLVerifyDepth 1
+&lt;/Location&gt;
+</pre>
 
 <h2>Restart Server</h2>
 

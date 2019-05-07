@@ -41,7 +41,7 @@ C O N T E N T
 
 <h1>Python: Requests</h1>
 
-<p><strong>Requests</strong> - a Python library for HTTP
+<p><strong>Requests</strong> - HTTP Library
 
 <h2>Quick Start</h2>
 
@@ -51,9 +51,19 @@ import requests
 #
 # get request
 # - get a HTML document
+# - params = query string
 # - r = Response object
 #
-r = requests.get('https://www.foo.com/api', qstr = {'key1':'value1', 'key2':'value2',...})
+r = requests.get('https://www.foo.com/api', params = {'key1':'value1', 'key2':['value2a','value2b',...],...})
+
+&gt; print (r.url)
+https://www.foo.com/api?key2=value2a&amp;key2=value2b&amp;key1=value1
+
+#
+# get request with basic authentication
+#
+r = requsts.get('https://www.foo.com/api, auth=('user,passwd'))
+
 
 #
 # post request

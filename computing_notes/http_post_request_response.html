@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_http");
+}
+</script>
+
+<title>HTTP - POST Request/Response</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>HTTP - POST Request/Response</h1>
+
+<ul>
+<li>POST requests are used to send data to a web server
+<li>Similar to PUT requests. Except PUT requests are idempotent (i.e. invoking it once or multiple times results in the same effect)
+<li>Multiple POST requests may or may not be idempotent. I.e. you could be updating the same database records or each request could create a database record
+</ul>
+
+<h2>REQUEST</h2>
+<pre>
+POST /update.py HTTP/1.1
+Host: www.chrishardick.com
+Content-Type: application/x-www-form-urlencoded
+Content-Length: 27
+
+field1=value1&amp;field2=value2
+</pre>
+
+<h2>RESPONSE</h2>
+
+<pre>
+HTTP/1.1 200 OK
+Date: Wed, 10 Apr 2019 12:56:51 GMT
+Content-Length: 88
+Content-Type: text/html
+Connection: Closed
+
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;Hello, World!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+</div>
+</body>
+</html>

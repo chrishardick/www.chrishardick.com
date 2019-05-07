@@ -104,6 +104,14 @@ ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"
 
 <h2>htpasswd - Basic Authentication</h2>
 <pre>
+AuthType Basic
+AuthName "Restricted Area"
+AuthUserFile /etc/apache2/.htpasswd
+#Require valid-user
+Require user bob
+</pre>
+
+<pre>
 htpasswd -c /etc/apache2/.htpasswd &lt;username&gt;
 </pre>
 

@@ -174,9 +174,15 @@ function print_nav(f)
         <a href="cpp_auto_keyword.html">auto keyword</a>
     </div>
 
+    <button class="accordion" id="accordion_cmake">CMake</button>
+    <div class="panel">
+        <a href="cmake.html">Cheat Sheet</a>
+    </div>
+
     <button class="accordion" id="accordion_crypto">Cryptography</button>
     <div class="panel">
         <a href="crypto_hash_functions.html">Cryptographic Hash Functions</a>
+        <a href="crypto_public_key_cryptography.html">Public-Key Cryptography</a>
     </div>
 
     <button class="accordion" id="accordion_css">CSS</button>
@@ -220,6 +226,11 @@ function print_nav(f)
         <a href="git.html">Cheat Sheet</a>
     </div>
 
+    <button class="accordion" id="accordion_gtest">Google Test</button>
+    <div class="panel">
+        <a href="gtest.html">Cheat Sheet</a>
+    </div>
+
     <button class="accordion" id="accordion_html">HTML</button>
     <div class="panel">
         <a href="html_intro.html">Introduction</a>
@@ -236,6 +247,9 @@ function print_nav(f)
     <div class="panel">
         <a href="http_intro.html">Introduction</a>
         <a href="http_headers.html">Headers</a>
+        <a href="http_get_request_response.html">GET Request/Response</a>
+        <a href="http_post_request_response.html">POST Request/Response</a>
+        <a href="http_basic_authentication.html">Basic Authentication</a>
         <a href="http_apache_http.html">Apache HTTP</a>
         <a href="http_apache_virtual_hosts.html">Apache - Virtual Hosts</a>
         <a href="http_apache_ssl.html">Apache - SSL</a>
@@ -315,6 +329,11 @@ function print_nav(f)
     <div class="panel">
         <a href="mac_hosts_file.html">Hosts File</a>
         <a href="mac_root_user.html">Root User</a>
+    </div>
+
+    <button class="accordion" id="accordion_make">Make</button>
+    <div class="panel">
+        <a href="make.html">Cheat Sheet</a>
     </div>
 
     <button class="accordion" id="accordion_mariadb">MySQL / MariaDB</button>
@@ -398,6 +417,7 @@ function print_nav(f)
         <a href="python_struct.html">struct</a>
         <a href="python_socket.html">sockets</a>
         <a href="python_hashlib.html">hashlib</a>
+        <a href="python_base64.html">Base64</a>
         <a href="python_requests.html">requests - HTTP library</a>
     </div>
 
@@ -479,7 +499,7 @@ function print_title ()
 //    var title_html = `
 //    <span class="menutron" onclick="openNav()">&#9776;</span><a class="title" href="index.html">Computing Notes</a>` 
 
-    var title_html = `<div class="title"><span id="menu_icon" class="menu_icon"></span><a href="index.html" style="color: white; text-decoration: none;">Notes</a></div>
+    var title_html = `<div class="title"><span id="menu_icon" class="menu_icon"></span><a href="index.html" style="color: white; text-decoration: none;">Computing Notes</a></div>
     <div class="searchbox"><form action='search.py' method='POST'><input type="text" name="searchbox"> <input type="submit" value="search"> </form></div>`
     // onkeydown= "if (event.keyCode == 13) alert('Hello, World!')">
 

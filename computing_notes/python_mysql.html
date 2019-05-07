@@ -41,12 +41,14 @@ C O N T E N T
 
 <h1>Python: MySQL</h1>
 
-<h2>Create Connection</h2>
+<h2>MySQLConnection Class</h2>
 <pre>
 import mysql.connector
 
 #
-# returns a MySQLConnection object
+# connect()
+# - sets up a connection, establishing a session with the MySQL server.
+# - returns a MySQLConnection object
 #
 
 db_conn = mysql.connector.connect ( host="localhost"
@@ -56,12 +58,61 @@ db_conn = mysql.connector.connect ( host="localhost"
                                     )
 </pre>
 
+<h2>MySQLCursor Class</h2>
+<pre>
+import mysql.connector
+
+#
+# MySQLConnection.cursor()
+# - returns a MySQLCursor object or a subclass object (e.g. MySQLCursorBuffered, MySQLCursorRaw, MYSQLCursorBufferedRaw) - depending on passed in parameters
+# - optional parameters
+#   buffered - boolean. fetch all rows from the server. useful when queries return small data sets
+#   raw - boolean. raw = skip conversion from MySQL data types to Python data types. 
+#   dictionary - boolean. whether or not the cursor will return rows as dictionaries
+#
+
+cursor = db_conn.cursor()
+</pre>
+
+
+<h3>MySQLCursor Methods</h3>
+
+<dl>
+
+<dt><code>cursor.execute(operation, parms=None, multi=False)</code>
+<dd>Execute the given database operation. 
+<dd><code>operation</code> - db query or command. Parameters can be specified using eiher %s or %(name)s
+<dd><code>parms</code> - parameters bound to the variables in <code>operation</code>. 
+<dd><code>multi</code> - allows you to specify multiple operations in operation (seperated with semicolons)
+<pre>
+cursor.execute ("SELECT * FROM foo WHERE foo_id=%(foo_id)s", { 'foo_id': 12345 })
+</pre>
+
+<dt><code>row = cursor.fetchone()</code>
+<dd>Retrieve the next row of a query result. Returns a tuple or None if no more rows are available. 
+By default, the data is converted to Python objects 
+
+<dt><code>rows = cursor.fetchmany(size=1)</code>
+<dd>Retrieve the next set of rows of a query result. Fewer rows may be returned if fewer rows are available than what was specified.
+Returns a list of tuples or an empty list if no more rows are available. 
+By default, the data is converted to Python objects 
+
+<dt><code>rows = cursor.fetchall()</code>
+<dd>Fetch all (or all remaining) rows of a query result. Returns a list of tuples or an empty list if no more rows are available.
+By default, the data is converted to Python objects. This method simply calls fetchone in a loop. 
+
+<dt><code>cursor.close()</code>
+<dd>Use close() when you are done with the cursor. 
+
+</dl>
+
+
 <h2>Create Database</h2>
 <pre>
 import mysql.connector
 
 host    = "localhost"
-user    = "bhah"
+user    = "blah"
 passwd  = "blah"
 
 db_conn = mysql.connector.connect (host=host, user=user, passwd=passwd)
@@ -87,6 +138,35 @@ db_cursor.execute ("CREATE TABLE bar (bar1 VARCHAR(255), bar2 VARCHAR(255))")
 db_cursor.execute ("CREATE DATABASE blah")
 
 db_cursor.execute ("USE blah")
+</pre>
+
+<h2>Insert Data</h2>
+<pre>
+import mysql.connector
+
+host    = "localhost"
+user    = "blah"
+passwd  = "blah"
+dbname  = "foo"
+
+# connection object
+db_conn = mysql.connector.connect (host=host, user=user, passwd=passwd, database=dbname)
+
+db_cursor = db_conn.cursor()
+
+sql = "INSERT INTO table (f1, f2, f3, f4) VALUES (%(f1)s, %(f2)s, %(f3)s, %(f4)s)"
+sql_data = { }
+sql_data['f1'] = "v1"
+sql_data['f2'] = "v2"
+sql_data['f3'] = "v3"
+sql_data['f4'] = "v4"
+
+db_cursor.execute (sql, sql_data)
+
+db_conn.commit()
+
+db_cursor.close()
+db_conn.close()
 </pre>
 
 <h2>Installation</h2>

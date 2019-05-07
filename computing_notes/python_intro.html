@@ -71,6 +71,41 @@ print "Hello, World!"
 <li>start with a pound sig (#) and continue until the end of line
 </ul>
 
+<h2>Import Modules</h2>
+
+<ul>
+<li>Similar to #include in C/C++
+
+<li><code>import module_name</code>
+<pre>
+import sys
+
+sys.exit(0)
+</pre>
+
+<li><code>import module_name.member_name</code>
+<pre>
+import sys.exit
+
+sys.exit(0)
+</pre>
+
+<li><code>from module_name import member_name</code>
+<pre>
+from sys import exit
+
+exit(0)     # notice we do not need to specify the sys prefix
+</pre>
+
+<pre>
+from sys import *       # import all functions and constants using * wildcard
+
+exit(0)
+</pre>
+
+</ul>
+
+
 <h2>Misc</h2>
 <ul>
 <li><code>sys.exit([arg])</code> - exit script. <code>arg</code> is usually an integer to return to the os; it defaults to 0 - which usually indicates success. 

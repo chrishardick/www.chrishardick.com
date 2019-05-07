@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_gtest");
+}
+</script>
+
+<title>Google Test</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Google Test</h1>
+
+<ul>
+<li>Google Test is a C/C++ testing framework
+<li>Similar to JUnit or PyUnit
+</ul>
+
+
+<h2>Test Macros</h2>
+
+<table>
+<tr><th>TO VERIFY               </th><th>NON-FATAL CHECK (EXPECT)   </th><th>FATAL CHECK (ASSERT)       </th></tr>
+
+<tr><td>a == b                  </td><td>EXPECT_EQ (a, b)           </td><td>ASSERT_EQ (a, b)           </td></tr>
+<tr><td>a != b                  </td><td>EXPECT_NE (a, b)           </td><td>ASSERT_NE (a, b)           </td></tr>
+
+<tr><td>a &lt; b                </td><td>EXPECT_LT (a, b)           </td><td>ASSERT_LT (a, b)           </td></tr>
+<tr><td>a &lt;= b               </td><td>EXPECT_LE (a, b)           </td><td>ASSERT_LE (a, b)           </td></tr>
+<tr><td>a &gt; b                </td><td>EXPECT_GT (a, b)           </td><td>ASSERT_GT (a, b)           </td></tr>
+<tr><td>a &gt;= b               </td><td>EXPECT_GE (a, b)           </td><td>ASSERT_GE (a, b)           </td></tr>
+
+<tr><td>c strings equivalent    </td><td>EXPECT_STREQ(a, b)         </td><td>ASSERT_STREQ (a,b)         </td></tr>
+<tr><td>c strings not equivalent</td><td>EXPECT_STRNE(a, b)         </td><td>ASSERT_STRNE (a,b)         </td></tr>
+
+<tr><td>c strings equivalent - case ignored     </td><td>EXPECT_STRCASEEQ(a, b)         </td><td>ASSERT_STRCASEEQ (a,b)         </td></tr>
+<tr><td>c strings not equivalent - case ignored </td><td>EXPECT_STRCASENE(a, b)         </td><td>ASSERT_STRCASENE (a,b)         </td></tr>
+
+<tr><td>condition is true       </td><td>EXPECT_TRUE (cond)         </td><td>ASSERT_TRUE (cond)         </td></tr>
+<tr><td>condition is false      </td><td>EXPECT_FALSE (cond)        </td><td>ASSERT_FALSE (cond)        </td></tr>
+
+</table>
+
+<h2>Simple Tests</h2>
+
+<pre>
+TEST (TestSuiteName, TestName)
+{
+    // test body
+}
+</pre>
+
+<h2>Test Fixtures</h2>
+
+<pre>
+</pre>
+
+<h2><code>main()</code></h2>
+
+<pre>
+#include &lt;gtest/gtest.h&gt;
+
+int main (int argc, const char* argv[])
+{
+    ::testing::InitGoogleTest(&amp;argc, argv);
+    return RUN_ALL_TESTS();
+}
+</pre>
+
+
+<h2>Installation Instructions</h2>
+
+<ul>
+<li><code>git clone https://github.com/google/googletest</code>
+<li><code>cd googletest</code>
+<li><code>cmake .</code>
+<li><code>make</code>
+<li><code>sudo make install</code> - this istalled /usr/local/include/gtest/gtest.h and /usr/local/lib/libgtest.a (among other things) for me
+</ul>
+
+<h2>Build Instructions - via CMake</h2>
+
+<ul>
+<li>CMake - CMakeLists.txt
+
+<pre>
+cmake_minimum_required(VERSION 3.0.0)
+project (gtest_demo)
+
+add_compile_options(-std=c++11) 
+
+# ***necessary only if installing to non-standard location***
+# set (GTEST_LIBS libgmock.a  libgmock_main.a  libgtest.a  libgtest_main.a
+# link_directories (/path/to/lib)
+# include directories
+# include_directories(/path/to/include)
+
+# source files
+file (GLOB SOURCES "src/*.cpp")
+
+add_executable (gtest_demo ${SOURCES})
+target_link_libraries (gtest_demo libgtest.a libpthread.so)
+</pre>
+
+<li><code>cmake .</code>
+
+<li><code>make</code>
+</ul>
+
+</div>
+</body> 
+</html>

@@ -85,9 +85,30 @@ command! PrettyPrintJSON %!phython -m json.tool
 <li>Back Reference
 <pre>1,$s/\(^.*$\)/\1 ..\/html_\1/</pre>
 
+<li>Clean up tabular data
+<pre>%!column -t</pre>
+
+<li>Sort the file
+<pre>%!sort</pre>
+
 </ul>
 
+<h2>Skeleton Files</h2>
+<ul>
+<li>Skeleton or template files are useful to create a skeleton file for a given type. I.e. html, c++ source code
+</ul>
 
+<pre>
+if has ("autocmd")
+
+    " vim installation has autocmd
+
+    " BufNewFile - editing a new (non-existent) file
+
+    " .html
+    autocmd BufNewFile *.html 0r ~/.vim/templates/template.html
+endif
+</pre>
 
 </div>
 </body> 

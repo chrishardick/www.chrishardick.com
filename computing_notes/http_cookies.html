@@ -40,6 +40,19 @@ C O N T E N T
 <div id="content" class="content">
 <H1>HTTP - Cookies</H1>
 
+<pre>
+        +---------------+                        +---------------+
+        | http client   |-----------------------&gt;| http server   |
+        +---------------+                        +---------------+
+                            REQUEST--&gt;
+
+                            &lt;--RESPONSE
+
+                                Set-Cookie: &lt;cookie-name&gt;=&lt;cookie-value&gt;
+
+                                Set-Cookie: blah-session; id=12345; Secure;
+</pre>
+
 <ul class=spaced>
 <li>A HTTP cookie is a small amount of data a web server sends to the user's web browser. 
 <li>The browser will then send the cookie back to the web server with all subsequent requests to the same domain

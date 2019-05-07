@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cmake");
+}
+</script>
+
+<title>CMake</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CMake</h1>
+
+<ul>
+<li>A Makefile generator
+<li>Useful when the build process becomes too complicated - i.e. programs need to built across several platforms, etc.
+</ul>
+
+<h2>Basic Procedure</h2>
+
+<ul>
+<li>Create CMake configuration file - <code>CMakeLists.txt</code> - see examples below
+<li>Execute <code>cmake .</code>
+<li>Execute <code>make</code>
+<li>Executable or Libary should be built
+</ul>
+
+
+<h2>Hello, World!</h2>
+
+<ul>
+<li>Create file <code>CMakeLists.txt</code> in your project directory with the following contents:
+<pre>
+cmake_minimum_required(VERSION 3.0.0)
+project (hello_world)
+add_executable (hello_world main.cpp)
+</pre>
+<li>Execute <code>cmake .</code>
+<li>Execute <code>make</code>
+<li>Execute <code>./hello_world</code>
+</ul>
+
+
+<h2>Multiple Source, Standard Include Directory</h2>
+
+<ul>
+
+<li>Create file <code>CMakeLists.txt</code> in your project directory with the following contents:
+<pre>
+cmake_minimum_required(VERSION 3.0.0)
+project (exec_name)
+
+include_directories(include)
+
+file (GLOB SOURCES "src/*.cpp")
+
+add_executable (exec_name ${SOURCES})
+</pre>
+
+<li>Execute <code>cmake .</code> - must be re-run after each change
+<li>Execute <code>make</code>
+<li>Execute <code>./exec_name</code>
+</ul>
+
+
+<h2>Static Library</h2>
+
+<ul>
+
+<li>Create file <code>CMakeLists.txt</code> in your project directory with the following contents:
+<pre>
+cmake_minimum_required(VERSION 3.0.0)
+project (lib_name)
+set (CMAKE_BUILD_TYPE Release)
+
+include_directories(include)
+
+file (GLOB SOURCES "src/*.cpp")
+
+add_library (lib_name ${SOURCES})
+</pre>
+
+<li>Execute <code>cmake .</code> - must be re-run after each change
+<li>Execute <code>make</code>
+<li>Execute <code>./exec_name</code>
+</ul>
+
+<h2>Linking With a Static Library</h2>
+
+<ul>
+
+<li>Create file <code>CMakeLists.txt</code> in your project directory with the following contents:
+<pre>
+cmake_minimum_required(VERSION 3.0.0)
+project (executable_name)
+
+set (PROJECT_LINK_LIBS libch.a)
+link_directories (/cmake/lib)
+
+include_directories (~/cmake/lib/include)
+
+add_executable (executable_name main.cpp)
+target_link_libraries (executable_name ${PROJECT_LINK_LIBS})
+</pre>
+
+<li>Execute <code>cmake .</code> - must be re-run after each change
+<li>Execute <code>make</code>
+<li>Execute <code>./exec_name</code>
+</ul>
+
+<h2>Installing CMake</h2>
+
+<pre>
+apt-get install cmake
+</pre>
+
+</div>
+</body> 
+</html>

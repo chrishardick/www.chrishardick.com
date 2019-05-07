@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_http");
+}
+</script>
+
+<title>HTTP - GET Request/Response</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>HTTP - GET Request/Response</h1>
+
+<ul>
+<li>The GET method should be used to retrieve information from the given server. 
+<li>GET requests should not modify data
+<li>In a GET request, you can pass parameters as part of the query string
+</ul>
+
+<h2>REQUEST</h2>
+<pre>
+GET / HTTP/1.1
+User-Agent: Mozilla/4.0
+Host: www.chrishardick.com
+Accept-Language: en-us
+Connection: Keep-Alive
+                                    
+</pre>
+
+<h2>RESPONSE</h2>
+
+<pre>
+HTTP/1.1 200 OK
+Date: Wed, 10 Apr 2019 12:56:51 GMT
+Content-Length: 88
+Content-Type: text/html; charset=utf-8
+Connection: Closed
+Last-Modified: Wed 03 Apr 2019 12:56:51 GMT
+ETag: "11111111-2222-3333333333333"
+
+&lt;html&gt;
+&lt;body&gt;
+&lt;h1&gt;Hello, World!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+
+
+</div>
+</body>
+</html>

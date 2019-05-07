@@ -50,7 +50,7 @@ C O N T E N T
     <li>SHA512 (more secure and generally faster on 64 bit machines)
     </ul>
 <li>Very useful for passwords
-<li>See also <a href="http://crypto_hash_functions.html">Cryptographic Hash Functions</a>
+<li>See also <a href="crypto_hash_functions.html">Cryptographic Hash Functions</a>
 </ul>
 
 <pre>
@@ -59,7 +59,7 @@ import hashlib
 m = hashlib.md5()
 m.update ("Hello, World!")
 m.update (" It's me, Chris!")       # multiple calls to update will concatenate
-d = m.digest()                      # the output to a hash function is called a digest
+d = m.hexdigest()                   # returns the digest as a hex string (e.g. 2 * number of bytes)
 
 #
 # all the secure hash functions work similarly

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_http");
+}
+</script>
+
+<title>HTTP - Basic Authentication</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>HTTP - Basic Authentication</h1>
+
+<ul>
+<li>A method to require a HTTP user agent to privide a valid user name and password in order to access a resource. 
+</ul>
+
+<h2>How it Works</h2>
+
+<ul>
+<li>Client issues request
+<pre>
+GET / HTTP/1.1
+</pre>
+
+<li>Server responds with status code 401 (Unauthorized)
+<pre>
+HTTP/1.1 401 Unauthorized
+WWW-Authenticate: Basic realm="Private Area"
+</pre>
+
+<li>Client issues request containing Authorization header
+<pre>
+GET / HTTP/1.1
+Authorization: Basic [username:password encoded in Base64]
+</pre>
+
+<li>Server responds with either 200 (OK) or 403 (Forbidden)
+<pre>
+HTTP/1.1 200 OK
+</pre>
+or
+<pre>
+HTTP/1.1 403 Forbidden
+</pre>
+
+</ul>
+
+
+<h2>Acknowledgements</h2>
+
+<ul>
+<li><a href='https://developer.mozilla.org'>https://developer.mozilla.org</a>
+</ul>
+
+</div>
+</body>
+</html>
