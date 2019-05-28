@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_swift");
+}
+</script>
+
+<title>Swift - Functions</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Swift - Functions</h1>
+
+<h2>Function Declaration</h2>
+<pre>
+func foo()
+{
+    ///
+}
+
+func foo() &gt; Void    { ... }    // equivalent
+func foo() &gt; ()      { ... }    // equivalent
+
+
+func sum_two_ints (x:Int, y:Int) -&gt; Int 
+{
+    let result = x + y
+    return result
+}
+</pre>
+
+<h2>Calling a Function</h2>
+<pre>
+foo()
+</pre>
+
+<h2>External Parameter Names</h2>
+
+<ul>
+<li>To externalize a parameter name, put the internal parameter name separated by a space in the function declaration
+<li>The external name can be the same or different than the internal name
+<li>If the external name is the same, a shorthand can be used - place a # before the internal name (space is optional)
+<li>Even if external names are used, correct parameter order must be maintained.
+<li>A frequent occurence is for the first parameter to not have an external name because it's usually apparent what the first parameter is.
+</ul>
+
+<pre>
+function concatenate (#s:String, #t:String) -&gt; String
+{
+    var result = ""
+
+    result = s + t
+
+    return result
+}
+
+let s = concatenate (s:"Hello, ", t:"World!")
+
+
+//
+// similar
+//
+
+function concatenate (foo s:String, bar t:String) -&gt; String
+{
+    var result = ""
+
+    result = s + t
+
+    return result
+}
+
+let foobar = concatenate (foo:"Hello, ", bar:"World!")
+</pre>
+
+<h2>Function Overloading</h2>
+<ul>
+<li>Same function name, different signatures
+<li>Unlike C/C++, functions can be overloaded by return type. However, the context of the call must be clear - otherwise you'll get a compile-time error
+<li>
+</ul>
+
+<h2>Function Signatures</h2>
+
+<ul>
+<li>External parameter names are part of a function signature
+</ul>
+
+<pre>
+// function signature for a function which accepts two integers and returns an integer
+(Int, Int) -&gt; Int
+
+// function signature for a function which accepts no parameters and returns nothing
+Void -&gt; Void
+
+// an equivalent function signature
+() -&gt; ()
+</pre>
+
+
+<h2>Default Parameter Values</h2>
+
+<pre>
+func foo (s:String, num:Int = 1)
+</pre>
+
+
+<h2>Variadic Parameters</h2>
+
+<ul>
+<li>The last parameter can be <strong>variadic</strong>
+<li>I.e. The caller can supply as many values as they'd like separated by a comma
+<li>The function will receive these values as an array
+<li>This is specified by an elipse
+</ul>
+
+<pre>
+func printStrings (l:String ...) 
+{
+    for s in l
+    {
+        println (s)
+    }
+}
+
+printStrings ("Hello", ", ", "World!")
+</pre>
+
+<h2>Modifiable Parameters</h2>
+
+<ul>
+<li>By default, parameters are constants (similar to as if it was declared with <code>let</code>)
+<li>You can override this by explicitly declaring the variable with <code>var</code>
+<li>This change is local to the function - i.e. any new value is not visible outside of the function
+</ul>
+
+<pre>
+func foo (var s:String)
+{
+    s = "Hello, World!"
+}
+</pre>
+
+<h2>Output or Input/Output Parameters - (<code>inout</code>)</h2>
+
+<ul>
+<li>Declare the variables as <code>inout</code>
+<li>Pass in variables defined via <code>var</code>, not <code>let</code>
+<li>Pass the address of the argument by preceding its name with an ampersand (<code>&amp;</code>)
+</ul>
+
+<pre>
+func changeString (input s:String) -&gt; Void 
+{
+    s = "Goodbye"
+}
+
+var s = "Hello"
+
+changeString (&amp;s)
+
+println (s)         // "Goodbye" will print out
+</pre>
+
+<h2>Function In Function</h2>
+
+<ul>
+<li>A function can be declared within another function
+<li>In which case it can be used after its been defined
+<li>It's scope (visibility) is limited to the block in which it was defined
+<li>Useful for helper functions
+</ul>
+
+<h2>Recursion</h2>
+
+<ul>
+<li>Swift supports recursion
+</ul>
+
+
+<h2>Function as Value</h2>
+
+<ul>
+<li>A function can be used anywhere a value can be used
+</ul>
+
+<h2>Anonymous Functions</h2>
+
+<ul>
+<li>An anonymous function is a function without a name
+<li>It's defined the same way a named function is
+<li>Except the function's parameter list and return type are declared inside the curly brackets followed by the keyword </code>in</code>
+<li>If the return type can be gleened from the context, the arrow operator and return type can be omitted
+<li>If the anonymous function takes no parameters and the return type can be omitted, the <code>in</code> line can be omitted entirely
+<li>If the anonymous function takes parameters and their types can be gleened from the context, their types can be omitted.
+    If their types can be gleened, the parentheses around the paramter list can also be omitted
+<li>If the return type can be omitted and the parameter types can be gleened from the context, you can omit the <code>in</code> line
+    and refer to the paramters directly within the body of the function using names <code>$0</code> for the first parameter, 
+    <code>$1</code> for the second parameter, and so on
+</ul>
+
+<pre>
+{
+    () -&gt; () in
+    println ("Hello, World!")
+}
+        
+</pre>
+
+
+<h2>Closures</h2>
+
+
+
+<h2>Global Functions</h2>
+
+<ul>
+<li>A function declared at the top level of a file is a global function.  All code will be able to see and call it. 
+</ul>
+
+<ul>
+</ul>
+
+</div>
+</body> 
+</html>

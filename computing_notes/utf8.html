@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_utf8");
+}
+</script>
+
+<title>UTF-8</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>UTF-8</h1>
+
+<ul>
+<li>Variable width character encoding of all Unicode characters
+<li>Designed for backward compatibility with ASCII
+<li>The first 128 characters (7 bits) of UTF-8 correspond 1:1 with ASCII
+<li>A valid ASCII string is a valid UTF-8 string
+<li>Each character is 1-4 bytes
+</ul>
+
+<table>
+<tr><th># bytes </th><th>byte 1     </th><th>byte 2     </th><th>byte 3     </th><th>byte 4     </th><th># encoding bits    </th></tr>
+<tr><td>1       </td><td>0xxxxxxx   </td><td>N/A        </td><td>N/A        </td><td>N/A        </td><td>7                  </td></tr>
+<tr><td>2       </td><td>110xxxxx   </td><td>10xxxxxx   </td><td>N/A        </td><td>N/A        </td><td>11 (5+6)           </td></tr>
+<tr><td>3       </td><td>1110xxxx   </td><td>10xxxxxx   </td><td>10xxxxxx   </td><td>N/A        </td><td>16 (4+6+6)         </td></tr>
+<tr><td>4       </td><td>11110xxx   </td><td>10xxxxxx   </td><td>10xxxxxx   </td><td>10xxxxxx   </td><td>21 (3+6+6+6)       </td></tr>
+</table>
+
+</div>
+</body> 
+</html>

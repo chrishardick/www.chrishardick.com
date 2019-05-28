@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Linux - BIND</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Linux - BIND</h1>
+
+<ul>
+<li>BIND - Berkeley Internet Name Domain
+</ul>
+
+<h2>Caching Name Server</h2>
+
+<ul>
+
+<li> A caching name server simply caches the results for all name resolver requests from the network that it serves to speed up 
+responses for future requests for the same remote host
+
+<li>By default, BIND refers to the internet's root name servers to locate the authoritative name servers for a domain
+
+
+<ul>
+
+<li>Make backup copies of the following:
+    <ul>
+    <li><strong><code>/etc/hosts</code></strong>
+    <li><strong><code>/etc/named.conf</code></strong> 
+    <li><strong><code>/etc/resolv.conf</code></strong> 
+    <li><strong><code>/etc/sysconfig/iptables</code></strong>
+    </ul>
+
+<li>Install the following packages:
+    <ul>
+    <li><strong><code>bind</code></strong>
+    <li><strong><code>bind-utils</code></strong> 
+    <li><strong><code>bind-chroot</code></strong> 
+    </ul>
+
+<li>Add a line in resolv.conf go point to your name server. 
+    These changes should take effect immediately (i.e. no reboot or system command should be necessary)
+<pre>name server     192.168.1.1</pre>
+
+<li>Edit <strong><code>/etc/named.conf</code></strong>
+
+    <ul>
+    <li><code>listen-on</code> - configure BIND to listen on port 53 specifying the relevant IP addresses to listen on 
+    <li><code>allow-query</code> - configure BIND as to which network addresses from which DNS queries should be accepted
+    </ul>
+
+<pre>
+options {
+    listen-on port 53 { 127.0.0.1; 192.168.0.203; };
+//  listen-on-v6 port 53 { ::1; };
+    forwarders { 8.8.8.8; 8.8.4.4; };
+    directory   "/var/named";
+    dump-file   "/var/named/data/cache_dump.db";
+    statistics-file "/var/named/data/named_stats.txt";
+    memstatistics-file  "/var/named/data/named_mem_stats.txt";
+    allow-query { localhost; 192.168.0.0;24; };
+    recursion yes;
+
+
+    dnssec-enable yes;
+    dnssec-validation yes;
+    dnssec-lookaside auto;
+
+    /* path to ISC DLV key */
+    binkeys-file "/etc/named.iscdiv.key";
+
+    managed-keys-directory "/var/named/dynamic";
+};
+logging {
+    channel default_debug {
+        file "data/named.run";
+        severity dynamic;
+    };
+};
+zone "." IN {
+    type hint;
+    file "named.ca";
+};
+include "/etc/named.rfc1912.zones";
+include "/etc/named.root.key";
+</pre>
+
+
+<li>Start the name service
+
+<pre>
+systemctl enable named
+systemctl start named
+</pre>
+
+<li>Test using <code>dig</code>
+
+<pre>
+dig www.apple.com
+</ul>
+
+<h2>Primary Name Server</h2>
+
+<ul>
+<li>A <strong>Primary Name Server</strong> is the authoritative source for the domain it represents.
+</ul>
+
+<h3>Forward Zone File</h3>
+
+<ul>
+<li>The Forward Zone File contains "A" records for the hosts on your network. 
+<li>It may also contain CNAME records (aliases) and MX records (for mail servers)
+<li>Here is a basic Forward Zone File (e.g. <code>var/named/foo.com.zone</code>:
+
+<pre>
+; Authoritative data for foo.com
+;
+; Default Time to Live (Caching interval) 1 Day 
+$TTL 1D
+;
+; SOA (Start of Authority)
+; - use today's date with a counter starting at 01 for the serial number
+;   the serial number is set or incremented each time the zone file is changed
+;   
+@   IN SOA  foo.foo.com       root.foo.foo.com (
+                                       2019010101      ; serial
+                                       1D              ; refresh
+                                       1H              ; retry
+                                       1W              ; expire
+                                       3H )            ; minimum
+
+$ORIGIN         foo.com.
+foo.com.                IN      NS      foo.foo.com.
+foo                     IN      A       127.0.0.1
+server                  IN      A       192.168.1.1
+www                     IN      CNAME   server
+mail                    IN      CNAME   server
+test1                   IN      A       192.168.1.11
+t1                      IN      CNAME   test1
+test2                   IN      A       192.168.1.2
+test3                   IN      A       192.168.1.3
+test4                   IN      A       192.168.1.4
+
+; Mail server MX record
+foo.com.                IN      MX      10      mail.foo.com.
+</pre>
+
+<li>Add zone file to <code>named.conf</code>. Add it just before the include lines
+
+<pre>
+zone "foo.com" IN {
+    type master;
+    file "foo.com.zone";
+};
+</pre>
+
+<li>Restart named
+
+<li>Test using dig and nslookkup
+
+<pre>
+dig test1.foo.com
+dig mx.foo.com
+dig mail.foo.com
+nslookup test3.foo.com
+</pre>
+
+</ul>
+
+<h3>Reverse Zone File</h3>
+
+<ul>
+<li>A reverse lookup goes from IP address to hostname
+<li>Create a reverse zone file: <code>/var/named/foo.com.rev</code>
+
+<pre>
+</pre>
+
+<li>Add the reverse zone to <code>named.conf</code>:
+
+<pre>
+zone    "25.168.192.in-addr.arpa" IN {
+    type master;
+    file "foo.com.rev";
+};
+</pre>
+
+<li>Restart named server
+
+<li>Test using <code>dig</code>
+
+<pre>
+dig -x 192.168.1.1
+</pre>
+
+</ul>
+
+
+</div>
+</body> 
+</html>
+  

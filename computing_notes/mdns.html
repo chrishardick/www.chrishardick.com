@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_mdns");
+}
+</script>
+
+<title>mDNS</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>mDNS</h1>
+
+<ul>
+<li>Multicast DNS
+<li>Resolves host names to IP addresses within small networks without a name server
+</ul>
+
+<h2>Protocol Overview</h2>
+
+<ul>
+<li>mDNS client needs to resolve a host name, it sends out an IP multicast query asking the host with the given name to identify itself
+<li>mDNS server (target machine) multicasts a message which includes its IP address
+<li>All machines in the subnet can then update their mDNS cache
+<li>Any host can relinquish its host name by sending a response packed with a TTL equal to zero
+<li>By default, mDNS only resolves host names ending with the .local top level domain (TLD)
+<li>A mDNS message is a multicast UDP packet send to IPv4 address 224.0.0.251 port 5353
+</ul>
+
+<h2>Implementations</h2>
+
+<ul>
+<li>Linux - Avahi daemon
+<li>Apple - Bonjour
+</ul>
+
+<h2>Avahi</h2>
+
+<ul>
+</ul>
+
+
+<h3>mDNS Across Multiple Subnets</h3>
+
+<pre>
+# install avahi package and utilities
+apt-get install avahi-daemon avahi-utils 
+
+# configure avahi
+# - eth0,eth1,eth2,eth3 should be changed to match your interface names
+edit /etc/avahi/avahi-daemon.conf and make the following changes:
+
+[server]
+allow-intefaces=eth0,eth1,eth2,eth3
+
+[reflector]
+enable-reflector=yes
+
+
+# restart avahi 
+systemctl restart avahi-daemon
+</pre>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://www.wikipedia.com">www.wikipedia.com</a>
+</ul>
+
+</div>
+</body> 
+</html>

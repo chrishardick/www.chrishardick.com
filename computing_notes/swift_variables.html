@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_swift");
+}
+</script>
+
+<title>Swift - Variables</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Swift - Variables</h1>
+
+<ul>
+<li>All variables need to be declared using either <code>let</code> or <code>var</code>
+<li><code>let</code> declares <strong>constant</strong> variables
+<li><code>var</code> declares normal variables (i.e. non-constant)
+<li>By convention, type names begin with a capital letter and variable names start with a lower-case letter
+</ul>
+
+<h2>Variable Types</h2>
+
+<pre>
+Int
+Bool
+Double
+</pre>
+
+<ul>
+<li>The type of a variable is determined when it is declared and can never change
+<li>The type of a variable can be specified explicitly or implicitly
+<li>Define the variable type explicitly by adding a colon and the type after the variable declaration
+<pre>
+// explicitly declaring x to be an Int
+var x : Int
+</pre>
+
+<li>If you do not specify a type, Swift will infer a type based on the initialization value
+
+<pre>
+var i = 1           // i is implicitly defined as an integer
+i = 2               // ok
+i = "Hello, World"  // compilation error. can't assign a String to an integer
+
+var j : Int = 5
+</pre>
+
+<li>Everything in Swift is an object
+</ul>
+
+<h2>Global Variables</h2>
+
+<ul>
+<li>A variable declared at the top level of a file is a global variable.  It lives as long as the program runs.
+<li>It's visible throughout the entire file
+<li>It's also visible to all other files of the same module
+</ul>
+
+<h2>Local Variables</h2>
+<ul>
+<li>Declared inside a function body
+</ul>
+
+<h2>Instance Properties</h2>
+
+<h2>Static (Class) Properties</h2>
+
+
+<h2>Lifetime</h2>
+<ul>
+<li>
+</ul>
+
+<h2>Objects</h2>
+
+<ul>
+<li>In Swift, everything is an object
+<li>There are 3 types of objects:
+    <ul>
+    <li><code>class</code>
+<pre>
+var foo = Foo()
+</pre>
+
+    <li><code>struct</code>
+    <li><code>enum</code>
+    </ul>
+</ul>
+
+<h3><code>self</code></h3>
+
+</div>
+</body> 
+</html>

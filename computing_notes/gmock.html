@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_gtest");
+}
+</script>
+
+<title>Google Mock</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Google Mock</h1>
+
+<dl>
+<dt><strong>Fake Object</strong>
+<dd>Implements the same interface as the real object.
+<dd>Does not support expectations
+<dt><strong>Mock Object</strong>
+<dd>Fake Object which also supports <strong>expectations</strong> - see below. 
+</dl>
+
+<h2>Defining Mock Classes</h2>
+<ul>
+<li>The destructor and any method you wish to override must be declared <strong><code>virtual</code></strong>
+<li>Derive a mock class from the class you which to provide a mock implementation of
+<li>In the <code>public:</code> section of the of the child class, use <code>MOCK_METHODn()</code>
+    or <code>MOCK_CONST_METHODn()</code> for each method in which you're overriding. n is the number of arguments the method accepts
+<li>Pass the method name (without any quotes, etc.) as the first parameter to the macro
+<li>Pass the remainder of the function signature as the second parameter to the macro
+</ul>
+
+<h2>Setting Expectations</h2>
+<pre>
+//
+// MATCHERS
+// - the expected parameters
+// - use _ if you do not need to verify the parameters
+//
+// CARDINALITY
+// - this is expected to be called N times (specified via cardinality)
+//
+// ACTIONS
+// - the 1st time it is called, the 1st action will fire
+// - the 2nd time it is called, the 2nd action will fire
+// - the 3rd - nth time it is called, the last action will fire
+//
+EXPECT_CALL (mock_object, method(matchers))
+    .Times (cardinality)
+    .WillOnce(action)
+    .WillOnce(action)
+    .WillRepeatedly(action);
+</pre>
+
+<ul>
+<li>Expectations will be checked when the mock object is destructed.
+<li>Expectations must be specified before the mock functions are called
+</ul>
+
+<h2>Actions</h2>
+
+<h3>Return A Value</h3>
+<pre>
+// return 100
+Return (100)
+
+// return "Hello, World!"
+Return ("Hello, World!")
+</pre>
+
+<h3>Substitute Another Function/Method</h3>
+<pre>
+//
+// invoke function/functor f - arguments will be passed
+//
+Invoke (f)
+
+
+//
+// invoke object method 
+//
+Invoke (object_ptr, object_method_ptr)
+
+// e.g.
+Invoke (&amp;foo, &amp;Foo::bar)
+
+
+//
+// invoke function/functor without arguments
+//
+InvokeWithoutArggs (f)
+
+
+//
+// invoke object method which takes no arguments
+//
+InvokeWithoutArgs (object_ptr, object_method_ptr)
+</pre>
+
+<h2>Putting it All Together</h2>
+<pre>
+#include "gtest/gtest.h"
+#include "gmock/gmock.h"
+
+using ::testing::_;
+
+#include &lt;string&gt;
+#include &lt;iostream&gt;
+
+
+class Foo 
+{
+    virtual void print_two_strings (const std::string&amp; s1, const std::string&amp; s2)
+    {
+        std::cout &lt;&lt; s1 &lt;&lt; " " &lt;&lt; s2 &lt;&lt; std::endl;
+    }
+};
+
+class MockFoo : public Foo
+{
+    public:
+
+        MOCK_METHOD2 (print_two_strings, void(const std::string&amp; s1, const std::string&amp; s2));
+};
+
+TEST (MockFoo, FooTest)
+{
+    std::string s1 = "s1";
+    std::string s2 = "s2";
+
+    MockFoo mockFoo;
+
+    EXPECT_CALL (mockFoo, print_two_strings(_, _));
+
+    mockFoo.print_two_strings(s1,s2);
+}
+</pre>
+
+</div>
+</body> 
+</html>

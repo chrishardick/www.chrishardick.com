@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_dns");
+}
+</script>
+
+<title>DNS</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>DNS</h1>
+
+<h2>Basically How it Works...</h2>
+<ul>
+<li>An application (e.g. web browser) tries to connect to a hostname
+<li>The application sends a request to the operating system (OS)
+<li>The OS checks <strong><code>/etc/hosts</code></strong> - if the hostname can be resolved, we're done
+<li>The hostname is sent to the 1st name server listed in <strong><code>/etc/resolv.conf</code></strong>
+<li>If the name server can resolve the hostname, we're done
+<li>Otherwise, the name server sends the request to a remote name server
+<li>There are two types of remote requests, a <strong>forward request</strong> 
+    - usually to the name servers at your ISP or to a public name server (e.g. Google 8.8.8.8 or 8.8.4.4)
+    or a <strong>root-name server request</strong>. Root servers do not respond with the desired IP address.
+    They respond with the authoritative name server for the given domain.
+<li>If a root-name server request was made, the name server sends a query to the authoritative name server 
+<li>Name servers cache data for a period of time
+</ul>
+
+<h2>The DNS database</h2>
+
+<ul>
+<li>A distributed, hierarchical, replicated database
+</ul>
+
+<h2>FQDN - Fully Qualified Domain Name</h2>
+
+<p>A Fully Qualified Domain Name has 3 parts</p>
+
+<ul>
+<li>A Top Level Domain Name (TLDN) - such as .com, .net, .edu, etc.
+<li>The second level domain name - always immediately to the left of the TLDN
+<li>The hostname - e.g. lithium
+</ul>
+
+
+<h2>DNS Record Types</h2>
+
+<dl>
+
+<dt>A Record
+<dd>The primary name resolver record. Every named host must have an A record which contains the IP address for the host.
+
+<dt>CNAME Record
+<dd>Canonical Name. E.g. an alias for an A Record. It points to a A Record. 
+
+<dt>MX Record
+<dd>Mail Server for the domain
+
+</dl>
+
+<h2>DNS Client Configuration</h2>
+
+<ul>
+<li>Usually this consists of adding the IP addresses of 1-2 name servers to <strong><code>/etc/resolv.conf</code></strong>
+<li><strong><code>resolv.conf</code></strong> might be written to at boot time by DHCP or it might have been written to at installation time (for static configuration)
+</ul>
+
+<h2><code>dig</code></h2>
+
+
+</div>
+</body> 
+</html>

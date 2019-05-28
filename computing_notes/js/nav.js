@@ -221,14 +221,20 @@ function print_nav(f)
         <a href="db_transactions.html">Transactions</a>
     </div>
 
+    <button class="accordion" id="accordion_dns">DNS</button>
+    <div class="panel">
+        <a href="dns.html">Cheat Sheet</a>
+    </div>
+
     <button class="accordion" id="accordion_git">Git</button>
     <div class="panel">
         <a href="git.html">Cheat Sheet</a>
     </div>
 
-    <button class="accordion" id="accordion_gtest">Google Test</button>
+    <button class="accordion" id="accordion_gtest">Google Test / Mock</button>
     <div class="panel">
-        <a href="gtest.html">Cheat Sheet</a>
+        <a href="gtest.html">Google Test</a>
+        <a href="gmock.html">Google Mock</a>
     </div>
 
     <button class="accordion" id="accordion_html">HTML</button>
@@ -307,6 +313,7 @@ function print_nav(f)
         <a href="linux_networking.html">Networking</a>
         <a href="linux_dhcp.html">DHCP</a>
         <a href="linux_iptables.html">IPTables</a>
+        <a href="linux_bind.html">BIND</a>
         <a href="linux_modules.html">Modules</a>
         <a href="linux_olson.html">Olson Database</a>
         <a href="linux_debian.html">Debian</a>
@@ -334,6 +341,11 @@ function print_nav(f)
     <button class="accordion" id="accordion_make">Make</button>
     <div class="panel">
         <a href="make.html">Cheat Sheet</a>
+    </div>
+
+    <button class="accordion" id="accordion_mdns">mDNS</button>
+    <div class="panel">
+        <a href="mdns.html">Cheat Sheet</a>
     </div>
 
     <button class="accordion" id="accordion_mariadb">MySQL / MariaDB</button>
@@ -446,6 +458,16 @@ function print_nav(f)
     <div class="panel">
         <a href="sqlite_intro.html">Introduction</a>
         <a href="sqlite_sql_datatypes_utils.html">SQL, Datatypes, and Utilities</a>
+    </div>
+
+    <button class="accordion" id="accordion_swift">Swift</button>
+    <div class="panel">
+        <a href="swift_intro.html">Introduction</a>
+    </div>
+
+    <button class="accordion" id="accordion_utf8">UTF-8</button>
+    <div class="panel">
+        <a href="utf8.html">Cheat Sheet</a>
     </div>
 
     <button class="accordion" id="accordion_vim">Vim</button>
