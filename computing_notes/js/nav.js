@@ -306,6 +306,11 @@ function print_nav(f)
         <a href="json_intro.html">Intro</a>
     </div>
 
+    <button class="accordion" id="accordion_kafka">Kafka</button>
+    <div class="panel">
+        <a href="kafka_intro.html">Intro</a>
+    </div>
+
     <button class="accordion" id="accordion_linux">Linux</button>
     <div class="panel">
         <a href="linux_systemd.html">systemd</a>

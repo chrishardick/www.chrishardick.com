@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_kafka");
+}
+</script>
+
+<title>Kafka</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Kafka</h1>
+
+<ul>
+<li>a distributed streaming platform
+<li>Publish and subscribe to streams of records - similar to a message queue or enterprise messaging system
+<li>Store streams of records in a fault-tolerant durable way
+<li>Run as a cluster on one or more servers that can span multiple datacenters
+<li>The Kafka cluster stores streams of <strong>records</strong> in categories called <strong>topics</strong>
+<li>Each record consists of a <strong>key</strong>, <strong>value</strong>, and a <strong>timestamp</strong>
+<li>Communication between clients and servers is done via TCP/IP
+<li>Clients can be written in many languages including C/C++, Python, etc.
+</ul>
+
+
+Kafka has four core API's:
+<ul>
+<li>The <strong>Producer API</strong> allows an applciation to publish a stream of records to one or more Kafka topics.
+<li>The <strong>Consumer API</strong> allows an applciation to subscribe to one or more topics and process the streams of records produced to them. 
+<li>The <strong>Streams API</strong> allows an applciation to act as a stream processor consuming an input stream from one or more topics and
+    producing an output stream to one or more output topics, transforming the input streams to output streams
+<li>The <strong>Connector API</strong> allows for reusable producers or consumers - e.g. a connector to a relational database which captures each change to a table
+</ul>
+
+<h2>Topics and Logs</h2>
+<ul>
+<li>For each topic, the Kafka cluster maintains a partitioned log
+<li>Each partition is an ordered, immutable sequence of records that is continually appened to
+<li>Each record is assigned a sequential id (called an offset) which uniquely identifies the record within the partition
+<li>The Kafka cluster durably persists all published reords using a configurable retention period
+<li>For example if the retention policy is set to 2 days, then for record is available for consumption for 2 days after it is published.
+    After that time, it is discarded to free up space.
+</ul>
+
+<h2>Partitions</h2>
+<ul>
+<li>Each partition is replicated across a configurable number of servers
+<li>Each partition has one server which is deemed the <strong>leader</strong> and one or more servers which are <strong>followers</strong>
+<li>The <strong>leader</strong> handles all read and write requests for the partition
+<li>The <strong>followers</strong> passively replicate the leader
+<li>If the leader fails, one of the followers will become the leader
+<li>Each server acts as a leader for some partitions and a follower for others such that the load is well balanced
+</ul>
+
+<h2>Producers</h2>
+<ul>
+<li>The producer is responsible for choosing the partition within the topic
+</ul>
+
+<h2>Consumers</h2>
+<ul>
+<li><strong>Consumers</strong> label themselves with a <strong>consumer group name</strong>
+<li>Each record published to a topic is delivered to <strong>one</strong> consumer instance within a subscribing consumer group 
+- allowing for load balancing the consumers
+</ul>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://kafka.apache.org">kafka.apache.org</a>
+</ul>
+
+</div>
+</body> 
+</html>
