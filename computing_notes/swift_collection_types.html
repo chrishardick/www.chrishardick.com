@@ -1,0 +1,192 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_swift");
+}
+</script>
+
+<title>Swift - Collection Types</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Swift - Collection Types</h1>
+
+<ul>
+<li>Swift provides three primary collection types:
+<strong>array</strong>, <strong>set</strong>, <strong>dictionary</strong>
+
+<li>All three types are implemented as generic collections (i.e. similar to templates in C++)
+</ul>
+
+<h2>Array</h2>
+<ul>
+<li>An ordered collection of values
+<li>All values must be of the same type
+<li>Arrays are indexed from 0 (zero)
+</ul>
+
+<pre>
+var intArray = [Int]()
+
+if intArray.isEmpty
+    print ("Array is empty!")
+ 
+
+// various ways to append entries
+intArray.append(5)
+intArray += 19
+intArray += [20, 22, 29]
+
+// creating an array with an Array Literal
+var stateArray: [String] = ["NY", "NJ", "CT"]
+var stateArray = ["NY", "NJ", "CT"]                 // equivalent
+
+// runtime error - the element does not exist
+stateArray[stateArray.count] = "VT"
+
+// insert an item at a specified index
+stateArray.insert ("CA", at: 2)
+
+// remove an item (all items after the removed item will also be moved)
+let rm_item = stateArray(at: 2)
+
+// remove last item
+let last_item = stateArray.removeLast()
+
+// iterating over an array
+for s in stateArray 
+{
+    print (s)
+}
+</pre>
+
+
+<h2>Set</h2>
+<ul>
+<li>Unordered collection of unique values
+<li>In order to be stored in a set, a type must be <strong>hashable</strong>
+<li>All of Swift's basic types as hashable
+<li>To create a set of your own type, your type must conform to the <strong>Hashable</strong> protocol 
+</ul>
+
+<pre>
+var stateSet = Set<String>()
+
+if stateSet.isEmpty
+{
+    print ("stateSet is empty!")
+}
+
+stateSet.insert ("NY")
+
+print ("# items = \(stateSet.count)")
+
+//
+for s in stateSet
+{
+    print ("state = \(s)")
+}
+
+stateSet.insert ("NJ")
+stateSet.insert ("CT")
+
+for s in stateSet.sorted()
+{
+    print ("sorted state = \(s)")
+}
+</pre>
+
+<h3>Set Operations</h3>
+<ul>
+<pre>
+var oddDigits:      Set&lt;Int&gt; = [1, 3, 5, 7, 9]
+var evenDigits:     Set&lt;Int&gt; = [0, 2, 4, 6, 8]
+var primeDigits:    Set&lt;Int&gt; = [2, 3, 5, 7]
+</pre>
+
+<li>Union (or)
+<pre>
+// returns set with the following entries: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+var odd_U_even: Set = oddDigits.union(evenDigits)
+
+// returns set with the following entries: [1, 2, 3, 5, 7, 9]
+var odd_U_prime: Set = oddDigits.union(primeDigits)
+</pre>
+
+<li>Intersection (and)
+<pre>
+// returns set with the following entries: [3, 5, 7]
+var odd_and_prime: Set = oddDigits.intersection(primeDigits)
+</pre>
+
+<li>Disjoint (no members in common)
+<pre>
+// returns true
+oddDigits.isDisjoint(with: evenDigits)
+</pre>
+
+</ul>
+
+
+<h2>Dictionary</h2>
+<ul>
+<li>Unordered collection of key-value pairs
+<li>Each key must be unique
+<li>In order to be stored in a dictionary, the key type must be <strong>hashable</strong>
+<li>All of Swift's basic types as hashable
+<li>To create a set of your own type, your type must conform to the <strong>Hashable</strong> protocol 
+</ul>
+
+<pre>
+Dictionary&lt;Key, Value&gt;()
+
+// equivalent
+[Key: Value]()
+
+var stateDict = [String: String]()
+
+// add a key-value pair
+// - this syntax can also be used to update an entry in a dictionary
+stateDict["NY"] = "New York"
+
+// dictionary literal
+[ key1 : value1, key2 : value2, ... , keyN : valueN ]
+
+for (stateAbbr, stateName) in stateDict
+{
+    print ("\(stateAbbr): \(stateName)")
+}
+</pre>
+
+</div>
+</body> 
+</html>

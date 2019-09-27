@@ -43,7 +43,7 @@ C O N T E N T
 <ul>
 <li>All variables need to be declared using either <code>let</code> or <code>var</code>
 <li><code>let</code> declares <strong>constant</strong> variables
-<li><code>var</code> declares normal variables (i.e. non-constant)
+<li><code>var</code> declares <strong>non-constant</strong> variables
 <li>By convention, type names begin with a capital letter and variable names start with a lower-case letter
 </ul>
 
@@ -53,6 +53,8 @@ C O N T E N T
 Int
 Bool
 Double
+Character
+String
 </pre>
 
 <ul>
@@ -71,11 +73,168 @@ var i = 1           // i is implicitly defined as an integer
 i = 2               // ok
 i = "Hello, World"  // compilation error. can't assign a String to an integer
 
-var j : Int = 5
+var j : Int = 1     // declaration and initialization in one step
 </pre>
 
 <li>Everything in Swift is an object
 </ul>
+
+<h2>Built-In Simple Types</h2>
+
+<h3><code>Bool</code></h3>
+
+<ul>
+<li><code>true</code>, <code>false</code>
+<li>In Swift, nothing is false but <code>false</code>. Nothing is true but <code>true</code>
+<li>This differs from other languages in which only zero (0) is false and any other number is true
+</ul>
+
+<h3><code>Int</code></h3>
+
+<ul>
+<li>The <code>Int</code> object type (a struct) 
+<li>Represents an integer between <code>Int.min</code> and <code>Int.max</code> inclusive. 
+</ul>
+
+<h4>Integer Literals</h4>
+
+<ul>
+<li>Any numeric literal without a decimal is an <code>Int</code> by default 
+<li>Internal underscores are allowed (useful for thousands separators)
+<li>Leading zeros are allowed
+<li>Scientific notation is supported (everything after <code>e</code> is the exponent of 10 -
+    e.g. 3e2 equates to 3*10^2)
+<li>Numeric literals can also be specified in binary, octal or hexadecimal by prefixing with <code>0b</code>, <code>0o</code>, 
+    or <code>0x</code> respectively
+</ul>
+
+<h3><code>Double</code></h3>
+
+<ul>
+<li>The <code>Double</code> object type (a struct) represents a floating point number to a precision of about 15 decimal places (64 bit)
+</ul>
+
+<h4>Double Literals</h4>
+
+<ul>
+<li>Any numeric literal with a decimal is a <code>Double</code> by default 
+<li>Internal underscores are allowed (useful for thousands separators)
+<li>Leading zeros are allowed
+<li>Scientific notation is supported (everything after <code>e</code> is the exponent of 10 -
+    e.g. 3.2e2 equates to 3.2*10^2)
+<li>A Double literal may NOT begin with a decimal point.
+</ul>
+
+<h3>Coercion</h3>
+
+<ul>
+<li>Conversion from one type to another
+</ul>
+
+<pre>
+let i = 10
+let d = Double(i)
+println(d)              // 10.0
+
+let dd = 3.4
+let ii = Int(dd)        // truncation
+println(ii)             // 3
+</pre>
+
+<h3>Other Numeric Types</h3>
+<ul>
+<li>Cocoa is full of other numeric types and Swift has types which match each one
+<li>E.g. <code>Int8</code>, <code>Int16</code>, <code>Int32</code>, <code>Int64</code> 
+<li><code>UInt8</code>, <code>UInt16</code><code>UInt32</code><code>UInt64</code>
+<li><code>Float</code> - provides 6-7 decimal places of precision
+<li><code>Float80</code> - extended precision
+<li>Core Graphics framework <code>CGFloat</code>
+<li>Types from the C Languages - <code>CDouble</code>, <code>CLong</code>, etc. 
+</ul>
+
+<h3><code>Character</code></h3>
+
+<p>The Character object type represents a single Unicode character
+
+
+<h3><code>String</code></h3>
+
+<ul>
+<li>Unicode
+
+<li>Length via <code>count()</code> method.
+<pre>
+let length = count(s)
+</pre>
+
+<li>Use <code>for ... in</code> to traverse a string
+<pre>
+let s = "Hello, World"
+for c in s
+{
+    println (c) // c is a Character object
+}
+</pre>
+
+<li><code>find</code> - returns the index of a given character
+<pre>
+let s = "Hello, World"
+
+let idx = find (s, "W")     // 7 (indexed from 0)
+</pre>
+
+<li><code>split</code> - breaks up string into an array of strings
+<pre>
+let s = "This is a test string"
+let arr = split (s," ") 
+</pre>
+
+</ul>
+
+<h3><code>Range</code></h3>
+<dl>
+
+<dt><code> a...b</code>
+<dd>Everything from a to b, including b
+
+<dt><code> a...&lt;b</code>
+<dd>Everything from a to b, not including b
+
+<pre>
+for i in 1...10
+{
+    ...
+}
+</dl>
+
+<h3><code>Tuple</code></h3>
+
+<ul>
+
+<li>An ordered collection of values
+<li>Denoted via a comma delimited list surrounded by parentheses
+
+<pre>
+var pair : (String, Int)
+
+pair = ("Age", 40)
+</pre>
+
+</ul>
+
+
+<h3><code>Optional</code></h3>
+
+<pre>
+var opt_s = Optional("Hello, World")
+
+var opt_s1 = Optional&lt;String&gt;
+
+var opt_s2 : String?        // alternate syntax
+</pre>
+
+<h3><code>nil</code></h3>
+
 
 <h2>Global Variables</h2>
 
@@ -87,36 +246,77 @@ var j : Int = 5
 
 <h2>Local Variables</h2>
 <ul>
-<li>Declared inside a function body
+<li>A.k.a. automatic variables
+<li>Declared inside a function body or within a curly-brace scope
+<li>Local variables can be seen only by subsequent code within the same scope
 </ul>
 
-<h2>Instance Properties</h2>
+<h2>Computed Variables</h2>
 
-<h2>Static (Class) Properties</h2>
-
-
-<h2>Lifetime</h2>
 <ul>
-<li>
+<li>Rather than being a stored variable, Swift variables also supports computed variables
+<li>Rather than having a value, computed variables have two functions - a getter and a setter
+<li>The setter is called when the variable is assigned to 
+<li>The setter is called <code>set</code>. It takes one parameter. 
+    It arrives into the function with the local name newValue
+<li>The getter is called when the variable is referenced
+<li>The getter is called <code>get</code>. It must return a value of the same type as the variable
+<li>The variable must not be a constant. I.e. it must be defined as <code>var</code> 
+    and its type must be explicitly dealared
+<li>There must always be a getter. However, the setter is optional. This is how you create a read-only variable
 </ul>
 
-<h2>Objects</h2>
-
-<ul>
-<li>In Swift, everything is an object
-<li>There are 3 types of objects:
-    <ul>
-    <li><code>class</code>
 <pre>
-var foo = Foo()
+var now : String
+{
+    get
+    {
+        return NSDate().description
+    }
+    set
+    {
+        println(newValue)
+    }
+}
 </pre>
 
-    <li><code>struct</code>
-    <li><code>enum</code>
-    </ul>
+
+<h2>Setter Observer Variables</h2>
+
+<ul>
+<li>Functions called just before and just after other code sets a stored variable
+<li>You can write a <code>willSet</code> function, a <code>didSet</code> function, or both
+<li>The variable cannot be a constant (i.e. it needs to be defined with <code>var</code>
 </ul>
 
-<h3><code>self</code></h3>
+<pre>
+var s : String = "blah"
+{
+    // called when other code sets this variable, just before the variable receives the new value
+    // receives the incoming new value as newValue
+    willSet
+    {
+        println (newValue)
+    }
+
+    // called when other code sets this variable, just after the variable receives the new value
+    // receives the old value as oldValue
+    didSet
+    {
+        println (oldvalue)
+    }
+}
+</pre>
+
+<h2>Lazy Initialization</h2>
+<ul>
+<li>When a stored variable is assiged an initial value as part of its declaration, and it uses lazy initialization, 
+    the initial value is not evaluated and assigned until the variable is accessed
+<li>There are three types of variables which can utilize lazy initialization: global variables, static properties, and instance properties
+<li><strong>Global variables</strong> and <strong>static properties</strong> are automatically lazy
+<li><strong>Instance properties</strong> are not lazy by default, but can be lazy using the using keyword <code>lazy</code>. 
+    <code>lazy</code> cannot be specified on on a constant. I.e. it can only be declared on a variable declared via <code>var</code>
+</ul>
 
 </div>
 </body> 

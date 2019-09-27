@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_swift");
+}
+</script>
+
+<title>Swift - Operators</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Swift - Operatorss</h1>
+
+
+<dl>
+
+<dt><code>!</code>
+<dd>Negation operator (unary). <code>false</code> to <code>true</code> and vice-versa
+
+<dt><code>&amp;&amp;</code>
+<dd>Logical and (binary). Returns <code>true</code> only if both operands are true. <code>false</code> otherwise. Short-circuit evaluation is perfomed.
+    I.e. If the first operand is false, the second operand is not evaluated.
+
+<dt><code>||</code>
+<dd>Logical or (binary). Returns <code>true</code> if either operand is true. <code>false</code> otherwise. Short-circuit evaluation is performed. I.e.
+    if the first operand is true, the second operand is not evaluated.
+
+</dl>
+
+
+<h2>Arithmetic Operators</h2>
+
+<dl>
+
+<dt><code>+</code>, <code>+=</code>, <code>++</code>
+<dd>Addition
+
+<dt><code>-</code>, <code>-=</code>, <code>--</code>
+<dd>Subtraction
+
+<dt><code>*</code>, <code>*=</code>
+<dd>Multiplication
+
+<dt><code>/</code>, <code>/=</code>
+<dd>Division
+
+<dt><code>%</code>, <code>%=</code>
+<dd>Mod
+
+</dl>
+
+<h2>Comparison Operators</h2>
+
+<p>Comparision operators return a <code>Bool</code> (<code>true</code>, <code>false</code>)
+<dl>
+<dt><code>==</code>
+<dd>Equality. 
+
+<dt><code>!=</code>
+<dd>Inequality
+
+<dt><code>&lt;</code>
+<dd>Less-than
+
+<dt><code>&lt;=</code>
+<dd>Less-than or equal
+
+<dt><code>&gt;</code>
+<dd>Greater-than
+
+<dt><code>&gt;=</code>
+<dd>Greater-than or equal
+
+</dl>
+
+<h2>Bitwise Operators</h2>
+
+<dl>
+
+<dt><code>&amp;</code>
+<dd>Bitwise and
+
+<dt><code>|</code>
+<dd>Bitwise or
+
+<dt><code>^</code>
+<dd>Bitwise exclusive or
+
+<dt><code>~</code>
+<dd>Bitwise not (unary) - inverts the value of each bit
+
+<dt><code>&lt;&lt;</code>
+<dd>Shift left
+
+<dt><code>&gt;&gt;</code>
+<dd>Shift right
+
+</dl>
+
+
+</div>
+</body> 
+</html>

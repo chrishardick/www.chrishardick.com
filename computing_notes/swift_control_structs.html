@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_swift");
+}
+</script>
+
+<title>Swift - Control Structures</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Swift - Control Structures</h1>
+
+<h2>Conditionals</h2>
+
+<h2><code>if</code></h2>
+
+<pre>
+if condition
+{
+    statements
+}
+[else if dondition
+{
+}]
+[else
+{
+    statements
+}]
+</pre>
+
+
+<h2><code>switch</code> statement</h2>
+
+<ul>
+<li>Unlike C/C++, there is no implicit fallthrough. I.e. you do not need the break statement
+</ul>
+
+<pre>
+switch value
+{
+    case value1:
+        statements
+
+    case value2,
+         value3:
+
+        statements
+
+    default:
+        statements
+}
+
+//
+// example
+//
+
+let foo_char = "z"
+
+switch (foo_char)
+{
+    case "a":
+        print ("ape")
+    case "z":
+        print ("zebra")
+    default:
+        print ("animal")
+switch 
+</pre>
+
+<h2>Loops</h2>
+
+<h3><code>for-in</code> loop</h3>
+
+<pre>
+//
+// array example
+//
+let states = ["NY", "NJ", "CT"]
+
+for s in states
+{
+    print ("STATE=\(state)")
+}
+
+for idx in 0...2:
+
+    print ("\(state[idx])")
+
+
+//
+// dictionary example
+//
+let state_dict = ["NY": "New York", "NJ": "New Jersey", "CT": Connecticut"]
+
+for (abbr, full_name) in state_dict
+{
+    print ("\(abbr)s stands for \(full_name)")
+}
+</pre>
+
+
+<h3><code>while</code> loop</h3>
+
+<ul>
+<li>evaluates its condition at the start of each loop iteration
+</ul>
+
+<pre>
+while condition
+{
+    statements
+}
+</pre>
+
+<h3><code>repeat-while</code> loop</h3>
+
+<ul>
+<li>evaluates its condition at the end of each loop iteration
+</ul>
+
+<pre>
+repeat
+{
+    statements
+} while condition
+</div>
+</body> 
+</html>

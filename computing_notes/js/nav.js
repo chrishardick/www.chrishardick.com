@@ -137,6 +137,7 @@ function print_nav(f)
     <button class="accordion" id="accordion_cpp">C++</button>
     <div class="panel">
         <a href="cpp_oop.html">OOP</a>
+        <a href="cpp_hello_world.html">Hello, World!</a>
         <a href="cpp_member_functions.html">Member Functions</a>
         <a href="cpp_constructors.html">Constructors</a>
         <a href="cpp_destructors.html">Destructors</a>
@@ -229,6 +230,7 @@ function print_nav(f)
     <button class="accordion" id="accordion_git">Git</button>
     <div class="panel">
         <a href="git.html">Cheat Sheet</a>
+        <a href="git_hooks.html">Git Hooks</a>
     </div>
 
     <button class="accordion" id="accordion_gtest">Google Test / Mock</button>
@@ -245,7 +247,7 @@ function print_nav(f)
         <a href="html_color_test.html">Color Tester</a>
         <a href="html_forms.html">Forms</a>
         <a href="html_dom_events.html">DOM Events</a>
-        <a href="html_basic_template.html">Basic Template</a>
+        <a href="html_hello_world.html">Hello, World!</a>
         <a href="html_unicode.html">Unicode</a>
     </div>
 
@@ -334,6 +336,7 @@ function print_nav(f)
         <a href="linux_wireless.html">wireless</a>
         <a href="linux_inotifywait.html">inotifywait</a>
         <a href="linux_speedtest.html">Network Speed Test</a>
+        <a href="linux_users.html">Users</a>
         <a href="linux_tape_info.html">Tapes</a>
     </div>
 
@@ -406,6 +409,7 @@ function print_nav(f)
     <button class="accordion" id="accordion_python">Python</button>
     <div class="panel">
         <a href="python_intro.html">Introduction</a>
+        <a href="python_hello_world.html">Hello, World!</a>
         <a href="python_variables.html">Variables</a>
         <a href="python_strings.html">Strings</a>
         <a href="python_operators.html">Operators</a>
@@ -468,6 +472,13 @@ function print_nav(f)
     <button class="accordion" id="accordion_swift">Swift</button>
     <div class="panel">
         <a href="swift_intro.html">Introduction</a>
+        <a href="swift_variables.html">Variables</a>
+        <a href="swift_collection_types.html">Collection Types</a>
+        <a href="swift_operators.html">Operators</a>
+        <a href="swift_control_structs.html">Control Structures</a>
+        <a href="swift_functions.html">Functions</a>
+        <a href="swift_objects.html">Objects</a>
+        <a href="swift_xcode.html">Xcode</a>
     </div>
 
     <button class="accordion" id="accordion_utf8">UTF-8</button>

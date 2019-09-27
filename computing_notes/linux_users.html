@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Linux - Users</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Linux - Users</h1>
+
+<h2>High Level Utilities - adduser, addgroup</h2>
+
+<ul>
+<li>Both <code>adduser</code> and <code>addgroup</code> share the same configuration file - <code>/etc/adduser.conf</code>
+</ul>
+
+<h3><code>adduser</code></h3>
+<ul>
+<li><strong>adduser</strong> will create a home directory for the user
+</ul>
+
+<h3><code>addgroup</code></h3>
+
+<ul>
+<li>TBD
+</ul>
+
+<h3>Add a Normal (Login) User</h3>
+
+<ul>
+<li>By default, each user is assigned to a group with the same name
+<li>By default, will create a home directory
+<li>By default, will copy files from SKEL into the home directory
+<li>Use <code>--disabled-login</code> option to create an account which is disabled until a password is set
+<li>Use <code>--disabled-password</code> option to create an account without a password, however login is possible (e.g. with SSH RSA keys)
+</ul>
+
+<pre>
+# run the following
+# - you will then be prompted for questions about the user: password, etc.
+adduser &lt;username&gt;
+</pre>
+
+<h3>Add a System User</h3>
+
+<ul>
+<li>Group: By default, system users are placed in the <strong>nogroup</strong> group
+<li>Home Directory: A home directory is created by the same rules as for normal users
+<li>Login Shell: /bin/false - unless overridden via --shell option and will have logins disabled
+<li>Files from SKEL are not copied
+</ul>
+
+<pre>
+adduser --system --shell /usr/bin/git-shell git
+</pre>
+
+
+<h2>Low Level Utilities - useradd, groupadd, usermod</h2>
+
+<ul>
+</ul>
+
+
+<pre>
+#
+# add the user 
+# -M - do not create a home directory
+# -s - shell (in this case, the user will not have a shell)
+#
+useradd -M -s /bin/false &lt;username&gt;
+
+</pre>
+
+<h2>Delete User</h2>
+
+<pre>
+userdel -r &lt;username&gt;
+</pre>
+
+</div>
+</body> 
+</html>
+  

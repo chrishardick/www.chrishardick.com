@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: HTTP Cookies</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: HTTP Cookies</h1>
+
+<p><strong>Cookie</strong> - HTTP State Management Library
+
+<h2>Setting Cookies</h2>
+
+<pre>
+import Cookie
+
+c = Cookie.simpleCookie()
+
+#
+# name and value
+#
+c['session_data']    = session_id
+
+# expires
+# - optional. defaults to a transient cookie (lasts until the user closes the browser)
+# - specifying a value causes the brower to store the cookie in a local file
+# - once the cookie expires, the browser should no longer communicate the cookie to the server and the file may be deleted
+c['session_id']['expires'] = 30*60          # 30 minutes
+
+# path
+# - optional. defaults to the web page which created the cookie ad any other web page in the same directory or sub directory
+c['session_id']['path']    = 30*60          
+
+# headers - start
+print c                             
+print "Content-type: text/html"
+
+# headers end (headers always end with a blank line)
+print ""                
+print "&lt;html&gt;"
+print "..."
+print "&lt;/html&gt;"
+</pre>
+
+
+<h2>Retrieving Cookies</h2>
+
+<pre>
+import os
+import Cookie
+
+if 'HTTP_COOKIE' in os.environ:
+    cookie_string = os.environ.get('HTTP_COOKIE')
+    c = Cookie.SimpleCookie()
+    c.load(cookie_string)
+
+    try:
+
+        data = c['session_id'].value
+
+    except KeyError:
+
+        print "Cookie Not Found or Expired"
+</pre>
+
+
+<h2>Deleting Cookies</h2>
+
+<p>Cookies are usually deleted by setting an expiration time in the past</p>
+
+<pre>
+import Cookie
+c = Cookie.SimpleCookie()
+c['session_id']=''
+c['session_id']['expires']='Thu 01 Jan 1970 00:00:00 GMT'
+
+print c
+print "Content-type: text/html"
+print ""
+</pre>
+
+</div>
+</body>
+</html>
+

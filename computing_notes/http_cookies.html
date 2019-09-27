@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>HTML - Cookies</title>
+<title>HTTP - Cookies</title>
 
 </head>
 
@@ -40,20 +40,18 @@ C O N T E N T
 <div id="content" class="content">
 <H1>HTTP - Cookies</H1>
 
-<pre>
-        +---------------+                        +---------------+
-        | http client   |-----------------------&gt;| http server   |
-        +---------------+                        +---------------+
-                            REQUEST--&gt;
+<p>Cookies are used for state management for the <strong>stateless</strong> HTTP protocol. 
+Generally, they're used for:</p>
 
-                            &lt;--RESPONSE
+<ul>
+<li>Session Management - login session, shopping cart, etc
+<li>User preferences - default to menu open, etc.
+<li>Tracking - track user behavior
+</ul>
 
-                                Set-Cookie: &lt;cookie-name&gt;=&lt;cookie-value&gt;
+<h2>WORKFLOW</h2>
 
-                                Set-Cookie: blah-session; id=12345; Secure;
-</pre>
-
-<ul class=spaced>
+<ul>
 <li>A HTTP cookie is a small amount of data a web server sends to the user's web browser. 
 <li>The browser will then send the cookie back to the web server with all subsequent requests to the same domain
 <li>It allows for stateful information to be stored in the stateless HTTP protocol. 
@@ -61,6 +59,36 @@ C O N T E N T
 <li>Cookies are stored on the client (either in memory, in a file or both -- dependant upon the value of 'expires')
 <li>See also <a href="js_cookies.html">JavaScript Cookies</a>
 </ul>
+
+<ul>
+<li>The <strong><code>Set-Cookie</code></strong> HTTP response header sends cookies from the server to the client
+<li>The cookie will be sent back on all subsequent applicable requests from the client to the server via the 
+    <strong><code>Cookie</code></strong> request header
+</ul>
+
+<pre>
+        +---------------+                        +---------------+
+        | http client   |-----------------------&gt;| http server   |
+        +---------------+                        +---------------+
+                            REQUEST--&gt;
+                                
+                            GET / HTTP/2.0
+                            User-Agent: Mozilla/4.0
+
+                                        &lt;--RESPONSE
+
+                                        HTTP/2.0 200 OK
+                                        Content-type: text/html
+                                        Set-Cookie: &lt;cookie-name&gt;=&lt;cookie-value&gt;
+                                        Set-Cookie: foo-session-id=12345;
+
+                                        ...
+
+                            GET /foo.html HTTP/2.0
+                            Cookie: foo-session-id=12345
+
+
+</pre>
 
 <h2>Cookie Components</h2>
 
