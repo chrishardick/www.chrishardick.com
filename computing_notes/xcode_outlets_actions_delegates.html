@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - Outlets, Actions and Delegates</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - Outlets, Actions and Delegates</h1>
+
+<ul>
+<li>An <strong>Outlet</strong> links a <a href="xcode_intro.html#storyboard">Storyboard Object</a> to a <strong>variable</strong> in your source code.
+<li>An <strong>Action</strong> links an <strong>event</strong> in an app to a <strong>method</strong> in your source code.
+    When the action occurs, the method will be called
+<li>A <strong>Delegate</strong> is an object in your source code which receives a message (e.g. one of its methods is called) when an event in an app occurs.
+</ul>
+
+<h2>View Controllers</h2>
+<ul>
+<li>Each screen in a storyboard typically has a its own <strong>View Controller</strong>
+<li>View Controllers implement your app's behavior
+<li>All View Controllers objects in iOS are of type of <strong>UIViewController</strong>
+<li>Xcode created a <strong>UIViewController</strong> sub-class for you named <strong>ViewController</strong> in <strong>ViewController.swift</strong>
+</ul>
+
+<pre>
+Scene (with UI Elements)
+    |
+View Controller
+    |
+Data Model (encapsulates the app's data)
+</pre>
+
+<h2>Outlets and Actions</h2>
+
+<h3>Outlets</h3>
+<ul>
+<li><strong>Outlets</strong> provide a mechanism to link objects in your storyboard to variables in your source code
+<li>To create an outlet, Control-drag from an object in your storyboard to a view controller file
+<li>This creates a <strong>property</strong> for the object in your view controller file which allows you to access and manipulate the object from the source code
+</ul>
+
+<h4>To Create an Outlet for a text field:</h4>
+<ul>
+<li>Click the assistant editor (icon with two overlapping circles). 
+    ViewController.swift should display in the editor
+<li>In ViewController.swift, find the class declaration line 
+    <pre>class ViewController: UIViewController {</pre> 
+    and add the following comment on the subsequent line:
+    <pre>//MARK: Properties</pre> 
+<li>In the storyboard, select the text field
+<li>Control-drag from the text field to the source code in the editor right below your added comment
+<li>In the dialog which appears, enter a name (under Name) and click 'Connect'
+<li>That should add the following code
+    <pre>@IBOutlet weak var yourTextFieldName: UITextField!</pre>
+<li><code>IBOutlet</code> - Interface Builder Outlet
+<li><code>weak</code> - the reference does not prevent the system from deallocating the referenced object.
+    Weak references help prevent reference cycles
+<li>The explamation point at the end of the declaration indicates that the type is an implicitly wrapped optional - 
+    which means the system will assume it has a valid value and will automatically unwrap it for you.
+    This will cause the app to terminate if the variable has not been set. Similar to a reference in C++
+</ul>
+
+
+<h4>To Create an Outlet for a label</h4>
+<ul>
+<li>If necessary, click the assistant editor (icon with two overlapping circles). 
+    ViewController.swift should display in the editor
+<li>In the storyboard, select the label
+<li>Control-draw from the label to the editor on the right some place in the class ViewController definition
+<li>In the dialog which appears, enter <code>labelName</code> and click 'Connect'
+<li>The following code should be added:
+    <pre>@IBOutlet weak var labelName: UILabel!</pre>
+</ul>
+
+
+<h3>Actions</h3>
+<ul>
+<li>An <strong>Action</strong> or <strong>Action method</strong> is code linked to an event in an app
+<li>When an event occurs, the system executes the action
+</ul>
+
+<h4>To Create an Action</h4>
+<ul>
+<li>In <code>ViewController.swift</code> just above the last curly brace, add the following:
+    (which indicates that this is the section of your code which lists actions)
+    <pre>//MARK: Actions</pre>
+<li>In the storyboard, select the UI Object
+<li>Control-drag from the object in the storyboard to the view controller file right below the 
+    newly added comment
+<li>In the dialog which appears, for <code>Connection</code>, select <code>Action</code>
+<li>For <code>Name</code>, enter an appropriate name 
+<li>For <code>Type</code>, select the appropriate type
+<li>Click <code>Connect</code> and Xcode will add the Action Method
+<pre>
+@IBAction func setFoo(_ sender: UIButton)   // the UI Object responsible for triggering the action
+{
+}
+</pre>
+<li><code>sender</code> is the object responsible for triggering the action
+<li><code>IBAction</code> attribute indicates that this method is an action which connects from your storyboard in the Interface Builder
+</ul>
+
+<h2>Delegates</h2>
+
+<ul>
+<li>ObjectA can declare that ObjectB is a delegate of it. 
+<li>This means that ObjectB will receive a message (i.e. one of it's methods will be called) when something happens
+<li>The delegating object keeps a reference to the delegate object and at the appropriate time, it sends a message to the delegate object
+<li>I.e. a text field can have delegate which takes an action when it receives input
+<li>Any object can serve as a delegate to another object as long as it confirms to the appropriate protocol.
+<li>The protocol that defines a text field's delegate is <code>UITextFieldDelegate</code>. 
+<li>It's very common to make the view controller the delegate for objects which it manages
+<li>First, <code>ViewController</code> needs to adopt the <code>UITextFieldDelegate</code> protocol. 
+    You do this by adding it as part of the class declaraction line. In <code>ViewController.swift</code>, change the following:
+    <pre>class ViewController: UIViewController, <strong>UITextFieldDelegate</strong> {</pre>
+<li>By adopting the <code>UITextFieldDelegate</code> protocol, you tell the compiler that you 
+    implement the protocol's methods 
+<li>You can now assign <code>ViewController</code> as a delegate of the text field.
+    In <code>ViewController.swift</code>, find the <code>viewDidLoad()</code> method and add the following:
+<pre>
+override func viewDidLoad()
+{
+    super.viewDidLoad()
+    
+    <strong>textField1.delegate = self</strong>
+}
+</pre>
+
+<li>The <strong>UITextFieldDelegate</strong> protocol defines eight optional methods. You only need to implement the ones you need.
+<li>Let's implement the following two methods:
+<pre>
+// called when the user presses Return or similar on the keyboard
+func textFieldShouldReturn(_ textField: UITextField) -&gt; Bool
+
+// called after the text field resigns its first repsonder status
+func textFieldDidEndEditing(_ textField: UITextField)
+</pre>
+<li>When a user taps on a text field, it automaticlly becomes the <strong>first responder</strong>
+<li>The first responder is the object which is first in line for receiving app events
+<li>As a result of the text field becoming the first responder, iOS displays the keyboard 
+    and begins an editing session for the field.
+    Whatever the user types gets inserted into the text field
+<li>When the user is finished typing in the text field, the text field needs to resign its first responder status.
+<li>In <code>ViewController.swift</code>, right above <code>//MARK: Actions</code>, add the following:
+<pre>
+//MARK: UITextFieldDelegate
+
+// called when the user presses Return or similar on the keyboard
+func textFieldShouldReturn(_ textField: UITextField -&gt; Bool
+{
+    textField.resignFirstResponder()
+    return true
+}
+
+func textFieldDidEndEditing(_ textField: UITextField)
+{
+    label1.txt = textField.text
+}
+</pre>
+
+
+</ul>
+
+</div>
+</body> 
+</html>

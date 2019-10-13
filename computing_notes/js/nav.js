@@ -478,7 +478,6 @@ function print_nav(f)
         <a href="swift_control_structs.html">Control Structures</a>
         <a href="swift_functions.html">Functions</a>
         <a href="swift_objects.html">Objects</a>
-        <a href="swift_xcode.html">Xcode</a>
     </div>
 
     <button class="accordion" id="accordion_utf8">UTF-8</button>
@@ -489,6 +488,12 @@ function print_nav(f)
     <button class="accordion" id="accordion_vim">Vim</button>
     <div class="panel">
         <a href="vim_cheatsheet.html">Cheat Sheet</a>
+    </div>
+
+    <button class="accordion" id="accordion_xcode">Xcode</button>
+    <div class="panel">
+        <a href="xcode_intro.html">Introduction</a>
+        <a href="xcode_outlets_actions_delegates.html">Outlets, Actions and Delegates</a>
     </div>`
 
 
