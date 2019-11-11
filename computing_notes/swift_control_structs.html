@@ -62,7 +62,9 @@ if condition
 <h2><code>switch</code> statement</h2>
 
 <ul>
-<li>Unlike C/C++, there is no implicit fallthrough. I.e. you do not need the break statement
+<li>Unlike C/C++, there is no implicit fall through. I.e. you do not need the break statement
+<li>When a switch statement is used with an enumeration, the switch statement must handle all possible enum values.
+    If it is not appropriate to provide a case for all enum values, the <code>default</code> case will suffice.
 </ul>
 
 <pre>

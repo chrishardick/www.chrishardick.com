@@ -123,55 +123,6 @@ C O N T E N T
 </ul>
 
 
-<h2>Building a Basic UI</h2>
-
-<h3 id="storyboard">Storyboard</h3>
-<ul>
-<li>The <strong>Storyboard</strong> is a visual representation of the app's user interface - showing screens of content (<strong>scenes</strong>) 
-    and the transactions between them
-<li>You use storyboards to lay out the flow for your app
-<li>To open your storyboard, in the Project Navigator, select <code>Main.storyboard</code>
-<li>Xcode will open the storyboard in <strong>Interface Builder</strong> (its visual interface editor) in the Editor Pane
-<li>The arrow that points to the left side is the <strong>Storyboard Entry Point</strong> (the scene which is loaded when the app starts)
-<li>Scenes contain UI Objects (e.g. Text fields, labels, buttons, etc.)
-</ul>
-
-<h3>Add a Text Field</h3>
-<ul>
-<li>Click on the Storyboard and then click on the Library icon (top right hand corner). The Library icon is text sensitive, it displays different libraries depending on the part of the screen which has focus. iIf you click on the Storyboard, it will display an icon with a circle with a square in the middle - which I guess is the UI Object Library. 
-<li>In the Object Library, type 'text field' in the filter field 
-<li>Drag a Text Field object on to your scene.
-<li>You can zoom in via: Editor &#x2192; Zoom
-<li>With the Text Field selected, open the <strong>Attributes Inspector</strong> (the icon looks like a downward facing arrow) and enter text for your text field
-<li>In the Attributes Inspector, find 'Return Key' and select 'Done.' This will make the return key into a 'Done' key 
-<li>In the Attributes Inspector, select 'Auto-enable Return Key' checkbox. This will prevent the user to click 'Done' before typing text into the text field
-</ul>
-
-<h3>Add a Label</h3>
-<ul>
-<li>In the Object Library, type 'label' in the filter field 
-<li>Drag a Text Field object on to your scene.
-<li>Either double click on the label or use the Attributes Inspector to add text to your label
-</ul>
-
-<h3>Add a Button</h3>
-<ul>
-<li>In the Object Library, type 'button' in the filter field 
-<li>Drag a Button object on to your scene
-<li>Double click the button and or use the Attributes Inspector to add text for your button
-</ul>
-
-<h3>Auto Layout</h3>
-<ul>
-<li>A Stack View (UIStackView) is one of easiest ways to define your layout.
-<li>It allows you to lay out a collection of views in either a column or a row. 
-<li>To add a Stack View, while pressing the Shift key, select the fields you want to include in the stack view
-<li>On the bottom right of the canvas, click the 'Embed in' icon' and choose 'Stack View') or choose Editor &#x2192; Embed In &#x2192; Stack View
-<li>On the bottom right, open the 'Add New Constraints' menu - it looks like a square with a vertical line on each side
-<li>The constraints menu allows you to specify the spacing to the nearest leading, trailing, top and bottom neighbors
-</ul>
-
-
 <h2>Source Code</h2>
 
 <h3><code>AppDelegate.swift</code></h3>

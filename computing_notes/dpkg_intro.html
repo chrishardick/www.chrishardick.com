@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - Introduction</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode Introduction</h1>
+
+<ul>
+<li>Xcode is an IDE (Integrated Development Environment).  
+<li>It's the application used to develop iOS apps and macOS applications
+</ul>
+
+<h2>New Project</h2>
+
+<ul>
+<li>Start up Xcode
+<li>File &#x2192; New &#x2192; Project
+<li>Under iOS, choose 'Application'
+<li>Select 'Single View Application'
+<li>Enter a name for your project - e.g. "hello_world"
+<li>For the Company Identifier field, choose something like com.hardick.chris
+<li>Make sure the Devices pop-up menu is set to iPhone
+<li>Make sure 'Use Code Data' is not checked
+<li>Product &#x2192; Build - to build
+<li>Product &#x2192; Run (will automatically build first if necessary)
+</ul>
+
+<h2>Supported Device Choices</h2>
+
+<p>You can change this value via the Devices pop-up. Valid values:
+
+<ul>
+<li><strong>iPad</strong>
+<li><strong>iPhone</strong> - the app will run on an iPhone or iPod touch. It can also run on an IPad in compatibility mode.
+<li><strong>Universal</strong>
+</ul>
+
+
+<h2>Base SDK</h2>
+
+<ul>
+<li>The latest system your app can run on
+</ul>
+
+
+<h2>iOS Deployment Target</h2>
+
+<ul>
+<li>The earliest system your app can run on
+</ul>
+
+
+<h2>Simulator</h2>
+
+<ul>
+<li>To start your project executing in the simulator, press the Run Button (button with a triangle on it on the top left corner). 
+    It looks like a play buton on a CD player or similar.
+<li>To stop your project running in the simulator, press the stop button (button with square on it on the top left corner)
+    It looks like a stop button on a CD player or similar.
+</ul>
+
+
+<h2>Navigator Pane</h2>
+<ul>
+<li>The Navigator Pane is the verical pane on the left side of the window.
+<li>Basically, what you select in the Navigator Pane is diplayed in the Editor Pane
+<li>The Navigator Pane can display different types of information which you can access via the icons on the top of the pane
+<li>You can toggle the display of the Navigator pane via the Display/Hide Navigator button on the top right of the window
+</ul>
+
+<h2>Editor Pane</h2>
+<ul>
+<li>The pane in the middle which takes up most of the window
+</ul>
+
+<h2>Inspector Pane</h2>
+<ul>
+<li>The Inspector Pane is the vertical pane on the right side of the window. 
+<li>It usually contains information about the current selection or its settings
+<li>It will also display help 
+<li>You can toggle the display of the Inspector pane via the Display/Hide Inspector button on the top right of the window
+</ul>
+
+<h2>Debugger Pane</h2>
+<ul>
+<li>The Debugger Pane is the horizontal pane on the bottom of the window.
+<li>You can toggle the display of the Debugger pane via the Display/Hide Debugger button on the top right of the window
+</ul>
+
+
+<h2>Building a Basic UI</h2>
+
+<h3 id="storyboard">Storyboard</h3>
+<ul>
+<li>The <strong>Storyboard</strong> is a visual representation of the app's user interface - showing screens of content (<strong>scenes</strong>) 
+    and the transactions between them
+<li>You use storyboards to lay out the flow for your app
+<li>To open your storyboard, in the Project Navigator, select <code>Main.storyboard</code>
+<li>Xcode will open the storyboard in <strong>Interface Builder</strong> (its visual interface editor) in the Editor Pane
+<li>The arrow that points to the left side is the <strong>Storyboard Entry Point</strong> (the scene which is loaded when the app starts)
+<li>Scenes contain UI Objects (e.g. Text fields, labels, buttons, etc.)
+</ul>
+
+<h3>Add a Text Field</h3>
+<ul>
+<li>Click on the Storyboard and then click on the Library icon (top right hand corner). The Library icon is text sensitive, it displays different libraries depending on the part of the screen which has focus. iIf you click on the Storyboard, it will display an icon with a circle with a square in the middle - which I guess is the UI Object Library. 
+<li>In the Object Library, type 'text field' in the filter field 
+<li>Drag a Text Field object on to your scene.
+<li>You can zoom in via: Editor &#x2192; Zoom
+<li>With the Text Field selected, open the <strong>Attributes Inspector</strong> (the icon looks like a downward facing arrow) and enter text for your text field
+<li>In the Attributes Inspector, find 'Return Key' and select 'Done.' This will make the return key into a 'Done' key 
+<li>In the Attributes Inspector, select 'Auto-enable Return Key' checkbox. This will prevent the user to click 'Done' before typing text into the text field
+</ul>
+
+<h3>Add a Label</h3>
+<ul>
+<li>In the Object Library, type 'label' in the filter field 
+<li>Drag a Text Field object on to your scene.
+<li>Either double click on the label or use the Attributes Inspector to add text to your label
+</ul>
+
+<h3>Add a Button</h3>
+<ul>
+<li>In the Object Library, type 'button' in the filter field 
+<li>Drag a Button object on to your scene
+<li>Double click the button and or use the Attributes Inspector to add text for your button
+</ul>
+
+<h3>Auto Layout</h3>
+<ul>
+<li>A Stack View (UIStackView) is one of easiest ways to define your layout.
+<li>It allows you to lay out a collection of views in either a column or a row. 
+<li>To add a Stack View, while pressing the Shift key, select the fields you want to include in the stack view
+<li>On the bottom right of the canvas, click the 'Embed in' icon' and choose 'Stack View') or choose Editor &#x2192; Embed In &#x2192; Stack View
+<li>On the bottom right, open the 'Add New Constraints' menu - it looks like a square with a vertical line on each side
+<li>The constraints menu allows you to specify the spacing to the nearest leading, trailing, top and bottom neighbors
+</ul>
+
+
+<h2>Source Code</h2>
+
+<h3><code>AppDelegate.swift</code></h3>
+
+<p>The <code>AppDelegte.swift</code> file has two primary purposes:
+
+<ol>
+<li>Defines your <code>AppDelegate</code> class. 
+    <ul>
+    <li>The AppDelegate class has a single property - <code>window</code>. 
+    <li><code>window</code> represents the root of your app's view hierarchy. It is where all of the app content is drawn
+    <li><code>AppDelegate</code> also contains stub implementations for the delegate methods listed below.
+    During app state transition, the application object calls the relevant delegate method, allowing your app to take the appropriate action.
+    Each delegate method has a default implementation - which will be invoked if you do not specify one
+
+    <pre>
+    func application(_ application: UIApplication
+                    ,didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?
+                    ) -&gt; Bool
+
+    func applicationWillResignActive    (_ application: UIApplication)
+    func applicationDidEnterBackground  (_ application: UIApplication)
+    func applicationWillEnterForeground (_ application: UIApplication)
+    func applicationDidBecomeActive     (_ application: UIApplication)
+    func applicationWillTerminate       (_ application: UIApplication)
+    </pre>
+
+    </ul>
+
+<li>Creates an entry point to your app and a run loop which delivers input events to your app
+    <ul>
+    <li>This is via the UIApplicationMain attribute (<code>@UIApplicationMain</code>) - equivalent to calling <code>UIApplicationMain()</code>
+    <li>This will cause the system to create an application object which is responsible for managing the app life cycle
+    <li>The system will creates an instance of your AppDelegate class and assigns it to the application object
+    <li>The system will launch your app
+    </ul>
+</ol>
+
+<h3><code>ViewController.swift</code></h3>
+
+<ul>
+<li>Defines a subclass of <code>UIViewController</code> named <code>ViewController</code>
+</ul>
+
+
+<h2>Project Files</h2>
+
+<p>To see the files which comprise your project choose File &#x2192; Show in Finder</p>
+<dl>
+
+<dt>hello_world.xcodeproj
+<dd>The <i>project</i> file. This is where Xcode stores everything about your project
+
+</dl>
+
+<h2>Info.plist</h2>
+
+<ul>
+<li>Build settings
+</ul>
+
+<h2>Nib Files</h2>
+
+<ul>
+<li>A piece of UI in a compiled format 
+<li>They're created from a .stoyboard or .xib file 
+<li>The nib file is generated during the build process
+</ul>
+
+
+
+</div>
+</body> 
+</html>

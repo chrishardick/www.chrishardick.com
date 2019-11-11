@@ -48,10 +48,11 @@ C O N T E N T
 <li>class
 </ul>
 
-<p>As in most other programming languages, objects have <strong>properties</strong> and <strong>methods</strong>.
-There are two flavors of each. There are instance properties and methods. There are also instance methods and static/class methods.</p>
+<p>As in most other programming languages, objects can have <strong>properties</strong> and/or <strong>methods</strong>.
+Properties and methods can either be per instance or per class. 
+Per class properties and methods are also known as static properties or methods</p>
 
-<h2>Structs and Clases</h2>
+<h2>Structs and Classes</h2>
 
 <p>Structs and Classes in Swift both</p>
 
@@ -110,6 +111,7 @@ Foo foo2 = foo1     // foo1 and foo2 are separate instances
 <li>Classes are <strong>Reference Types</strong>
 </ul>
 
+<pre>
 class Foo
 {
     var fooVar = 0
@@ -117,6 +119,7 @@ class Foo
 
 Foo foo1
 Foo foo2 = foo1     // foo1 and foo2 point to the same instance
+</pre>
 
 
 <h3>Identify Operators</h3>
@@ -125,18 +128,45 @@ Foo foo2 = foo1     // foo1 and foo2 point to the same instance
 <li>Since classes are reference types, it's possible for multiple variables to point to the same instance of a class. 
 (this is not possible for structures and enumerations - because each assignment, function call, etc. results in a copy)
 <li>Swift provides two operators to determine whether or not two constants or variables refer the the same exact class
-<li><code>===</code> - identical to operator. Returns true if the two operands point to the same instance of a class.
-<li><code>!==</code> - not identical to operator. Returns true if the two operands do not point to the same instance of a class. 
+<li><code>===</code> (three equal signs) identical to operator. Returns true if the two operands point to the same instance of a class.
+<li><code>!==</code> (exclamation point followed by two equal signs) not identical to operator. 
+    Returns true if the two operands do not point to the same instance of a class. 
 </ul>
 
 
 <h2>Initializers</h2>
 
+<pre>
+class Foo
+{
+    var bar = ""
+
+    // an initializer
+    init (b:String)
+    {
+        self.bar = b
+    }
+}
+</pre>
+
 <ul>
-<li>Constructors in other languages 
+<li>I.e. Constructors in C/C++
 <li>Specified by the keyword <code>init</code> followed by a parameter list, followed by curly braces containing the code
-<li>Initializers can be overloaded by providing a different parameter list
+<li>Initializers can be <strong>overloaded</strong> by providing a different parameter list
 <li>All instance properties must be initialized before an instance comes into existence. Otherwise you will receive a compile time error
+</ul>
+
+<h3>Failable Initializers</h3>
+<ul>
+<li>An initializer which can return <code>nil</code> to indicate failure to create the new object
+<li>Failable initializers are indicated by following <code>init</code> with either a question mark or an exclamation point
+<li>A failable initilizer defined with a question mark returns an <strong>optional</strong>
+<li>A failable initilizer defined with an exclamation mark, returns an implicitly unwrapped optional. 
+    An implicitly unwrapped optional can be used like a nonoptional value, without the need to unwrap the optional 
+<li>On success, returns an <strong>Optional</strong> wrapping up the new instance is called a <strong>Failable Initializer</strong>
+<li>To mark an initialier as failable when declaring it, place a question mark after the keyword <strong>init</strong>
+<li>You can also place an exclamation mark after keyword <strong>init</strong> to retrun in implicitly unwrapped Optional
+<li>Then to return failure to the caller, simply <code>return nil</code>
 </ul>
 
 <pre>
@@ -145,15 +175,26 @@ class Person
     var name = ""
     var age = 0
 
-    init (name:String, age:Int)
-    {
-        self.name   = name
-        self.age    = age
-    }
+
+    // an initializer
 
     init (name:String)
     {
         self.name   = name
+    }
+
+    
+    // a failable initializer
+
+    init? (name:String, age:Int)
+    {
+        if age &lt; 0
+        {
+            // return nil, discarding self is implied
+            return nil
+        }
+        self.name   = name
+        self.age    = age
     }
 
     // default initializer
@@ -162,15 +203,6 @@ class Person
     }
 }
 </pre>
-
-<h3>Failable Initializers</h3>
-<ul>
-<li>An initializer which returns an optional wrapping up the new instance is called a <strong>Failable Initializer</strong>
-<li>This allows you to return <code>nil</code> to indicate failure
-<li>To mark an initialier as failable when declaring it, place a question mark after the keyword <strong>init</strong>
-<li>You can also place an exclamation mark after keyword <strong>init</strong> to retrun in implicitly unwrapped Optional
-<li>Then to return failure to the caller, simply <code>return nil</code>
-</ul>
 
 <h2>Subscript Methods</h2>
 <ul>
@@ -196,25 +228,6 @@ Foo foo
 
 var x = foo[1]
 </pre>
-
-
-<h2>enum</h2>
-<pre>
-enum Direction
-{
-    case north
-    case south
-    case east
-    case west
-}
-
-var direction = Direction.west
-</pre>
-
-<ul>
-<li>Seems like a cross between an enum and a union in C
-</ul>
-
 
 <h2>Protocols, Generics, Extensions</h2>
 

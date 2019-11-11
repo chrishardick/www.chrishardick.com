@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - View Controllers</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - View Controllers</h1>
+
+<h2>MVC - Model-View-Controller</h2>
+
+<pre>
+[Data] Model &lt;--&gt; [View] Controller &lt;--&gt; View
+</pre>
+
+<ul>
+<li>Data Model - keeps the application's data
+<li>View - displays the UI
+<li>Contoller - Connects the Data Model to a View
+</ul>
+
+
+<p>iOS calls the <code>UIViewController</code> methods as follows:</p>
+<ul>
+<li><code>viewDidLoad()</code> - called when the view content is created and loaded from a storyboard.
+    The view controller's outlets are guaranteed to have valid values when this is called.
+    Use this method to perform any additional setup required by your view controller
+<li><code>viewWillAppear()</code> - called before the view content is created and loaded from a storyboard.
+    Use this method to handle anything which needs to occur before the view is presented on screen.
+    Note that the view might never become visible - it may be obsured by other views or hidden
+<li><code>viewDidAppear()</code> - called just after t view has been loaded.
+    Use this method to handle anything which needs to occur as soon as the vie is presented on screen
+    Note that the view might have never been visible - it may be obsured by other views or hidden
+<li><code>viewWillDisappear()</code> - called before the view content is about to be removed.
+    Use this method to perform any cleanup
+<li><code>viewDidDisappear()</code> - called just after the view conetent has been removed.
+    Use this method to perform any cleanup.
+    Note that the view might have never been visible - it may be obsured by other views or hidden
+</ul>
+
+
+<h2>View Controllers</h2>
+<ul>
+<li>Each screen in a storyboard typically has a its own <strong>View Controller</strong>
+<li>View Controllers implement your app's behavior
+<li>All View Controllers objects in iOS are of type of <strong>UIViewController</strong>
+<li>Xcode created a <strong>UIViewController</strong> sub-class for you named <strong>ViewController</strong> in <strong>ViewController.swift</strong>
+</ul>
+
+</div>
+</body> 
+</html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>JavaScript - Hoisting</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>JavaScript - Hoisting</h1>
+
+<ul>
+<li>In JS, a variable or a function can be used before it has been declared
+<li>This is because JS implicitly moves declarations to the top of the current script or function
+<li>NOTE: Variables declared with <code>let</code> or <code>const</code> are not hoisted.
+<li>NOTE: Arrow Functions are not hoisted
+</ul>
+
+<pre>
+x = 5;
+
+var x;
+</pre>
+<h2>let</h2>
+
+<ul>
+<li><code>let</code> is a new keyword in ES6. It declares a variable with block scope
+</ul>
+
+<pre>
+var x = 10;
+
+console.log ("x = " + x);       // 10 
+
+{
+    let x = 2;                  
+
+    console.log ("x = " + x);   // 2 
+}
+
+console.log ("x = " + x)        // 10
+</pre>
+
+
+<h2>const</h2>
+
+<ul>
+<li><code>const</code> is a new keyword in ES6. Use it to create immutable variables
+<li><code>const</code> is similar to <code>let</code> in that it is block-scoped
+</ul>
+
+
+<h2>Import and Export</h2>
+
+<ul>
+<li>Use <code>import</code> and <code>export</code> to create reusable components
+</ul>
+
+<h2>Promises</h2>
+
+<ul>
+<li>Promises are new to ES6
+<li>Promises are a method to write asynchronous code
+</ul>
+
+<h2>Classes</h2>
+
+<ul>
+<li>
+</ul>
+
+<pre>
+class Rectangle
+{
+    constructor(h,w)
+    {
+        this.h = h;
+        this.w = w;
+    }
+
+    area()
+    {
+        return this.h*this.w;
+    }
+}
+
+let rect = new Rectangle (5,10);
+console.log ("Area = " + rect.area());
+</pre>
+
+
+<h2>Arrow Functions</h2>
+<ul>
+<li>Arrow Functions are a short-hand syntax for writing functions. 
+<li>It eliminates the <code>function</code> and <code>return</code> keywords and the curly brackets
+</ul>
+
+<pre>
+const mult = (x, y) =&gt; x * y
+
+console.log ("x = " + mult(5,10))
+</pre>
+
+
+</div>
+</body> 
+</html>

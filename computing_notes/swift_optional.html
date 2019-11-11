@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_swift");
+}
+</script>
+
+<title>Swift - Optional</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Swift - Optionals</h1>
+
+<ul>
+<li>E.g. Nullable
+<li>Represented via <code>Optional&lt;Type&gt;</code>. E.g. <code>Optional&lt;Int&gt;</code>
+<li>Optionals can also be specified via the type name followed by a question mark. E.g. <code>Int?</code>
+<li>In many contexts, you must unwrap the value of an optional before you can use it
+</ul>
+
+<pre>
+let x: Optional&lt;Int&gt; = 400
+
+// equivalent (using short-hand)
+let x: Int? = 400
+</pre>
+
+
+<h2>Optional Binding</h2>
+<ul>
+<li>To conditionally bind the wrapped value of an Optional to a new variable, use one of the optinal binding structures, including:
+    <code>if let</code> or <code>switch</code>
+</ul>
+
+<pre>
+if let foo = optionalFoo
+{
+    print ("optionalFoo has a value - '(\foox)'")
+}
+else
+{
+    print ("optionalFoo is nil")
+}
+</pre>
+
+
+<h2>Unconditional Unwrapping</h2>
+
+<ul>
+<li>When you're sure an Optional contains a value, you can unconditionally unwrap it using the forced unwrap operator (postfix !)
+<li>Unconditioanally unwrapping a <code>nil</code> instance will produce a runtime error
+</ul>
+
+<pre>
+let opt_n: Int? = 400   // an optional
+let n = opt_n!          // unconditional unwrapping
+</pre>
+
+</div>
+</body> 
+</html>

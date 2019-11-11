@@ -280,6 +280,8 @@ function print_nav(f)
         <a href="js_date.html">Date class</a>
         <a href="js_json.html">JSON</a>
         <a href="js_date_examples.html">Date class Examples</a>
+        <a href="js_es6.html">ES6</a>
+        <a href="js_hoisting.html">Hoisting</a>
     </div>
 
     <button class="accordion" id="accordion_jsclient">JS Client-Side</button>
@@ -337,6 +339,7 @@ function print_nav(f)
         <a href="linux_inotifywait.html">inotifywait</a>
         <a href="linux_speedtest.html">Network Speed Test</a>
         <a href="linux_users.html">Users</a>
+        <a href="linux_setup_new_server.html">Set Up New Server</a>
         <a href="linux_tape_info.html">Tapes</a>
     </div>
 
@@ -367,6 +370,11 @@ function print_nav(f)
     <button class="accordion" id="accordion_networking">Networking</button>
     <div class="panel">
         <a href="networking_mac_address.html">MAC Addresses</a>
+    </div>
+
+    <button class="accordion" id="accordion_nodejs">Node.js</button>
+    <div class="panel">
+        <a href="nodejs_intro.html">Introduction</a>
     </div>
 
     <button class="accordion" id="accordion_nosql">NoSQL</button>
@@ -473,11 +481,13 @@ function print_nav(f)
     <div class="panel">
         <a href="swift_intro.html">Introduction</a>
         <a href="swift_variables.html">Variables</a>
-        <a href="swift_collection_types.html">Collection Types</a>
+        <a href="swift_collection_types.html">Collections: Arrays, Sets, Dictionaries</a>
         <a href="swift_operators.html">Operators</a>
         <a href="swift_control_structs.html">Control Structures</a>
         <a href="swift_functions.html">Functions</a>
         <a href="swift_objects.html">Objects</a>
+        <a href="swift_optional.html">Optionals</a>
+        <a href="swift_enum.html">Enumerations</a>
     </div>
 
     <button class="accordion" id="accordion_utf8">UTF-8</button>
@@ -493,7 +503,13 @@ function print_nav(f)
     <button class="accordion" id="accordion_xcode">Xcode</button>
     <div class="panel">
         <a href="xcode_intro.html">Introduction</a>
+        <a href="xcode_build_basic_ui.html">Build a Basic UI</a>
         <a href="xcode_outlets_actions_delegates.html">Outlets, Actions and Delegates</a>
+        <a href="xcode_view_controllers.html">View Controllers</a>
+        <a href="xcode_data_model.html">Data Model</a>
+        <a href="xcode_custom_control.html">Custom Control</a>
+        <a href="xcode_uistackview.html">UIStackView</a>
+        <a href="xcode_uiview.html">UIView</a>
     </div>`
 
 

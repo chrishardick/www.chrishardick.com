@@ -40,6 +40,73 @@ C O N T E N T
 <div id="content" class="content">
 <h1>Linux - Debian</h1>
 
+<h2 id="PACKAGES">Debian Packages</h2>
+<ul>
+<li>Frequently used debian packages
+<li><code>apt-get update</code> - update packages lists to get information on the latest versions and their dependencies
+<li><code>apt-get upgrade</code> - will instll newer versions of any packages you have (useful when installing a new system)
+<li>Use <code>apt-get install &lt;pkg&gt;</code> to install
+</ul>
+
+<table>
+<tr>
+<th>Package</th>
+<th>Notes</th>
+</tr>
+
+<tr>
+<td>apache2</td>
+<td>Apache HTTP Server</td>
+</tr>
+
+<tr>
+<td>git</td>
+<td><code>git</code></td>
+</tr>
+
+<tr>
+<td>inotify-tools</td>
+<td>inotify-tools - includes inotifywait which allows you to wait for changes to files using inotify
+</tr>
+
+<tr>
+<td>ipset</td>
+<td>IP sets - used by iptables to store IP addresses, port numbers, IP and MAC address pairs</td>
+</tr>
+
+<tr>
+<td>net-tools</td>
+<td><code>ifconfig</code>. However, <code>ifconfig</code> has been deprecated. try <code>ip a</code> </td>
+</tr>
+
+<tr>
+<td>openssh-server</td>
+<td>ssh server</td>
+</tr>
+
+<tr>
+<td>python-netaddr</td>
+<td>Python - manipulation of various network address notations. E.g. is a given IP address part of a given sub-net</td>
+</tr>
+
+<tr>
+<td>python-tz</td>
+<td>Python version of the Olson timezone database</td>
+</tr>
+
+<tr>
+<td>tcpdump</td>
+<td>Network Packet Analyzer</td>
+</tr>
+
+<td>
+<td>vim</td>
+<td>Vim</td>
+</tr>
+
+</table>
+
+
 <h2>Change System Timezone</h2>
 <dl>
 <dt><code>dpkg-reconfigure tzdata</code>

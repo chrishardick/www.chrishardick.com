@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - Build a Basic UI</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - Build a Basic UI</h1>
+
+<h2 id="storyboard">Storyboard</h2>
+<ul>
+<li>The <strong>Storyboard</strong> is a visual representation of the app's user interface - showing screens of content (<strong>scenes</strong>) 
+    and the transactions between them
+<li>You use storyboards to lay out the flow for your app
+<li>To open your storyboard, in the Project Navigator, select <code>Main.storyboard</code>
+<li>Xcode will open the storyboard in <strong>Interface Builder</strong> (its visual interface editor) in the Editor Pane
+<li>The arrow that points to the left side is the <strong>Storyboard Entry Point</strong> (the scene which is loaded when the app starts)
+<li>Scenes contain UI Objects (e.g. Text fields, labels, buttons, etc.)
+</ul>
+
+<h2>Add a Text Field</h2>
+<ul>
+<li>Click on the Storyboard and then click on the Library icon (top right hand corner). The Library icon is text sensitive, it displays different libraries depending on the part of the screen which has focus. iIf you click on the Storyboard, it will display an icon with a circle with a square in the middle - which I guess is the UI Object Library. 
+<li>In the Object Library, type 'text field' in the filter field 
+<li>Drag a Text Field object on to your scene.
+<li>You can zoom in via: Editor &#x2192; Zoom
+<li>With the Text Field selected, open the <strong>Attributes Inspector</strong> (the icon looks like a downward facing arrow) and enter text for your text field
+<li>In the Attributes Inspector, find 'Return Key' and select 'Done.' This will make the return key into a 'Done' key 
+<li>In the Attributes Inspector, select 'Auto-enable Return Key' checkbox. This will prevent the user to click 'Done' before typing text into the text field
+</ul>
+
+<h2>Add a Label</h2>
+<ul>
+<li>In the Object Library, type 'label' in the filter field 
+<li>Drag a Text Field object on to your scene.
+<li>Either double click on the label or use the Attributes Inspector to add text to your label
+</ul>
+
+<h2>Add a Button</h2>
+<ul>
+<li>In the Object Library, type 'button' in the filter field 
+<li>Drag a Button object on to your scene.
+<li>Double click the button and or use the Attributes Inspector to add text for your button
+</ul>
+
+<h2>Add an Image</h2>
+<ul>
+<li>In the Object Library, type 'image view' in the filter field
+<li>Drag an Image View object on to your scene.
+<li>With the Image View selected, open the Size Inspector (looks like a ruler)
+<li>In the Intrinsic Size field, select Placeholder
+<li>Enter a value for both the Width and Height fields (e.g. 320)
+<li>With the Image View selected, click the 'Add Constraint' button and check the 'Aspect Ratio' checkbox
+<li>With the Image View selected, in the Attributes Inspector, select 'User Interaction Enabled'
+<li>In the Project Navigator, select <code>Assets.xcassets</code> to view the <strong>asset catalog</strong>.
+    The asset catalog is a place to store and organize the image assets for your app.
+<li>On the bottom left corner, of the Project Navigator, click the plus (+) button and select 'New Image Set'
+    and the Image Set will display in the Editor Pane
+<li>Create an Outlet (outlets connect Storyboard Objects to a variable)
+    <ul>
+    <li>Display <code>ViewController.swift</code> in an additional editor window
+    <li>Click and drag a picture from your computer onto the 2x slot
+    <li>Display the Storyboard and select the Image View
+    <li>Control-drag from the Image View to <code>ViewController.swift</code> - just below the existing outlets
+    <li>In the dialog which appears, enter a name, and click 'Connect'
+    </ul>
+<li>A Image View is not normally an object which responds to user events
+<li>A <strong>Gester Recognizer</strong> is an object which you can attach to another object which allows the object to respond to user events
+<li>You can use an Action which is called when a Gester Recognizer recognizes a gester (e.g. swipe, pinch, rotation, etc.)
+<li>To attach a Tap Gester Recognizer (<code>UITapGesterRecognizer</code>) an Image View:
+    <ul>
+    <li>In the Object Library, type 'tap gesture' in the filter field
+    <li>Drag a Tap Gester Recognizer on top of the Image View
+    <li>The Tap Gesture Recognizer object wil apprea in the <strong>scene dock</strong>. The scene dock is the bar above your story board
+    </ul>
+<li>To connect the Gester Recognizer to code:
+    <ul>
+    <li>Control-drag from the Gester Recognizer in the scene dock to the code display right next to the other actions
+    <li>Choose a name 
+    <li>For Type, select UITapGestureRecognizer
+    <li>Press 'Connect'
+    </ul>
+<li>To create an image picker to respond to user taps
+    <ul>
+    <li>When a user taps on an image, we would like the user to be able to choose an existing photo or take a new one.
+    <li>The <code>UIImagePickerControllerDelegate</code> protocol supports this
+    <li>We'll also need the <code>UINavigationControllerDelegate</code> protocol
+    <li>We'll specify that the <code>ViewController</code> supports these protocols
+
+    </ul>
+</ul>
+
+<h2>Auto Layout</h2>
+<ul>
+<li>A Stack View (UIStackView) is one of easiest ways to define your layout.
+<li>It allows you to lay out a collection of views in either a column or a row. 
+<li>To add a Stack View, while pressing the Shift key, select the fields you want to include in the stack view
+<li>On the bottom right of the canvas, click the 'Embed in' icon' and choose 'Stack View') or choose Editor &#x2192; Embed In &#x2192; Stack View
+<li>On the bottom right, open the 'Add New Constraints' menu - it looks like a square with a vertical line on each side
+<li>The constraints menu allows you to specify the spacing to the nearest leading, trailing, top and bottom neighbors
+</ul>
+
+</div>
+</body> 
+</html>

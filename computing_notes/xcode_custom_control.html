@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - Custom Control</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - Custom Control</h1>
+
+
+<h2>To create a subclass of UIStackView</h2>
+
+<ul>
+<li>File &gt; New &gt; File (or Command-N)
+<li>Choose iOS
+<li>Select Cocoa Touch Class
+<li>In the Class field, enter a class name. E.g <code>RatingControl</code>
+<li>In the Subclass of field, select <code>UIStackView</code>
+<li>Choose Swift for the language
+<li>Click thru the wizard and this will create a swift file for you (e.g. RatingControl.swift)
+    with a definition for your class (which inherits from UIStackView)
+<li>At the top of your newly defined class, enter the following:
+<pre>
+// MARK: Initialization
+
+// since we're overriding a method definition of a parent class, we need to use keyword override
+override init (frame: CGRect)
+{
+    super.init(frame: frame)
+}
+
+required init (coder: NSCoder)
+{
+    super.init(coder: coder)
+}
+</pre>
+</ul>
+
+</div>
+</body> 
+</html>

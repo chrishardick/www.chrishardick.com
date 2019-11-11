@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Linux - Set Up New Server</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Linux - Set Up New Server</h1>
+
+
+<h2>Packages</h2>
+<ul>
+<li>Install relevant packages - see <a href="linux_debian.html#PACKAGES">Debian Packages</a>
+</ul>
+
+<h2>Vim</h2>
+<ul>
+<li>Install <code>~/.vimrc</code>. Here is an <a href="vim_cheatsheet.html">example</a>
+</ul>
+
+<h2>BASH</h2>
+<ul>
+<li><code>~/.bashrc</code> - executed for interactive non-login shells
+
+<pre>
+set -o vi
+</pre>
+
+<li><code>~/.bash_profile</code> - executed for login shells
+
+<pre>
+if [ -f $HOME/.bashrc ]; then
+    source $HOME/.bashrc
+fi
+</pre>
+
+</ul>
+
+</div>
+</body> 
+</html>
+  

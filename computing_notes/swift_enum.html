@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_swift");
+}
+</script>
+
+<title>Swift - Enumerations</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Swift - Enumerations</h1>
+
+<ul>
+<li>A cross between a <code>enum</code> and a <code>union</code> in C/C++.
+    <ul>
+    <li>Similar to C/C++, an <code>enum</code> is a type which allows you to group related values
+    <li>Similar to a C/C++ <code>union</code> in that for each enum value, you can store associated values
+    </ul>
+<li>Unlike C/C++, enums are not restricted to integers. 
+<li>Each value can be a string, a character, an integer or a floating point number
+<li>You do not need to provide a value for each enum case
+<li>Enumerations can have initializers
+</ul>
+
+<pre>
+enum MyEnum
+{
+}
+
+//
+// each value (north, south, east, west) is a case
+//
+enum Direction
+{
+    case north
+    case south
+    case east
+    case west
+}
+
+var direction = Direction.north
+
+// once the variable bound to a type, you can omit the prefix
+direction = .east
+
+enum Planet
+{
+    case mercury, venus, earth, mars, jupiter, saturn, uranus, neptune
+}
+</pre>
+
+<h2>Iterating over Enum Choices: <code>CaseIterable</code> Protocol</h2>
+
+<ul>
+<li>If you're defining an enumeration in which you'd like to iterate through all of the enum cases, you can declare
+    that the enumeration conforms to the <code>CaseIterable</code> protocol.
+<li>This is done by appending the following to the end of the enum name <code>: CaseIterable</code>
+</ul>
+
+<pre>
+enum Beverage: CaseIterable
+{
+    case coffee, tea, juice
+}
+
+//
+// allCases property of an enumerated type 
+// - gives you access to a collection which contains all of cases of the enumeration
+//
+
+for bev in Beverage.allCases
+{
+    print (bev)
+}
+
+let numBev = Beverage.allCases.count       
+
+print (numBev)      // 3
+</pre>
+
+<h2>Associated Values</h2>
+<ul>
+<li>Allows you to store values alongside case values
+<li>Similar to a C/C++ union
+<li>You can use a switch statement to determine which type is currently stored in the enum
+</ul>
+
+<pre>
+enum Barcode
+{
+    // Barcode.upc stores 4 integers
+    case upc(Int, Int, Int, Int)
+
+    // Barcode.qrCode stores a string
+    case qrCode (String)
+}
+
+var product1 = Barcode.upc(1, 5000, 456, 962)
+var product2 = Barcode.qrCode ("YSDKFSDJFKKS")
+
+// assignment example
+// - note that you can switch types
+product1 = Barcode.qrCode ("BLAHBLAH")
+
+switch barcode
+{
+    case .upc(let numberSystem, let manufacturer, let product, let check):
+        print ("UPC: \(numberSystem), \(manufacturer), \(product), \(check).")
+    case .qrCode(letProductCode):
+        print ("QR Code: \(productCode).")
+}           
+</pre>
+
+<h2>Raw Values</h2>
+
+<pre>
+enum ASCIIControlCharacter<strong>: Character</strong>
+{
+    case tab = "\t"
+    case lineFeed = "\n"
+    case carriageReturn = "\r"
+}
+</pre>
+
+<ul>
+<li>Each enumeration case can come prepopulated with default values which all must be of the same type
+<li>Each case must be mapped to a <strong>unique</strong> value within the enum and all values must be of the <strong>same type</strong> (Character, String, Integer or Floating Point type)
+<li>The raw values need to be assigned when the enum case is defined and cannot be changed
+</ul>
+
+<h3>Implicitly Assigned Raw Values</h3>
+
+<ul>
+<li>Swift supports implicitly assigned raw values for enumerations with raw values of type integer and string
+<li>For enumerations with integer raw values, the implicit value is one more than the previous case.
+    If the first case does not have a value set, its value is 0.
+<li>For enumerations with string raw values, the implicit value is a string set to the text of the case name
+</ul>
+
+<pre>
+// Implicit Raw Values - Integer 
+// Planet.mercury=1, Planet.venus=2, Planet.earth=3, ...
+enum Planet: Int
+{
+    case mercury = 1, venus, earth, mars, jupitor, saturn, uranus, neptune
+}
+
+let earthRawValue = Planet.earth.rawValue   // 3
+
+
+// Implicit Raw Value - String
+// Direction.north="north", Direction.south="south", ...
+enum Direction: String
+{
+    case north, south, east, west
+}
+
+let californiaDirection = Direction.west.rawValuea      // "west"
+</pre>
+
+<h3>Initializing from a Raw Value</h3>
+
+<pre>
+enum Planet: Int
+{
+    case mercury = 1, venus, earth, mars, jupiter, saturn, uranus, neptune
+}
+
+// planet is of type Planet? and equals Planet.uranus
+let planet = Planet(rawValue: 7) 
+
+// however, since it's possible to specify a raw value which does not have an equivalent
+// value in the enumeration, using a raw value initializer, always returns an optional enumeration type (e.g. Planet? or optional Planet).
+// In other words, the raw value initizlier is a failable initializer
+
+
+// planet is of type optional Planet (Planet?)
+// since we passed in an invalid value, <code>nil</code> is returned
+let planet = Planet(rawValue: 11)
+
+if planet
+{
+    switch planet
+    {
+        case .earth:
+            print ("EARTH")
+        default:
+            print ("NOT EARTH")
+    }
+}
+else
+{
+    print ("NOT A VALID RAW VALUE") // this will print out
+}
+</pre>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://docs.swift.org">https://docs.swift.org</a>
+</ul>
+
+</div>
+</body> 
+</html>

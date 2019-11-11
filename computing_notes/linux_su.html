@@ -38,7 +38,7 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<H1>Linux - su</H1>
+<h1>Linux - su</h1>
 
 <ul>
 <li><code><strong>su [options] [username]</strong></code>
@@ -48,6 +48,8 @@ C O N T E N T
     what the user would expect had the user logged in directly. e.g. <code>su - username</code>.
     This is equivaent to <code> su -l username</code>
 <li>If you are not a super user, you will be prompted for the password of the user you're becoming
+<li>Typically su as root is disabled because the root login does not have a password defined.
+    In order to set up a password for root, run <code>su passwd root</code>
 </ul>
 
 

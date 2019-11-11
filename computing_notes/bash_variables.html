@@ -48,13 +48,15 @@ proceeding their name with a dollar sign ($).
 </P>
 
 <h2>Assigning Values to Variables</h2>
-<p>
-Assignment is very similar to its analog in traditional programming languages, except that most variables--all that
-we've seen so far--hold character strings.  When assigning values to variables it is important not to have any 
-white space (tabs or spaces) on either side of the equal sign.
-<font face=courier>
+
+<ul>
+<li>Assignment is very similar to its analog in traditional programming languages, except that most variables-all that
+we've seen so far-hold character strings.  
+<li>When assigning values to variables it is important not to have any white space (tabs or spaces) on either side of the equal sign.
+</ul>
+
 <pre>
-Examples of Assignment of Variables:
+# Examples of Assignment of Variables:
 
 x=5
 y=20
@@ -62,50 +64,44 @@ z=yes
 a=$x$y
 b=$x$y`date`
 </pre>
-</font>
 
 <h2>Environment (Exported) Variables</h2>
 
-<p>
-Environment or Exported Variables are variables which are passed-by-value to subshells.  They are conventionally named using
-all uppercase.<br><br>
-<font face=courier>
+<ul>
+<li>Environment or Exported Variables are variables which are passed-by-value to subshells.  
+<li>They are conventionally named using all uppercase.
+</ul>
+
 <pre>
-Example of Exporting a Variable:
+# Example of Exporting a Variable
 
 x=5
 export x
 </pre>
-</font>
-</P>
 
 <h2>Positional Parameters & Related Shell Variables</h2>
-<p>
-Positional Parameters (Command Line Arguments) are passed into a shell script as 1, 2, 3, and so on.  There is also 
-positional parameter 0 (zero) which is the name of the shell script as it was invoked (either the absolute path name or a
+<ul>
+<li>Positional Parameters (Command Line Arguments) are passed into a shell script as 1, 2, 3, and so on.  
+<li>There is also positional parameter 0 (zero) which is the name of the shell script as it was invoked (either the absolute path name or a
 relative path name).
-</p>
+</ul>
 
 <p>
 In addition, there are some other shell variables which are related to positional parameters.  
+</p>
 
 <ul>
 
-<li>
-* is a single string which contains all of the positional parameters seperated by the first character of the IFS 
+<li>* is a single string which contains all of the positional parameters seperated by the first character of the IFS 
 (internal field seperator) shell variable.  
-</li>
 
-<li>
-@ evaluates to all of the positional parameters as seperate character strings
-</li>
+<li>@ evaluates to all of the positional parameters as seperate character strings
 
-<li>
-# evalutes to the number of positional parameters
-</li>
+<li># evalutes to the number of positional parameters
 
 </ul>
 
+<p>
 NOTE: When accessing the values stored in either * or @, surround the variable in double quotes.  For example:
 "$@" or "$*".
 </p>

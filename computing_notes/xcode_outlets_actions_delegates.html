@@ -88,7 +88,7 @@ Data Model (encapsulates the app's data)
 <li><code>IBOutlet</code> - Interface Builder Outlet
 <li><code>weak</code> - the reference does not prevent the system from deallocating the referenced object.
     Weak references help prevent reference cycles
-<li>The explamation point at the end of the declaration indicates that the type is an implicitly wrapped optional - 
+<li>The explanation point at the end of the declaration indicates that the type is an implicitly wrapped optional - 
     which means the system will assume it has a valid value and will automatically unwrap it for you.
     This will cause the app to terminate if the variable has not been set. Similar to a reference in C++
 </ul>
@@ -112,7 +112,7 @@ Data Model (encapsulates the app's data)
 <li>When an event occurs, the system executes the action
 </ul>
 
-<h4>To Create an Action</h4>
+<h4>To Create an Button Click Action</h4>
 <ul>
 <li>In <code>ViewController.swift</code> just above the last curly brace, add the following:
     (which indicates that this is the section of your code which lists actions)
@@ -133,16 +133,21 @@ Data Model (encapsulates the app's data)
 <li><code>IBAction</code> attribute indicates that this method is an action which connects from your storyboard in the Interface Builder
 </ul>
 
-<h2>Delegates</h2>
 
+<h2>Delegates</h2>
 <ul>
 <li>ObjectA can declare that ObjectB is a delegate of it. 
 <li>This means that ObjectB will receive a message (i.e. one of it's methods will be called) when something happens
-<li>The delegating object keeps a reference to the delegate object and at the appropriate time, it sends a message to the delegate object
 <li>I.e. a text field can have delegate which takes an action when it receives input
-<li>Any object can serve as a delegate to another object as long as it confirms to the appropriate protocol.
+<li>Any object can serve as a delegate to another object as long as it confirms to the appropriate <strong>protocol</strong>.
 <li>The protocol that defines a text field's delegate is <code>UITextFieldDelegate</code>. 
+<li>The delegating object keeps a reference to the delegate object and at the appropriate time, it sends a message to the delegate object
 <li>It's very common to make the view controller the delegate for objects which it manages
+</ul>
+
+<h3>Creating a Text Field Delegate</h3>
+<ul>
+<li>In order to process user input from a text field, you need to utilize a <strong>text field delegate</strong>
 <li>First, <code>ViewController</code> needs to adopt the <code>UITextFieldDelegate</code> protocol. 
     You do this by adding it as part of the class declaraction line. In <code>ViewController.swift</code>, change the following:
     <pre>class ViewController: UIViewController, <strong>UITextFieldDelegate</strong> {</pre>
@@ -179,15 +184,16 @@ func textFieldDidEndEditing(_ textField: UITextField)
 //MARK: UITextFieldDelegate
 
 // called when the user presses Return or similar on the keyboard
-func textFieldShouldReturn(_ textField: UITextField -&gt; Bool
+func textFieldShouldReturn(_ textField: UITextField) -&gt; Bool
 {
     textField.resignFirstResponder()
     return true
 }
 
+// called after the text field resigns its first repsonder status
 func textFieldDidEndEditing(_ textField: UITextField)
 {
-    label1.txt = textField.text
+    label1.text = textField.text
 }
 </pre>
 

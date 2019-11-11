@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>JavaScript - ES6</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>JavaScript - ES6</h1>
+
+<ul>
+<li>a.k.a. ECMAScript 6, ECMAScript 2015, JavaScript 6
+</ul>
+
+<h2>let</h2>
+
+<ul>
+<li><code>let</code> is a new keyword in ES6. It declares a variable with block scope
+<li>NOTE: variables declared with <code>let</code> are not hoisted
+</ul>
+
+<pre>
+var x = 10;
+
+console.log ("x = " + x);       // 10 
+
+{
+    let x = 2;                  
+
+    console.log ("x = " + x);   // 2 
+}
+
+console.log ("x = " + x)        // 10
+</pre>
+
+
+<h2>const</h2>
+
+<ul>
+<li><code>const</code> is a new keyword in ES6. Use it to create immutable variables
+<li><code>const</code> is similar to <code>let</code> in that it is block-scoped
+<li>NOTE: variables declared with <code>const</code> are not hoisted
+</ul>
+
+
+<h2>Import and Export</h2>
+
+<ul>
+<li>Use <code>import</code> and <code>export</code> to create reusable components
+</ul>
+
+<h2>Promises</h2>
+
+<ul>
+<li>Promises are new to ES6
+<li>Promises are a method to write asynchronous code
+</ul>
+
+<h2>Classes</h2>
+
+<ul>
+<li>Use the keyword <code>class</code> to define a class 
+<li>Properties are assigned inside a <code>constructor()</code> method
+</ul>
+
+<pre>
+class Rectangle
+{
+    constructor(h,w)
+    {
+        this.h = h;
+        this.w = w;
+    }
+
+    area()
+    {
+        return this.h*this.w;
+    }
+}
+
+let rect = new Rectangle (5,10);
+console.log ("Area = " + rect.area());
+</pre>
+
+<h2>Default Parameter Values</h2>
+
+<ul>
+<li>ES6 supports default values for function parameters
+</ul>
+
+<pre>
+function sum (x, y=0)
+{
+    return x+y;
+}
+
+console.log ("sum=" + sum(5))   // will print 5
+</pre>
+
+
+<h2>Arrow Functions</h2>
+<ul>
+<li>Arrow Functions are a short-hand syntax for writing functions. 
+<li>It eliminates the <code>function</code> keyword
+<li>It can also eliminate the <code>return</code> statement and the curly brackets if the function is a single statement
+<li>Arrow functions are not hoisted. They must be defined before they are used.
+<li>Arrow functions do not have their own <code>this</code>. Hence, they are not well suited for defining object methods.
+</ul>
+
+<pre>
+const mult = (x, y) =&gt; x * y
+
+console.log ("x = " + mult(5,10))
+</pre>
+
+
+</div>
+</body> 
+</html>

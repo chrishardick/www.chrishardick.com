@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - UIStackView</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - UIStackView</h1>
+
+<ul>
+<li>Allows you to layout a collection of <a href="xcode_uiview.html">views</a> in either a column or a row
+<li>Allows you to leverage the power of Auto Layout which lets you to create user interfaces which 
+    dynamically adapt to the device orientation, screen size, or any change in available space.
+<li>Manages the layout of all the views in its <code>arrangedSubViews</code> property (array)
+<li>The views are displayed in the order they appear in the array and are arranged along the stack view's axis
+<li>the exact layout varies depending on the stack view's axis, distribution, alignment, spacing, etc.
+</ul>
+
+<h2>Declaration</h2>
+<pre>
+class UIStackView : UIView
+</pre>
+
+</div>
+</body> 
+</html>
