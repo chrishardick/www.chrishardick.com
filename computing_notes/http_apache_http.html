@@ -84,6 +84,10 @@ ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"
     Allow from all
 &lt;/Directory&gt;
 
+&lt;tDirectory "/var/www/html/blah"&gt;
+    Options +ExecCGI
+    AddHandler cgi-script .py
+&lt;/Directory&gt;
 </pre>
 
 <ul>
@@ -95,6 +99,8 @@ ScriptAlias /cgi-bin/ "/var/www/cgi-bin/"
 <h3>Modules</h3>
 <ul>
 <li><code>a2enmod ssl</code> - enable ssl module
+<li><code>a2enmod cgi</code> - enable cgi module
+<li><code>systemctl restart apache2</code> - restart server
 </ul>
 
 <h3>Virtual Hosts</h3>

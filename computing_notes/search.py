@@ -21,6 +21,8 @@ import re
 
 locale.setlocale(locale.LC_ALL,'en_US.utf8')
 
+tcp_client = "/user2/computing_notes_search/tcp_client.py"
+
 dbg = False
 
 c = Cookie.SimpleCookie()
@@ -99,7 +101,7 @@ if "searchbox" in form:
         
         srch_dta_new = phrase_match.group(1)
 
-        rtn_dta_json = subprocess.check_output(["/user2/python/tcp_client.py", "phrase", srch_dta_new])
+        rtn_dta_json = subprocess.check_output([tcp_client, "phrase", srch_dta_new])
 
         if dbg:
             print '<pre>SEARCH.PY: ' + rtn_dta_json + '</pre>'
@@ -117,7 +119,7 @@ if "searchbox" in form:
         
             srch_dta_new = re.sub (r' OR ', ' ',srch_dta)
 
-            rtn_dta_json = subprocess.check_output(["/user2/python/tcp_client.py", "or", srch_dta_new])
+            rtn_dta_json = subprocess.check_output([tcp_client, "or", srch_dta_new])
 
             if dbg:
                 print 'SEARCH.PY: OR RESULTS (JSON): LEN=' + str(len(rtn_dta_json)) + ' DTA=|' + rtn_dta_json + '|<br><br>'
@@ -126,7 +128,7 @@ if "searchbox" in form:
 
         print "<p>AND RESULTS "
         
-        rtn_dta_json = subprocess.check_output(["/user2/python/tcp_client.py", "and", srch_dta])
+        rtn_dta_json = subprocess.check_output([tcp_client, "and", srch_dta])
 
         if dbg:
             print 'SEARCH.PY: AND RESULTS (JSON)' + rtn_dta_json + '<br><br>'
