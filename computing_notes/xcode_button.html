@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - Buttons</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - Buttons</h1>
+
+<h2>Adding a Button</h2>
+<ul>
+<li>In the Object Library, type 'button' in the filter field 
+<li>Drag a Button object on to your scene.
+<li>Double click the button and or use the Attributes Inspector to add text for your button
+</ul>
+
+<h2>Create a Button Click Action</h2>
+<ul>
+<li>An action links an event on a UI widget to a method in your code. An action is also called an action method.
+<li>At the bottom of the <code>ViewController</code> class in the <code>ViewController.swift</code> file, add the following (if not already there):
+<pre>
+//MARK: Actions
+</pre>
+<li>In the storyboard, select the button
+<li>Control-drag the button in the storyboard to the view controller file right below the comment
+<li>In the pop-up which appears, enter the following:
+    <ul>
+    <li>Connection: Action
+    <li>Object: View Controller
+    <li>Name: enter an appropriate name - e.g. <code>fooButtonClick</code>
+    <li>Type: UIButton
+    </ul>
+<li>Let's start by adding a adding a line of trace which will print out when the user clicks on the button
+<pre>
+print ("fooButtonClicked")
+</pre>
+</ul>
+
+
+</div>
+</body> 
+</html>

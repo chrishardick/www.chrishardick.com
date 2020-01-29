@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - Action (Event &#11157; Method)</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - Action (Event &#11157; Method)</h1>
+
+<ul>
+<li>An <strong>action</strong> links an event on a UI widget to an object method in source code. 
+<li>When the event occurs, the method will be called
+</ul>
+
+
+<h2>To Create an Action</h2>
+
+<ul>
+<li>In a class (usually a <code>ViewController</code> class), usually at the bottom, add the following comment - if not already there 
+    (this will give you a target for your control-drag)
+<pre>//MARK: Actions</pre>
+
+<li>In the storyboard, select a UI Object
+<li>Control-drag from the Storyboard Object to the line right below the newly added comment
+<li>In the dialog which appears, for <code>Connection</code>, select <code>Action</code>
+<li>For <code>Name</code>, enter an appropriate name
+<li>For <code>Type</code>, select the appropriate type
+<li>Click <code>Connect</code> to create the action - similar to below
+<pre>@IBAction func setFoo(_ sender: UIButton) // sender: the UI Object responsible for triggering the action
+{
+}</pre>
+<li><code>sender</code> is the object responsible for triggering the action
+<li>The <code>IBAction</code> attribute indicates that the method is an action which connects from the storyboard in the Interface Builder
+</ul>
+
+</div>
+</body> 
+</html>

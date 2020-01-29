@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - Outlets (Widget &#11020; Variable)</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - Outlets (Widget &#11020; Variable)</h1>
+
+<ul>
+<li><strong>Outlets</strong> provide a mechanism to link widgets in a storyboard (labels, etc.) to variables in source code
+<li>Outlets allow you to interact with the widgets programatically. I.e. set the text on a label, etc.
+</ul>
+
+<h2>To Create an Outlet</h2>
+<ul>
+<li>This creates a <strong>property</strong> for the object which allows you to access and manipulate the widget from your source code
+<li>At the top of your ViewController class, add the following comment - if not already there (this will give you a target for your control-drag):
+<pre>
+//MARK: Properties
+</pre>
+<li>Control-drag a widget in your storyboard to a view controller file below the newly added comment
+<li>A dialog should appear allowing you to enter a name (among other things). Enter a descriptive name (e.g. outletFooLabel)
+<li>You should see code added similar to the following:
+<pre>
+@IBOutlet weak var outletFooLabel: UILabel!
+</pre>
+<li><code>IBOutlet</code> - Interface Builder Outlet
+<li><code>weak</code> - the reference does not prevent the system from deallocating the referenced object. Weak references prevent reference cycles
+<li>The explanation point (<code>!</code>) at the end of the declaration indicates the type is an <strong>implicitly wrapped optional</strong> - which means the 
+    system will assume it has a valid value and will automatically unwrap it for you.
+    This will cause the app to terminate if the varaible has not been set.
+</ul>
+
+</div>
+</body> 
+</html>

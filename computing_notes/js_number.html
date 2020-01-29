@@ -46,15 +46,9 @@ C O N T E N T
 <li>Bitwise operators are an exception -- they are performed on 32-bit integers.
 <li>Hexadecimal literals begin with 0x or 0X.
 <li>Floating point literals can be represented using exponential notation (real number followed by E (or e) followed by an integer exponent (which may be negative)
-<li>JavaScript supports the basic arithmetic operators
-	<ul>
-	<li>+ for addition
-	<li>- for subtraction
-	<li>* for multiplication
-	<li>/ for division
-	</ul>
-<li>In addition, JavaScript supports more complex arithmetic operations as part of the core language. These functions are accessed as <em>methods</em> of the Math class
-<li>The Math class has a toString( ) method which converts an integer to a string using the base specified by its argument (the base must be between 2 and 36)
+<li>JavaScript supports the basic arithmetic operators. E.g. <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>
+<li>In addition, JavaScript supports more complex arithmetic operations as part of the core language. These functions are accessed as <em>methods</em> of the <code>Math</code> class
+<li>The Math class has a <code>toString()</code> method which converts an integer to a string using the base specified by its argument (the base must be between 2 and 36)
 <pre>
 var x = 6;
 var y = x.toString(2); // y is "110"
@@ -64,12 +58,13 @@ var y = x.toString(2); // y is "110"
 
 var y = (6).toString(2);
 </pre>
+
 <li>Special Numeric Values
 	<ul>
-	<li><em>Infinity</em> is used to represent a number larger than the largest possible number
-	<li>There's also <em>-Infinity</em> to represent a negative number lower than the lowest possible negative number
-	<li><em>NaN</em> is used to represent 'not a number'. To test for NaN, use <em>IsNaN( )</em>
-	<li>Use <em>isFinite( )</em> to test whether a number is not NaN, Infinity, nor -Infinity
+	<li><code>Infinity</code> is used to represent a number larger than the largest possible number
+	<li>There's also <code>-Infinity</code> to represent a negative number lower than the lowest possible negative number
+	<li><code>NaN</code> is used to represent 'not a number'. To test for NaN, use <code>IsNaN()</code>
+	<li>Use <code>isFinite()</code> to test whether a number is not NaN, Infinity, nor -Infinity
 	</ul>
 </ul>
 

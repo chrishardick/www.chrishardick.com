@@ -167,7 +167,6 @@ function print_nav(f)
         <a href="cpp_vector.html">Vector</a>
         <a href="cpp_list.html">List</a>
         <a href="cpp_map.html">Map and Multimap</a>
-        <a href="#">Set - TBD</a>
         <a href="cpp_deque.html">Deque</a>
         <a href="cpp_string.html">String</a>
         <a href="cpp_transform.html">Transform</a>
@@ -246,9 +245,12 @@ function print_nav(f)
         <a href="html_colors.html">Colors</a>
         <a href="html_color_test.html">Color Tester</a>
         <a href="html_forms.html">Forms</a>
+        <a href="html_button.html">Button Element</a>
         <a href="html_dom_events.html">DOM Events</a>
         <a href="html_hello_world.html">Hello, World!</a>
         <a href="html_unicode.html">Unicode</a>
+        <a href="html_canvas.html">Canvas</a>
+        <a href="html_svg.html">SVG</a>
     </div>
 
     <button class="accordion" id="accordion_http">HTTP</button>
@@ -271,10 +273,13 @@ function print_nav(f)
         <a href="js_intro.html">Introduction</a>
         <a href="js_variables_and_data_types.html">Variables and Data Types</a>
         <a href="js_string.html">Strings</a>
+        <a href="js_regular_expressions.html">Regular Expressions</a>
         <a href="js_number.html">Numbers</a>
         <a href="js_boolean.html">Booleans</a>
+        <a href="js_operators.html">Operators</a>
         <a href="js_control_structs.html">Control Structures</a>
         <a href="js_objects.html">Objects</a>
+        <a href="js_array.html">Arrays</a>
         <a href="js_functions.html">Functions</a>
         <a href="js_exceptions.html">Exceptions</a>
         <a href="js_date.html">Date class</a>
@@ -303,6 +308,7 @@ function print_nav(f)
         <a href="jsclient_calc.html">Basic Calculator</a>
         <a href="jsclient_loan_calc.html">Loan Calculator</a>
         <a href="jsclient_scratch_pad.html">Scratch Pad</a>
+        <a href="jsclient_canvas_scratch.html">Canvas Scratch Pad</a>
     </div>
 
     <button class="accordion" id="accordion_json">JSON</button>
@@ -345,6 +351,7 @@ function print_nav(f)
 
     <button class="accordion" id="accordion_mac">Mac</button>
     <div class="panel">
+        <a href="mac.html">Cheat Sheet</a>
         <a href="mac_hosts_file.html">Hosts File</a>
         <a href="mac_root_user.html">Root User</a>
     </div>
@@ -375,6 +382,8 @@ function print_nav(f)
     <button class="accordion" id="accordion_nodejs">Node.js</button>
     <div class="panel">
         <a href="nodejs_intro.html">Introduction</a>
+        <a href="nodejs_require.html">require</a>
+        <a href="nodejs_simple_web_server.html">Simple Web Server</a>
     </div>
 
     <button class="accordion" id="accordion_nosql">NoSQL</button>
@@ -448,6 +457,7 @@ function print_nav(f)
         <a href="python_hashlib.html">hashlib</a>
         <a href="python_base64.html">Base64</a>
         <a href="python_requests.html">requests - HTTP library</a>
+        <a href="python_cookie.html">Cookie - HTTP Cookie library</a>
     </div>
 
     <button class="accordion" id="accordion_sockets_api">Sockets API (C/UNIX)</button>
@@ -503,13 +513,25 @@ function print_nav(f)
     <button class="accordion" id="accordion_xcode">Xcode</button>
     <div class="panel">
         <a href="xcode_intro.html">Introduction</a>
-        <a href="xcode_build_basic_ui.html">Build a Basic UI</a>
-        <a href="xcode_outlets_actions_delegates.html">Outlets, Actions and Delegates</a>
+        <a href="xcode_simulator.html">Simulator</a>
+        <a href="xcode_ui_basics.html">UI Basics</a>
+        <a href="xcode_outlet.html">Outlets (Widget &#11108; Variable)</a>
+        <a href="xcode_action.html">Actions (Event &#11157; Method)</a>
+        <a href="xcode_delegate.html">Delegates</a>
+        <a href="xcode_label.html">Labels (Outlets)</a>
+        <a href="xcode_button.html">Buttons (Actions)</a>
+        <a href="xcode_text_field.html">Text Fields (Delegates)</a>
+        <a href="xcode_add_view_controller.html">Add View Controller</a>
+        <a href="xcode_url_session.html">URL Session</a>
+        <a href="xcode_image.html">Images</a>
         <a href="xcode_view_controllers.html">View Controllers</a>
+        <!--<aXXX href="xcode_add_storyboard_scene.html">Add Storyboard Scene</a> --> 
+        <a href="xcode_table_view.html">Table View</a>
         <a href="xcode_data_model.html">Data Model</a>
         <a href="xcode_custom_control.html">Custom Control</a>
         <a href="xcode_uistackview.html">UIStackView</a>
         <a href="xcode_uiview.html">UIView</a>
+        <a href="xcode_outlets_actions_delegates.html">Outlets, Actions and Delegates</a>
     </div>`
 
 

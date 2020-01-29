@@ -40,6 +40,8 @@ C O N T E N T
 <div id="content" class="content">
 <h1>Xcode - Data Model</h1>
 
+<p>A <strong>data model</strong> represents the information stored in an app.</p>
+
 <h2>To create a new data model class:</h2>
 
 <ul>
@@ -47,10 +49,39 @@ C O N T E N T
 <li>Select iOS
 <li>Select Swift File
 <li>In the Save As field, enter a name, e.g. DataModel
-<li>This will create a file called Foo.swift which you should be able to see in the Project Navigator
+<li>This will create a file (e.g. DataModel.swift) which you should be able to see in the Project Navigator
 <li>In your new file, change <code>import Foundation</code> to <code>import UIKit</code>.
-    UIKit also gives you accss to Foundation.
+    UIKit also gives you access to Foundation.
+<li>In the file, you can now create your DataModel class
 </ul>
+
+<pre>
+class DataModel
+{
+    //MARK: Properties
+
+    var name: String
+    var num:  Int
+
+
+    //MARK: Initialization
+
+    //
+    // a failable initializer
+    //
+
+    init?(name: String, num: Int)
+    {
+        if name.isEmpty || num < 0
+        {
+            return nil
+        }
+
+        self.name = name
+        self.num  = num
+    }
+}
+</pre>
 
 </div>
 </body> 

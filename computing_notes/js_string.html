@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>JavaScript - Strings and Regular Expressions</title>
+<title>JavaScript - Strings</title>
 
 </head>
 
@@ -38,9 +38,7 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>JavaScript - Strings and Regular Expressions</h1>
-
-<h2>Strings</h2>
+<h1>JavaScript - Strings</h1>
 
 <ul class=spaced>
 <li>A sequence of zero or more Unicode characters enclosed by single or double quotations
@@ -72,14 +70,14 @@ C O N T E N T
 	<ul>
 	<li>To extract a substring, use the <strong>substring()</strong> method of the String class
 	<pre>var s1 = x.substring(1,5);</pre>
-	<li>To find the position of the first occurance of a substring use the <strong>indexOf()</strong> method of the String class
+	<li>To find the position of the first occurance of a substring use the <code>indexOf()</code> method of the String class
 	<pre>var pos = indexOf('W');</pre>
 	</ul>
 
 <li>Unlike other languages if the backslash is followed by any character other than the ones noted in the above table, it's simply ignored
 <li>Escape Sequences
-	<table border=1>
-	<tr><td>Sequence</td><td>Interpretation </td></tr>
+	<table>
+	<tr><th>Sequence</th><th>Interpretation </th></tr>
 	<tr><td>\0      </td><td>NULL character </td></tr>
 	<tr><td>\b      </td><td>Backspace      </td></tr>
 	<tr><td>\t      </td><td>Tab            </td></tr>
@@ -95,33 +93,6 @@ C O N T E N T
 	</table>
 
 </ul>
-
-<h2>Regular Expressions</h2>
-
-<ul>
-<li>JavaScript RegExp class represents regular expressions
-<li>JS is fairly consistient with Perl
-</ul>
-
-<pre>
-// creates a RegExp object
-var reg_exp = /^Chris/;
-
-// equivalent using RegExp() constructor
-var reg_exp = new RegExp("^Chris");
-</pre>
-
-<h3>String Methods Which Support Regular Expressions</h3>
-<ul>
-<li><strong><code>search(reg-exp)</code></strong> accepts a regular expression and returns the either the character position
-    of the of the 1st matching substring or -1 if no match. If the argument to <code>search()</code> is not a regular expression,
-    it is 1st converted to one by calling the <code>RegExp</code> constructor. <code>search()</code> does not support global searches.
-<li><strong><code>replace(reg-exp, string)</code></strong> accepts a regular expression and a string. <code>replace()</code>
-    searches the string for the specified pattern. If found, it replaces the first match. If the <code>g</code> flag is specified,
-    all instances all matches. If the first parameter is a string (rather than a reg-exp), <code>replace()</code> searches for the 
-    string literal rather than converting the specified string to a regular expression via the <code>RegExp()</code> constructor 
-</ul>
-
 
 </div>
 </body> 

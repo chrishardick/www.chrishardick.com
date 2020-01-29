@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>JavaScript - Arrays</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>JavaScript - Objects</h1>
+
+<ul>
+<li>In JavaScript, arrays are implemented as objects
+<li>Arrays are indexed from 0 (zero)
+<pre>
+var nums = [ 1, 2, 3, 4];
+
+nums.length;  // 4
+
+var empty [];
+
+nums[0] = 5;  // alter an existing value
+nums[4] = 6;  // add a new value
+
+
+// an array of objects
+var obj_arr = [
+    {x: 0, y: 0}
+    ,{x: 0, y: 1}
+    ];
+</pre>
+
+<li>Arrays may contain any data type (including references to other arrays, objects, or functions)
+<li>JavaScript is an untyped language, as such, elements of the same array can contain different types 
+<li>Arrays can be created with the Array( ) constructor 
+<pre>
+var x = new Array();
+x[0] = 1;
+x[1] = true;
+x[2] = 1.2;
+x[3] = "Hello, World!";
+</pre>
+
+<li>If you only pass a single number to Array(), it's interpreted as the length of the array
+<pre>
+var y = new Array(10); // an array with 10 undefined elements
+</pre>
+<li>To determine the number of elements the array contains, use the <code>length</code> property
+<li>Here is an example of looping thru the elements of an array
+<pre>
+for (i=0;i&lt;x.length;i++)
+{
+    // code which accesses x[i]
+    ...
+}
+</pre>
+<li><code>push()</code> adds an item to the end of the array. Push returns the new array length.
+<pre>
+var len = x.push("another item");     // equivalent to x[x.length] = "another item"
+</pre>
+<li><code>pop()</code> removes the last item from an array -- returning the removed value
+<pre>var y = x.pop();</pre>
+<li>The <code>shift()</code> method pops the 1st element of the array shifting all subsequent items to a lower index. It returns the element that was removed
+<li>The <code>unshift()</code> method adds a new element to the beginning of the array. It returns the new array size.
+<li>The <code>delete()</code> method removes the specified element from the array leaving an <strong>undefined</strong> item in its place.
+<li>The <code>splice()</code> method can be used to add items to an array. It accepts a variable number of parameters.
+    The first is the position where the items should be added. The second defines how many elements should be removed.
+    The remaining parameters define the new elements to be added.
+<li>The <code>concat()</code> method concatenates two arrays. It does not change the existing arrays. It returns a new array containing both sets of items
+<pre>var items = existing_items.concat(new_items); // items will contain the elements from existing_items followed by the elements from new_items</pre>
+<li>The <code>slice()</code> method will create a new array from the specified elements of the exisitng array
+<pre>var sp_items = existing_arr(1,5)</pre>
+<li>Since arrays are objects, the <code>toString</code> method will convert an array to a string of comma delimited values
+<li>The <code>sort()</code> method will sort the elements of an array (alphabetically by default). You can override this by providing your own compare function. 
+The compare funcdtion should return a negative, zero or positive value depending if the lhs is less than, equal to, or greater than the rhs.
+<pre>
+var values = [10, 5, 2,  6, 20];
+values.sort(funcion(a,b){return a-b}
+
+<li>The <code>reverse()</code> method will reverse all the elements of the array
+</ul>
+
+
+</div>
+</body> 
+</html>

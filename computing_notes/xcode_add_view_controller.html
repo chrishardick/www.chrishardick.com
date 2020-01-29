@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - Add View Controller</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - Add View Controller</h1>
+
+<h2>Add a New View Controller to the Storyboard</h2>
+
+<ul>
+<li>Open your storyboard - <code>Main.storyboard</code>
+<li>In the Object Library, type 'view controller' in the filter field 
+<li>Drag a View Controller object onto the canvas. 
+<li>If you'd like to move the View Controller on the canvas, you can 
+    click and drag the rectangle above it.
+</ul>
+
+
+<h2>Add a New Swift File for the New View Controller</h2>
+
+<ul>
+<li>When you create a new app, the default View Contoller automatically comes with a linked Swift file
+<li>When you add an additional View Controller, you need to manually add and link a new Swift file
+<li>File &gt; New &gt; File and choose <strong>Cocoa Touch Class</strong> as the template for your new file 
+    and give it a name. I.e. SecondViewController, TableViewController, etc.
+    Ensure to choose <strong>UIViewController</strong> as the <strong>Subclass</strong> and your new file should be created.
+<li>Go back to the Storyboard, and click on the little button on the top left of the new View Controller.
+    Open up the <strong>Identity Inspector</strong> and in the <strong>Class</strong> field, enter the name of your newly 
+    created Swift file. 
+<li>The View Controller object is now linked to the Swift file. 
+</ul>
+
+
+<h2>Add a Seques to link the View Controllers</h2>
+
+<ul>
+<li>Transitions between scenes are called <strong>segues</strong>
+<li>Click on the button on the top left of the View Controller we want to navigate from
+<li>Control-drag from the button to the other View Controller
+<li>In the pop-up which is displayed, choose <strong>Present Modally</strong>
+<li>Give the seque a name - such that you can refer to it within code.
+    Click on the sqgue and bring up the Attributes Inspector.
+    In the <strong>Identifier</strong> field, enter a name - e.g. <code>settingsSegue</code>, etc.
+</ul>
+
+
+<h2>Create an Action</h2>
+
+<ul>
+<li>Recall that an Action links an Event to a Method
+<li>Open the <strong>Assistant Editor</strong>, by pressing the button with two circles on the top right (or Editor &gt; Assistant)
+<li>Control-drag from the Button to its ViewController class, select <strong>Action</strong> in the <strong>Connection</strong>
+    dropdown and give it a <strong>Name</strong> - e.g. <code>onButtonClick</code> and hit Connect
+<li>The Action Method should be created.
+<li>Now add the following to the function:
+<pre>
+performSeque(withIdentifier: "YourSequeName", sender: self)
+</pre>
+<li>Run your app in the simulator and ensure it works as expected
+</ul>
+
+<h2>Add Functional Button to New View Controller To Return</h2>
+
+<ul>
+<li>Add a button to your new View Controller
+<li>Control-drag from button to New View Controller class to create an Action. 
+    Give it an appropriate name (e.g. onFooButtonClick)
+<li>Add the following to the function:
+<pre>
+// dismiss current View Controller
+dismiss(animated: true, completion: nil)
+</pre>
+</ul>
+
+</div>
+</body> 
+</html>

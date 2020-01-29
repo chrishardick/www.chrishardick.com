@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - URLSession</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - URLSession</h1>
+
+<h2>Declaration</h2>
+<code>class URLSession : NSObject</code>
+
+<h2>Purpose</h2>
+
+<ul>
+<li>The URLSession and related classes provide an API for downloading data from and uploading data to URL's
+</ul>
+
+
+<h2>Tasks</h2>
+
+<li>Use a <code>URLSession</code> instance to create one or more <code>URLSessionTask</code> instances 
+<li><code>URLSession</code> has a singleton <code>shared</code> session which can be used for basic requests
+<li>The <code>URLSession</code> API is asynchronous. It returns data to your app in one of two ways:
+    <ul>
+    <li>By calling a <code>completion handler</code> when a transfer completes or ends with an error
+    </ul>
+</ul>
+
+<h2>Swift - Completion Hander</h2>
+<ul>
+<li>A <strong>Completion Handler</strong> is a closure (self contained block of code that can be passed around)
+<li>It gets passed to a function as an argument and is called when the function is done (hence <em>completion</em> handler)
+</ul>
+
+<h2>URLSessionTask</h2>
+<ul>
+<li>Within a session, you create <strong>tasks</strong>
+<li>There are 4 types of tasks:
+    <ol>
+    <li>Data Tasks
+    <li>Upload Tasks
+    <li>Download Tasks
+    <li>WebSocket Tasks
+    </ol>
+<li>Tasks in a session share a common delegate object
+</ul>
+
+<h2>URL Loading System</h2>
+<ul>
+<li>Within a session, you create <strong>tasks</strong> 
+</ul>
+
+
+<pre>
+func startLoad() 
+{
+    let url = URL(string: "https://www.example.com/")!
+
+    // trailing closure
+    let task = URLSession.shared.dataTask(with: url) { data, response, error in
+        if let error = error 
+        {
+            self.handleClientError(error)
+            return
+        }
+
+        guard let httpResponse = response as? HTTPURLResponse,
+            (200...299).contains(httpResponse.statusCode) else {
+            self.handleServerError(response)
+            return
+        }
+
+        if let mimeType = httpResponse.mimeType, mimeType == "text/html",
+            let data = data,
+            let string = String(data: data, encoding: .utf8) 
+            {
+                DispatchQueue.main.async 
+                {
+                    self.webView.loadHTMLString(string, baseURL: url)
+                }
+            }
+    }
+    task.resume()
+}
+</pre>
+
+
+<li>You use a <code>URLSession</code> instance to create one or more <code>URLSessionTask</code> instances 
+    which can: (1) fetch and return data to you app, (2) download files or (3) upload files to remote locations.
+<li>Use a <code>URLSessionConfiguration</code> object to configure a session
+<li>Each session is associated with a <strong>delegate</strong> which receives periodic updates (and/or errors)
+<li>The <strong>default delegate</strong> calls a <strong>completion handler block</strong> that you provide
+<li>If you provide your own custom delegate, the competion handler block is not called
+<li>You can configure a session to run in the background, so that the system can download data on its behalf and wake up
+    the app to deliver the results.
+</ul>
+
+<pre>
+func startLoad()
+{
+    let url = URL(string: "https://foo.com/")!
+
+    let task = URLSession.shared.dataTask(with: url)
+
+    // an anonyous function
+    {
+        data, response, error in
+            if let error = error 
+            {
+                self.handleClientError(error)
+                return
+            }
+
+</pre>
+
+
+<ul>
+<li>You can use the <code>URLSessionDataTask</code> class to receive response data into memory (as opposed to storing the data
+    directly to the file sytem). 
+<li>This is ideal for calling a web service
+<li>For simple uses, you can use the shared instance of the <code>URLSession</code> class. 
+</ul>
+
+</div>
+</body> 
+</html>

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>JavaScript - Regular Expressions</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>JavaScript - Regular Expressions</h1>
+
+<ul>
+<li>JavaScript <code>RegExp</code> class represents regular expressions
+<li>JS is fairly consistient with Perl
+</ul>
+
+<pre>
+// creates a RegExp object
+var reg_exp = /^Chris/;
+
+// equivalent using RegExp() constructor
+var reg_exp = new RegExp("^Chris");
+</pre>
+
+<h2>String Methods Which Support Regular Expressions</h2>
+<ul>
+<li><strong><code>search(reg-exp)</code></strong> accepts a regular expression and returns the either the character position
+    of the of the 1st matching substring or -1 if no match. If the argument to <code>search()</code> is not a regular expression,
+    it is 1st converted to one by calling the <code>RegExp</code> constructor. <code>search()</code> does not support global searches.
+<li><strong><code>replace(reg-exp, string)</code></strong> accepts a regular expression and a string. <code>replace()</code>
+    searches the string for the specified pattern. If found, it replaces the first match. If the <code>g</code> flag is specified,
+    all instances all matches. If the first parameter is a string (rather than a reg-exp), <code>replace()</code> searches for the 
+    string literal rather than converting the specified string to a regular expression via the <code>RegExp()</code> constructor 
+</ul>
+
+
+</div>
+</body> 
+</html>

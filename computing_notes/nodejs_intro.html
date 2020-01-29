@@ -41,57 +41,51 @@ C O N T E N T
 <h1>Node.js - Introduction</h1>
 
 <ul>
+<li>Runtime JavaScript environment which executes JS outside of a browser
+<li>Built using Chrome's V8 JS Engine
+<li>Allows you to write server side JS
 <li><a href="https://nodejs.org">https://nodejs.org</a>
 </ul>
 
-<h2><code>require</code></h2>
-<ul>
-<li><code>require</code> - a builtin function which allows you to include modules which are defined in a different file
-<li>require will read a JavaScript file, execute it and return the <code>exports</code> object
-</ul>
-
-
-<h2>Simple Web Server</h2>
-<pre>
-const http = require('http');
-
-const hostname = '127.0.0.1';
-const port = 3000;
-
-const server = http.createServer((req, res) =&gt;
-{
-    res.statusCode = 200;
-    res.setHeader('Content-Type', 'text/plain');
-    res.end('Hello, World!\n');
-});
-
-server.listen(port, hostname, () =&gt; 
-{
-    console.log(`Server running at http://${hostname}:${port}/`);
-});
-</pre>
-
-<ul>
-<li>Save the above as <code>app.js</code>
-<li>Run <code>node app.js</code> 
-<li>Visit <code>http://localhost:3000</code>
-</ul>
 
 <h2>Event Loop</h2>
-
 <ul>
-<li>When Node.js starts, it initializes the vent loop, procsses the input script and begins processing the event loop
+<li>When Node.js starts, it initializes the event loop, processes the input script and begins processing the event loop
 <li>The event loop handles poll events, pending callbacks, etc.
 <li>Each event type (timer events, poll events, pending ballbacks, etc.) has its own FIFO.
 <li>Each event type is also called a <strong>phase</strong>
-<li>When a given FIFO has been exhausted or its callback limit has been reached, the event loop wil move on to the next event type
+<li>When a given FIFO has been exhausted or its callback limit has been reached, the event loop will move on to the next event type
 </ul>
+
 
 <h2>Timers</h2>
-
 <ul>
-<li>this phase of the event loop executes callbacks scheduled by <code>setTimeout()</code> and <code>setInterval()</code>
+<li>This phase of the event loop executes callbacks scheduled by <code>setTimeout()</code> and <code>setInterval()</code>
 </ul>
+
+
+<h2>Installation</h2>
+
+<h3>Debian</h3>
+
+<pre>
+#
+# this step is required at time of writing because the default version of node.js was ancient
+# - this produces a script which will fix this.
+# - take a look at the produced script
+#
+# curl
+# -s = silent mode. Do not show progress meter or error messages. It will still output the data you ask for
+# -L = location
+#
+# sudo
+# -E = preserve environment variables 
+#
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+
+#
+sudo apt-get install -y nodejs
+</pre>
 
 
 </div>

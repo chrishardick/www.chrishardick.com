@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - Images</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - Images</h1>
+
+<h2>Add an Image</h2>
+<ul>
+<li>In the Object Library, type 'image view' in the filter field
+<li>Drag an Image View object on to your scene.
+<li>With the Image View selected, open the Size Inspector (looks like a ruler)
+<li>In the Intrinsic Size field, select Placeholder
+<li>Enter a value for both the Width and Height fields (e.g. 320)
+<li>With the Image View selected, click the 'Add Constraint' button and check the 'Aspect Ratio' checkbox
+<li>With the Image View selected, in the Attributes Inspector, select 'User Interaction Enabled'
+<li>In the Project Navigator, select <code>Assets.xcassets</code> to view the <strong>asset catalog</strong>.
+    The asset catalog is a place to store and organize the image assets for your app.
+<li>On the bottom left corner, of the Project Navigator, click the plus (+) button and select 'New Image Set'
+    and the Image Set will display in the Editor Pane
+<li>Create an Outlet (outlets connect Storyboard Objects to a variable)
+    <ul>
+    <li>Display <code>ViewController.swift</code> in an additional editor window
+    <li>Click and drag a picture from your computer onto the 2x slot
+    <li>Display the Storyboard and select the Image View
+    <li>Control-drag from the Image View to <code>ViewController.swift</code> - just below the existing outlets
+    <li>In the dialog which appears, enter a name, and click 'Connect'
+    </ul>
+<li>A Image View is not normally an object which responds to user events
+<li>A <strong>Gester Recognizer</strong> is an object which you can attach to another object which allows the object to respond to user events
+<li>You can use an Action which is called when a Gester Recognizer recognizes a gester (e.g. swipe, pinch, rotation, etc.)
+<li>To attach a Tap Gester Recognizer (<code>UITapGesterRecognizer</code>) an Image View:
+    <ul>
+    <li>In the Object Library, type 'tap gesture' in the filter field
+    <li>Drag a Tap Gester Recognizer on top of the Image View
+    <li>The Tap Gesture Recognizer object wil apprea in the <strong>scene dock</strong>. The scene dock is the bar above your story board
+    </ul>
+<li>To connect the Gester Recognizer to code:
+    <ul>
+    <li>Control-drag from the Gester Recognizer in the scene dock to the code display right next to the other actions
+    <li>Choose a name 
+    <li>For Type, select UITapGestureRecognizer
+    <li>Press 'Connect'
+    </ul>
+<li>To create an image picker to respond to user taps
+    <ul>
+    <li>When a user taps on an image, we would like the user to be able to choose an existing photo or take a new one.
+    <li>The <code>UIImagePickerControllerDelegate</code> protocol supports this
+    <li>We'll also need the <code>UINavigationControllerDelegate</code> protocol
+    <li>We'll specify that the <code>ViewController</code> supports these protocols
+
+    </ul>
+</ul>
+
+</div>
+</body> 
+</html>

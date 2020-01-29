@@ -40,31 +40,179 @@ C O N T E N T
 <div id="content" class="content">
 <h1>HTML Canvas</h1>
 
-<canvas id="myCanvas" width="1000" height="500" style="border:1px solid black;"></canvas>
+<ul>
+<li>The HTML Canvas element allows you draw graphics (rectangles, circles, paths, lines, text, images, etc.) 
+<li>The canvas element is a container for your graphics. You must use a script (i.e. JS) to actually draw the graphics
+<li>The resultant image is a raster graphic (i.e. a bitmap). 
+<li>Once your elements are drawn, they can no longer be manipulated because they cease to be elements
+</ul>
+
+<pre>
+// supported instructions
+rect x y width height
+fillRect x y width height
+clearRect x y width height
+line x1 y1 x2 y2
+text x y text
+clear
+</pre>
+
+<input type="text" id="draw_instr" placeholder="Enter Instructions"></input>
+<button type="button" id="draw_button">Draw</button>
+<br><br>
+
+<canvas id="canvas" width="1000" height="500" style="border:1px solid black;"></canvas>
 
 <script>
 
-var canvas = document.getElementById("myCanvas");
+document.getElementById("draw_button").addEventListener("click",drawIt);
+
+
+function drawIt ()
+{
+    console.info ("drawIt: ENTER");
+
+    var draw_instr = document.getElementById("draw_instr").value;
+    
+
+    console.info ("drawIt: INSTR=|" + draw_instr + "|");
+
+    var canvas  = document.getElementById("canvas");
+    var context = canvas.getContext("2d");
+
+    // returns an array of substrings
+    var str = draw_instr.split(" ");
+
+    var op = str[0];
+
+    switch (op)
+    {
+        case "rect":
+        {
+            let x = str[1];
+            let y = str[2];
+            let w = str[3];
+            let h = str[4];
+
+            console.info ("drawIt: rect: x=" + x + " y=" + y + " w=" + w + " h=" + h);
+
+            context.rect (x, y, w, h);
+            context.stroke();
+
+            break;
+        }
+        case "fillRect":
+        {
+            let x = str[1];
+            let y = str[2];
+            let w = str[3];
+            let h = str[4];
+
+            console.info ("drawIt: fillRect: x=" + x + " y=" + y + " w=" + w + " h=" + h);
+
+            context.fillRect (x, y, w, h);
+            context.stroke();
+
+            break;
+        }
+        case "clearRect":
+        {
+            let x = str[1];
+            let y = str[2];
+            let w = str[3];
+            let h = str[4];
+
+            console.info ("drawIt: fillRect: x=" + x + " y=" + y + " w=" + w + " h=" + h);
+
+            context.clearRect (x, y, w, h);
+            context.stroke();
+            break;
+        }
+        case "line":
+        {
+            let x1  = str[1];
+            let y1  = str[2];
+            let x2  = str[3];
+            let y2  = str[4];
+
+            console.info ("drawIt: line: x1=" + x1 + " y1=" + y1);
+            console.info ("drawIt: line: x2=" + x2 + " y2=" + y2);
+
+            context.beginPath();
+            context.moveTo(x1,y1);
+            context.lineTo(x2,y2);
+            context.stroke();
+
+            break;
+        }
+        case "text":
+        {
+            let x = str[1];
+            let y = str[2];
+
+            console.info ("drawIt: fillText: x=" + x + " y=" + y);
+
+            context.fillText (x, y, w, h);
+            context.stroke();
+            break;
+        }
+            alert (op);
+            break;
+        case "clear":
+        {
+            let x = 0;
+            let y = 0;
+            let w = 1000;
+            let h = 500;
+
+            console.info ("drawIt: clearRect: x=" + x + " y=" + y + " w=" + w + " h=" + h);
+
+            context.clearRect (x, y, w, h);
+            context.stroke();
+            break;
+        }
+            alert (op);
+            break;
+        default:
+            alert ("Unknown Operation - " + op);
+            return;
+    }
+}
+</script>
+
+<pre>
+
+&lt;canvas id="canvas" width="1000" height="500" style="border:1px solid black;"&gt;&lt;/canvas&gt;
+
+&lt;script&gt;
+
+let canvas = document.getElementById("canvas");
 
 //
-// [0,0] = upper left corner
+// R E C T A N G L E S
+// - x,y = upper left coordinates
+// - w,h = width and height
+//
 
-var context = canvas.getContext("2d");
-
-context.fillStyle = "green";
-context.fillRect(0,0,150,75);           // x, y, width, height
-
-context.moveTo(0,0);                    // define starting point of the line
-context.lineTo(50,50);                  // define end point of the line
-context.stroke();                       // draw the line
-
-context.moveTo(50,0);                   // x, y
-context.lineTo(0,20);
-context.stroke();
+context.rect(x, y, w, h);           // hollow rectangle
+context.fillRect(x, y, w, h);       // solid rectangle
+context.clearRect(x, y, w, h);      // clear region
+context.stroke();                   // draw it
 
 
+//
+// L I N E S
+//
 
-</script>
+context.beginPath();    // begin a path
+context.moveTo(x, y);   // move the path to the specified coordinate without drawing a line
+context.lineTo(x, y);   // draw a line from the current coordinate to the specified coordinate
+context.stroke();       // draw the path
+
+&lt;/script&gt;
+
+</pre>
+
 
 </div>
 </body>

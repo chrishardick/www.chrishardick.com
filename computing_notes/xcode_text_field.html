@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - Text Field</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - Text Field</h1>
+
+<h2>Adding a Text Field</h2>
+<ul>
+<li>In the Object Library, type 'text field' in the filter field 
+<li>Drag a Text Field object on to your scene.
+</ul>
+
+<h2>Create an Outlet</h2>
+<ul>
+<li>The outlet will link the text field widget to a data member in your ViewController class
+<li>See <a href="xcode_outlet.html">Outlets</a>
+<li>You'll need to enter a name - E.g. <code>textFieldFoo</code>
+</ul>
+
+
+<h2>Creating a Text Field Delegate</h2>
+<ul>
+<li>A Delegate is an object which receives a message when an event occurs on another object
+<li>A common pattern is to declare a ViewController as a delegate for a UI Widget (e.g. a text field)
+<li>In order to be a delegate, the delegate class needs to implement the appropriate protocol
+<li>In this case, we're going to modify <code>ViewController</code> to specify it implements the 
+    <code><strong>UITextFieldDelegate</strong></code> protocol
+<li>The <code><strong>UITextFieldDelegate</strong></code> protocol defines eight optional methods. 
+    As they're optional, you only need to implement the ones you need.
+<li>We're going to implement the following two methods:
+<pre>// called when the user presses Return or similar
+func textFieldShouldReturn(_ textField: UITextField) -&gt; Bool
+
+// called after the text field resigns its first repsonder status
+func textFieldDidEndEditing(_ textField: UITextField)</pre>
+<li>When a user taps on a text field, it automaticlly becomes the <strong>first responder</strong>
+<li>The first responder is the object first in line for receiving app events
+<li>As a result of the text field becoming the first responder, iOS displays the keyboard 
+    and begins an editing session for the field.
+    Whatever the user types gets inserted into the text field.
+<li>When the user is finished typing in the text field, the text field needs to resign its first responder status.
+<li>Last, but not least, we need to formally declare that ViewController is a delegate for the text field
+<li>Here are the steps to create a Text Field Delegate:
+</ul>
+
+<ol>
+<li>Enhance the ViewController class to specify it implements the <code>UITextFieldDelegate</code> protocol as follows:
+<pre>class ViewController: UIViewController<strong>, UITextFieldDelegate</strong></pre>
+
+
+<li>Define the <code>textFieldShouldReturn()</code> and <code>textFieldDidEndEditing()</code> methods as follows:
+<pre>//MARK: UITextFieldDelegate
+
+// called when the user presses Return or similar on the keyboard
+func textFieldShouldReturn(_ textField: UITextField) -&gt; Bool
+{
+    textField.resignFirstResponder()
+    return true
+}
+
+// called after the text field resigns its first repsonder status
+func textFieldDidEndEditing(_ textField: UITextField)
+{
+    // normally, this is where you capture textField.text, etc. 
+}</pre>
+
+<li>Assign <code>ViewController</code> as a delegate for your text field by modifying the <code>viewDidLoad()</code> of the 
+    <code>ViewController</code> object as follows:
+<pre>override func viewDidLoad()
+{
+    super.viewDidLoad()
+
+    <strong>textFieldFoo.delegate = self</strong>       // where textfieldFoo is the outlet you created above
+}</pre>
+
+</ol>
+
+</div>
+</body> 
+</html>

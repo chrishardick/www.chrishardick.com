@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - UI Basics</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - UI Basics</h1>
+
+<ul>
+<li>The <strong>Storyboard</strong> is a visual representation of the app's user interface - showing screens of content (<strong>scenes</strong>) 
+    and the transactions between them
+<li>Each scene contains <strong>views</strong>. A view is a rectangular region 
+<li>You use storyboards to lay out the flow for your app
+<li>To open your storyboard, in the Project Navigator, select <code>Main.storyboard</code>
+<li>Xcode will open the storyboard in <strong>Interface Builder</strong> (its visual interface editor) in the Editor Pane
+<li>The arrow that points to the left side is the <strong>Storyboard Entry Point</strong> (the scene which is loaded when the app starts)
+<li>Scenes contain UI Objects (e.g. Text fields, labels, buttons, etc.)
+</ul>
+
+<h2>Auto Layout</h2>
+<ul>
+<li>A Stack View (UIStackView) is one of easiest ways to define your layout.
+<li>It allows you to lay out a collection of views in either a column or a row. 
+<li>To add a Stack View, while pressing the Shift key, select the fields you want to include in the stack view
+<li>On the bottom right of the canvas, click the 'Embed in' icon' and choose 'Stack View') or choose Editor &#x2192; Embed In &#x2192; Stack View
+<li>On the bottom right, open the 'Add New Constraints' menu - it looks like a square with a vertical line on each side
+<li>The constraints menu allows you to specify the spacing to the nearest leading, trailing, top and bottom neighbors
+</ul>
+
+</div>
+</body> 
+</html>

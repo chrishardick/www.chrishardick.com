@@ -312,7 +312,11 @@ reversenames = names.sorted(by: { $0 &gt; $1 } )
 
 </ul>
 
-<h3>Capturing Values</h3>
+<h3>Trailing Closures</h3>
+
+<p>If your anonymous function is the last argument being passed in this function call — which will just about always be the case — you can close the function call with a right parenthesis before this last argument, and then put just the anonymous function body without a label. This is called a trailing closure</p>
+
+<h3>Closures: Capturing Values</h3>
 
 <ul>
 <li>A closure can capture contants and variables from the surrounding context in which it is defined

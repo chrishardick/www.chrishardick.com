@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xcode");
+}
+</script>
+
+<title>Xcode - Delegates</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Xcode - Delegates</h1>
+
+<ul>
+<li>ObjectA can declare ObjectB as its delegate.
+<li>This means that ObjectB will receive a message (i.e. one of it's methods will be called) when something happens to ObjectA
+<li>I.e. a text field can have delegate which takes an action when it receives input
+<li>Any object can serve as a delegate to another object as long as it confirms to the appropriate <strong>protocol</strong>.
+<li>The protocol that defines a delegate for a text field is <code>UITextFieldDelegate</code>. 
+<li>The delegating object keeps a reference to the delegate object and at the appropriate time, it sends a message to the delegate object.
+<li>A common pattern is to make the view controller the delegate for objects which it manages
+</ul>
+
+</div>
+</body> 
+</html>

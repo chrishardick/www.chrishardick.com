@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_nodejs");
+}
+</script>
+
+<title>Node.js - Simple Web Server</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Node.js - Simple Web Server</h1>
+
+<pre>
+const http = require('http');
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+const server = http.createServer((req, res) =&gt;
+{
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'text/plain');
+    res.end('Hello, World!\n');
+});
+
+server.listen(port, hostname, () =&gt; 
+{
+    console.log(`Server running at http://${hostname}:${port}/`);
+});
+</pre>
+
+<ul>
+<li>Save the above as <code>app.js</code>
+<li>Run <code>node app.js</code> (<code>nodejs app.js</code> on Debian Linux
+<li>Visit <code>http://localhost:3000</code>
+</ul>
+
+</div>
+</body> 
+</html>
