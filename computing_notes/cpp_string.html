@@ -38,45 +38,134 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<H1>C++ Strings</H1>
+<h1>C++ Strings</h1>
 
-<UL>
-<LI>C++ Header File: string
-<LI>C++ string class is in the std namespace
-<LI>A simple example
-<PRE>
-#include &ltiostream&gt
-#include &ltstring&gt
+<ul>
+<li>Header File: string
+</ul>
 
-using namespace std;
+
+<pre>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
 
 int main (int argc, char* argv[])
 {
-        string s1 = "Hello";
+    std::string s1 = "Hello";
 
-        string s2 ("World");
+    std::string s2 ("World");
 
-        string s3 = s1 + " " + s2;
+    std::string s3 = s1 + " " + s2;
 
-        cout &lt&lt s3 &lt&lt endl;
+    std::cout &lt;&lt; s3 &lt;&lt; std::endl;
 
-        return 0;
+    return 0;
 }
-</PRE>
-<LI>find( )
-<LI>append( )
-<LI>insert( )
-<LI>replace( )
-<LI>begin( )
-<LI>end( )
-<LI>operator+( )
-<LI>operator+=( )
-<LI>size( )
-<LI>resize( )
-<LI>capacity( )
-<LI>reserve( )
-</UL>
+</pre>
+
+<h2>MEMBERS</h2>
+
+<h3>find()</h3>
+<h3>append()</h3>
+
+<pre>
+// append range [begin,end)
+template &lt;class InputIterator&gt;
+    string&amp; append (InputIterator begin, InputIterator end);
+</pre>
+
+<h3><code>substr()</code></h3>
+
+<pre>
+//
+// Generate a string object from a substring of the current string object
+// - the substring starts at the pos and has a length of len or until the end of the string
+//   if there is not enough characters are present in the string
+//
+std::string string::substr (size_t pos = 0, size_t len = npos) const;
+</pre>
+
+
+<h3><code>insert()</code></h3>
+<h3><code>replace()</code></h3>
+<h3><code>begin()</code></h3>
+<h3><code>end()</code></h3>
+<h3><code>operator+()</code></h3>
+<h3><code>operator+=()</code></h3>
+<h3><code>size()</code></h3>
+<h3><code>resize()</code></h3>
+<h3><code>capacity()</code></h3>
+<h3><code>reserve()</code></h3>
+
+<h2>Iterators</h2>
+
+<pre>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;cctype&gt; // for toupper()
+
+std::string str ("Hello, World!");
+
+// const iterator
+for (std::string::const_iterator it = str.begin(); it != str.end(); it++)
+{
+    std::cout &lt;&lt; *it;
+}
+
+// non const iterator
+for (std::string::iterator it = str.begin(); it != str.end(); it++)
+{
+    *it = toupper(*it);
+}
+</pre>
+
+<h2><code>getline()</code></h2>
+
+<pre>
+//
+// extract characters from the given input stream
+// and append them to the given string object
+// until the specified delimiter is found (or eof or an error)
+// if the delimiter is found, it is extracted and discarded
+//
+// note(s)
+// =======
+// - the content of str will be replaced
+//
+// return
+// ======
+// the same istream reference as is 
+//
+std::istream&amp; getline ( std::istream&amp; is     // in/out
+                        ,std::string&amp; str    // out
+                        ,char delim = '\n'   // in
+                        );
+
+
+//
+// an example
+//
+std::string line;
+
+getline (std::cin, line);
+
+std::cout &lt;&lt; "line: |" &lt;&lt; line &lt;&lt; "|" &lt;&lt; std::endl;
+
+</pre>
+
+<h2><code>stoi()</code></h2>
+<ul>
+<li>Convert string to integer
+<li>if conversion cannot be performed, an exception is thrown
+</ul>
+
+<pre>
+#include &lt;string&gt;
+
+int stoi (const std::string&amp; str, size_t* idx = 0, int base = 10);
+</pre>
+
 
 </div>
-</BODY> 
-</HTML>
+</body> 
+</html>

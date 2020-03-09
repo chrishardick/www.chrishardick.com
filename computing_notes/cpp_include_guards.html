@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ Include Guards</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ Include Guards</h1>
+
+<ul>
+<li>Use include guards to ensure a header file is only included once when compiling a given source file
+<li>Including a header file multiple times is not only inefficient, it usually also leads to a compilation error
+</ul>
+
+<pre>
+#ifndef HEADER_H
+#define HEADER_H
+
+//
+
+#endif // HEADER_H
+</pre>
+
+</div>
+</body> 
+</html>

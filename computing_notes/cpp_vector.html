@@ -57,22 +57,10 @@ C O N T E N T
 	</ul>
 <li>erasures invalidate all iterators to positions past the point of erasure (those pointing to 
 	previous locations remain valid)
-<li>Internal Representation
-	<ul>
-	<li>if you think about the internal representation, it's really just a pointer to an array...
-	<li>the array is the current contents of the vector
-	<li>if the array runs out of space, a new one will be allocated, the existing elements copied from
-		the old array to the new element (copy constructor), the new elements copied in, and the 
-		old array will be de-allocated. it's that simple
-	</ul>
 </ul>
 
 
-<h2>I. Header File</h2>
-<pre>#include &lt;vector&gt;</pre>
-
-
-<h2>II. Constructors</h2>
+<h2>Constructors</h2>
 <ul>
 
 <li>Default Constructor
@@ -80,32 +68,31 @@ C O N T E N T
 	<li>Size: 0
 	<li>Capacity: Usually 0 (Implementation Specific)
 	</ul>
-<pre>vector &ltT&gt vector1;</pre>
+<pre>vector &lt;T&gt; v;</pre>
 
 <li>A Vector of Size n
-<pre>vector &ltT&gt vector1(n);</pre>
+<pre>vector &lt;T&gt; vector1(n);</pre>
 
 <li>A Vector of Size n each initialized to value
-<pre>vector &ltT&gt vector1(n, value);</pre>
+<pre>vector &lt;T&gt; v(n, value);</pre>
 
 <li>Copy Constructor
-<pre>vector (const vector &ltT&gt& vector1);</pre>
+<pre>vector (const vector &lt;T&gt;&mp; v);</pre>
 
 <li>Range [first,last)
 <pre>vector (InputIterator first, InputIterator last);</pre>
 
-
 </ul>
 
 
-<h2>III. Destructor</h2>
+<h2>Destructor</h2>
 <ul>
 <li>release any allocated space for the given vector
 <pre>~vector()</pre>
 </ul>
 
 
-<h2>IV. Member Functions</h2>
+<h2>Member Functions</h2>
 <ul>
 
 <li>begin()
@@ -119,7 +106,8 @@ const_iterator end() const;</pre>
 <li>operator[]
 	<ul>
 	<li>returns the nth element from the beginning of the vector
-	<li>bounds checking is performed. if n &gt;= size(), out_of_range is thrown
+    <li>Bounds checking is not performed. 
+	<li>Calling this with an argument n which is out of range produces undefined behavior
 	</ul>
 <pre>reference operator[](size_type n);
 const_reference operator[](size_type n) const;</pre>

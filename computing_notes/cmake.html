@@ -61,6 +61,7 @@ C O N T E N T
 <li>Create file <code>CMakeLists.txt</code> in your project directory with the following contents:
 <pre>
 cmake_minimum_required(VERSION 3.0.0)
+set (CMAKE_CXX_STANDARD 11)
 project (hello_world)
 add_executable (hello_world main.cpp)
 </pre>
@@ -77,12 +78,16 @@ add_executable (hello_world main.cpp)
 <li>Create file <code>CMakeLists.txt</code> in your project directory with the following contents:
 <pre>
 cmake_minimum_required(VERSION 3.0.0)
+set (CMAKE_CXX_STANDARD 11)
 project (exec_name)
 
 include_directories(include)
+include_directories(../node)
 
-file (GLOB SOURCES "src/*.cpp")
+# generate a list of files that matching the globbing expression and store into given variable (SOURCES)
+file (GLOB SOURCES "src/*.cpp" "../node/*.cpp")
 
+# add an executable to the project using the specified source files
 add_executable (exec_name ${SOURCES})
 </pre>
 
@@ -99,6 +104,7 @@ add_executable (exec_name ${SOURCES})
 <li>Create file <code>CMakeLists.txt</code> in your project directory with the following contents:
 <pre>
 cmake_minimum_required(VERSION 3.0.0)
+set (CMAKE_CXX_STANDARD 11)
 project (lib_name)
 set (CMAKE_BUILD_TYPE Release)
 

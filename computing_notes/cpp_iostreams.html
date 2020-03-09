@@ -38,129 +38,145 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<H1>C++ I/O Streams</H1>
+<h1>C++ I/O Streams</H1>
+
+<pre>
+#include &lt;iostream&gt;
+
+namespace std 
+{
+
+istream cin;    // standard input stream
+ostream cout;   // standard output stream
+
+}
+</pre>
+
+<h2>Formatting</h2>
+
+<ul>
+<li>Output streams have member variables which control what ther output will look like
+<li>Most of these variables can be controlled by either a member function or using special objects called <strong>manipulators</strong>
+<li>Most (but not all) of these variables will retain their values. 
+<li>I.e. setting these variables will have a permanent effect on the stream until the values are changed again.
+<li>Some manipulators are defined in <code>iostream</code>. Some manipulators are defined in <code>iomanip</code> (header files). 
+</ul>
+
+<h2>Field Width</h2>
+<ul>
+<li>Setting the <strong>Field Width</strong> allows you to control the width of the subsequent field.
+<li>Leading blanks will be added to fill up the field. 
+<li>If the content does not fit, the extra characters will be printed regardless of the width
+<li>You can set the width of the subsequent field by using the setw() manipulator 
+<li>You can also change the field width using a member function
+<li>Setting the field width is always temporary. I.e. it only affects the next field
+<li>You can use the <code>setfill(char c)</code> manipulator to change the fill character. 
+    The fill character defaults to a blank (' ')
+</ul>
+
+<pre>
+std::cout &lt;&lt; | &lt;&lt; std::setw(4) &lt;&lt; 55 &lt;&lt; | &lt;&lt;std::endl;
+
+// produces
+|  55|  
+
+// similar - using the member function
+std::cout &lt;&lt; |;
+cout &lt;&lt; width(4)
+std::cout &lt;&lt; 55 &lt;&lt; | &lt;&lt;std::endl;
+
+// leading zeros
+std::cout &lt;&lt; std::setfill('0');
+std::cout &lt;&lt; | &lt;&lt; std::setw(4) &lt;&lt; 55 &lt;&lt; | &lt;&lt;std::endl;
+
+// produces
+|0055|  
+</pre>
+
+<h2>Precision</h2>
+<ul>
+<li>Precision is the maximum number of significant digits used to display a floating point number
+<li>This is the number of digits used to display the number. 
+<li>It includes numbers to the left and the right of the decimal point.
+<li>If a number cannot be represented with the given precision to the left of the decimal point, the number will be 
+    displayed using scientific notation with the specified precision.
+<li>Precision is a permanent property of the stream. 
+<li>If you make a change, the change remains in affect until another change is made
+<li>The default precision is 6.
+<li>Setting the precision to 0 (zero) restores the default precision (6)
+</ul>
+
+<pre>
+#include &lt;iomanip&gt;    // setprecision
+
+double d = 12345.12345;
+
+std::cout &lt;&lt; "|" &lt;&lt; d &lt;&lt; "|" &lt;&lt; std::endl;      // |12345.1|
+
+d = 1234567.123;
+
+std::cout &lt;&lt; "|" &lt;&lt; d &lt;&lt; "|" &lt;&lt; std::endl;      // |1.23457e+06|
+
+//
+//
+//
 
 
-<H2>Format State</H2>
+std::cout &lt;&lt; std::setprecision(7); // manipulator
+// std::cout.precision(7);  - same thing - member function
 
-<UL>
-<LI>Format State consists of
-	<UL>
-	<LI>15 Bit Flags (Bits)
-	<LI>3 Parameters
-	</UL>
-</UL>
+double d = 12345.12345;
 
-<H3>Format State Flags</H3>
+std::cout &lt;&lt; "|" &lt;&lt; d &lt;&lt; "|" &lt;&lt; std::endl;      // |12345.12| 
 
-<TABLE BORDER=1 WIDTH=100%>
-<TR><TD>FLAG           </TD><TD>FIELD           </TD><TD>DESCR                                                     </TD><TD>DEFAULT</TD></TR>
-<TR><TD>ios::skipws    </TD><TD>N/A             </TD><TD>Whether &gt&gt will skip whitespace before reading a value</TD><TD>SET    </TD></TR>
-<TR><TD>ios::left      </TD><TD>ios::adjustfield</TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::right     </TD><TD>ios::adjustfield</TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::internal  </TD><TD>ios::adjustfield</TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::dec       </TD><TD>ios::basefield  </TD><TD>                                                          </TD><TD>SET    </TD></TR>
-<TR><TD>ios::oct       </TD><TD>ios::basefield  </TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::hex       </TD><TD>ios::basefield  </TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::showbase  </TD><TD>N/A             </TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::showpos   </TD><TD>N/A             </TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::uppercase </TD><TD>N/A             </TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::showpoint </TD><TD>N/A             </TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::scientific</TD><TD>ios::floatfield </TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::fixed     </TD><TD>ios::floatfield </TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::unitbuf   </TD><TD>N/A             </TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-<TR><TD>ios::stdio     </TD><TD>N/A             </TD><TD>                                                          </TD><TD>CLEARED</TD></TR>
-</TABLE>
+d = 1234567.123;
 
-<H4>adjustfield</h4>
-<UL>
-<LI>3 bits compose adjustfield
-<LI>how a printed value is positioned within its field
-<LI>ios::left
-	<UL>
-	<LI>left justification
-	<LI>normally used for text
-	</UL>
-<LI>ios::right
-	<UL>
-	<LI>right justtification
-	<LI>normally used for numerical values
-	</UL>
-<LI>ios::internal
-	<UL>
-	<LI>causes a sign or base indication (leading 0, 0x, or 0X) to be left justified and the rest of the number to be right justified
-	</UL>
-</UL>
+std::cout &lt;&lt; "|" &lt;&lt; d &lt;&lt; "|" &lt;&lt; std::endl;      // |1234567|
 
-<H4>basefield</h4>
-<UL>
-<LI>3 bits compose basefield
-<LI>If none of the bits are set, values are printed in decimal notation and read according to standard C++ integer constant conventions
-	<UL>
-	<LI>leading 0 indicates octal
-	<LI>leading 0x or 0X indicates hexadecimal
-	</UL>
-<LI>ios::dec
-	<UL>
-	<LI>integer values will be printed in decimal notation
-	<LI>when reading integer values decimal notation will be assumed
-	</UL>
-<LI>ios::oct
-	<UL>
-	<LI>integer values will be printed in octal notation
-	<LI>when reading integer values octal notation will be assumed
-	</UL>
-<LI>ios::hex
-	<UL>
-	<LI>integer values will be printed in hexadecimal notation
-	<LI>when reading integer values hexadecimal notation will be assumed
-	</UL>
-</UL>
+</pre>
 
-<H4>floatfield</h4>
-<UL>
-<LI>Determine how floating point values are printed
-<LI>If neither flag is set (default), the position of the decimal point determines whether conventional or scientific
-	notation is used
-<LI>ios::scientific
-	<UL>
-	<LI>If set, floating point values are printed in scientific notation
-	</UL>
-<LI>ios::fixed
-	<UL>
-	<LI>If set, floating point values are printed in conventional notation (e.g. 3.14)
-	</UL>
-</UL>
+<h2>Fixed Format</h2>
+<ul>
+<li>In fixed format, precision specifies the number of digits to the right of the decimal point
+<li>In fixed format, a precision of zero means zero digits to the right of the decimal point (e.g. whole numbers)
+</ul>
 
-<H4>Flags Controlling Buffer Flushing</H4>
-<UL>
-<LI>ios::unitbuf
-<LI>ios::stdio
-</UL>
+<pre>
+// set fixed format - manipulator
+std::cout &lt;&lt; std::fixed;
 
-<H4>Other Flags</h4>
-<UL>
-<LI>ios::showbase
-	<UL>
-	<LI>Octal numbers are printed with a leading 0 (zero)
-	<LI>Hexadecimal numbers are printed with a leading 0x or 0X -- depending on ios::uppercase
-	</UL>
-<LI>ios::showpos
-	<UL>
-	<LI>Positive integer valuse are printed with a plus sign
-	</UL>
-<LI>ios::uppercase
-	<UL>
-	<LI>Uppercase letters are used for the E (exponential notation) and when printing hexadecimal numbers
-	</UL>
-<LI>ios::showpoint
-	<UL>
-	<LI>This flag only applies when ios::scientific and ios::fixed are cleared
-	<LI>When cleared, trailing zeros to the right of the decimal place are omitted
-	<LI>When set, trailing zeros to the right of the decimal place are not omitted
-	</UL>
-</UL>
+// set fixed format - member function
+std::cout.setf(std::ios::fixed, std::ios::floatfield);
+
+...
+
+// restoring default
+std::cout.setf(0, std::ios::floatfield);
+
+
+// combining fixed format and precision for fixed number of decimal places
+std::cout &lt;&lt; std::fixed &lt;&lt; std::setprecision(5);
+
+double d(12345.123);
+
+std::cout &lt;&lt; d &lt;&lt; std::endl;
+</pre>
+
+<h2>Width + Fixed Format + Precision = Pretty Display</h2>
+<pre>
+double d (1234567.123);
+double e (12345.1234);
+
+std::cout &lt;&lt; std::fixed &lt;&lt; std::setprecision(7);
+
+std::cout &lt;&lt; "|" &lt;&lt; std::setw(15) &lt;&lt; d &lt;&lt; "|" &lt;&lt; std::endl;
+std::cout &lt;&lt; "|" &lt;&lt; std::setw(15) &lt;&lt; e &lt;&lt; "|" &lt;&lt; std::endl;
+
+// output
+|1234567.1230000|
+|  12345.1234000|
+</pre>
 
 </div>
-</BODY> 
-</HTML>
+</body> 
+</html>

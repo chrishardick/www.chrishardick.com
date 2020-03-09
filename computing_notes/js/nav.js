@@ -149,7 +149,7 @@ function print_nav(f)
         <a href="cpp_operator_overloading.html">Operator Overloading</a>
         <a href="cpp_typecasting.html">Typecasting</a>
         <a href="cpp_constants.html">Constants</a>
-        <a href="cpp_dynamic_memory_allocation.html">Dynamic Memory Allocationg</a>
+        <a href="cpp_dynamic_memory_allocation.html">Dynamic Memory Allocation</a>
         <a href="cpp_inline.html">Inline Functions</a>
         <a href="cpp_initialization_list.html">Initialization List</a>
         <a href="cpp_functional_notation.html">Functional Notation</a>
@@ -164,14 +164,17 @@ function print_nav(f)
         <a href="cpp_function_objects.html">Function Objects (Functors)</a>
         <a href="cpp_namespaces.html">Namespaces</a>
         <a href="cpp_pair.html">Pair</a>
-        <a href="cpp_vector.html">Vector</a>
-        <a href="cpp_list.html">List</a>
-        <a href="cpp_map.html">Map and Multimap</a>
-        <a href="cpp_deque.html">Deque</a>
+        <a href="cpp_vector.html">Container - Vector</a>
+        <a href="cpp_list.html">Container - List</a>
+        <a href="cpp_map.html">Container - Map, Multimap</a>
+        <a href="cpp_deque.html">Container - Deque</a>
+        <a href="cpp_unordered_map.html">Container - Unordered Map</a>
         <a href="cpp_string.html">String</a>
+        <a href="cpp_string_stream.html">String Stream</a>
         <a href="cpp_transform.html">Transform</a>
         <a href="cpp_iostreams.html">iostreams</a>
         <a href="cpp_auto_keyword.html">auto keyword</a>
+        <a href="cpp_include_guards.html">Include Guards</a>
     </div>
 
     <button class="accordion" id="accordion_cmake">CMake</button>

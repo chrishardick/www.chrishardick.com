@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ String Streams</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ String Stream</h1>
+
+<pre>
+#include &lt;sstream&gt;
+</pre>
+
+<h2><code>ostringstream</code></h2>
+<ul>
+<li>An output string stream is used to write to a string.
+<li>Similar to <code>snprintf()</code> in C
+</ul>
+
+<pre>
+#include &lt;sstream&gt;
+
+std::ostringstream oss;
+
+int age = 22;
+std::string name = "Angie";
+
+// insertion operator
+oss &lt;&lt; name &lt;&lt; " is " &lt;&lt; age &lt;&lt; "." &lt;&lt; std::endl;
+</pre>
+
+<h2><code>istringstream</code></h2>
+<ul>
+<li>An input string stream is used to read from a string. 
+<li>Similar to <code>sscanf()</code> in C
+</ul>
+
+<pre>
+#include &lt;sstream&gt;
+
+std::string age_str = "22";
+std::istringstream iss (age_str);
+
+int age;
+
+// extraction operator
+iss &gt;&gt; age;
+
+std::cout &lt;&lt; age &lt;&lt; std::endl;      // 22
+</pre>
+
+<pre>
+std::string str = "the extraction operator can be used to parse a string into words";
+
+std::string word;
+
+std::istringstream iss (str);
+
+// extraction operator - extract word from a string
+while (iss &gt;&gt; word)
+{   
+    std::cout &gt;&gt; word &gt;&gt; std::endl;
+}   
+
+</pre>
+<h2>String Stream Operators</h2>
+
+<h3>Insertion Operator - <code>&lt;&lt;</code></h3>
+<ul>
+<li>Insert data into the stream
+</ul>
+
+<pre>
+</pre>
+
+
+<h3>Extraction Operator - <code>&gt;&gt;</code></h3>
+<ul>
+<li>Extract data from the stream
+</ul>
+
+<pre>
+</pre>
+
+
+
+</div>
+</body> 
+</html>

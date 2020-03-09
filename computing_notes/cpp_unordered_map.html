@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ Unordered Map</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ Unordered Map</h1>
+
+<ul>
+<li>I.e. Hash
+</ul>
+
+<pre>
+#include &lt;unordered_map&gt;
+
+template &lt; class Key
+                ,class T
+                ,class Hash = hash&lt;Key&gt;
+                ,class Pred = equal_to&lt;Key&gt;
+                ,class Alloc = allocator&lt; pair&lt;const Key, T&gt; &gt;
+                &gt; class unordered_map;
+</pre>
+
+
+<h2>Constructors</h2>
+<ul>
+</ul>
+
+
+<h2>Destructor</h2>
+<ul>
+</ul>
+
+
+<h2>Member Functions</h2>
+<ul>
+<li><code>begin()</code>
+<pre>
+//
+// returns iterator pointing to the 1st element
+//
+iterator begin();
+const_iterator begin() const;
+</pre>
+
+<li><code>end()</code>
+<pre>
+//
+// returns iterator pointing just past last element
+//
+iterator end();
+const_iterator end() const;
+</pre>
+
+<li><code>find()</code>
+<pre>
+//
+// search container for given element w/ key k and return iterator
+// return end() iterator if not found
+//
+iterator find (const key_type&amp; k);
+const_iterator find (const key_type&amp; k) const;
+</pre>
+
+<li><code>insert()</code>
+<pre>
+//
+// insert element
+// - the element is inserted only if the key is not already present
+// - value_type = pair&lt; const key_type, T&gt;
+//
+pair<iterator,bool> insert (const value_type&amp; val);
+</pre>
+</ul>
+
+</div>
+</body> 
+</html>
