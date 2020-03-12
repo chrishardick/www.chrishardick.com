@@ -167,6 +167,7 @@ function print_nav(f)
         <a href="cpp_vector.html">Container - Vector</a>
         <a href="cpp_list.html">Container - List</a>
         <a href="cpp_map.html">Container - Map, Multimap</a>
+        <a href="cpp_set.html">Container - Set, Multiset</a>
         <a href="cpp_deque.html">Container - Deque</a>
         <a href="cpp_unordered_map.html">Container - Unordered Map</a>
         <a href="cpp_string.html">String</a>
@@ -175,6 +176,8 @@ function print_nav(f)
         <a href="cpp_iostreams.html">iostreams</a>
         <a href="cpp_auto_keyword.html">auto keyword</a>
         <a href="cpp_include_guards.html">Include Guards</a>
+        <a href="cpp_lambda.html">Lambdas</a>
+        <a href="cpp_std_function.html">std::function</a>
     </div>
 
     <button class="accordion" id="accordion_cmake">CMake</button>

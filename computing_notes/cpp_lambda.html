@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ Lambdas</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ Lambdas</h1>
+
+<ul>
+<li>Lambda Functions (closures) are useful for inline functions. I.e. a small
+    amount of code that you're not going to re-use and is not worth naming
+<li>See also <a href="cpp_std_function.html">std::function</a>
+<li>Requires C++ 11
+</ul>
+
+<pre>
+//
+// NOTE: most of the time the return type is not specified
+// - instead it is inferred from the function body
+
+[capture clause] (parameters) -&gt; return_type
+{
+    // function body
+}
+
+//
+// simple example
+//
+auto func = []() { std::cout &lt;&lt; "hello, world!" &lt;&lt; std::endl; };
+func(); // call the function
+</pre>
+
+<h2>Variable Capture</h2>
+
+<p><strong>TIP</strong>: Variable capture by value can be very useful with threads. 
+For example when enqueuing to a thred pool, as the copies it creates can be freely accessed by the worker threads
+</p>
+
+<ul>
+<li><code>[]</code> - empty capture clause. do not capture any variables. 
+    A lambda with an empty capture clause can access only those variables which are local to it.
+<li><code>[&amp;]</code> - capture any referenced variable by reference
+<li><code>[=]</code> - capture any referenced variable by value
+<li><code>[=]</code> - capture any referenced variable by making a copy
+<li><code>[foo]</code> - capture foo by making a copy. Do not copy anything else
+<li><code>[=, &amp;;foo]</code> - capture any referenced variable by making a copy. Capture foo by reference
+
+[&amp;] - 
+</pre>
+
+</div>
+</body> 
+</html>

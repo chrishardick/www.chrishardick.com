@@ -101,6 +101,35 @@ string* my_find (int key)
 }
 </pre>
 
+<h2>Overloading Less Than Operator</h2>
+
+<pre>
+class Player
+{
+    public:
+        
+        std::string name;
+        int score;
+
+        Player ()
+        {
+            score = 0;
+        }
+
+        bool operator&lt; (const Player&amp; rhs) const
+        {
+            if (score &lt; rhs.score)
+                return true;
+
+            if (score == rhs.score &amp;&amp; name &lt; rhs.name)
+                return true;
+
+            return false;
+        }
+};
+</pre>
+
+
 </div>
 </body> 
 </html>
