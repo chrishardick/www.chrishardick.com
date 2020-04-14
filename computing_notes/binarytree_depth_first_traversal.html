@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_binarytree");
+}
+</script>
+
+<title>Binary Tree - Depth First Traversal</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Binary Tree - Depth First Traversal</h1>
+
+<ul>
+<li>Depth First Traversal starts at the root (or an arbitrary node for a graph) and explores as far as possible before back-tracking. 
+<li>There are generally 3 different algorithms - <strong>pre-order traversal</strong>, <strong>in-order traversal</strong>, 
+    <strong>post-order traversal</strong>
+</ul>
+
+<h2>Applications</h2>
+<ul>
+<li>In-order traversal of a BST (binary search tree) results in a sorted traversal.
+<li>When searching for a particular node, use pre-order traversal as it will visit the nodes prior to traversing its children. 
+<li>If you want to process the children of a node prior to the parents, use post order traversal.
+</ul>
+
+<h2>Pre-Order Traversal</h2>
+
+<ul>
+<li>Visit, preorder(left), preorder(right)
+<li>The algorithm to use for DFS (Depth First Search)
+</ul>
+
+<h2>Algorithm</h2>
+<pre>
+//
+// depth first pre-order
+//
+void preorder (Node* head)
+{
+    if (!head)
+        return;
+
+    // e.g. visit
+    std::cout &lt;&lt; head &lt;&lt; " ";
+
+    preorder (head-&gt;left);
+    preorder (head-&gt;right);
+}
+</pre>
+
+<h2>In-Order Traversal</h2>
+
+<ul>
+<li>Inorder(left), visit, inorder(right)
+<li>
+</ul>
+
+<h2>Algorithm</h2>
+<pre>
+//
+// depth first in-order
+//
+void inorder (Node* head)
+{
+    if (!head)
+        return;
+
+    inorder (head-&gt;left);
+
+    // e.g. visit
+    std::cout &lt;&lt; head &lt;&lt; " ";
+
+    inorder (head-&gt;right);
+}
+</pre>
+
+<h2>Post-Order Traversal</h2>
+
+<ul>
+<li>Postorder(left), postorder(right), visit
+<li>
+</ul>
+
+<h2>Algorithm</h2>
+<pre>
+//
+// depth first post-order
+//
+void postorder (Node* head)
+{
+    if (!head)
+        return;
+
+    postorder (head-&gt;left);
+    postorder (head-&gt;right);
+
+    // e.g. visit
+    std::cout &lt;&lt; head &lt;&lt; " ";
+}
+</pre>
+
+</div>
+</body> 
+</html>

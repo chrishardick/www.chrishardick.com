@@ -105,6 +105,24 @@ const_iterator find (const key_type&amp; k) const;
 //
 pair<iterator,bool> insert (const value_type&amp; val);
 </pre>
+
+<li><code>erase()</code>
+<pre>
+//
+// remove elements from the unordered_multimap, calling the elements destructor for each item removed
+//
+// RETURN
+// ======
+// depending on version
+// - iterator pointing to position immediately following last element removed or 
+// - number of elements removed
+//
+iterator erase (const_iterator position);
+iterator erase (const_iterator first, const_iterator last);
+size_t erase (const key_type&amp; k);
+</pre>
+
+
 </ul>
 
 </div>

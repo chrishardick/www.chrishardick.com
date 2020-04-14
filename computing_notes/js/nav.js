@@ -123,6 +123,12 @@ function print_nav(f)
         <a href="bash_precedence.html">Precedence</a>
     </div>
     
+    <button class="accordion" id="accordion_binarytree">Binary Trees</button>
+    <div class="panel">
+        <a href="binarytree_breadth_first_traversal.html">Breadth First Traversal</a>
+        <a href="binarytree_depth_first_traversal.html">Depth First Traversal</a>
+    </div>
+
     <button class="accordion" id="accordion_c">C</button>
     <div class="panel">
         <a href="c_bit_operations.html">Bit Operations</a>
@@ -164,12 +170,13 @@ function print_nav(f)
         <a href="cpp_function_objects.html">Function Objects (Functors)</a>
         <a href="cpp_namespaces.html">Namespaces</a>
         <a href="cpp_pair.html">Pair</a>
-        <a href="cpp_vector.html">Container - Vector</a>
-        <a href="cpp_list.html">Container - List</a>
-        <a href="cpp_map.html">Container - Map, Multimap</a>
-        <a href="cpp_set.html">Container - Set, Multiset</a>
-        <a href="cpp_deque.html">Container - Deque</a>
-        <a href="cpp_unordered_map.html">Container - Unordered Map</a>
+        <a href="cpp_vector.html">Vector</a>
+        <a href="cpp_list.html">List</a>
+        <a href="cpp_map.html">Map, Multimap</a>
+        <a href="cpp_set.html">Set, Multiset</a>
+        <a href="cpp_unordered_map.html">Unordered Map, Multimap</a>
+        <a href="cpp_unordered_set.html">Unordered Set, Multiset</a>
+        <a href="cpp_deque.html">Deque</a>
         <a href="cpp_string.html">String</a>
         <a href="cpp_string_stream.html">String Stream</a>
         <a href="cpp_transform.html">Transform</a>
@@ -177,7 +184,8 @@ function print_nav(f)
         <a href="cpp_auto_keyword.html">auto keyword</a>
         <a href="cpp_include_guards.html">Include Guards</a>
         <a href="cpp_lambda.html">Lambdas</a>
-        <a href="cpp_std_function.html">std::function</a>
+        <a href="cpp_std_bind_std_function.html">std::bind and std::function</a>
+        <a href="cpp_curly_bracket_initialization.html">Curly Bracket Initialization</a>
     </div>
 
     <button class="accordion" id="accordion_cmake">CMake</button>
@@ -466,6 +474,11 @@ function print_nav(f)
         <a href="python_cookie.html">Cookie - HTTP Cookie library</a>
     </div>
 
+    <button class="accordion" id="accordion_set">Set Theory</button>
+    <div class="panel">
+        <a href="set_cheatsheet.html">Cheat Sheet</a>
+    </div>
+
     <button class="accordion" id="accordion_sockets_api">Sockets API (C/UNIX)</button>
     <div class="panel">
         <a href="sockets_elementary_socket_fxns.html">Elementary Socket Functions</a>
@@ -487,6 +500,11 @@ function print_nav(f)
         <a href="sockets_terms.html">Terms</a>
     </div>
     
+    <button class="accordion" id="accordion_sorting">Sorting</button>
+    <div class="panel">
+        <a href="sorting_bubble_sort.html">Bubble Sort</a>
+    </div>
+
     <button class="accordion" id="accordion_sqlite">SQLite</button>
     <div class="panel">
         <a href="sqlite_intro.html">Introduction</a>

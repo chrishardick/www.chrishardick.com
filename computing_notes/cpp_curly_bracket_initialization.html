@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ - Curly Bracket Initialization</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ - Curly Bracket Initialization</h1>
+
+<pre>
+int arr[] = { 1, 2, 3, 4 };
+
+std::vector&lt;int&gt; v { 1, 2, 3, 4};
+
+std::map&lt;std::string, int&gt; m { {"aa", 1}, {"bb", 2}, {"cc", 3} };
+
+
+//
+// initialize with default values
+//
+
+int i { };                  // i = 0
+double d { };               // d = 0.0
+
+std::string s { }           // s = ""
+
+std::vector<double> v { }   // empty vector
+
+
+//
+// struct
+//
+
+struct S
+{
+    int x;
+    double y;
+};
+
+S s { 1, 1.1 };
+
+
+//
+// class
+//
+
+class C
+{
+    int x;
+    double y;
+
+    public:
+        C (int xx, int yy) : x(xx), y(yy) { }
+};
+
+
+C c { 2, 2.2 };
+</pre>
+
+
+</div>
+</body> 
+</html>

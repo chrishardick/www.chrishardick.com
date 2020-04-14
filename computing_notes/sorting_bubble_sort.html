@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_sorting");
+}
+</script>
+
+<title>Bubble Sort</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Bubble Sort</h1>
+
+<ul>
+<li>Simple Sorting Algorithm. However, it's usally inefficient.
+<li>Swap adjacent elements
+<li>Keep going until you make an entire pass without swapping
+</ul>
+
+<h2>Complexity</h2>
+
+<ul>
+<li>Worst Case: O(n<sup>2</sup>)
+<li>Best Case: O(n)
+</ul>
+
+
+<h2>Algorithm</h2>
+<pre>
+// try this example: [ 6 2 5 3 9 ]
+
+void swap (int&amp; a, int&amp; b)
+{
+    int t = a;
+
+    a = b;
+
+    b = t;
+}
+
+void bubble_sort (std::vector&lt;int&gt;&amp; v)
+{   
+    for (int i=0; i&lt;v.size()-1; i++)
+    {
+        bool sorted = true;
+
+        for (int j=0; j&lt;v.size()-1; j++)
+        {
+            if (v[j] &gt; v[j+1])
+            {
+                swap (v[j], v[j+1])
+                sorted = false;
+            }
+        }
+
+        if (sorted)
+            return;
+    }
+}
+</pre>
+
+</div>
+</body> 
+</html>
+  

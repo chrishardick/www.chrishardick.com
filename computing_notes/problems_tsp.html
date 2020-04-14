@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>Traveling Salesman Problem (TSP)</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Traveling Salesman Problem (TSP)</h1>
+
+<ul>
+<li>Famous NP Hard problem. 
+<li>I believe NP Hard problems can be bounded by a polynomial expression (n^k)
+<li>Given a list of cities and the distance between each pair of cities
+<li>What is the shortest possible route that visits each city and return to the origin city
+</ul>
+
+<ul>
+<li>Given a set of vertices {1, 2, ... n}
+<li>Consider 1 as starting and ending point 
+<li>For every other vertex i (2-n), find the minimum cost path with 1 as the starting point, 
+    i as the ending point and all vertices appearing exactly once. The cost of this path is 
+    cost(i)
+<li>The cost of the corresponding cycle is cost(i) + dist(i, 1) where dist(i, 1) is the distance from i to 1
+<li>Find the minimum of all cost(i) + dist(i, 1) 
+</ul>
+
+<ul>
+<li>For all subsets of size 2, calculate C(S, i) where C is cost and S is the subset
+<li>For all subsets of size 3, calculate C(S, i) where C is cost and S is the subset
+</ul>
+
+
+</div>
+</body> 
+</html>

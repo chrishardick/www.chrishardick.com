@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_binarytree");
+}
+</script>
+
+<title>Binary Tree - Breadth First Traversal</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Binary Tree - Breadth First Traversal</h1>
+
+<ul>
+<li>Breadth First Traversal starts at the root and visits all nodes at the same depth before moving on to the nodes at the next depth level
+</ul>
+
+<h2>Applications</h2>
+<ul>
+<li>Breadth First Traversal / Search is usually used to determine the shortest path between two nodes.
+<li>Examples include (albeit not binary trees, but the concept is the same): 
+    Social Networks (difference in depth between 2 individuals),
+    GPS Navigation Systems, etc. 
+</ul>
+
+<h2>Algorithm</h2>
+<pre>
+//
+// breath first traversal is usually implemented with a queue
+//
+void breath_first_traversal (Node* head)
+{
+    std::list&lt;Node*&gt; q;
+
+    if (!head)
+        return;
+
+    q.push_back(head);
+
+    while (!q.empty())
+    {
+        Node* n = q.front();
+
+        q.pop_front();
+
+        // e.g. visit
+        std::cout &lt;&lt; n-&gt;value &lt;&lt; " ";
+    
+        if (n-&gt;left)
+            q.push_back(n-&gt;left);
+        
+        if (n-&gt;right)
+            q.push_back(n-&gt;right);
+    }
+}
+</pre>
+
+</div>
+</body> 
+</html>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ - std::bind and std::function</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ - std::bind and std::function</h1>
+
+<h2><code>std::bind</code></h2>
+<ul>
+<li><code>std::bind</code> allows for partial function specialization
+<li>I.e. It allows you to bind one or more parameters to values and to specify placeholders for others
+</ul>
+
+<ul>
+<li>Returns a function object based on <code>Fn</code> with its arguments bound to <code>Args</code>
+<li>Each argument may be bound to a value or bound to a placeholder
+</ul>
+
+<pre>
+#include &lt;functional&gt;
+
+//
+// where 
+// Fn is a function object, pointer to a function, pointer to member function, etc.
+// Args is a list of arguments to bind - either values or placeholders
+//
+template &lt;class Fn, class... Args&gt;
+    bind (Fn&amp;&amp; fn, Args&amp;&amp;... args);
+</pre>
+
+
+<pre>
+//
+// an example where all parameters are bound to values
+//
+
+double divide (double x, double y) { return x / y; }
+
+auto d1 = std::bind (divide, 10, 2);
+
+std::cout &lt;&lt; d1() &lt;&lt; std::endl; // 5
+
+
+//
+// an example using a placeholder
+//
+
+using namespace std::placeholders; // _1, _2, ...
+
+auto divide_by_2 = std::bind (divide, _1, 2);
+
+std::cout &lt;&lt; divide_by_2(10) &lt;&lt; std::endl;
+
+
+//
+// binding member functions
+// - a non-static member function must be called with an object
+//
+
+struct Pair 
+{
+    double a, b;
+
+    double multiply () { return a*b; }
+};
+
+Pair p1 { 10, 2 }; 
+
+auto m1 = std::bind (&amp;Pair::multiply, _1)   // where _1 is the object instance
+
+std::cout &lt;&lt; m1(p1) &lt;&lt; std::endl;  // 20
+</pre>
+
+
+<h2><code>std::function</code></h2>
+<ul>
+<li>A wrapper for storing any type of function, lambda function, functor, or function pointer
+<li>The idea behind <code>std::function</code> is to be able to refer to all callable objects in an interchangeable manner. 
+<li>Requires you to specify the exact types of the argument list and the return value
+<li>You can test if it has been set by checking for 0 (NULL)
+</ul>
+
+<pre>
+#include &lt;functional&gt;
+
+template &lt;class Ret, class... Args&gt; 
+    class function &lt;Ret(Args...)&gt;;
+</pre>
+
+
+<pre>
+std::function&lt;bool (const std::string&amp;)&gt; func;
+</pre>
+
+</div>
+</body> 
+</html>

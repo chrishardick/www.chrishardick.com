@@ -41,24 +41,29 @@ C O N T E N T
 <h1>C++ Vector</h1>
 
 <ul>
-<li>basically, a dynamically sizing array
-<li>memory allocation is handled automatically
-<li>provides random access iterators
-<li>amortized constant time insert and erase operations at the end
-<li>insert and erase at any other position (beginning or middle) takes linear time
-<li>the sequence container of choice when the majority of insertions and erasures occur @ the end of the sequence
-<li>inserts can cause reallocation
+<li>A dynamically sizing array
+<li>Memory allocation is handled automatically
+<li>Provides random access iterators
+<li>Amortized constant time insert and erase operations at the end
+<li>Insert and erase at any other position (beginning or middle) takes linear time
+<li>The sequence container of choice when the majority of insertions and erasures occur @ the end of the sequence
+<li>Inserts can cause reallocation
 	<ul>
-	<li>all elements of a vector are stored in a contiguous block of memory
-	<li>if you insert more items than the current capacity of the vector can handle, 
+	<li>All elements of a vector are stored in a contiguous block of memory
+	<li>If you insert more items than the current capacity of the vector can handle, 
 		a larger block is allocated, the elements of the vector are copied from the old vector
 		to the new vector, and the old block is deallocated.
-	<li>reallocation invalidates all iterators and references to elements within the vector
+	<li>Reallocation invalidates all iterators and references to elements within the vector
 	</ul>
-<li>erasures invalidate all iterators to positions past the point of erasure (those pointing to 
+<li>Erasures invalidate all iterators to positions past the point of erasure (those pointing to 
 	previous locations remain valid)
 </ul>
 
+<pre>
+#include &lt;vector&gt;
+template &lt;typename T&gt;
+class vector;
+</pre>
 
 <h2>Constructors</h2>
 <ul>
@@ -87,7 +92,7 @@ C O N T E N T
 
 <h2>Destructor</h2>
 <ul>
-<li>release any allocated space for the given vector
+<li>Destroy all container elements (calling destructor for each element) and deallocate all storage for the container. 
 <pre>~vector()</pre>
 </ul>
 
@@ -95,104 +100,160 @@ C O N T E N T
 <h2>Member Functions</h2>
 <ul>
 
-<li>begin()
-<pre>iterator begin();
-const_iterator begin() const;</pre>
+<li><code>begin()</code>
+    <ul>
+    <li>Return iterator to beginning of the container (1st element)
+    </ul>
+<pre>
+iterator begin();
+const_iterator begin() const;
+</pre>
 
-<li>end()
-<pre>iterator end();
-const_iterator end() const;</pre>
+<li><code>end()</code>
+    <ul>
+    <li>Return iterator to end of the container (i.e. one past last element)
+    </ul>
+<pre>
+iterator end();
+const_iterator end() const;
+</pre>
 
-<li>operator[]
+<li><code>rbegin()</code>
+    <ul>
+    <li>Return reverse iterator to reverse beginning (i.e. last element)
+    </ul>
+<pre>
+iterator rbegin();
+const_iterator rbegin() const;
+</pre>
+
+<li><code>rend()</code>
+    <ul>
+    <li>Return reverse iterator to reverse end (i.e. one past first element)
+    </ul>
+<pre>
+iterator rend();
+const_iterator rend() const;
+</pre>
+
+<li><code>operator[]</code>
 	<ul>
 	<li>returns the nth element from the beginning of the vector
     <li>Bounds checking is not performed. 
-	<li>Calling this with an argument n which is out of range produces undefined behavior
+	<li>Undefined behavior if called with an argument n which is out of range 
 	</ul>
-<pre>reference operator[](size_type n);
-const_reference operator[](size_type n) const;</pre>
+<pre>
+reference       operator[](size_type n);
+const_reference operator[](size_type n) const;
+</pre>
 
+<li><code>at</code>
+    <ul>
+	<li>returns the nth element from the beginning of the vector
+    <li>Throws <code>std::out_of_range</code> exception if n is out of range
+    </ul>
+<pre>
+reference       at (size_type n);
+const_reference at (size_type n) const;
+</pre>
 
-<li>size()
+<li><code>front()</code>
+    <ul>
+    <li>Returns a reference to the first element in the container
+    <li>Undefined behavior if called on an empty container
+    </ul>
+<pre>
+reference front();
+const_reference front() const;
+</pre>
+
+<li><code>back()</code>
+    <ul>
+    <li>Returns a reference to the last element in the container
+    <li>Undefined behavior if called on an empty container
+    </ul>
+<pre>
+reference back();
+const_reference back() const;
+</pre>
+
+<li><code>size()</code>
 	<ul>
 	<li>returns # of elements
 	</ul>
 <pre>size_type size() const;</pre>
 
-<li>max_size()
-	<ul>
-	<li>returns max # of elements that could ever be stored in the vector
-	</ul>
-<pre>size_type size() const;</pre>
-
-<li>empty()
+<li><code>empty()</code>
 	<ul>
 	<li>returns true if the vector contains no elements (size == 0 or begin() == end()), false otherwise
 	</ul>
-<pre>bool empty() const;</pre>
+<pre>
+bool empty() const;
+</pre>
 
-<li>capacity()
+<li><code>capacity()</code>
 	<ul>
 	<li>returns largest # of elements the vector can store without reallocation
-	<li>see also reserve()
 	</ul>
 <pre>size_type capacity() const;</pre>
 
-<li>reserve()
+<li><code>reserve()</code>
 	<ul>
-	<li>insures that after the call, the capacity() of the vector is &gt;= n
-	<li>see also capacity()
+	<li>ensures that after the call, the capacity() of the vector is &gt;= n
 	</ul>
-<pre>void reserve(n);</pre>
+<pre>
+void reserve(n);
+</pre>
 
 
-<li>push_back()
+<li><code>push_back()</code>
 	<ul>
-	<li>standard function to add 1 element to the vector (to the end)
+	<li>Add 1 element to end of the vector
 	</ul>
-<pre>void push_back(const T& x);</pre>
+<pre>
+void push_back(const T&amp; x);
+</pre>
 
-<li>insert()
+<li><code>insert()</code>
 	<ul>
-	<li>insert 1 element to any position within the vector
+	<li>insert single element or range of elements ([first, last)) into the vector at position.
 	<li>returns iterator to position where the element was added
 	</ul>
-<pre>iterator insert(iterator position, const T& x);</pre>
+<pre>
+iterator insert(iterator position, const T&amp; x);
+iterator insert(iterator position, InputIterator first, InputIterator last);
+</pre>
 
-<li>insert()
+<li><code>pop_back()</code>
 	<ul>
-	<li>insert range [first,last) into the vector @ position
+	<li>erase last element from the vector
+    <li>destructor will be called for removed element
+	<li>Undefined behavior if called on an empty container
 	</ul>
-<pre>void insert(iterator position, InputIterator first, InputIterator last);</pre>
+<pre>
+void pop_back();
+</pre>
 
-
-<li>pop_back()
+<li><code>erase()</code>
 	<ul>
-	<li>standard function to erase 1 element to the vector (from the end)
+	<li>erase single element or range of elements ([first, last)) from the vector
+	<li>returns iterator to 1 position past the last element erased 
+    <li>destructor will be called for each removed element
 	</ul>
-<pre>void pop_back();</pre>
+<pre>
+iterator erase(iterator position);
+iterator erase(iterator first, iterator last);
+</pre>
 
-<li>erase()
-	<ul>
-	<li>erase the element located at position
-	<li>returns iterator to 1 position past where the element was erased or end() if the last element was erased
-	</ul>
-<pre>iterator erase(iterator position);</pre>
-
-<li>erase()
-	<ul>
-	<li>erase range [first,last) into the vector @ position
-	<li>returns iterator to 1 position past the last element erased or end() if the last element was erased
-	</ul>
-<pre>iterator erase(iterator first, iterator last);</pre>
-
-<li>clear()
+<li><code>clear()</code>
 	<ul>
 	<li>erase all elements in the vector
+    <li>destructor will be called for each removed element
 	<li>equivalent to vector.erase(vector.begin(), vector.end());
 	</ul>
-<pre>void clear();</pre>
-
+<pre>
+void clear();
+</pre>
 
 </ul>
 

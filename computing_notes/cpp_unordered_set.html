@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ Unordered Set, Unordered Multiset</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ Unordered Set, Unordered Multiset</h1>
+
+<ul>
+<li>Set of objects of type Key with constant time addition, search and removal.
+<li><strong>Sets</strong> have unique elements.
+<li><strong>Multisets</strong> allows duplicates
+<li>See also <a href="cpp_set.html">C++ Set</a>
+<li>See also <a href="cpp_unordered_map.html">C++ Unordered Map and Unordered Multimap</a>
+<li>Requires C++ 11
+</ul>
+
+
+<pre>
+#include &lt;unordered_set&gt;
+
+template &lt; class Key
+        ,class Hash = std::hash&lt;Key&gt;
+        ,class KeyEqual = std::equal_to&lt;Key&gt;
+        ,class Allocator = std::allocator&lt;Key&gt;
+        &gt; class <strong>unordered_set</strong>;
+
+template &lt; class Key
+        ,class Hash = std::hash&lt;Key&gt;
+        ,class KeyEqual = std::equal_to&lt;Key&gt;
+        ,class Allocator = std::allocator&lt;Key&gt;
+        &gt; class <strong>unordered_multiset</strong>;
+</pre>
+
+
+<h2>Constructors</h2>
+<ul>
+<li>Empty
+<pre>
+unordered_set (size_type bucket_count = /* minimal number of buckets to create - implementation specific */
+                ,const Hash&amp; hash = Hash()
+                ,const KeyEqual&amp; = KeyEqual()
+                ,const Allocator&amp; alloc = Allocator()
+                );
+</pre>
+
+<li>Range
+<pre>
+unordered_set (InputIterator first, InputIterator last, 
+                ,size_type bucket_count = /* minimal number of buckets to create - implementation specific */
+                ,const Hash&amp; hash = Hash()
+                ,const KeyEqual&amp; = KeyEqual()
+                ,const Allocator&amp; alloc = Allocator()
+                );
+</pre>
+
+<li>Copy Constructor
+<pre>
+unordered_set (const unordered_set&amp; other);
+</pre>
+
+</ul>
+
+<h2>Destructor</h2>
+<ul>
+</ul>
+
+
+<h2>Member Functions</h2>
+<ul>
+<li><code>begin()</code>
+<pre>
+//
+// returns iterator pointing to the 1st element
+//
+iterator begin();
+const_iterator begin() const;
+</pre>
+
+<li><code>end()</code>
+<pre>
+//
+// returns iterator pointing just past last element
+//
+iterator end();
+const_iterator end() const;
+</pre>
+
+<li><code>find()</code>
+<pre>
+//
+// search container for given element w/ key k and return iterator
+// return end() iterator if not found
+//
+iterator find (const key_type&amp; k);
+const_iterator find (const key_type&amp; k) const;
+</pre>
+
+<li><code>insert()</code>
+<pre>
+//
+// unordered_set
+//
+// insert element
+// - the element is inserted only if the key is not already present
+// - value_type = pair&lt; const key_type, T&gt;
+//
+pair<iterator,bool> insert (const value_type&amp; val);
+
+//
+// unordered_multiset
+//
+// insert element(s)
+// 
+// RETURN
+// ======
+// - an iterator to the newly inserted element
+
+iterator insert (const value_type&amp; val);
+
+template &lt;class InputIterator&gt;
+void insert (InputIterator first, InputIterator last);
+
+</pre>
+
+<li><code>erase()</code>
+<pre>
+//
+// remove element(s)
+// - calling the element's destructor for each removed item
+// 
+// RETURN
+// ======
+// depending on version called, either:
+// - iterator pointing to the element immediately following the last of the elements erased 
+// - the number of elements erased
+//
+iterator erase (const_iterator position);
+iterator erase (const_iterator first, const_iterator last);     // remove range [first, last)
+size_type erase (const key_type&amp; k);
+</pre>
+
+</ul>
+
+</div>
+</body> 
+</html>
