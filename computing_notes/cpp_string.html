@@ -40,10 +40,17 @@ C O N T E N T
 <div id="content" class="content">
 <h1>C++ Strings</h1>
 
-<ul>
-<li>Header File: string
-</ul>
+<pre>
+#include &lt;string&gt;
 
+typedef basic_string&lt;char&gt; string
+</pre>
+
+<ul>
+<li>The <code>string</code> class handles bytes independent of the encoding used. 
+    E.g. with UTF-8 encoding, the length of the string (e.g. via the size() member function) may be greater 
+    than the number of unicode characters represented
+</ul>
 
 <pre>
 #include &lt;iostream&gt;
@@ -63,7 +70,35 @@ int main (int argc, char* argv[])
 }
 </pre>
 
+<h2>Constructors</h2>
+
+<ul>
+<li><code>string();</code> - default constructor
+<li><code>string(const string&amp; str);</code> - copy constructor
+<li><code>string(const string&amp; str, size_t pos, size_t len = npos);</code> - substring
+<li><code>string(const char* s);</code> - from c string
+<li><code>string(const char* s, size_t n);</code> - c string range
+<li><code>string(size_t n, char c);</code> - fill
+<li><code>template &lt;class InputIterator&gt; string(InputIterator first, InputIterator last);</code> - range [first, last)
+</ul>
+
 <h2>MEMBERS</h2>
+
+<h3><code>empty()</code></h3>
+
+<pre>
+bool empty() const;
+</pre>
+
+<h3><code>size()</code>, <code>length()</code></h3>
+
+<ul>
+<li>Returns the length (# of bytes) of the string
+</ul>
+
+<pre>
+size_t size() const;
+</pre>
 
 <h3>find()</h3>
 <h3>append()</h3>

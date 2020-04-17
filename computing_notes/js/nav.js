@@ -186,6 +186,7 @@ function print_nav(f)
         <a href="cpp_lambda.html">Lambdas</a>
         <a href="cpp_std_bind_std_function.html">std::bind and std::function</a>
         <a href="cpp_curly_bracket_initialization.html">Curly Bracket Initialization</a>
+        <a href="cpp_stream_buffers_and_streams.html">Stream Buffers and Streams</a>
     </div>
 
     <button class="accordion" id="accordion_cmake">CMake</button>

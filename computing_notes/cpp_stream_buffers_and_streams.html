@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ - Stream Buffers and Streams</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ - Stream Buffers and Streams</h1>
+
+<h2>Stream Buffers</h2>
+
+<ul>
+<li>Represent I/O devices
+<li>Provide a low level interface for unformatted I/O to a device
+<li>Low Level, Raw Bytes
+</ul>
+
+<pre>
+std::basic_streambuf
+
+//
+// public member functions
+//
+
+//
+// single character
+// - advance to next position and get character
+// - if there are no more characters to read, the function returns the end-of-file value (traits_type::eof())
+//
+// return
+// ======
+// - character read or traits_type::eof
+//
+int_type sbumpc();
+
+//
+// sequence of characters
+// - equilvalent to calling bumpc() n times, stopping if any call would return eof
+//
+// return
+// ======
+// # of characters copied
+//
+streamsize sgetn(char_type* s       // pointer to array where character sequence is copied
+                ,streamsize n       // maximum # of characters to be retrieved (signed integral type)
+                )
+</pre>
+
+<h2>Streams</h2>
+
+<ul>
+<li>Provide a higher level wrapper around Stream Buffers via unformatted I/O and formatted 
+<li>Stream objects may also manage a stream buffer's lifetime
+<li>High level (e.g. text, integers, etc.)
+</ul>
+
+</div>
+</body> 
+</html>
