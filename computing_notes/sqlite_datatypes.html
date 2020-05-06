@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_sqlite");
+}
+</script>
+
+<title>SQLite: Data Types</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>SQLite: Data Types</h1>
+
+<h2>Storage Classes</h2>
+
+Regardless of the type, Sqlite stores your values using one of the following storage classes: 
+<ul>
+<li><strong>NULL</strong> - NULL value
+<li><strong>INTEGER</strong> - signed integer
+<li><strong>REAL</strong> - 8 bytes IEEE floating point
+<li><strong>TEXT</strong> - text string using the database encoding (UTF-8, UTF-16BE or UTF-16LE)
+<li><strong>BLOB</strong> - stored exactly as it was input
+</ul>
+
+<h2>Data Types</h2>
+
+<ul
+<li>Data types are more specific than storage classes
+<li>Datetimes are stored as either integers or reals. They're stored as integers so long as there is not a loss of precision. Otherwise, they're stored as reals
+</ul>
+
+</div>
+</body>
+</html>

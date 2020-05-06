@@ -47,10 +47,11 @@ Always Has a void return type</LI>
 <LI>Every class has its own destructor. If you do not provide one, the C++ Compiler will provide a DEFAULT DESTRUCTOR</LI>
 <LI>DATA MEMBERS which are of AUTOMATIC STORAGE CLASS are taken care of automatically; 
 while dynamically allocated data members MUST be explicitly handled using the DELETE Operator.</LI>
-<LI>YOU NEVER EXPLICITLY CALL THE DESTRUCTOR. For OBJECTS of AUTOMATIC STORAGE CLASS, the destructor is called automatically when the object goes out of scope;
-while for dynamically allocated objects, the destructor is automatically called when the object's memory is deallocated using the DELETE Operator.</LI>
-<li>See also <a href=Inheritance.html>Inheritance</a> for discussion on destructors and inheritance
-<LI>See also <a href=polymorphism.html#virtual_member_functions>Virtual Functions</a> for discussion on why all destructors shhould be virtual
+<LI>You usually do not have to explicitly call the destructor. For OBJECTS of AUTOMATIC STORAGE CLASS, 
+    the destructor is called automatically when the object goes out of scope;
+    while for dynamically allocated objects, the destructor is automatically called when the object's memory is deallocated using the DELETE Operator.
+<li>See also <a href=cpp_inheritance.html>Inheritance</a> for discussion on destructors and inheritance
+<LI>See also <a href=cpp_polymorphism.html#virtual_member_functions>Virtual Functions</a> for discussion on why all destructors shhould be virtual
 </UL>
 
 </div>

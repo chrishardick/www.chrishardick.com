@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ File Streams</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ File Streams</h1>
+
+<pre>
+#include &lt;fstream&gt;
+
+// stream class to write to files
+typedef basic_ofstream&lt;char&gt; <strong>ofstream</strong>;
+
+// stream class to read from files
+typedef basic_ifstream&lt;char&gt; <strong>ifstream</strong>
+
+// stream class to read from and write to files
+typedef basic_fstream&lt;char&gt; <strong>fstream</strong>;
+</pre>
+
+<h2><code>ofstream</code></h2>
+<ul>
+<li>Stream class to write to a file
+<li>Derived from ostream
+</ul>
+
+<pre>
+#include &lt;fstream&gt;
+
+std::string filename ("data.dat");
+
+std::ofstream of (filename, std::ios::out | std::ios::binary);
+
+if (!of)
+{
+    // error handling
+}
+
+of.write (buf, buf_size);
+
+of.close();
+
+if (!of.good())
+{
+    // error handling
+}
+</pre>
+
+<h3>Constructors</h3>
+
+<pre>
+//
+// constructs an ofstream object - not yet associated with a file
+//
+ofstream();  
+
+//
+// constructs an ofstream object initially associated with specified file. 
+// - if the file cannot be opened, the stream's failbit is set
+// - mode bits: 
+//      - in: file opened for reading
+//      - out: file opened for writing (always set for ofstream)
+//      - binary: operations are performed in binary mode rather than text mode
+//
+ofstream (  const char* filename
+            ,ios_base::openmode mode = ios_base::out        // in: bitmap
+            );
+</pre>
+
+
+<h2><code>ifstream</code></h2>
+<ul>
+<li>Stream class to read from a file
+<li>Derived from istream
+</ul>
+
+<pre>
+#include &lt;fstream&gt;
+
+std::string filename ("data.dat");
+
+std::ifstream if (filename, std::ios::in | std::ios::binary);
+
+if (!if)
+{
+    // error handling
+}
+
+char buf[100];
+
+while (if.read(buf,sizeof(buf)))
+{
+    if (if.gcount() != sizeof(buf))
+    {
+        // error handling
+    }
+
+    // data processing
+}
+
+if.close();
+</pre>
+
+
+<h3>Constructors</h3>
+
+<pre>
+//
+// constructs an ifstream object - not yet associated with a file
+//
+ifstream();
+
+//
+// constructs an ifstream objecdt initially associated with specified file.
+// - if the file cannot be opened, the stream's failbit is set
+// - mode bits: 
+//      - in: file opened for reading (always set for ifstream)
+//      - binary: operations are performed in binary mode rather than text mode
+//
+ifstream (  const char* filename
+            ,ios_base::openmode mode = ios_base::out        // in: bitmap
+            );
+</pre>
+
+</div>
+</body> 
+</html>

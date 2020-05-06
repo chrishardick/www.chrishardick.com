@@ -125,8 +125,10 @@ function print_nav(f)
     
     <button class="accordion" id="accordion_binarytree">Binary Trees</button>
     <div class="panel">
+        <a href="binarytree_bt.html">Binary Tree</a>
         <a href="binarytree_breadth_first_traversal.html">Breadth First Traversal</a>
         <a href="binarytree_depth_first_traversal.html">Depth First Traversal</a>
+        <a href="binarytree_bst.html">Binary Search Tree</a>
     </div>
 
     <button class="accordion" id="accordion_c">C</button>
@@ -178,7 +180,8 @@ function print_nav(f)
         <a href="cpp_unordered_set.html">Unordered Set, Multiset</a>
         <a href="cpp_deque.html">Deque</a>
         <a href="cpp_string.html">String</a>
-        <a href="cpp_string_stream.html">String Stream</a>
+        <a href="cpp_string_stream.html">String Streams</a>
+        <a href="cpp_file_stream.html">File Streams</a>
         <a href="cpp_transform.html">Transform</a>
         <a href="cpp_iostreams.html">iostreams</a>
         <a href="cpp_auto_keyword.html">auto keyword</a>
@@ -504,12 +507,16 @@ function print_nav(f)
     <button class="accordion" id="accordion_sorting">Sorting</button>
     <div class="panel">
         <a href="sorting_bubble_sort.html">Bubble Sort</a>
+        <a href="sorting_merge_sort.html">Merge Sort</a>
+        <a href="sorting_quick_sort.html">Quick Sort</a>
     </div>
 
     <button class="accordion" id="accordion_sqlite">SQLite</button>
     <div class="panel">
         <a href="sqlite_intro.html">Introduction</a>
-        <a href="sqlite_sql_datatypes_utils.html">SQL, Datatypes, and Utilities</a>
+        <a href="sqlite_sql.html">SQL</a>
+        <a href="sqlite_datatypes.html">Datatypes</a>
+        <a href="sqlite_utils.html">Utilities</a>
     </div>
 
     <button class="accordion" id="accordion_swift">Swift</button>

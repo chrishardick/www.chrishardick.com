@@ -200,6 +200,20 @@ std::cout &lt;&lt; "line: |" &lt;&lt; line &lt;&lt; "|" &lt;&lt; std::endl;
 int stoi (const std::string&amp; str, size_t* idx = 0, int base = 10);
 </pre>
 
+<h2>Trim Whitespace</h2>
+
+<code>
+std::string rtrim (const std::string&amp; s)
+{
+    // find last non-whitespace character
+    size_t end = s.find_last_not_of (" \t");
+
+    if (end == std::string::npos)       // not found
+        return std::string();
+
+    return s.substr(0,end+1);
+}
+</code>
 
 </div>
 </body> 

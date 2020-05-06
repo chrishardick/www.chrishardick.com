@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_sorting");
+}
+</script>
+
+<title>Merge Sort</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Merge Sort</h1>
+
+<ul>
+<li>Recursive Algorithm
+<li>A Divide and Conquor Algorithm
+<li>Divides the input array into two halves
+<li>Calls itself for each half
+<li>Merges the two halves
+<li>Works on both lists and arrays
+
+</ul>
+
+<h2>Complexity</h2>
+
+<ul>
+<li>O(n log(n)</sup>)
+</ul>
+
+
+<h2>Algorithm</h2>
+<pre>
+// try this example: [ 6 2 5 3 9 ]
+
+//
+// merge two sorted subarrays of v
+// [start_idx] - [mid_idx]
+// [mid_idx+1] - [end_idx]
+//
+// put the results back in v
+//
+void merge (std::vector&lt;int&gt;&amp; v
+            ,int start_idx
+            ,int mid_idx
+            ,int end_idx
+            )
+{
+    int size1 = mid_idx - start_idx + 1;
+    int size2 = end_idx - mid_idx;
+
+    std::cout   &lt;&lt; "merge:"
+                &lt;&lt; " start=" &lt;&lt; start_idx &lt;&lt; " mid=" &lt;&lt; mid_idx &lt;&lt; " end=" &lt;&lt; end_idx
+                &lt;&lt; " size1=" &lt;&lt; size1 &lt;&lt; " size2=" &lt;&lt; size2 &lt;&lt; std::endl;
+
+    // temp vectors
+    std::vector&lt;int&gt; v1(&amp;v[start_idx], &amp;v[mid_idx+1]);      // idx = i
+    std::vector&lt;int&gt; v2(&amp;v[mid_idx+1], &amp;v[end_idx+1]);      // idx = j
+
+    std::cout &lt;&lt; "v1: ";
+    print(std::cout,v1);
+    
+    std::cout &lt;&lt; "v2: ";
+    print(std::cout,v2);
+
+    int i=0, j=0, k=start_idx;
+
+    while (i &lt; size1 &amp;&amp; j &lt; size2)
+    {
+        if (v1[i] &lt; v2[j])
+        {
+            v[k++] = v1[i++];
+        }
+        else
+        {
+            v[k++] = v2[j++];
+        }
+    }
+
+    // copy any remaining
+
+    while (i &lt; size1)
+    {
+        v[k++] = v1[i++];
+    }
+
+    while (j &lt; size2)
+    {
+        v[k++] = v2[j++];
+    }
+}
+
+void merge_sort (std::vector&lt;int&gt;&amp; v
+                ,int start_idx          // e.g. 0
+                ,int end_idx            // e.g. size-1
+                )
+{
+    std::cout &lt;&lt; "merge_sort: start: " &lt;&lt; start_idx &lt;&lt; " end: " &lt;&lt; end_idx &lt;&lt; std::endl;
+
+    if (start_idx &gt;= end_idx)
+    {
+        std::cout &lt;&lt; "merge_sort: no action" &lt;&lt; std::endl;
+        return;
+    }
+
+    int mid = (start_idx + end_idx) / 2;
+
+    merge_sort (v, start_idx, mid);
+
+    merge_sort (v, mid+1, end_idx);
+
+    merge (v, start_idx, mid, end_idx);
+}
+
+void print (std::ostream&amp; os, std::vector&lt;int&gt;&amp; v)
+{
+    for (auto a = v.begin(); a != v.end(); a++)
+    {
+        std::cout &lt;&lt; *a &lt;&lt; " ";
+    }
+
+    std::cout &lt;&lt; std::endl;
+}
+</pre>
+
+</div>
+</body> 
+</html>
+  

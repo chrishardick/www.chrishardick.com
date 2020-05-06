@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_sqlite");
+}
+</script>
+
+<title>SQLite: Utilities</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>SQLite: Utilities</h1>
+
+<h2>Command Line Shell -- sqlite3</h2>
+<ul>
+<li>.tables - show tables
+<li>.schema - show table schemas
+<li>.header on - display column headers
+<li>.mode column - display output as columns
+<li>.help - display all options
+<li>CTRL-D to exit
+<li>To start:
+<pre>
+sqlite3 dbname
+</pre>
+<li>Easy way to get data dictionary
+<pre>
+echo ".tables" | sqlite3 dbname &gt;dbname.tables
+echo ".schema" | sqlite3 dbname &gt;dbname.schema
+</pre>
+</ul>
+
+<h2>Importing Data</h2>
+
+<pre>
+sqlite dbname
+.mode csv               # interpret input file as csv
+.import file table      # insert data into table (table will be created if it does not exist)
+
+.schema                 # to verify
+select * from table;    # to verify
+</pre>
+
+</div>
+</body>
+</html>

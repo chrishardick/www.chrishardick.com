@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_sqlite");
+}
+</script>
+
+<title>SQLite: SQL</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>SQLite: SQL</h1>
+
+<h2>SQL</h2>
+
+<h3>CREATE TABLE</h3>
+<ul>
+<pre>CREATE TABLE tablename (column-name column-type, column-name column-type, ...)</pre>
+<li>Example(s):
+<pre>CREATE TABLE data (src varchar(50),dest varchar(50),proto varchar(10),num_pkts int, num_bytes int, timestamp varchar(25))</pre>
+</ul>
+
+<h3>CREATE INDEX</h3>
+<ul>
+<pre>CREATE [UNIQUE] INDEX index-name ON table-name (indexed-column [ASC|DESC], indexed-column [ASC|DESC], ...)</pre>
+<li>Example(s):
+<pre>CREATE UNIQUE INDEX src_dest_proto_timestamp ON data (src, dest, proto, timestamp)</pre>
+</ul>
+
+<h3>DROP INDEX</h3>
+<ul>
+<pre>DROP INDEX [IF EXISTS] index-name</pre>
+<li>Example(s):
+<pre>DROP INDEX blahblah</pre>
+</ul>
+
+<h3>INSERT</h3>
+<ul>
+<pre>INSERT INTO table-name (column-list) VALUES (value-list)</pre>
+<li>Example(s):
+<pre>INSERT INTO data (src,dest,proto,num_pkts,num_bytes,timestamp) VALUES (...)</pre>
+</ul>
+
+<h3>UPDATE</h3>
+<ul>
+<pre>UPDATE table-name SET col1=expr1,col2=expr2,... [WHERE expr]</pre>
+<li>Example(s):
+<pre>INSERT INTO foo (src,dest,proto,num_pkts,num_bytes,timestamp) VALUES (...)</pre>
+</ul>
+
+<h3>UPSERT</h3>
+<ul>
+<li>Insert if no conflict, otherwise update
+<li>CAUTION - Only supported in very recent SQLite versions (3.24 or later)
+<pre>INSERT INTO table-name (col1, col2, ...) VALUES (...) ON CONFLICT(col_list) DO UPDATE SET col1=col1+1, col2=col2+2, ...</pre>
+<li>Example(s):
+<pre>INSERT INTO foo (blah1, blah2, blah3) VALUES (...) ON CONFLICT(blah1) DO UPDATE SET blah1 = blah1+1, blah2 = blah2+2, blah3 = blah3+3</pre>
+</ul>
+
+<h2>Date & Time Functions</h2>
+<ul>
+<li><code>date(timestring, modifier, modifier, ...)</code> -- returns a date in the format YYYY-MM-DD
+<li><code>time(timestring, modifier, modifier, ...)</code> -- returns a time in the format HH:MM:SS
+<li><code>datetime(timestring, modifier, modifier, ...)</code> -- returns a datetime in the format YYYY-MM-DD HH:MM:SS
+<li><code>julianday(timestring, modifier, modifier, ...)</code> -- returns the Julian day (# days since noon in Greenwich on November 24, 4714 B.C. 
+<li><code>strftime(format string, timestring, modifier, modifier, ...)</code> -- returns the date/time according to the format string
+</ul>
+
+<h3>Format Strings</h3>
+<ul>
+<li>Format strings can be used with <code>strftime()</code>
+<li>a subset of ISO-8601 date and time formats
+
+<li><code>%Y</code> year 0000-9999
+<li><code>%m</code> month 01-12
+<li><code>%d</code> day of month 00
+
+<li><code>%H</code> hour 00-24
+<li><code>%M</code> minute 00-59
+<li><code>%S</code> seconds 00-59
+
+<li><code>%f</code> fractional seconds SS.SSS
+
+<li><code>%j</code> day of year -- 000-366
+
+<li><code>%J</code> Julian day number
+
+<li><code>%s</code> seconds since epoch
+
+<li><code>%w</code> day of week 0-6 0 is Sunday
+
+<li><code>%W</code> week of year 00-53
+</ul>
+
+
+<h3>Time Strings</h3>
+<ul>
+<li>The following time string formats are supported:
+<li><code>YYYY-MM-DD</code>
+<li><code>YYYY-MM-DD HH:MM</code>
+<li><code>YYYY-MM-DD HH:MM:SS</code>
+<li><code>YYYY-MM-DD HH:MM:SS.SSS</code>
+<li><code>YYYY-MM-DDTHH:MM</code>
+<li><code>YYYY-MM-DDTHH:MM:SS</code>
+<li><code>YYYY-MM-DDTHH:MM:SS.SSS</code>
+<li><code>HH:MM</code>
+<li><code>HH:MM:SS</code>
+<li><code>HH:MM:SS.SSS</code>
+<li><code>HH:MM:SS.SSS</code>
+<li><code>now</code> -- UTC
+</ul>
+
+<h3>Modifiers</h3>
+<ul>
+<li>Modifiers alter the date, time, or datetime. I.e. you can add or subtract days, minutes, etc.
+<li>Results will be normalized -- i.e. if the calculation results in an invalid date, the result will be normalized into a valid date
+<li><code>NNN days</code> - add/subtract days
+<li><code>NNN hours</code> - add/subtract hours
+<li><code>NNN minutes</code> - add/subtract minutes
+<li><code>NNN.NNNN seconds</code> - add/subtract seconds
+<li><code>NNN months</code> - add/subtract months
+<li><code>NNN years</code> - add/subtract years
+<li><code>start of month</code> - reduce date to 1st of month
+<li><code>start of year</code> - reduce date to 1st of year
+<li><code>start of day</code> - reduce time to midnight
+<li><code>weekday N</code> - advance date forward until the next given day (0=Sunday, 1=Monday, ...)
+<li><code>unixepoch</code> - interpret the datetime as sec since UNIX epoch
+<li><code>localtime</code> -- assumes the datetime is in UTC and adjusts it to localtime
+<li><code>utc</code> -- assumes the datetime is in localtime and adjusts to UTC
+</ul>
+
+<h3>Examples</h3>
+<ul>
+<li><code>SELECT date('now')</code>
+<li><code>SELECT date('now', 'start of month', '+1 month' '-1 day')</code>
+<li><code>SELECT datetime(1092941466,'unixepoch')</code> 
+<li><code>SELECT strftime('%s','now')</code>
+<li><code>SELECT strftime('%s','now') - strftime('%s','20170210 18:12:00')</code>
+</ul>
+
+<h2>Aggregate Functions</h2>
+
+<ul>
+<li>Aggregate functions operate on a set of rows and return a single result. 
+<li>Aggregate functions are usually used with a GROUP BY or HAVING clause in a SELECT statement
+</ul>
+
+<pre>
+AVG()
+COUNT()
+MAX()
+MIN()
+SUM()
+</pre>
+
+<h3>Examples</h3>
+
+<pre>
+# #recs in table
+select count(*) from data;
+
+# sum up
+select sum(size) from data;
+
+# bucket by second
+select strftime ('%Y-%m-%d %H:%M:%S, timestamp) as tstamp, count(*) as cnt, sum(size) as aggr_size from data group by timestamp
+
+# bucket by minute
+select strftime ('%Y-%m-%d %H:%M:00, timestamp) as tstamp, count(*) as cnt, sum(size) as aggr_size from data group by timestamp
+</pre>
+
+<h2>Transactions</h2>
+<ul>
+<li>A atomic unit of work in a database.
+<pre>
+BEGIN
+COMMIT          # atomically commit changes to the database
+ROLLBACK        # undo transactions since last commit or rollback
+</pre>
+<li>Transactions can be <strong>deferred</strong> (the default), <strong>immediate</strong>, or <strong>exclusive</strong>. 
+<li><strong>Deferred</strong> - no locks are acquired until the database is first accessed. 
+    <code><strong>BEGIN</strong></code> does nothing to the file system. Locks are not acquired until the first read or write operation.
+    The first read operation against the database creates a <strong>shared</strong> lock and the first write operation creates a <strong>reserved</strong> lock. 
+<li><strong>Immediate</strong> - <strong>reserved</strong> locks are acquired on all databases as soon as the <code><strong>BEGIN</strong></code> command is executed.
+    After <code>BEGIN</code>, no other database connection will be able to write to the database or execute a <code>BEGIN IMMEDIDATE</code> or a <code>BEGIN EXCLUSIVE</code>.
+    Other processes will be able to read from the database.
+<li><strong>Exclusive</strong> - <strong>exclusive</strong> locks are acquired on the database as soon as the <code><strong>BEGIN</strong></code> command is executed.
+    After <code>BEGIN</code>, no other processes except for <code><strong>read uncommitted</strong></code> connections will be able to read the database
+    and no other connection will be able to write until the transaction is complete
+</ul>
+
+<h2>Locking</h2>
+<ul>
+<li><strong>UNLOCKED</strong> - no locks are held. The database may not be read or written
+<li><strong>SHARED</strong> - a process which obtained a shared lock may read the database, but cannot write to the database. 
+<li><strong>RESERVED</strong> - a process with a reserved lock is planning on writing to the database at some point in the future but is currently just reading. 
+    Only one RESERVED lock may be active at one time. However, multiple SHARED locks can coexist with a single RESERVED lock
+<li><strong>PENDING</strong> - the process holding the lock wants to write to the database as soon as possible and is just waiting on all current SHARED locks 
+    to clear such that it can get an EXCLUSIVE lock. No new SHARED locks are permitted against the database if a PENDING lock is active. Existing SHARED locks
+    are unaffected.
+<li><strong>EXCLUSIVE</strong> - an EXCLUSIVE lock is needed in order to write to the database. Only one EXCLUSIVE lock is allowed on the file and no other
+    locks of any kind are allowed to coexist with an EXCLUSIVE lock. In order to maximize concurrency, you should try to minimize the amount of time EXCLUSIVE
+    locks are held. 
+
+</ul>
+
+</div>
+</body>
+</html>

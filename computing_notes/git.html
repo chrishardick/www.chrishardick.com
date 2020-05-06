@@ -120,6 +120,7 @@ git clone https://github.com/google/googletest
 
 <ul>
 <li>display a list of all branches
+<li><code>git status -u</code> will show individual files in untracked directories
 </ul>
 
 <h2>Diffs</h2>
@@ -129,7 +130,7 @@ git clone https://github.com/google/googletest
 <pre>git diff --name-only tag_or_branch1 [tag_or_branch2]</pre>
 
 <li>Diff against master -- see handy script listed below
-<pre>git difftool --extcmd="diff -w" --no-prompt master &lt;file&gt; &gt;file.diff 2&gt;&1</pre>
+<pre>git difftool --extcmd="diff -w" --no-prompt master &lt;file&gt; &gt;file.diff 2&gt;&amp;1</pre>
 
 </ul>
 

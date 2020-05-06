@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_binarytree");
+}
+</script>
+
+<title>Binary Search Tree - BST</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Binary Tree - BST</h1>
+
+<ul>
+<li>A Binary Search Tree (BST) is a binary tree with following additional constraints:
+<li>For each node, the left subtree of a node must contain only nodes with keys less than the node's key and
+    the right subtree of a node must contain only nodes with keys greater than the node's key.
+<li>In addition, there must be no duplicates
+</ul>
+
+<h2>Find</h2>
+
+<pre>
+Node* find (Node* node, int key)
+{
+    if (node == 0 || node-&gt;key == key)
+    {   
+        return node;
+    }
+
+    if (key &gt; node-&gt;key)
+        return find (node-&gt;right, key);
+    else
+        // key &lt; node-&gt;key
+        return find (node-&gt;left, key);
+}
+</pre>
+
+<h2>Insert</h2>
+
+<pre>
+Node* insert (Node* node, int key)
+{
+    if (node == 0)
+    {
+        return (new Node(key));     // note: empty tree not handled
+    }
+
+    if (key &lt; key-&gt;key)
+        node-&gt;left = insert (node-&gt;left, key)
+    else if (key &gt; node-&gt;key)
+        node-&gt;right = insert (node-&gt;right, key)
+
+    return ndoe;
+}
+</pre>
+
+<h2>Deletion</h2>
+
+<pre>
+// given a node, find the child node with smallest value
+Node* min_child_node (Node* node)
+{
+    Node* curr = node;
+
+    while (curr &amp;&amp; curr-&gt;left)
+        curr = curr-&gt;left;
+
+    return curr;
+}
+
+Node* del (Node* node, int key)
+{
+    if (node == 0) return 0;
+
+    if (key &lt; node-&gt;key)
+        node-&gt;left = del (node-&gt;left, key);
+
+    else if (key &gt; node-&gt;key)
+        node-&gt;right = del (node-&gt;right, key);
+
+    else    // key == node-&gt;key
+    {
+        if (node-&gt;left == 0)
+        {
+            Node* temp = node-&gt;right;
+            delete node;
+            return temp;
+        }
+        else if (node-&gt;right == 0)
+        {
+            Node* temp = node-&gt;left;
+            delete node;
+            return temp;
+        }
+        else    // node with two children
+        {
+            Node* temp = min_child_node (node-&gt;right);
+
+            // next value
+            node-&gt;key = temp-&gt;key;
+
+            node-&gt;right = del (node-&gt;right, temp-&gt;key);
+        }
+    }
+
+    return node;
+}
+
+</pre>
+
+
+</div>
+</body> 
+</html>
