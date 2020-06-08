@@ -101,9 +101,17 @@ struct Pair
 
 Pair p1 { 10, 2 }; 
 
-auto m1 = std::bind (&amp;Pair::multiply, _1)   // where _1 is the object instance
+auto m1 = std::bind (&amp;Pair::multiply, _1);   // where _1 is the object instance
 
 std::cout &lt;&lt; m1(p1) &lt;&lt; std::endl;  // 20
+
+
+//
+// callback example
+// - bind to a member function of an object
+//
+
+auto cb = std::bind (&amp;Class::onCallback, this, _1);
 </pre>
 
 

@@ -49,7 +49,7 @@ C O N T E N T
     Declaring a member function as constant, ensures that it does not modify any of the object's data members. 
     Well, almost all of the objects data members -- constant functions can still modify data members declared as <strong>mutable</strong>
 <li>A typical example of a data member you'd declare as mutable is a mutex. 
-<LI>See also <a href=cpp_polymorphism.html#virtual_member_functions>Virtual Member Functions</a>
+<li>See also <a href=cpp_polymorphism.html#virtual_member_functions>Virtual Member Functions</a>
 <pre>
 //
 // Box class
@@ -83,7 +83,7 @@ class Box
 
         double volume () const 
         {
-            return length * width * d_height; 
+            return d_length * d_width * d_height; 
         }
 
         void print_self (std::ostream&amp; os) const;
@@ -98,7 +98,7 @@ void Box::print_self (std::ostream&amp; os) const
 }
 
 
-std::ostream& operator&lt;&lt; (std::ostream&amp; os, const Box& box)
+std::ostream&amp; operator&lt;&lt; (std::ostream&amp; os, const Box&amp; box)
 {
     box.print_self(os);
 

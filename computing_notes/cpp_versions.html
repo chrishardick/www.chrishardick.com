@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ - Versions</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ Versions</h1>
+
+<ul>
+<li>C++98 - 1st edition
+<li>C++03 - 2nd edition
+<li>C++11 - 3rd edition
+<li>C++14 - 4th edition
+<li>C++17 - 5th edition
+</ul>
+
+<h2>C+11</h2>
+
+<h3><a href="cpp_lamda.html">Lambdas</a></h3>
+
+<h3><code>auto</code></h3>
+<pre>
+// auto allows you to declare objects without specifying their type
+// - so long as their type can be deduced from the context
+
+auto c = 'c';   // char
+
+std::vector&lt;std::string&gt; v;
+
+...
+
+for (auto a = v.begin(); a != v.end(); a++)
+    ...
+</pre>
+
+<h3><a href="cpp_curly_bracket_initialization.html">Curly Bracket Initialization</a></h3>
+
+<h3>Move Semantics</h3>
+
+<h3>New Containers</h3>
+
+<a href="cpp_unordered_set.html"><code>unordered_set</code>, <code>unordered_multiset</code></a>
+<a href="cpp_unordered_map.html"><code>unordered_map</code>, <code>unordered_multimap</code></a>
+
+<h3><code>shared_ptr</code> and <code>unique_ptr</code></h3>
+
+<h3>Threading Library</h3>
+
+<ul>
+<li>promises
+<li>futures
+<li><code>async()</code>
+<li>thread local storage</li>
+</ul>
+
+
+</div>
+</body> 
+</html>

@@ -40,9 +40,19 @@ C O N T E N T
 <div id="content" class="content">
 <h1>CMake</h1>
 
+<p>In an nutshell...</p>
 <ul>
 <li>A Makefile generator
-<li>Useful when the build process becomes too complicated - i.e. programs need to built across several platforms, etc.
+<li>Useful when the build process becomes complicated - i.e. programs need to built across several platforms, etc.
+</ul>
+
+<p>From the CMake website...</p>
+<ul>
+<li>An extensible, open-source system that manages the build process in an operating system and compiler independent manner.
+<li>CMake is designed to be used in conjunction with the native build environment (e.g. make)
+<li>Simple configuration files placed in each source directory (<code>CMakeLists.txt</code>) are used to generate standard build files (e.g. makefiles in Unix)
+<li>Use CMake to compile source code, create libraries, build executables, etc.
+<li>CMake supports in-place and out-of-place builds. Out-of-place builds allow you to use a single source tree to generate multiple builds (e.g. 32 and 64 bit, etc.)
 </ul>
 
 <h2>Basic Procedure</h2>
@@ -58,7 +68,7 @@ C O N T E N T
 <h2>Hello, World!</h2>
 
 <ul>
-<li>Create file <code>CMakeLists.txt</code> in your project directory with the following contents:
+<li>Create <code>CMakeLists.txt</code> in your project directory with the following contents:
 <pre>
 cmake_minimum_required(VERSION 3.0.0)
 set (CMAKE_CXX_STANDARD 11)
@@ -75,7 +85,7 @@ add_executable (hello_world main.cpp)
 
 <ul>
 
-<li>Create file <code>CMakeLists.txt</code> in your project directory with the following contents:
+<li>Create <code>CMakeLists.txt</code> in your project directory with the following contents:
 <pre>
 cmake_minimum_required(VERSION 3.0.0)
 set (CMAKE_CXX_STANDARD 11)
@@ -91,7 +101,7 @@ file (GLOB SOURCES "src/*.cpp" "../node/*.cpp")
 add_executable (exec_name ${SOURCES})
 </pre>
 
-<li>Execute <code>cmake .</code> - must be re-run after each change
+<li>Execute <code>cmake .</code> - must be re-run anytime you need to re-generate your makefiles
 <li>Execute <code>make</code>
 <li>Execute <code>./exec_name</code>
 </ul>
@@ -101,7 +111,7 @@ add_executable (exec_name ${SOURCES})
 
 <ul>
 
-<li>Create file <code>CMakeLists.txt</code> in your project directory with the following contents:
+<li>Create <code>CMakeLists.txt</code> in your project directory with the following contents:
 <pre>
 cmake_minimum_required(VERSION 3.0.0)
 set (CMAKE_CXX_STANDARD 11)
@@ -115,7 +125,7 @@ file (GLOB SOURCES "src/*.cpp")
 add_library (lib_name ${SOURCES})
 </pre>
 
-<li>Execute <code>cmake .</code> - must be re-run after each change
+<li>Execute <code>cmake .</code> - must be re-run anytime you need to re-generate your makefiles
 <li>Execute <code>make</code>
 <li>Execute <code>./exec_name</code>
 </ul>
@@ -124,7 +134,7 @@ add_library (lib_name ${SOURCES})
 
 <ul>
 
-<li>Create file <code>CMakeLists.txt</code> in your project directory with the following contents:
+<li>Create <code>CMakeLists.txt</code> in your project directory with the following contents:
 <pre>
 cmake_minimum_required(VERSION 3.0.0)
 project (executable_name)
@@ -143,11 +153,76 @@ target_link_libraries (executable_name ${PROJECT_LINK_LIBS})
 <li>Execute <code>./exec_name</code>
 </ul>
 
-<h2>Installing CMake</h2>
+<h2>Frequently Used CMake Commands</h2>
 
+<h3><code>project (project-name))</code></h3>
+<ul>
+<li>Sets the name of the project.
+</ul>
+
+<h3><code>add_executable (name source1 source2 ...)</code></h3>
+<ul>
+<li>Used when you're building an executable.
+<li>Adds an <strong>executable target</strong> (name) to be built from the source files listed
+<li>The actual name of the generated executable will be according to the conventions of the native platform
+    (e.g. <code>name.exe</code>)
+</ul>
+
+<h3><code>add_library (name [ STATIC | SHARED | MODULE ] source1 source2 ...)</code></h3>
+<ul>
+<li>Used when you're building a library.
+<li>Adds a <strong>library target</strong> (name) to be built from the source files listed
+<li>If the type of library (<code>STATIC</code>, <code>SHARED</code>, <code>MODULE</code>) is not specified, 
+    the default type is either <code>STATIC</code> or <code>SHARED</code> depending if the value of the 
+    BUILD_SHARED_LIBS variable is <code>ON</code>
+</ul>
+
+<h3><code>target_link_libraries (target-name [ PUBLIC | PRIVATE | INTERFACE ] lib1 lib2 ...)</code></h3>
+<ul>
+<li>Used to specify libraries or flags when linking a given target (executable)
+<li>If your source files and header fies include the headers of the specified library, then it's a <code>PUBLIC</code> dependency
+    (when in doubt, use <code>PUBLIC</code>)
+<li>If your source files include the headers of the specified library (but your header files do not), then it's a <code>PRIVATE</code> dependency
+<li>If your header files include the headers of the specified library (but your source files do not), then it's an <code>INTERFACE</code> dependency
+</ul>
+
+<h3><code>find_package (name [version] [REQUIRED])</code></h3>
+<ul>
+<li>Find and load settings from an external project
+<li>The <code>REQUIRED</code> option stops processing with an error message if the package cannot be found
+</ul>
+
+<h3><code>add_subdirectory (source_dir)</code></h3>
+<ul>
+<li>Add a subdirectory to the build
+<li><code>source_dir</code> specifies a directory with a <code>CMakeLists.txt</code> file along with code files
+</ul>
+
+<h3><code>include_directories ([AFTER | BEFORE] [SYSTEM] dir1 dir2 ...)</code></h3>
+<ul>
+<li>Add the given directories to the list of the directories the compiler uses to search for include files for each target in the current CMakeLists file.
+<li>By default, the specified directories are appended to the current list of directories. This can be overridden by specifying <code>BEFORE</code>.
+    It can also be overridden via a variable
+</ul>
+
+<h3><code>link_directories (dir1 dir2 ...)</code></h3>
+<ul>
+<li>Specify the directories in which the linker should search for libraries
+<li>The command will apply only to targets created after it was called
+</ul>
+
+
+<h2>Installing CMake</h2>
 <pre>
 apt-get install cmake
 </pre>
+
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://cmake.org">cmake.org</a> 
+</ul>
+
 
 </div>
 </body> 

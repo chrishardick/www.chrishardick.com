@@ -40,6 +40,13 @@ C O N T E N T
 <div id="content" class="content">
 <h1>SQLite: Data Types</h1>
 
+<ul>
+<li>SQLite is essentially type-less
+<li>The value stored in a column determines its data type, irregardless of the column's declared data type
+<li>In SQLite, you do not have to declare a data type for a column in your <code>CREATE TABLE</code> statement
+<li>SQLite provides 5 primitive data types (storage classes)
+</ul>
+
 <h2>Storage Classes</h2>
 
 Regardless of the type, Sqlite stores your values using one of the following storage classes: 
@@ -47,16 +54,35 @@ Regardless of the type, Sqlite stores your values using one of the following sto
 <li><strong>NULL</strong> - NULL value
 <li><strong>INTEGER</strong> - signed integer
 <li><strong>REAL</strong> - 8 bytes IEEE floating point
-<li><strong>TEXT</strong> - text string using the database encoding (UTF-8, UTF-16BE or UTF-16LE)
-<li><strong>BLOB</strong> - stored exactly as it was input
+<li><strong>TEXT</strong> - text string using the database encoding (UTF-8, UTF-16BE or UTF-16LE). 
+    Maximum length is UNLIMITED.
+<li><strong>BLOB</strong> - stored exactly as it was input. Maximum length is UNLIMITED.
 </ul>
 
-<h2>Data Types</h2>
+<h2>Storage Class Rules</h2>
 
-<ul
-<li>Data types are more specific than storage classes
-<li>Datetimes are stored as either integers or reals. They're stored as integers so long as there is not a loss of precision. Otherwise, they're stored as reals
+<p>If a value has:</p>
+<ul>
+<li>Enclosing quotes, the value is stored using TEXT storage class
+<li>No enclosing quotes, decimal point or exponent, the value is stored using INTEGER storage class
+<li>No enclosing quotes. Has decimal or exponent, the value is stored using REAL storage class 
+<li>NULL without quotes, the value is stored using NULL storage class
+<li>Of the form X'ABCD' or x'abcd', the value is stored using BLOB storage class
 </ul>
+
+<ul>
+<li>SQLite provides the <code>typeof()</code> function to verify the storage class of a value
+</ul>
+
+<pre>
+SELECT typeof ("100")                   # text
+    , typeof (100)                      # integer
+    , typeof (100.)                     # real
+    , typeof (NULL)                     # null  
+    , typeof (x'1234')                  # blob - must be complete number of bytes (i.e. can't be odd number of hexadecimal digits)
+    , typeof ('2020-01-01 12:00:00');   # text
+</pre>
+
 
 </div>
 </body>

@@ -99,16 +99,18 @@ bool operator> (const double& LHS, const CBox& RHS)
 <h2>Overloading the Assignment Operator (=)</h2>
 
 <ul>
-<li>If you do not provide an overloaded assignment operator for your class, the compiler will provide a default;
+<li>If you do not provide an overloaded assignment operator for your class, the compiler will provide a default
+<li>The <strong>default assignment operator</strong> will assign all of the object's members from the corresponding members of the 2nd object
+    calling the assignment operators of the object's members which are classes. For any non-class members (e.g. int, double, pointer), assignment is performed.
 	it will utilize memberwise initialization (similar to a copy constructor)
 <li>Don't get confused between the default copy constructor and the default assigment operator
 <li>The default copy constructor is called when the declaration of a new object is initialized with an existing object of the same class
 <pre>CObj cObj1 = cObj2; // default constructor called</pre>
-<li>The assigment operator is called when the LHS and RHS of an assigment operator are objects of the same class
+<li>The assigment operator is called when the LHS and RHS of an assigment operator are existing objects of the same class
 <pre>cObj1 = cObj2; // assigment operator called</pre>
 <li>Like any other Operator Overload Function which is a Member Function, the LHS is implicitly defined by the this pointer
 <li>The assigment operator accepts a const reference and returns a reference
-<li>Special care must be taken if the class utilizes dynamic memory allocation
+<li>Special care must be taken if the class utilizes dynamic memory allocation - <strong>rule of three</strong>
 
 <pre>
 // an example

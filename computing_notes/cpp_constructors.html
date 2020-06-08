@@ -38,17 +38,15 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<H1>C++ Constructors</H1>	
+<h1>C++ Constructors</h1>	
 
-
-<UL>
-
-<LI>A Special <a href="cpp_member_functions.html">Member Function</A> automatically called when an object of a class is declared.
-<LI>Provides an opportunity to initialize an object at creation time. Thereby ensuring valid objects (i.e. data members contain only valid data)
-<LI>Constructors ALWAYS have the same name as the class and have NO return type. It is a syntax error to give a constructor a return type (even void)</LI>
-<LI>Constructors may be <a href="cpp_function_overloading.html">overloaded</A></LI>
-<LI>Constructors (like other functions) may have <a href="cpp_default_parameters.html">Default Parameters</A></LI>
-<PRE>class Box 
+<ul>
+<li>A Special <a href="cpp_member_functions.html">Member Function</A> automatically called when an object of a class is declared.
+<li>Provides an opportunity to initialize an object at creation time. Thereby ensuring valid objects (i.e. data members contain only valid data)
+<li>Constructors ALWAYS have the same name as the class and have NO return type. It is a syntax error to give a constructor a return type (even void)</LI>
+<li>Constructors may be <a href="cpp_function_overloading.html">overloaded</A></LI>
+<li>Constructors (like other functions) may have <a href="cpp_default_parameters.html">Default Parameters</A></LI>
+<pre>class Box 
 {
 	public:
 		// Constructor(s)
@@ -57,87 +55,69 @@ C O N T E N T
 	private:
 		double m_dLength, double m_dWidth, double m_dHeight;
 
-};</PRE>
-</UL>
+};</pre>
+</ul>
 
-<BR><BR>
-<H2>I. Default Constuctor</H2>
 
-<UL>
-<LI>A Constructor which <i>is able to accept</i> 0 (NO) Arguments.
-<LI>If you do NOT supply any constructors, the C++ Compiler will provide you with a default constructor which does NOTHING
+<h2>Default Constuctor</h2>
+<ul>
+<li>A Constructor which <em>is able to accept</em> 0 (NO) Arguments.
+<li>If you do NOT supply any constructors, the C++ Compiler will provide you with a default constructor which does NOTHING
 <pre>
-Object::Object() {}  // default constructor provided by C++ compiler 
+Object::Object() {}  // default constructor equivalent to the one provided by the compiler 
 </pre>
 </UL>
 
+<h2>Copy Constuctors</h2>
 
-<BR><BR>
-<H2>II. Copy Constuctors</H2>
-
-<UL>
-<LI>A Copy constructor is a constructor which accepts a constant reference to an object of the same type, 
+<ul>
+<li>A <strong>copy constructor</strong> is a constructor which accepts a constant reference to an object of the same type, 
 	for the purpose of initializing the new object (the job of all constructors) with the inputted object
-<LI>If you do NOT provide a Copy Constructor for your class, the C++ Compiler will provide you with a Default Copy Constructor which 
-	utilizes memberwise initialization for all data members of your class:
-<PRE>
-Object::Object (const Object&amp; ObjectToCopy) 
+<li>If you do not provide a copy constructor for your class, the compiler will provide you with a <strong>default copy constructor</strong> which 
+	calls the copy constructors of the object's members which are classes. For any non-class members (e.g. int, double, pointer), assignment is performed.
+<pre>
+Object::Object (const Object&amp; rhs) 
 { 
-     // Memberwise Initialization 
+     // copy constructors for class types
+     // assignment operators for non-class types
 } 
-</PRE>
-<LI>The reason for passing the object to be copied by reference (as opposed to by value) is to avoid an infinite loop.  For example:
-<PRE>
+</pre>
+<li>Passing a <code>const</code> reference avoids an infinite loop.
+<pre>
 Object x = y;
-</PRE>
-<LI>Assuming y is a Object instance, the copy constructor will be called (y will have to be passed in--if it's passed in by value, the copy constructor needs to be called...)
-</UL>
+</pre>
+<li>Assuming y is a Object instance, the copy constructor will be called (y will have to be passed in--if it's passed in by value, the copy constructor needs to be called...)
+</ul>
 
 
-<H3>Overriding the Default Copy Constructor</H3>
-<UL>
-<LI>Sometimes, you need to override the default copy constructor.  
-<LI>Any time your class involves dynamic memory allocation, you need to implement your own copy constructor.
-<LI>Take a look at the following example:
-<PRE>
+<h3>Overriding the Default Copy Constructor</h3>
+<ul>
+<li>Sometimes, you need to override the default copy constructor.  
+<li>Any time your class involves dynamic memory allocation, you need to implement your own copy constructor.
+<li>Keep in mind, the <strong>rule of three</strong>. The rule of three states that any time you need to define any of the following:
+    copy constructor, assignment operator, or destructor, you probably need to define all three.
+<li>Take a look at the following example:
+<pre>
 class Object 
 {
 	char* m_szMsg;
 
+    // CONSTRUCTORS
 	Object (char* szMsg) { m_szMsg = new char[strlen(szMsg) + 1]; strcpy (m_szMsg, szMsg); }
-}
+	Object (const Object&amp; rhs) { m_szMsg = new char[strlen(rhs.m_szMsg) + 1]; strcpy (m_szMsg, rhs.m_szMsg); }
 
-...
+    // assignment operator omitted (breaking the rule of three)
 
-Object x = y;	// ERROR
-</PRE>
-<LI>Assuming y is a Object instance, the copy constructor will be called & the data members will be copied over using memberwise initialization.
-<LI>The issue is that both objects will now point to the same string!!! 
-<LI>Change it in 1 & you'll change it in the other. 
-<LI>Delete one of the objects & the other object will be pointing to unallocated memory.
-<LI>SOLUTION
-<PRE>
-class Object 
-{
-	char* m_szMsg;
-
-	// Constructor
-	Object (char* szMsg)                  { m_szMsg = new char[strlen(szMsg) + 1]; strcpy (m_szMsg, szMsg); }
-
-	// Copy Constructor
-	Object (const cObject& ObjectToCopy) { m_szMsg = new char[strlen(ObjectToCopy.m_szMsg) + 1]; strcpy (m_szMsg, ObjectToCopy.m_szMsg); }
+    ~Object () { delete m_szMsg; }
 };
 
-...
+Object x = y;   // if we did not provide a copy constructor, the c string inside x and y would be pointing to the same memory
+</pre>
 
-Object x = y; // NOW WE'RE OKAY
-</PRE>
-<LI>Keep in mind that any time you pass an object by value, the copy constructor is called!
-</UL>
+<li>Keep in mind that any time you pass an object by value, the copy constructor is called
+</ul>
 
-
-<BR><BR>
-<H2>III. Declaring An Arrays of Objects And Calling A Non-Default Constructor</H2>
+<h2>III. Declaring An Arrays of Objects And Calling A Non-Default Constructor</h2>
 <UL>
 <LI>You declare an array of objects exactly the same as you declare an array of scalers
 <LI>Each element of the array causes the default constructor to be called
