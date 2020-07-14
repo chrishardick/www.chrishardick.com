@@ -199,6 +199,7 @@ function print_nav(f)
     <button class="accordion" id="accordion_cmake">CMake</button>
     <div class="panel">
         <a href="cmake.html">Cheat Sheet</a>
+        <a href="cmake_ctest.html">CTest</a>
     </div>
 
     <button class="accordion" id="accordion_crypto">Cryptography</button>
@@ -570,8 +571,12 @@ function print_nav(f)
         <a href="xcode_uistackview.html">UIStackView</a>
         <a href="xcode_uiview.html">UIView</a>
         <a href="xcode_outlets_actions_delegates.html">Outlets, Actions and Delegates</a>
-    </div>`
+    </div>
 
+    <button class="accordion" id="accordion_yaml">YAML</button>
+    <div class="panel">
+        <a href="yaml_cheatsheet.html">Cheat Sheet</a>
+    </div>`
 
     document.getElementById('nav').innerHTML = nav_html;
 

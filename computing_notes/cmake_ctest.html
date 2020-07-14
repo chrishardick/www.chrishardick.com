@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cmake");
+}
+</script>
+
+<title>CMake: CTest</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>CMake: CTest</h1>
+
+<ul>
+<li><strong><code>CTest</code></strong> is a testing tool distributed as part of CMake
+</ul>
+
+<h2>Basic Procedure</h2>
+
+<ul>
+<li>Add <code>enable_testing</code> command to your CMakeLists.txt
+<li>You can then use the <code>add_test</code> command to add tests to the project
+<li>Execute <code>make test</code> to execute all tests. 
+Internally, this runs <code>ctest</code>. Therefore, you could also execute <code>ctest</code> from the binary directory
+</ul>
+
+<pre>
+# adds a build target 'test' which will execute all tests
+enable_testing()
+
+add_test(testname executable arg1 arg2 ...)
+</pre>
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://cmake.org">cmake.org</a> 
+</ul>
+
+
+</div>
+</body> 
+</html>

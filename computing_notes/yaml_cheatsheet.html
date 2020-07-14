@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_yaml");
+}
+</script>
+
+<title>YAML</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>YAML</h1>
+
+<ul>
+<li>A language for data serialization similar to JSON
+<li>Commonly used for configuration files and and data transmission
+<li>YAML 1.2 is a superset of JSON
+<li>YAML supports both
+    <ul>
+    <li>Python Style Indentation to indicate nesting
+    <li>JSON format (uses <code>[...]</code> for lists, <code>{...}</code> for maps, etc.
+    </ul>
+<li>File extensions: <code>.yaml</code> or <code>.yml</code>
+<li>Support for reading and writing YAML is available for many programming languages
+<li>See also <a href="json_intro.html">JSON</a>
+</ul>
+
+
+<h2>Python Style Indentation</h2>
+
+<pre>
+# map example
+john:
+    name: John Smith
+    addr1: 1313 Mockingbird Lane
+    addr2: 
+    city: Hollywood
+    state: CA
+    zip: 90038
+</pre>
+
+<pre>
+# list examples
+# - members of a list are lines which begin at the same indentation level and start with <code>"- "</code> (dash followed by a space)
+
+# simple list
+- NY
+- NJ
+- CT
+
+- john:
+    name: John Smith
+    addr1: 1313 Mockingbird Lane
+    addr2: 
+    city: Hollywood
+    state: CA
+    zip: 90038
+- jane:
+    name: Jane Jones
+    addr1: 1919 Outerspace Court
+    addr2: 
+    city: Hollywood
+    state: CA
+    zip: 90038
+</pre>
+
+
+<h2>JSON Style Indentation</h2>
+
+<pre>
+# map example
+john: { 
+        name: John Smith
+        ,addr1: 1313 Mockingbird Lane
+        ,addr2: 
+        ,city: Hollywood
+        ,state: CA
+        ,zip: 90038
+      }
+</pre>
+
+<pre>
+# list examples
+
+# simple list
+["NY","NJ","CT"]
+
+# list of maps
+[
+    john:
+    {
+        name: John Smith
+        ,addr1: 1313 Mockingbird Lane
+        ,addr2: 
+        ,city: Hollywood
+        ,state: CA
+        ,zip: 90038
+    }
+    ,jane:
+    {
+        name: Jane Jones
+        ,addr1: 1919 Outerspace Court
+        ,addr2: 
+        ,city: Hollywood
+        ,state: CA
+        ,zip: 90038
+    }
+]
+</pre>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://yaml.org">yaml.org</a> 
+<li><a href="https://wikipedia.org">Wikipedia</a> 
+</ul>
+
+
+</div>
+</body> 
+</html>
