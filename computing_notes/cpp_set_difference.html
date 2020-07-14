@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ - std::set_difference</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ - std::set_difference</h1>
+
+<pre>
+#include &lt;algorithm&gt;
+
+
+//
+// perform set difference
+// - i.e. items in first set, but not in second set
+// - [first1,last1) - [first2,last2) 
+// - note: inputs must be sorted
+//
+template &lt;typename InputIterator1, typename InputIterator2, class OutputIterator&gt;
+OutputIterator&lt; set_difference (InputIterator1 first1, InputIterator last1, 
+                                    InputIterator2 first2, InputIterator last2,
+                                    OutputIterator result);
+
+// e.g.
+
+std::vector&lt;int&gt; v1 { 20, 15,  5, 10, 25, 30 };
+std::vector&lt;int&gt; v2 { 30, 20, 10 };
+
+std::vector&lt;int&gt; v3;
+
+std::sort (v1.begin(), v1.end());
+std::sort (v2.begin(), v2.end());
+
+std::set_difference (v1.begin(), v1.end()
+                    ,v2.begin(), v2.end()
+                    ,std::back_inserter(v3));
+
+// 5 15 25
+for (auto i = v3.begin(); i != v3.end(); i++)
+{
+    std::cout &lt;&lt; *i &lt;&lt; " ";
+}
+
+std::cout &lt;&lt; std::endl;
+</pre>
+
+</div>
+</body> 
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: Permutations and Combinations</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: Permutations and Combinations</h1>
+
+<ul>
+<li>See also <a href="set_permutations_combinations.html">Sets: Permutations and Combinations</a>
+</ul>
+
+
+<pre>
+import itertools
+
+lst = ['a', 'b', 'c']
+
+print ("%s\n", lst);
+
+# permutations - order matters
+
+# ('a', 'b')
+# ('a', 'c')
+# ('b', 'a')
+# ('b', 'c')
+# ('c', 'a')
+# ('c', 'b')
+
+perm = itertools.permutations (lst, 2)
+
+for p in perm:
+    print p
+
+
+# combinations - order does not matter
+
+# ('a', 'b')
+# ('a', 'c')
+# ('b', 'c')
+
+comb = itertools.combinations (lst, 2)
+
+for c in comb:
+    print c
+
+comb = 
+</pre>
+
+
+</div>
+</body>
+</html>
+

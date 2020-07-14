@@ -41,12 +41,12 @@ C O N T E N T
 <h1>C++ Vector</h1>
 
 <ul>
+<li>The sequence container of choice when the majority of insertions and erasures occur at the end of the sequence
 <li>A dynamically sizing array
 <li>Memory allocation is handled automatically
 <li>Provides random access iterators
 <li>Amortized constant time insert and erase operations at the end
 <li>Insert and erase at any other position (beginning or middle) takes linear time
-<li>The sequence container of choice when the majority of insertions and erasures occur @ the end of the sequence
 <li>Inserts can cause reallocation
 	<ul>
 	<li>All elements of a vector are stored in a contiguous block of memory
@@ -177,13 +177,13 @@ reference back();
 const_reference back() const;
 </pre>
 
-<li><code>size()</code>
+<li><strong><code>size()</code></strong>
 	<ul>
 	<li>returns # of elements
 	</ul>
 <pre>size_type size() const;</pre>
 
-<li><code>empty()</code>
+<li><strong><code>empty()</code></strong>
 	<ul>
 	<li>returns true if the vector contains no elements (size == 0 or begin() == end()), false otherwise
 	</ul>
@@ -191,30 +191,53 @@ const_reference back() const;
 bool empty() const;
 </pre>
 
-<li><code>capacity()</code>
+<li><strong><code>capacity()</code></strong>
 	<ul>
 	<li>returns largest # of elements the vector can store without reallocation
 	</ul>
 <pre>size_type capacity() const;</pre>
 
-<li><code>reserve()</code>
+<li><strong><code>reserve()</code></strong>
 	<ul>
-	<li>ensures that after the call, the capacity() of the vector is &gt;= n
+	<li>Ensures that after the call, the capacity() of the vector is &gt;= n
+    <li>Only allocates memory (which remains uninitialized). 
+    <li>Does not increase the size of the vector. 
+    <li>See also <code>resize()</code>
 	</ul>
 <pre>
 void reserve(n);
 </pre>
 
-
-<li><code>push_back()</code>
+<li><strong><code>resize(size_type count)</code></strong>
 	<ul>
-	<li>Add 1 element to end of the vector
+	<li>resize the container to contain <code>count</code> elements
+    <li>If the current size is less than count, additional elements are appended with the approriate constructor called
+    <li>If the current size is greater than count, the container is reduced in size
+	</ul>
+<pre>
+void resize(size_type count);
+void resize(size_type count, const value_type&amp; value);
+</pre>
+
+
+<li><strong><code>push_back()</code></strong>
+	<ul>
+	<li>Add element to end of the vector, increasing the container size by 1.
 	</ul>
 <pre>
 void push_back(const T&amp; x);
 </pre>
 
-<li><code>insert()</code>
+<li><strong><code>emplace_back()</code></strong>
+	<ul>
+	<li>Construct and insert element to end of the vector, increasing the container size by 1
+	<li><code>args</code> - the arguments to forward to the element constructor
+	</ul>
+<pre>
+void emplace_back(args);
+</pre>
+
+<li><strong><code>insert()</code></strong>
 	<ul>
 	<li>insert single element or range of elements ([first, last)) into the vector at position.
 	<li>returns iterator to position where the element was added
@@ -224,7 +247,17 @@ iterator insert(iterator position, const T&amp; x);
 iterator insert(iterator position, InputIterator first, InputIterator last);
 </pre>
 
-<li><code>pop_back()</code>
+<li><strong><code>emplace()</code></strong>
+	<ul>
+	<li>constuct (in-place) and insert an element into the vector at position.
+	<li><code>args</code> - the arguments to forward to the element constructor
+	<li>returns iterator to position where the element was added
+	</ul>
+<pre>
+iterator emplace(iterator position, args);
+</pre>
+
+<li><strong><code>pop_back()</code></strong>
 	<ul>
 	<li>erase last element from the vector
     <li>destructor will be called for removed element
@@ -234,7 +267,7 @@ iterator insert(iterator position, InputIterator first, InputIterator last);
 void pop_back();
 </pre>
 
-<li><code>erase()</code>
+<li><strong><code>erase()</code></strong>
 	<ul>
 	<li>erase single element or range of elements ([first, last)) from the vector
 	<li>returns iterator to 1 position past the last element erased 
@@ -245,7 +278,7 @@ iterator erase(iterator position);
 iterator erase(iterator first, iterator last);
 </pre>
 
-<li><code>clear()</code>
+<li><strong><code>clear()</code></strong>
 	<ul>
 	<li>erase all elements in the vector
     <li>destructor will be called for each removed element
@@ -256,6 +289,24 @@ void clear();
 </pre>
 
 </ul>
+
+
+<h2>C++ Matrix</h2>
+
+<pre>
+std::vector &lt;std::vector&lt;int&gt;&gt; m (size);
+
+for (int i=0;i&lt;size;i++)
+{
+    m[i].resize(size);
+}
+
+// now we can access as normal
+m[0][0] = ...;
+m[0][size-1] = ...;
+m[size-1][size-1] = ...;
+</pre>
+
 
 </div>
 </body> 

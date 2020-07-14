@@ -188,8 +188,12 @@ function print_nav(f)
         <a href="cpp_include_guards.html">Include Guards</a>
         <a href="cpp_lambda.html">Lambdas</a>
         <a href="cpp_std_bind_std_function.html">std::bind and std::function</a>
+        <a href="cpp_sort.html">std::sort</a>
         <a href="cpp_curly_bracket_initialization.html">Curly Bracket Initialization</a>
         <a href="cpp_stream_buffers_and_streams.html">Stream Buffers and Streams</a>
+        <a href="cpp_inserter_back_inserter.html">std::inserter and std::back_inserter</a>
+        <a href="cpp_set_difference.html">std::set_difference</a>
+        <a href="cpp_versions.html">C++ Versions</a>
     </div>
 
     <button class="accordion" id="accordion_cmake">CMake</button>
@@ -476,11 +480,13 @@ function print_nav(f)
         <a href="python_base64.html">Base64</a>
         <a href="python_requests.html">requests - HTTP library</a>
         <a href="python_cookie.html">Cookie - HTTP Cookie library</a>
+        <a href="python_permutations_combinations.html">Permutations and Combinations</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>
     <div class="panel">
         <a href="set_cheatsheet.html">Cheat Sheet</a>
+        <a href="set_permutations_and_combinations.html">Permutations and Combinations</a>
     </div>
 
     <button class="accordion" id="accordion_sockets_api">Sockets API (C/UNIX)</button>

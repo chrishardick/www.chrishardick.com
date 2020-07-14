@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ - std::inserter and std::back_inserter</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ - std::inserter and std::back_inserter</h1>
+
+<pre>
+#include &lt;iterator&gt;
+
+//
+// constructs an input iterator which inserts new elements into Container x
+//
+template &lt;typename Container&gt;
+insert_iterator&lt;Container&gt; inserter (Containter&amp; x, Container::iterator it);
+
+//
+// constructs a back-insert-iterator which inserts new elements at the end of x
+//
+template &lt;typename Container&gt;
+back_insert_iterator&lt;Container&gt; back_inserter (Container&amp; x);
+</pre>
+
+</div>
+</body> 
+</html>

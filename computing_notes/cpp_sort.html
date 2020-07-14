@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ std::sort</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ std::sort</h1>
+
+<pre>
+#include &lt;algorithm&gt;
+
+// default
+void sort (RandomAccessIterator first, RandomAccessIterator last);
+
+// custom
+// - Compare is a binary function which accepts elements of the container
+//   and returns a boolean which indicates whether the lhs argument is less than the rhs argument
+void sort (RandomAccessIterator first, RandomAccessIterator last, Compare comp);
+</pre>
+
+
+<h2>Examples</h2>
+
+<h3>Default Sort</h3>
+
+<pre>
+// Utility
+template &lt;typename T&gt;
+std::ostream&amp; operator&lt;&lt; (std::ostream&amp; os, const std::vector&lt;T&gt;&amp; v)
+{
+    for (auto a = v.begin(); a != v.end(); a++)
+    {   
+        os &lt;&lt; *a &lt;&lt; " ";
+    }   
+
+    return os; 
+}
+
+std::vector&lt;int&gt; v { 0, 50, 40, 0, 90, 10, -20, 0 };
+
+std::cout &lt;&lt; v &lt;&lt; std::endl;
+
+std::sort (a.begin(), a.end());
+
+std::cout &lt;&lt; v &lt;&lt; std::endl;
+
+
+// put zeros at end
+bool my_cmp (int a, int b)
+{
+    if (b == 0)
+    {
+        if (a == 0)
+        {
+            return false; // not less than
+        }
+
+        return true;
+    }
+
+    return a &lt; b;
+}
+
+std::sort (a.begin(), a.end(), my_cmp);
+
+std::cout &lt;&lt; v &lt;&lt; std::endl;
+</pre>
+
+</div>
+</body> 
+</html>

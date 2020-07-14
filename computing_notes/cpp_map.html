@@ -41,12 +41,19 @@ C O N T E N T
 <h1>C++ Map</h1>
 
 <ul>
-<li>Key Value Pairs
+<li>Associative containers which hold key value pairs
 </ul>
 
 
-<h2>I. Files</h2>
-<pre>#include &ltmap&gt</pre>
+<pre>#include &lt;map&gt;
+
+template &lt; class Key
+            ,class T
+            ,class Compare = less&lt;Key&gt;
+            &gt; class map;
+
+typedef pair&lt;const Key, T&gt; value_type;
+</pre>
 
 
 <h2>II. Constructors</h2>

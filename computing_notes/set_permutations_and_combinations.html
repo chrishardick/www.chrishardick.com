@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_set");
+}
+</script>
+
+<title>Set: Permutations and Combinations</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Set: Permutations and Combinations</h1>
+
+<ul>
+<li><strong>Permutations</strong> - A selection of items from a collection (or set) in which <strong>order matters</strong>.
+<li><strong>Combinations</strong> - A selection of items from a collection (or set) in which <strong>order does not matter</strong>.
+<li>See also <a href="python_permutations_and_combinations.html">Python: Permutations and Combinations</a>
+</ul>
+
+<h2>Formulas and Examples</h2>
+
+<ul>
+
+<li>Number of permutations (order matters) of <em>n</em> taken <em>r</em> at a time
+<pre>
+P(n,r) = n! / (n-r)!
+</pre>
+
+<li>Number of combinartions (order does not matter) of <em>n</em> taken <em>r</em> at a time
+<pre>
+C(n,r) = n! / (n-r)!r!
+</pre>
+
+<li>3 items, 2 at a time (E.g. a, b, c)
+<pre>
+P(3,2) = 3&#8901;2 / 1 = 6
+1) a b
+2) b a
+3) a c
+4) c a 
+5) b c
+6) c b
+
+C(3,2) = 3&#8901;2 / 2 = 3
+1) a b
+2) a c
+3) b c
+</pre>
+
+</div>
+</body> 
+</html>
+  
