@@ -180,16 +180,30 @@ std::istream&amp; getline ( std::istream&amp; is     // in/out
 //
 // an example
 //
+#include &lt;sstream&gt;
+
 std::string line;
 
-getline (std::cin, line);
 
-std::cout &lt;&lt; "line: |" &lt;&lt; line &lt;&lt; "|" &lt;&lt; std::endl;
+// traverse lines
 
+while (std::getline(std::cin, line))
+{
+    std::istringstream iss (line);
+    std::string fld;
+
+    while (std::getline (iss, fld, '|'))
+    {
+        std::cout &lt;&lt; "|" &lt;&lt; fld &lt;&lt; "|" &lt;&lt; std::endl;
+    }
+
+    std::cout &lt;&lt; std::endl;
+}
 </pre>
 
 <h2><code>stoi()</code></h2>
 <ul>
+<li>C++11
 <li>Convert string to integer
 <li>if conversion cannot be performed, an exception is thrown
 </ul>
@@ -198,11 +212,26 @@ std::cout &lt;&lt; "line: |" &lt;&lt; line &lt;&lt; "|" &lt;&lt; std::endl;
 #include &lt;string&gt;
 
 int stoi (const std::string&amp; str, size_t* idx = 0, int base = 10);
+
+
+//
+// an example
+//
+
+try
+{
+    int i = std::stoi (str);
+}
+catch (...)
+{
+    ...
+}
 </pre>
+
 
 <h2>Trim Whitespace</h2>
 
-<code>
+<pre>
 std::string rtrim (const std::string&amp; s)
 {
     // find last non-whitespace character
@@ -213,7 +242,7 @@ std::string rtrim (const std::string&amp; s)
 
     return s.substr(0,end+1);
 }
-</code>
+</pre>
 
 </div>
 </body> 

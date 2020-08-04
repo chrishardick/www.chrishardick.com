@@ -307,6 +307,53 @@ m[0][size-1] = ...;
 m[size-1][size-1] = ...;
 </pre>
 
+<h2>Binary Search</h2>
+
+<pre>
+//
+// binary search of sorted vector
+//
+bool binary_search (const std::vector&lt;int&gt; v, int k)
+{
+    int first = 0;
+    int last = v.size()-1;
+    int middle = (first+last) / 2;
+
+    while (first &lt;= last)
+    {
+        if (k &lt; v[middle])   // reduce to 1st half
+        {
+            last = middle-1;
+        }
+        else if (k &gt; v[middle]) // reduce to 2nd half
+        {
+            first = middle+1;
+        }
+        else
+        {
+            return true;
+        }
+
+        middle = (first+last) / 2;
+    }
+
+    return false;
+}
+
+#include &lt;vector&gt;
+#include &lt;algorithm&gt; // sort, binary_search
+
+std::vector&lt;int&gt; v { 1, 10, 2, 9, 3, 8, 4, 7, 5, 6 };
+
+std::sort (v.begin(), v.end());
+
+std::cout &lt;&lt; binary_search(v, 10) &lt;&lt; std::endl;     // true
+std::cout &lt;&lt; binary_search(v, 12) &lt;&lt; std::endl;     // false
+
+// we could also use library method
+std::cout &lt;&lt; std::binary_search(v.begin(), v.end(), 10) &lt;&lt; std::endl;     // true
+std::cout &lt;&lt; std::binary_search(v.begin(), v.end(), 12) &lt;&lt; std::endl;     // false
+</pre>
 
 </div>
 </body> 

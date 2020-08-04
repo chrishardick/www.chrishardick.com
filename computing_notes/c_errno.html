@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_c");
+}
+</script>
+
+<title>C: errno</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C: errno</h1>	
+
+<ul>
+<li><code>errno.h</code> is a header file of the standard C library
+<li>As a standard rule, traditional UNIX C functions return 0 on success and -1 on error.
+<li>If you received a return code of -1, you could check <code>errno</code> for more information on what the actual problem was.
+<li>If you're in a multi-threaded environment, <code>errno</code> is usually stored in thread specific storage
+</ul>
+
+<h2>See Also</h2>
+<ul>
+<li><a href="pthreads_misc.html">Pthreads - Misc</a> - for discussion on pthreads and errors
+</ul>
+
+
+<h2><code>strerror</code></h2>
+
+<ul>
+<li><code>strerror()</code> and related functions are used to convert an errno integer into a meaningful string
+</ul>
+
+<pre>
+//
+// string.h
+//
+
+char* strerror(int errnum);     // not guaranteed to be thread-safe
+
+int strerror_r (int errnum, char* buf, size_t buflen);  // thread-safe
+</pre>
+
+
+<pre>
+//
+// An example
+//
+
+#include &lt;errno.h&gt;
+#include &lt;string.h&gt;   // strerror, strerror_r()
+
+//
+//
+//
+
+int rc = foo();
+
+if (rc == -1)
+{
+    printf ("Error calling foo. %s", strerror(errno));
+}
+</pre>
+
+</div>
+</body> 
+</html>
+  

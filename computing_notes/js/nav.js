@@ -134,6 +134,7 @@ function print_nav(f)
     <button class="accordion" id="accordion_c">C</button>
     <div class="panel">
         <a href="c_bit_operations.html">Bit Operations</a>
+        <a href="c_errno.html">errno</a>
         <a href="c_function_pointers.html">Function Pointers</a>
         <a href="c_function_reference.html">Function Reference</a>
         <a href="c_posix_datatypes.html">POSIX Datatypes</a>
