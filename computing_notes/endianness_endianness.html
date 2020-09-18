@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_endianness");
+}
+</script>
+
+<title>Endianness</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Endianness</h1>
+
+<ul>
+<li><strong>Endianness</strong> is the ordering of bytes within multi-byte data types
+<li>In <strong>big-endian</strong>, the most significant byte is stored at the smallest memory address
+    and the least significant byte is stored at the largest memory address.
+<li>In <strong>little-endian</strong>, the least significant byte is stored at the smallest memory address
+    and the most significant byte is stored at the largest memory address.
+<li>Typically larger machines have been <strong>big-endian</strong>, while intel based machines are 
+    <strong>little-endian</strong>
+<li><strong>Network order</strong> is <strong>big-endian</strong>
+<li><strong>Endianness</strong> affects all multi-byte data types. I.e. long, long long, int, short, double, float
+<li><strong>Endianness</strong> typically does not affect strings of ASCII characters. As strings are usually
+    arrays of single byte characters.
+</ul>
+
+<h2>See Also</h2>
+<ul>
+<li><a href="sockets_byte_order.html">Sockets - Byte Order</a>
+</ul>
+
+</div>
+</body>
+</html>

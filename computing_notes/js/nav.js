@@ -250,6 +250,11 @@ function print_nav(f)
         <a href="dns.html">Cheat Sheet</a>
     </div>
 
+    <button class="accordion" id="accordion_endianness">Endianness</button>
+    <div class="panel">
+        <a href="endianness_endianness.html">Endianness</a>
+    </div>
+
     <button class="accordion" id="accordion_git">Git</button>
     <div class="panel">
         <a href="git.html">Cheat Sheet</a>

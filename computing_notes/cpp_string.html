@@ -154,9 +154,11 @@ for (std::string::iterator it = str.begin(); it != str.end(); it++)
 }
 </pre>
 
-<h2><code>getline()</code></h2>
+<h2><code>std::getline()</code></h2>
 
 <pre>
+//
+// getline()
 //
 // extract characters from the given input stream
 // and append them to the given string object
@@ -171,7 +173,7 @@ for (std::string::iterator it = str.begin(); it != str.end(); it++)
 // ======
 // the same istream reference as is 
 //
-std::istream&amp; getline ( std::istream&amp; is     // in/out
+std::istream&amp; std::getline ( std::istream&amp; is     // in/out
                         ,std::string&amp; str    // out
                         ,char delim = '\n'   // in
                         );
@@ -201,7 +203,23 @@ while (std::getline(std::cin, line))
 }
 </pre>
 
-<h2><code>stoi()</code></h2>
+<h2><code>std::to_string()</code></h2>
+<ul>
+<li>C++11
+<li>Convert value to string equivalent
+</ul>
+
+<pre>
+std::string to_string (int value);
+std::string to_string (long value);
+std::string to_string (long long value);
+std::string to_string (float value);
+std::string to_string (double value);
+...
+</pre>
+
+
+<h2><code>std::stoi()</code></h2>
 <ul>
 <li>C++11
 <li>Convert string to integer
@@ -211,7 +229,7 @@ while (std::getline(std::cin, line))
 <pre>
 #include &lt;string&gt;
 
-int stoi (const std::string&amp; str, size_t* idx = 0, int base = 10);
+int std::stoi (const std::string&amp; str, size_t* idx = 0, int base = 10);
 
 
 //

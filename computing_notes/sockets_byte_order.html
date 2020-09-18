@@ -42,14 +42,13 @@ C O N T E N T
 <h1>Sockets - Byte Order</h1>
 
 <UL>
-<LI>There are two types of byte ordering: <strong>big endian</strong> & <strong>little endian</strong>
+<LI>There are two types of byte ordering: <strong>big endian</strong> and <strong>little endian</strong>
 </UL>
 
-<BR><BR>
 <h2>Byte Ordering</h2>
 <UL>
 <LI>Integer types (char, short, int, long) can be represented in memory as either <i>big endian</i> or <i>little endian</i>
-<LI>Assuming memory addresses increase from left to right, big endian is how you'd write the actual bytes--
+<LI>Assuming memory addresses increase from left to right, big endian is how you'd write the actual bytes --
 	with low order bytes in higher memory location
 <LI>Little endian is just the opposite, low order bytes would be stored in lower memory locations
 <LI>Which end of a multi-byte value (big or little) is stored in the lower memory address
@@ -59,7 +58,7 @@ unsigned short = 1;
 
 
                 M E M O R Y   A D D R E S S
-                ----------------------------&gt
+                ----------------------------&gt;
                 0x00                  0x01
                 +------------------+------------------+
 big endian      | high order byte  | low order byte   |
@@ -75,7 +74,6 @@ little endian   | low order byte   | high order byte  |
 </PRE>
 </UL>
 
-<BR><BR>
 <h2>Host Byte Order vs. Network Byte Order</h2>
 <ul>
 <li><strong>host byte order</strong> - the byte order used by a given system.
@@ -85,28 +83,28 @@ little endian   | low order byte   | high order byte  |
 <li>When writing to <a href="socket_address_structs.html">socket address structures</a>, port #'s (16 bits) and IP addresses (32 bits), 
 	MUST be converted to network byte order
 <PRE>
-#include &ltnetinet/in.h&gt
+#include &lt;netinet/in.h&gt;
 
 /*
- * HOST =&gt NETWORK
+ * HOST =&gt; NETWORK
  */
 
 /* unsigned 16 bit */
-<a href="../posix_datatypes.html">uint16_t</a> htons (<a href="../posix_datatypes.html">uint16_t</a> 16bithostvalue);
+<a href="c_posix_datatypes.html">uint16_t</a> htons (<a href="c_posix_datatypes.html">uint16_t</a> 16bithostvalue);
 
 /* unsigned 32 bit */
-<a href="../posix_datatypes.html">uint32_t</a> htonl (<a href="../posix_datatypes.html">uint32_t</a> 32bithostvalue);
+<a href="c_posix_datatypes.html">uint32_t</a> htonl (<a href="c_posix_datatypes.html">uint32_t</a> 32bithostvalue);
 
 
 /*
- * NETWORK =&gt HOST
+ * NETWORK =&gt; HOST
  */
 
 /* unsigned 16 bit */
-<a href="../posix_datatypes.html">uint16_t</a> ntohs (<a href="../posix_datatypes.html">uint16_t</a> 16bitnetworkvalue);
+<a href="c_posix_datatypes.html">uint16_t</a> ntohs (<a href="c_posix_datatypes.html">uint16_t</a> 16bitnetworkvalue);
 
 /* unsigned 32 bit */
-<a href="../posix_datatypes.html">uint32_t</a> ntohl (<a href="../posix_datatypes.html">uint32_t</a> 32bitnetworkvalue);
+<a href="c_posix_datatypes.html">uint32_t</a> ntohl (<a href="c_posix_datatypes.html">uint32_t</a> 32bitnetworkvalue);
 
 
 </PRE>
