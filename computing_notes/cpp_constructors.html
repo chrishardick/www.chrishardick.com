@@ -117,6 +117,27 @@ Object x = y;   // if we did not provide a copy constructor, the c string inside
 <li>Keep in mind that any time you pass an object by value, the copy constructor is called
 </ul>
 
+<h3>Preventing Object Copy</h3>
+<ul>
+<li>Sometimes, you want to prevent an object from being copied. 
+<li>To prevent an object from being copied, you declare the copy constructor and assignment operator to be private
+<li>You do not even need to implement them
+</ul>
+
+<pre>
+class Foo
+{
+    private:
+
+        Foo (const Foo&amp; foo);   // private copy constructor
+
+        Foo&amp; operator= (const Foo&amp; foo); // private assignment operator
+
+    ...
+};
+</pre>
+
+
 <h2>III. Declaring An Arrays of Objects And Calling A Non-Default Constructor</h2>
 <UL>
 <LI>You declare an array of objects exactly the same as you declare an array of scalers

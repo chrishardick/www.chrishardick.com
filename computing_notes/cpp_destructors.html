@@ -42,17 +42,27 @@ C O N T E N T
 
 <UL>
 <LI>Basically, a function to destroy an instance of an object.</LI>
-<LI>The NAME of a Destructor is ALWAYS the name of the Class prefixed with a tilde (~). It CANNOT Accept Parameters (therefore can't be overridden) & 
-Always Has a void return type</LI>
-<LI>Every class has its own destructor. If you do not provide one, the C++ Compiler will provide a DEFAULT DESTRUCTOR</LI>
+<LI>The name of a Destructor is ALWAYS the name of the class prefixed with a tilde (~). It CANNOT accept parameters (therefore it can't be overridden)
+and does not specify a return type
+<LI>Every class has its own destructor. If you do not provide one, the C++ Compiler will provide a <strong>default destructor</strong> for you.
 <LI>DATA MEMBERS which are of AUTOMATIC STORAGE CLASS are taken care of automatically; 
-while dynamically allocated data members MUST be explicitly handled using the DELETE Operator.</LI>
+while dynamically allocated data members MUST be explicitly handled using the DELETE Operator.
 <LI>You usually do not have to explicitly call the destructor. For OBJECTS of AUTOMATIC STORAGE CLASS, 
     the destructor is called automatically when the object goes out of scope;
     while for dynamically allocated objects, the destructor is automatically called when the object's memory is deallocated using the DELETE Operator.
 <li>See also <a href=cpp_inheritance.html>Inheritance</a> for discussion on destructors and inheritance
-<LI>See also <a href=cpp_polymorphism.html#virtual_member_functions>Virtual Functions</a> for discussion on why all destructors shhould be virtual
+<LI>See also <a href=cpp_polymorphism.html#virtual_member_functions>Virtual Functions</a> for discussion on why destructors should be virtual
 </UL>
+
+<pre>
+class Foo
+{
+    public:
+        Foo () { }  // default constructor
+        ~Foo () { } // destructor
+};
+</pre>
+
 
 </div>
 </BODY> 

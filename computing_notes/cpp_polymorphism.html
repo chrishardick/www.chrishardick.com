@@ -49,7 +49,7 @@ C O N T E N T
 
 <H2 id=virtual_member_functions>I. Virtual Functions</H2>
 <UL>
-<LI>New C++ Keyword: <i>virtual</i>
+<LI>C++ Keyword: <code>virtual</code>
 <LI>More precisely virtual <i>member</i> functions, because they're only useful within classes
 <LI>Even more precisely -- they're only useful within classes which utilize <i>inheritance</i>
 <LI>When utilizing inheritance in C++, methods may be overridden (not to be confused with overloaded)
@@ -67,11 +67,11 @@ C O N T E N T
 	<LI>When calling a virtual function via either a pointer or a reference to an object, the type of the class in which the
 		pointer points to determines which function will be called. 
 	</UL>
-<li>use of the keyword <i>virtual</i> is not necessary in derived class definitions (by definition, if you override a virtual function, 
-	the function within the derived is also virtual). However, it's recommended that you also specify <i>virtual</i> in the derived class
+<li>use of the keyword <code>virtual</code> is not necessary in derived class definitions (by definition, if you override a virtual function, 
+	the function within the derived class is also virtual). However, it's recommended that you also specify <code>virtual</code> in the derived class
 	as it can avoid confusion and help you catch potential bugs
 <LI>This is best explained by example:
-<PRE>
+<pre>
 class CRectangle
 {
         public:
@@ -80,9 +80,9 @@ class CRectangle
 
 void CRectangle::Draw()
 {
-        std::cout &lt&lt "+=============+" &lt&lt std::endl;
-        std::cout &lt&lt "|  RECTANGLE  |" &lt&lt std::endl;
-        std::cout &lt&lt "+=============+" &lt&lt std::endl;
+        std::cout &lt;&lt; "+=============+" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "|  RECTANGLE  |" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "+=============+" &lt;&lt; std::endl;
 }
 
 class CSquare : public CRectangle
@@ -93,11 +93,11 @@ class CSquare : public CRectangle
 
 void CSquare::Draw()
 {
-        std::cout &lt&lt "+==========+" &lt&lt std::endl;
-        std::cout &lt&lt "|          |" &lt&lt std::endl;
-        std::cout &lt&lt "|  SQUARE  |" &lt&lt std::endl;
-        std::cout &lt&lt "|          |" &lt&lt std::endl;
-        std::cout &lt&lt "+==========+" &lt&lt std::endl;
+        std::cout &lt;&lt; "+==========+" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "|          |" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "|  SQUARE  |" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "|          |" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "+==========+" &lt;&lt; std::endl;
 }
 
 int main (int argc, char* argv[])
@@ -107,13 +107,13 @@ int main (int argc, char* argv[])
 
         CRectangle* cRectPtr[2];
 
-        cRectPtr[0] = &cRect ;
-        cRectPtr[1] = &cSq ;
+        cRectPtr[0] = &amp;cRect ;
+        cRectPtr[1] = &amp;cSq ;
 
-        for (int i=0; i &lt 2; i++)
+        for (int i=0; i &lt;lt 2; i++)
         {
-                cRectPtr[i]-&gtDraw();
-                std::cout &lt&lt std::endl;
+                cRectPtr[i]-&gt;Draw();
+                std::cout &lt;&lt; std::endl;
         }
 
         return 0;
@@ -131,11 +131,13 @@ OUTPUT
 |  SQUARE  |
 |          |
 +==========+
-</PRE>
-<LI><a href=Constructors.html>Constructors</a> cannot be virtual. It wouldn't make sense - constructors are used to instantiate new objects
-<LI><a href=Destructors.html>Destructors</a> should always be virtual. When an object referred to by a pointer or reference is destroyed, the
-	class of the object pointed to (rather than the type of pointer), determines which destructor will be called
-</UL>
+</pre>
+<li><a href="cpp_constructors.html">Constructors</a> cannot be virtual. It wouldn't make sense - constructors are used to instantiate new objects
+<li>When an object referred to by a pointer or reference is destroyed, the class of the object pointed to (rather than the type of pointer), 
+determines which destructor will be called. However, it you're using inheritance, you're still required to explicitly declare the destructor as virtual.
+<li>In other words, if a class is using inheritance, the <a href="cpp_destructors.html">Destructor</a> MUST be virtual. Even if it does nothing.
+Deleting a derived class object using a pointer to a base class which has a non-virtual destructor is not defined. 
+</ul>
 
 <H2>II. Abstract Base Classes</H2>
 <UL>
