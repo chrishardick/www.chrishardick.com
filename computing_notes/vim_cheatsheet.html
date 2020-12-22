@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>VIM</title>
+<title>Vim</title>
 
 </head>
 
@@ -38,7 +38,7 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>VIM</h1>
+<h1>Vim</h1>
 
 <h2>Sample .vimrc</h2>
 <pre>
@@ -67,6 +67,20 @@ command! PrettyPrintJSON %!phython -m json.tool
 
 "stop the beeping
 set belloff=all
+
+
+if has ("autocmd")
+
+    " vim installation has autocmd
+
+    " BufNewFile - editing a new (non-existent) file
+
+    " .cpp
+    autocmd BufNewFile *.cpp 0r ~/.vim/templates/template.cpp
+
+    " CMakeLists.txt
+    autocmd BufNewFile CMakeLists.txt 0r ~/.vim/templates/CMakeLists.txt
+endif
 </pre>
 
 

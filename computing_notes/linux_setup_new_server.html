@@ -49,17 +49,20 @@ C O N T E N T
 <h2>Vim</h2>
 <ul>
 <li>Install <code>~/.vimrc</code>. Here is an <a href="vim_cheatsheet.html">example</a>
+<li>Install templates to ~/.vim/templates. Here are some <a href="vim_templates.html">Sample Templates</a>
 </ul>
 
-<h2>BASH</h2>
+<h2 ID="BASH">BASH</h2>
+
+<h3>Command Line - Vi Editing Mode</h3>
 <ul>
-<li><code>~/.bashrc</code> - executed for interactive non-login shells
+<li>Create/append the following to <code>~/.bashrc</code> - executed for interactive non-login shells
 
 <pre>
 set -o vi
 </pre>
 
-<li><code>~/.bash_profile</code> - executed for login shells
+<li>Create/append the following to <code>~/.bash_profile</code> - executed for login shells
 
 <pre>
 if [ -f $HOME/.bashrc ]; then
