@@ -384,6 +384,7 @@ function print_nav(f)
         <a href="mac.html">Cheat Sheet</a>
         <a href="mac_hosts_file.html">Hosts File</a>
         <a href="mac_root_user.html">Root User</a>
+        <a href="mac_setup_new_workstation.html">Set Up New Work Station</a>
     </div>
 
     <button class="accordion" id="accordion_make">Make</button>
@@ -554,6 +555,7 @@ function print_nav(f)
     <button class="accordion" id="accordion_vim">Vim</button>
     <div class="panel">
         <a href="vim_cheatsheet.html">Cheat Sheet</a>
+        <a href="vim_templates.html">Templates</a>
     </div>
 
     <button class="accordion" id="accordion_xcode">Xcode</button>

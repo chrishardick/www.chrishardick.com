@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_vim");
+}
+</script>
+
+<title>Vim - Templates</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Vim - Templates</h1>
+
+<h2>C++</h2>
+<pre>
+#include <iostream>
+#include <string>
+
+int main (int argc, const char* argv[])
+{
+    return 0;
+}
+</pre>
+
+<h2>CMakeLists.txt</h2>
+<pre>
+cmake_minimum_required(VERSION 3.0.0)
+set (CMAKE_CXX_STANDARD 11)
+project (XXX)
+add_executable (XXX main.cpp)
+</pre>
+
+
+</div>
+</body> 
+</html>
+  
