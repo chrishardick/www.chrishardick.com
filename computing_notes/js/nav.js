@@ -126,8 +126,8 @@ function print_nav(f)
     <button class="accordion" id="accordion_binarytree">Binary Trees</button>
     <div class="panel">
         <a href="binarytree_bt.html">Binary Tree</a>
-        <a href="binarytree_breadth_first_traversal.html">Breadth First Traversal</a>
-        <a href="binarytree_depth_first_traversal.html">Depth First Traversal</a>
+        <a href="binarytree_breadth_first.html">Breadth First</a>
+        <a href="binarytree_depth_first.html">Depth First</a>
         <a href="binarytree_bst.html">Binary Search Tree</a>
     </div>
 

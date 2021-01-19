@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_binarytree");
+}
+</script>
+
+<title>Binary Tree - Breadth First</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Binary Trees - Breadth First Traversal and Search</h1>
+
+<h2>Applications</h2>
+<ul>
+<li>Breadth First Traversal / Search is usually used to determine the shortest path between two nodes.
+<li>Examples include (albeit not binary trees, but the concept is the same): 
+    Social Networks (difference in depth between 2 individuals),
+    GPS Navigation Systems, etc. 
+</ul>
+
+<h2>Breadth First Traversal (BFT)</h2>
+<ul>
+<li>BFT starts at the root and visits all nodes at the same depth before moving on to the nodes at the next depth level
+</ul>
+
+<h2>Algorithm</h2>
+<pre>
+//
+// breath first traversal is usually implemented iteratively with a queue
+//
+void bft (Node* head)
+{
+    std::list&lt;Node*&gt; q;
+
+    if (!head)
+        return;
+
+    q.push_back(head);
+
+    while (!q.empty())
+    {
+        Node* n = q.front();
+
+        q.pop_front();
+
+        // e.g. visit
+        std::cout &lt;&lt; n-&gt;value &lt;&lt; " ";
+    
+        if (n-&gt;left)
+            q.push_back(n-&gt;left);
+        
+        if (n-&gt;right)
+            q.push_back(n-&gt;right);
+    }
+}
+</pre>
+
+<h2>Breadth First Search (BFS)</h2>
+<ul>
+<li>BFS starts at the root and visits all nodes at the same depth before moving on to the nodes at the next depth level until the 
+    target value is found
+</ul>
+
+<h2>Algorithm</h2>
+<pre>
+//
+// bfs is usually implemented iteratively with a queue of queues
+//
+std::list&lt;Node*&gt; bfs (Node* head, int value)
+{
+    std::list&lt;std::list&lt;Node*&gt;&gt; path_q;
+
+    if (!head)
+        return std::list&lt;Node*&gt;
+
+    std::list&lt;Node*&gt; p;
+    p.push_back(head);
+
+    path_q.push_back(p);
+
+    while (!path_q.empty())
+    {
+        std::list&lt;Node*&gt; path = q.front();
+
+        q.pop_front();
+
+        Node* nn = path.back();
+
+        if (nn-&gt;value == value)
+        {
+            // found target. return path
+            return path;
+        }
+
+        if (nn-&gt;left)
+        {
+            std::list&lt;Node&gt; p_left = path;
+
+            p_left.push_back(nn&gt;left);
+
+            path_q.push_back(p_left);
+        }
+
+        if (nn-&gt;right)
+        {
+            std::list&lt;Node&gt; p_right = p;
+
+            p_right.push_back(nn&gt;right);
+
+            path_q.push_back(p_right);
+        }
+    }
+
+    // if here, path not found
+
+    return std::list&lt;Node*&gt;
+}
+</pre>
+</div>
+</body> 
+</html>

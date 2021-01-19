@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>Binary Tree - Depth First Traversal</title>
+<title>Binary Trees - Depth First Traversal and Search</title>
 
 </head>
 
@@ -38,7 +38,9 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>Binary Tree - Depth First Traversal</h1>
+<h1>Binary Trees - Depth First Traversal and Search</h1>
+
+<h2>Binary Tree - Depth First Traversal (DFT)</h2>
 
 <ul>
 <li>Depth First Traversal starts at the root (or an arbitrary node for a graph) and explores as far as possible before back-tracking. 
@@ -46,21 +48,21 @@ C O N T E N T
     <strong>post-order traversal</strong>
 </ul>
 
-<h2>Applications</h2>
+<h3>Applications</h3>
 <ul>
 <li>In-order traversal of a BST (binary search tree) results in a sorted traversal.
 <li>When searching for a particular node, use pre-order traversal as it will visit the nodes prior to traversing its children. 
 <li>If you want to process the children of a node prior to the parents, use post order traversal.
 </ul>
 
-<h2>Pre-Order Traversal</h2>
+<h3>Pre-Order Traversal</h3>
 
 <ul>
 <li>Visit, preorder(left), preorder(right)
 <li>The algorithm to use for DFS (Depth First Search)
 </ul>
 
-<h2>Algorithm</h2>
+<h3>Algorithm</h3>
 <pre>
 //
 // depth first pre-order
@@ -78,13 +80,13 @@ void preorder (Node* head)
 }
 </pre>
 
-<h2>In-Order Traversal</h2>
+<h3>In-Order Traversal</h3>
 
 <ul>
 <li>Inorder(left), visit, inorder(right)
 </ul>
 
-<h2>Algorithm</h2>
+<h3>Algorithm</h3>
 <pre>
 //
 // depth first in-order
@@ -103,13 +105,13 @@ void inorder (Node* head)
 }
 </pre>
 
-<h2>Post-Order Traversal</h2>
+<h3>Post-Order Traversal</h3>
 
 <ul>
 <li>Postorder(left), postorder(right), visit
 </ul>
 
-<h2>Algorithm</h2>
+<h3>Algorithm</h3>
 <pre>
 //
 // depth first post-order
@@ -124,6 +126,33 @@ void postorder (Node* head)
 
     // e.g. visit
     std::cout &lt;&lt; head &lt;&lt; " ";
+}
+</pre>
+
+<h2>Binary Tree - Depth First Search (DFS)</h2>
+
+<h3>Algorithm</h3>
+<pre>
+void dfs (Node* n, int end, std::vector&lt;Node*&gt;&amp; path=std::vector&lt;Node*&gt;())
+{
+    if (!n)
+        return;
+
+    path.push_back(n);
+
+    if (n-&gt;value == end)
+    {
+        print_path(path);
+        return;
+    }
+
+    if (n-&gt;left)
+        dfs(n-&gt;left, end, path);
+
+    if (n-&gt;right)
+        dfs(n-gt;right, end, path);
+   
+    path.pop_back();
 }
 </pre>
 
