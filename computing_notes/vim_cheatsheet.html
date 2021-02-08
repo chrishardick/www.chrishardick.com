@@ -134,6 +134,34 @@ endif
 <li>You can then refer to the parts inside the replacement pattern using their number <code>\1</code> for the 1st pattern, <code>\2</code> for the 2nd pattern, etc.
 </ul>
 
+<h3>Back References and Changing Case</h3>
+
+<ul>
+<li>Placing a <code>\U</code> or <code>/L</code> before a backreference will convert the backreferenced code to uppercase or lowercase respectively
+<li>Placing a <code>\u</code> or <code>/l</code> before a backreference will convert the 1st character of the backreferenced code to uppercase or lowercase respectively
+</ul>
+
+<pre>
+For example, given the following line:
+hello world
+
+:s/\(hello world\)/\U\1/        
+
+produces:
+HELLO WORLD
+
+Here is an example to convert Snake Case (snake_case) to lowerCamelCase):
+
+Given: 
+here_is_a_variable
+
+:s/_\([a-z]\)/\U\1/g
+
+Produces:
+hereIsAVariable
+</pre>
+
+
 <h2>Simple Tabular Layout</h2>
 <ul>
 <li>add additional speaces to each row

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xml");
+}
+</script>
+
+<title>XML</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>XML</h1>
+
+<ul>
+<li>Extensible Markup Language
+<LI>XML is typically used to store and transport data
+<li>XML documents are hierarchical and can be represented as a tree
+<li>XML documents start with a <strong>root element</strong>
+<li>XML documents can optionally start with a <strong>prolog</strong> 
+    which defines the XML version and character encoding used for the document.
+<pre>&lt;?xml version="1.0 encoding="UTF-8"?&gt;</pre>
+</ul>
+
+<h2>XML Elements</h2>
+
+XML elements can contain:
+<ul>
+<li>a value (text)
+<li><strong>attributes</strong>
+<li>other elements
+</ul>
+
+<pre>
+&lt;tag attribute1="v1" attribute2="v2" ...&gt;tag value&lt;/tag&gt; 
+</pre>
+
+All elements require a closing tag or the start tag must be self-closing. 
+A self-closing element does not have a value.
+<pre>
+&lt;!-- closing tag example --&gt;
+
+&lt;tag&gt; ... &lt;/tag&gt;
+
+
+&lt;!-- self closing tag --&gt;
+
+&lt;tag /&gt;
+</pre>
+
+<h3>Element Names</h3>
+
+<ul>
+<li>Element names are case-sensitive
+<li>Element names must start with either a letter or an underscore
+<li>Element names can contain only letters, digits, hyphens, underscores and periods
+<li>Element names cannot start with the letters xml (regardless of the case)
+</ul>
+
+<h3>Attributes</h3>
+
+<ul>
+<li>An element may contain one or more <strong>attributes</strong>
+<li>Attribute values must be quoted with either single or double quotes
+</ul>
+
+<h3>Attribute vs. Child Element</h3>
+<ul>
+<li>When designing an XML schema, one is normally left with a choice of creating an attribute 
+    or a child element.
+<li>Some things to keep in mind...
+<li>Attributes cannot contain multiple values
+<li>Attributes are not easily extensible
+</ul>
+
+<h3>Comments</h3>
+<ul>
+<li>XML documents can contain comments
+</ul>
+
+<pre>
+&lt;!-- this is an xml comment --&gt;
+</pre>
+
+<h2>Namespaces</h2>
+<ul>
+<li><strong>Namespaces</strong> help to avoid <em>element name conflicts</em>
+<li>Namespaces are defined via <code>xmlns</code> attribute(s) in the start tag of an element
+<li>An element may define more than one namespace
+<li>When an element defines a namespace, all child elements with the given prefix are associated
+    with the namespace
+<li>Namespace syntax:
+<pre>xmlns:prefix="URI"</pre>
+<li>The URI of the namespace is for uniqueness. It it not parsed or used in any other manner.
+    It can be used to store information about the namespace - although in practice, I'm not sure
+    how often this is actually done.
+<li>When using prefixes in XML, a namespace for the prefix <strong>must</strong> be defined
+<li>You can also define a default namespace for a given element. 
+A default namespace will also be applied to all child elements
+</ul>
+
+<pre>
+&lt;ch:table xmlns:ch="http://www.chrishardick.com" xmlns:blah="http://blah"&gt;
+&lt;blah:row&gt; &lt;ch:col&gt;xxx&lt;/ch:col&gt; &lt;blah:row&gt;
+...
+&lt;/ch:table&gt;
+</pre>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://w3schools.com">w3schools.com</a>
+</ul>
+
+</div>
+</body> 
+</html>
+  

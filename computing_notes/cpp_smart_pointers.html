@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ Smart Pointers</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ Smart Pointers</h1>
+
+<ul>
+<li>C++ 11 introduced <strong>smart pointers</strong> 
+<li>Smart pointers manage memory for you
+<li>In other words, <code>delete()</code> is automatically called for you when the object is no longer being used.
+</ul>
+
+<h2><code>unique_ptr</code></h2>
+
+<ul>
+<li>Exclusive ownership.
+<li>In other words, at any point in time, only one pointer can reference the variable.
+</ul>
+
+
+<h2><code>shared_ptr</code></h2>
+<h2><code>weak_ptr</code></h2>
+
+</div>
+</body> 
+</html>

@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_xml");
+}
+</script>
+
+<title>XML Schema - XSD</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>XML Schema - XSD</h1>
+
+<ul>
+<li><strong>XSD - XML Schema Definition</strong> (also known as <strong>XML Schema Language</strong>) allows you to describe the structure of an XML document
+<li>Unlike DTD (another schema language), XSD is XML based 
+<li>This means you can parse it using XML parsers, edit it using your favorite XML editor, 
+    transform it using XSLT, etc.
+<li>Furthermore, since it's XML, it's easily extensible
+</ul>
+
+<h2>Sample XSD Schema</h2>
+<pre>
+&lt;?xml version="1.0" encoding="utf-8"&gt;
+&lt;xs:schema
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"     &lt;!-- xs namespace --&gt;
+    xmlns="http://www.w3.org/2001/XMLSchema"     &lt;!-- default namespace (prefix not specified) --&gt;
+    elementFormDefault="qualified"              &lt;!-- all elements in a document following this schema must be ns qualified --&gt;
+    &gt;
+
+&lt;xs:element name="person"l&gt;
+    &lt;xs:complexType&gt;
+        &lt;xs:sequence&gt;
+            &lt;xs:element name="lastname" type="xs:string"/&gt;
+            &lt;xs:element name="firstname" type="xs:string"/&gt;
+            &lt;xs:element name="address1" type="xs:string"/&gt;
+            &lt;xs:element name="address2" type="xs:string"/&gt;
+            &lt;xs:element name="city" type="xs:string"/&gt;
+            &lt;xs:element name="state" type="xs:string"/&gt;
+            &lt;xs:element name="dob" type="xs:date"/&gt;
+            &lt;xs:element name="favorite_number" type="xs:integer" default="7"/&gt;
+            &lt;xs:element name="weighting" type="xs:decimal" fixed="1.0"/&gt;
+        &lt;/xs:sequence&gt;
+    &lt;/xs:complexType&gt;
+&lt;/xs:element&gt;
+
+&lt;/xs:schema&gt;
+</pre>
+
+<h2>Defining An XSD (XML Schema)</h2>
+
+<h3>The <code>&lt;schema&gt;</code> Element</h3>
+<ul>
+<li>The <code>&lt;schema&gt;</code> element must be the <strong>root</strong> of an XML Schema
+<li>The <code>&lt;schema&gt;</code> element can contain attributes - such as the following:
+<li><code>xmlns:xs="http://www.w3.org/2001/XMLSchema"</code> (xs namespace) 
+<li><code>xmlns="http://www.w3.org/2l01/XMLSchema"</code> (default namespace - as a prefix is not specified)
+<li><code>elementFormDefault="qualified"</code> - specifies that any elements in an XML document following this schema
+    MUST be namespace qualified
+</ul>
+
+
+<h2>Referencing an XSD (XML Schema)</h2>
+
+<pre>
+&lt;?xml version="1.0" encoding="utf-8"&gt;
+
+&lt;mail 
+    xmlns:ch="https://chrishardick.com"     &lt;-- ch namespace --&gt;
+    xsi:schemaLocation="https://chrishardick.com person.xsd"  &lt; namespace followed by schema &gt;
+&gt;
+
+...
+
+&lt;/mail&gt;
+</pre>
+
+<h2>XSD Simple Elements</h2>
+<ul>
+<li>A simple element contains only text. 
+<li>IMPORTANT: It cannot contain other elements or attributes.
+<li>A simple element is defined as follows:
+<pre>&lt;element name="element_name" type="element_type" /&gt;</pre>
+<li>Simple elements can have a <code>default</code> value - 
+    a value automatically assigned when a value is not specified
+<li>Simple elements can also have a <code>fixed</code> value defined. 
+    A fixed value is automatically assigned. The user cannot specify another value
+</ul>
+
+<h3>Common Simple Types</h3>
+<ul>
+<li><code>xs:boolean</code>
+<li><code>xs:date</code>
+<li><code>xs:decimal</code>
+<li><code>xs:integer</code>
+<li><code>xs:string</code>
+<li><code>xs:time</code>
+</ul>
+
+<h3>Restrictions</h3>
+<ul>
+<li>Restrictions define acceptable values for XML elements or attributes
+<li>XSD has robust support for restrictions - the majority of which are not covered by this document
+
+<pre>
+&lt;xs:element name="age"&gt;
+    &lt;xs:simpleType&gt;
+        &lt;xs:restriction base="xs:integer"&gt;
+            &lt;xs:minInclusive value="0"/&gt;
+            &lt;xs:maxInclusive value="150"/&gt;
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;xs:element&gt;
+
+&lt;xs:element name="stateType"&gt;
+    &lt;xs:simpleType name="stateType"&gt;
+        &lt;xs:restriction base="xs:string"&gt;
+            &lt;xs:enumeration value="Alabama"&gt;
+            &lt;xs:enumeration value="Alaska"&gt;
+            &lt;xs:enumeration value="Arizona"&gt;
+            &lt;xs:enumeration value="Arkansas"&gt;
+            &lt;xs:enumeration value="California"&gt;
+            ...
+        &lt;/xs:restriction&gt;
+    &lt;/xs:simpleType&gt;
+&lt;/xs:element&gt;
+</pre>
+
+</ul>
+
+<h2>XSD Attributes</h2>
+<ul>
+<li>Simple elements cannot have attributes
+<li>If your element requires attributes, it must be a complex element
+<pre>&lt;attribute name="attribute_name" type="attribute_type"&gt;</pre>
+<li>Attribute types are the same as those of simple elements
+<li>Attributes can also have <code>default</code> and <code>fixed</code> values
+<li>By default, attributes are <strong>optional</strong>
+<li>To specify that an attribute is <strong>required</strong>, set the <code>use</code> attribute to <code>required</code>
+<pre>&lt;attribute name="my_required_attribute" type="xs:string" use="required"&gt;</pre>
+</ul>
+
+<h2>XSD Complex Elements</h2>
+<ul>
+<li>A complex element can contain other elements and/or attributes
+<li>Complex elements use <strong>indicators</strong> to specify how elements are allowed to be arranged to construct a valid element
+<li><strong>Order indicators</strong> - <code>sequence</code>, <code>choice</code>, <code>all</code>
+<li><strong>Occurrence indicators</strong> - <code>minOccurs</code>, <code>maxOccurs</code>
+<li><strong>Group indicators</strong> - not covered by this document
+</ul>
+
+<h3>Order Indicators</h3>
+
+<h4><code>sequence</code></h4>
+<ul>
+<li>The <code>sequence</code> indicator specifies the child elements must appear in a specific order
+</ul>
+
+<h4><code>choice</code></h4>
+<ul>
+<li>The <code>choice</code> indicator is similar to a union in that it specifies only one element can be specified
+</ul>
+
+<h4><code>all</code></h4>
+<ul>
+<li>The <code>all</code> indicator is similar to the sequence indicator, however the elements can appear in any order
+    and each element must appear only once.
+</ul>
+
+<h3>Occurrence Indicators</h3>
+<h4><code>minOccurs</code></h4>
+<ul>
+<li>specifies the minimum number of times an element can occur
+<li>the default value is 1
+<li><code>minOccurs="0"</code> can be used to specify an optional value
+</ul>
+
+<h4><code>maxOccurs</code></h4>
+<ul>
+<li>specifies the maximum number of times an element can occur
+<li>the default value is 1
+<li><code>minOccurs="unbounded"</code> can be used to specify a dynamic array
+</ul>
+
+
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://w3schools.com">w3schools.com</a>
+</ul>
+
+
+</div>
+</body> 
+</html>
+  

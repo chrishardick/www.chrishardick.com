@@ -582,6 +582,12 @@ function print_nav(f)
         <a href="xcode_outlets_actions_delegates.html">Outlets, Actions and Delegates</a>
     </div>
 
+    <button class="accordion" id="accordion_xml">XML</button>
+    <div class="panel">
+        <a href="xml_intro.html">Introduction</a>
+        <a href="xml_xslt.html">XSLT - Transformations</a>
+        <a href="xml_xsd.html">XSD - XML Schema</a>
+    </div>
     <button class="accordion" id="accordion_yaml">YAML</button>
     <div class="panel">
         <a href="yaml_cheatsheet.html">Cheat Sheet</a>
