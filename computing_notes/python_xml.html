@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: XML</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: XML</h1>
+
+<h2>Python: ElementTree XML API</h2>
+
+<ul>
+<li>The <code>xml.etree.ElementTree</code> module implements an API for parsing and creating XML data.
+</ul>
+
+<h3>String to <code>Element</code> Object</h3>
+
+<pre>
+import xml.etree.ElementTree as et
+
+# parse a file
+tree = et.parse('my_xml_file.xml')
+
+# root is an Element object
+root = tree.getroot()
+
+# similar - parse a string
+root = et.fromstring(xml_string)
+
+# root element has a tag
+print root.tag)
+
+# root element has a dictionary of attributes
+print (root.attrib)
+
+# root element has a list of child nodes (each one is an Element object)
+</pre>
+
+<h3><code>Element</code> Object to String</h3>
+
+<pre>
+# generates XML string
+et.tostring(root)
+</pre>
+
+<h2>XML Pretty Print</h2>
+
+<pre>
+from xml.dom import minidom
+
+doc = minidom.parseString ("<root><l1_1>l1_1_value<l2_1>l2_1_valkue</l2_1></l1_1><l1_2>l1_2_value</l1_2></root>")
+
+print doc.toprettyxml(indent="    ",newl="\n\n")
+</pre>
+</div>
+</body>
+</html>
+
