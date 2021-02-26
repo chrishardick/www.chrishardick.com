@@ -459,7 +459,7 @@ function print_nav(f)
         <a href="python_intro.html">Introduction</a>
         <a href="python_hello_world.html">Hello, World!</a>
         <a href="python_variables.html">Variables</a>
-        <a href="python_strings.html">Strings</a>
+        <a href="python_string.html">String</a>
         <a href="python_operators.html">Operators</a>
         <a href="python_control_structs.html">Control Structures</a>
         <a href="python_list.html">List</a>

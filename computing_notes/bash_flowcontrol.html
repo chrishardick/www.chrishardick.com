@@ -47,12 +47,11 @@ If you're a programmer, you must understand that flow control conditions are bas
 opposed to the pure boolean (true/false) logic that you're used to.  
 The condition that you specify is not actually a condition at all; it's actually an 
 expression which evaluates to an exit status.  The condition can be a single command or multiple commands seperated 
-by commas--in which case the expression evaluates to the exit status of the last command in the list.  In UNIX, an
+by commas-in which case the expression evaluates to the exit status of the last command in the list.  In UNIX, an
 exit status of 0 means that the command completed successfully; while any other exit status denotes an error 
-(note that this is opposite of C/C++).
 </p>
 
-<h2>return N</h2>
+<h2><code>return N</code></h2>
 
 <p>
 The return statement allows you to exit out of the surrounding function with exit status N.  N is actually optional,
@@ -60,10 +59,9 @@ it defaults to the exit status of the last command which executed.  Functions wi
 exit status of the last command which executed.
 </p>
 
-<h2>if/elif/else</h2>
+<h2><code>if/elif/else</code></h2>
 
 <h3>Syntax</h3>
-<font face=courier>
 <pre>
 if condition1
 then
@@ -75,9 +73,8 @@ then
 	statement(s)] #neither condition yielded an exit status of 0 (all else failed)
 fi
 </pre>
-</font>
 
-<h2>Logically Combining Exit Statuses -- Short Circuit Evaluation</h2>
+<h2>Logically Combining Exit Statuses - Short Circuit Evaluation</h2>
 
 <p>
 Bash allows you to logically combine exit statuses using &amp;&amp; and || (logical and &amp; logical or, respectively).  
@@ -87,7 +84,6 @@ evaluate the second condition?  Likewise, let's say you have a logical or and th
 any reason to evaluate the second condition?
 </p>
 
-<font face=courier>
 <pre>
 LOGICAL AND EXAMPLE
 
@@ -113,38 +109,46 @@ else
 	statement(s) #condition1 and condition2 returned non-zero exit statuses
 fi
 </pre>
-</font>
 
 <h2>Testing Conditions Other Than if a Command Ran Properly</h2>
 
 <p>
-Exit statuses are the only thing an if statement (or any other flow control statement) can test.  However, this 
-does not mean that we can't test for other conditions.  Bash provides the [ ... ] construct (which is equivalent to
-the 'test ...' construct to test conditions other than if a command successfully executed.  These constructs return an
-exit status of 0 when the statment is true and non-zero when false.  NOTE: spaces are required after the opening
-square bracket and before the closing square bracket.
+Exit statuses are the only thing an <code>if</code> statement (or any other flow control statement) can test.  However, this 
+does not mean that we can't test for other conditions.  Bash provides the <code>[ ... ]</code> construct (which is equivalent to
+the 'test ...' construct along with the <code>[[ ... ]]</code> construct to test conditions other than if a command 
+successfully executed.  Basically, these constructs return an exit status of 0 when the statment is true and non-zero 
+when false.  NOTE: spaces are required after the opening square bracket and before the closing square bracket.
 </p>
 
-<p>
-NOTE: the [ ... ] construct can be substituted anyplace where a condition is expected.
-</p>
+<p>Which one should you use? Basically, <code>test</code> (which is equivalent to <code>[ ... ]</code>) is older and harder to use. <code>[[ ... ]]</code>
+which originated in <strong>ksh</strong> is newer and easier to use. 
+
+<h3><code>[[ ... ]]</code> test construct</h3>
+
+<pre>
+if [[ CONDITION-A || CONDITION-B ]]; then
+
+    #
+fi
+
+
+# e.g.
+
+if [[ ! -e file ]]; then
+
+    echo "File does not exist"
+fi
+</pre>
 
 <p>
-Bash allows you to logically combine logical expressions within the [ ... ] construct using the -a (logical and) and
--o (logical or) operators.  Each operand to these operators must be surrounded in parentheses (which must be escaped
-with backslashes to prevent the shell from interpreting them).  The reason for the parentheses is to override any 
-operator precedence which might have taken place; I've seen some unusual results without them.  I should really look 
-these up; but the parenthesis work just fine. 
+The following operators can be used inside of the <code>[ ... ]</code> or <code>[[ ... ]]</code> constructs:
 </p>
 
-<p>
-The following operators can be used inside of the [ ... ] construct:
 <ul>
-<li>String Comparision Operators</li>
-<li>File Attribute Checking Operators</li>
-<li>Integer Condition Operators</li>
+<li>String Comparision Operators
+<li>File Attribute Checking Operators
+<li>Integer Condition Operators
 </ul>
-</p>
 
 
 <h3>String Comparisons</h3>
@@ -166,12 +170,12 @@ The following operators can be used inside of the [ ... ] construct:
 </tr>
 
 <tr>
-<td>str1 < str2</td>
+<td>str1 &lt; str2</td>
 <td>str1 is less than str2</td>
 </tr>
 
 <tr>
-<td>str1 > str2</td>
+<td>str1 &gt; str2</td>
 <td>str1 is greater than str2</td>
 </tr>
 
@@ -187,7 +191,6 @@ The following operators can be used inside of the [ ... ] construct:
 
 </table>
 
-<font face=courier>
 <pre>
 Some Examples:
 
@@ -213,7 +216,7 @@ would result in the following output (assuming echo returns a 0 exit status):
 NOT EQUIVALENT
 Inside the if statement
 </pre>
-</font>
+
 <h3>File Attribute Checking</h3>
 
 <table cellspacing=1 border=1>
@@ -281,7 +284,6 @@ cd to the directory)</td>
 
 </table>
 
-<font face=courier>
 <pre>
 Some Examples:
 
@@ -300,7 +302,6 @@ if [ \( -x "$file" \) -a \( ! \( -d "$file" \)  \) ]; then
 fi
 
 </pre>
-</font>
 
 <h3>Integer Conditionals</h3>
 
@@ -342,7 +343,6 @@ fi
 
 </table>
 
-<font face=courier>
 <pre>
 An example:
 
@@ -358,7 +358,7 @@ while [ $Integer -gt 0 ]; do
 done
 
 </pre>
-</font>
+
 <h2>for loop</h2>
 
 <p>
@@ -368,14 +368,12 @@ traditional high-level language, use the while loop (see below).
 </p>
 
 <h3>Syntax</h3>
-<font face=courier>
 <pre>
 for name [in list]
 do
 	statements which can use $name
 done
 </pre>
-</font>
 
 <p>'list' is a list of names; if it is omitted, it defaults to "$@" (the command line arguements each enclosed in double
 quotes and seperated by spaces).
@@ -383,7 +381,6 @@ quotes and seperated by spaces).
 <h2>while &amp; until</h2>
 
 <h3>Syntax</h3>
-<font face=courier>
 <pre>
 # while the statement is true
 # useful for traditional for looping
@@ -402,13 +399,11 @@ done
 
 NOTE: both loops are pre-test (testing occurs prior to entering the loop)
 </pre>
-</font>
 
 
 <h2>case</h2>
 
 <h3>Syntax</h3>
-<font face=courier>
 <pre>
 case expression in
 	pattern1 )
@@ -420,7 +415,6 @@ case expression in
 		statements ;;
 esac
 </pre>
-</font>
 
 <p>
 The case statement is very similar to the 'switch' statement in C/C++.  Except that the expression can be a string (in C/C++,

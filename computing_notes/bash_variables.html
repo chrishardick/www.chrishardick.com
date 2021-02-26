@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>Bash: Shell Variables</title>
+<title>Bash: Variables</title>
 
 </head>
 
@@ -38,13 +38,14 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>Bash: Shell Variables</h1>
+<h1>Bash: Variables</h1>
 	
 <h2>Definition</h2>
 
 <p>
-Variables are named places to store data, usually in the form of character strings.  Their value can be obtained by
-proceeding their name with a dollar sign ($).
+As in all programming languages, variables are named places to store data. In BASH, all variables are stored as character strings. 
+However, BASH does support arithmetic operations (including comparisions) on variables (see below). 
+You can obtain the value of a varable by proceeding the variable name with a dollar sign ($).
 </P>
 
 <h2>Assigning Values to Variables</h2>
@@ -52,11 +53,11 @@ proceeding their name with a dollar sign ($).
 <ul>
 <li>Assignment is very similar to its analog in traditional programming languages, except that most variables-all that
 we've seen so far-hold character strings.  
-<li>When assigning values to variables it is important not to have any white space (tabs or spaces) on either side of the equal sign.
+<li><strong>When assigning values to variables it is important not to have any white space (tabs or spaces) on either side of the equal sign.</strong>
 </ul>
 
 <pre>
-# Examples of Assignment of Variables:
+# Examples of Assignment of Variables
 
 x=5
 y=20
@@ -70,13 +71,15 @@ b=$x$y`date`
 <ul>
 <li>Environment or Exported Variables are variables which are passed-by-value to subshells.  
 <li>They are conventionally named using all uppercase.
+<li>If you do not export a variable, it will not be visible to subshells. 
+<li>See <a href="bash_processes.html">BASH Processes</a>
 </ul>
 
 <pre>
 # Example of Exporting a Variable
 
-x=5
-export x
+X=5
+export X
 </pre>
 
 <h2>Positional Parameters & Related Shell Variables</h2>
@@ -92,25 +95,34 @@ In addition, there are some other shell variables which are related to positiona
 
 <ul>
 
-<li>* is a single string which contains all of the positional parameters seperated by the first character of the IFS 
+<li><code>*</code> is a single string which contains all of the positional parameters seperated by the first character of the IFS 
 (internal field seperator) shell variable.  
 
-<li>@ evaluates to all of the positional parameters as seperate character strings
+<li><code>@</code> evaluates to all of the positional parameters as seperate character strings
 
-<li># evalutes to the number of positional parameters
+<li><code>#</code> evalutes to the number of positional parameters
 
 </ul>
 
 <p>
-NOTE: When accessing the values stored in either * or @, surround the variable in double quotes.  For example:
-"$@" or "$*".
+HINT: When accessing the values stored in either <code>*</code> or <code>@</code>, surround the variable in double quotes.  For example:
+<code>"$@"</code> or <code>"$*"</code>.
 </p>
+
+<h2>Other Built-in Variables</h2>
+
+<ul>
+<li><code>?</code> yields the return code of the last command. It's frequently used to store the return code of a command such that it can
+    be used at a later point.
+<li><code>$</code> yields the current process ID
+<li><code>!</code> yields the background process ID
+</ul>
 
 <h2>Functions & Variables</h2>
 <p>
-All variables used within a function have, by default, global scope.  This means that after they're assigned a value,
-the variable can be accessed anywhere.  To give a variable local scope, you must physically declare a variable as 'local'.
-For example: 'local x'.  The exception to this rule is Positional Parameters and their associated variables.  Functions
+All variables used within a function have, by default, <strong>global scope</strong>.  This means that after they're assigned a value,
+the variable can be accessed anywhere.  To give a variable <strong>local scope</strong>, you must physically declare a variable as <code>local</code>.
+For example: <code>local x</code>.  The exception to this rule is Positional Parameters and their associated variables.  Functions
 can accept arguments; they accept arguments in the same way as a script accepts arguments (with the exception of 0
 positional paramter 0 is not the function name).  In order to accomplish this, positional parameters and their associated 
 arguments are local to the particular function.
@@ -125,14 +137,14 @@ command substitution which allows you to use the standard output of a command as
 <p>
 The standard Bourne and C Shell Method of Command Substitution is to enclose the command in back ticks (`).  This method is
 also supported in bash.  However, bash goes even further by supporting another form of command substitution: 
-'$(UNIX Command)'.  The command inside the parentheses is executed and anything the command writes to standard output is
-returned as the value of the expression.  Commands may also be nested; for example: $(ls $(pwd)) -- to list all of the 
+<code>$(UNIX Command)</code>.  The command inside the parentheses is executed and anything the command writes to standard output is
+returned as the value of the expression.  Commands may also be nested; for example: <code>$(ls $(pwd))</code> to list all of the 
 files in the current directory.
 </p>
  
 <h2>Enclosing Variable Names in Curly Brackets</h2>
 <p>
-$varname is really shorthand for ${varname}.  There are two reasons for the need of the later syntax.  
+<code>$varname</code> is really shorthand for <code>${varname}</code>. There are two reasons for the need of the later syntax.  
 The first is so you can reference positional parameters greater than 9.  For example: ${10}, ${25}, etc.  
 Otherwise, $10 would produce the value of the 1st positional parameter ($1) followed by a zero (0).
 The second reason is to clearly deliminate the variable name.  For example, let's suppose we want to output

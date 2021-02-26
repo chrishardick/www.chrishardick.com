@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>Python: Strings</title>
+<title>Python: String</title>
 
 </head>
 
@@ -39,27 +39,32 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<h1>Python: Strings</h1>
+<h1>Python: String</h1>
 
 <ul>
 
+<li>Strings in Python are stored in Unicode
 <li>Strings can be defined using either double or single quotes
 <pre>
 s1 = "Hello, World!"
 s2 = 'hello, world!'
 </pre>
 
-<li>String literals can also be defined using triple quotes -- which make it easier to define multi-line string literals (newlines will be included)
+<li>String literals can also be defined using triple quotes - which make it easier to define multi-line string literals (newlines will be included)
 <pre>
 print '''line 1
 line 2
 line 3
 line 4'''
+</pre>
 
+<pre>
 # equivalent
 print 'line 1\nline 2\nline 3\nline4'
+</pre>
 
 both produce:
+<pre>
 line 1
 line 2
 line 3
@@ -72,9 +77,15 @@ s = "Hello, World!"
 print len(s)            # 13
 </pre>
 
-<li>You may be access individual characters of a string via indexing (square brackets). Like C/C++, indexing starts from 0 (zero)
+<li>You can access individual characters of a string via indexing (square brackets). Like C/C++, indexing starts from 0 (zero)
 <pre>
 print s[0] # H
+</pre>
+
+<li>You can use a <code>for</code> loop to traverse the characters of a string
+<pre>
+for c in w:
+    print c
 </pre>
 
 <li>Slicing</li>
@@ -86,7 +97,7 @@ print s[7:13]   # equivalent
 </pre> 
 <li>Notice with slicing, the beginning character is included and the last character is excluded
 
-<li>Raw strings. Treat backslashes as literals -- rather than escape characters. Raw strings are prefixed with an 'r'
+<li><strong>Raw strings</strong> - treat backslashes as literals - rather than escape characters. Raw strings are prefixed with an 'r'
 <pre>
 print r'c:\abc\def' # results in 'c:\abc\def'
 </pre>

@@ -43,37 +43,35 @@ C O N T E N T
 <p>
 The topic of processes caused a lot of confusion when I was learning about shell scripting, so I decided to start my
 discussion of shell scripting with a brief discussion of it.  First of all, let me start out by saying that there are
-a couple of  ways in which you can execute a shell script.  For example you can source it ('source progname' or '. progname'),
-you can type its name at the command line ('progname') or you can execute the command in the background ('progname &').  
-So what's the difference?  For the later two ('progname' or 'progname &'), a subshell is spawned.
+a couple of  ways in which you can execute a shell script.  For example you can source it (<code>source progname</code> or <code>. progname</code>),
+you can type its name at the command line (<code>progname</code>) or you can execute the command in the background (<code>progname &amp;</code>).  
+So what's the difference?  For the later two (<code>progname</code> or <code>progname &amp;</code>), a subshell is spawned.
 </p>
 
 <p>
-You must understand exactly
-what happens when a subshell is spawned.  First, all exported (or environment) variables are passed-by-value to the subshell.
-The subshell is a completely seperate entity than the parent shell which spawned it.  Anything which occurs in the subshell
-is completely invisible to the parent shell.  Therefore if in the subhell, you: set a variable x equal to 5 (x=5 -- 
-note that 5 is a character string, not an integer), define a function PrintHello ( ), and set a couple of environment 
+When a <strong>subshell</strong> is spawned, all <strong>exported</strong> (<strong>environment</strong>) variables are passed-by-value to the subshell.
+The subshell is a completely separate entity from the parent shell which spawned it.  Anything which occurs in the subshell
+is completely invisible to the parent shell.  Therefore if in the subhell, you: set a variable x equal to 5 (x=5 - 
+note that 5 is a character string, not an integer), define a function PrintHello (), and set a couple of environment 
 variables (all exported variables are environment variables); all of this is completely invisible to the parent process.  
 If after returning from the child process, you try to access the variable x, it will be the null string 
-(the value of all variables that have yet to be used--unless of course the
-parent process has a variable x).  If you try to call the function PrintHello, it will say 'PrintHello -- command not found';
+(the value of all variables that have yet to be used-unless of course the parent process has a variable x).  
+If you try to call the function PrintHello, you'll get a message similar to 'PrintHello -- command not found';
 likewise, any mention of the subshell's exported variables will also yield the null string (unless, again you already have
 variables defined with the same name in the parent shell).
 </p>
 
 <p>
-So what happens when you source the shell script?  Sourcing the shell script (using '. progname' or 'source progname')
-is exactly the same as manually typing the commands which are in the shell script at the command line.  For example, if 
-you define a function, declare a couple of variables, all of these are completely visible to the parent process.  Why is this?
-When you souce a program, a new shell is NOT spawned.     
+Sourcing a shell script (<code>. progname</code> or <code>source progname</code>) is basically the same as manually typing 
+the contents of the file. Therefore, if you define a function, declare a couple of variables, it's all visible. Why?
+When you source a program, a new shell is NOT spawned.     
 </p>
 
 <p>
-So what's the difference between 'progname' and 'progname &'?  As we already know, the later allows progname to execute in
+What's the difference between <code>progname</code> and <code>progname &amp;</code>?  As we already know, the later allows progname to execute in
 the background and gives you back control of your shell so you can immediately enter more commands.  Since we're discussing 
-processes, we'll phrase it differently.  There is no difference other than using the prior, your current shell would 'sleep'
-while waiting for progname to complete, while using the later, your shell would remain active.
+processes, let's phrase it differently.  The only difference between launching a subprocess in the foreground versus the background is that launching 
+it in the foreground causes the current shell to be put to sleep waiting for the subprocess to complete whereas launching a subprocess in the background does not.
 </p>
 
 </div>
