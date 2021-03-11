@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: multiprocessing module</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>multiprocessing</code> Module</h1>
+
+<ul>
+<li>Process based parallelism
+<li>See also <a href="python_threading.html"><code>threading</code> module</a> - which provides thread based parallelism
+<li>Due to the <strong>GIL - Global Interpreter Lock</strong> which only allows a single thread within a process to execute Python bytecode in the interpreter at a time,
+    process based parallelism is usually more efficient than thread based parallelism
+</ul>
+
+<h2><code>Process</code> Class</h2>
+
+<pre>
+import os
+
+from multiprocessing import Process
+
+def child_start ():
+
+    print ("child_start: pid=%d" % os.getpid())
+
+print ("main: pid=%d" % os.getpid())
+
+p = Process (target=child_start, args=())
+
+p.start()       // start child process
+
+p.join()        // block until it completes
+</pre>
+
+
+<h2>Communicating Between Processes - <code>Queue</code> and <code>Pipe</code></h2>
+
+<h3><code>Queue</code> Class</h3>
+<ul>
+<li>Basically a clone of <code>Queue.queue</code>
+<li>Queues are thread and process safe
+</ul>
+
+<h3><code>Pipe</code> Class</h3>
+<ul>
+<li>Returns a pair of communication objects connected by a pipe - which by default is duplex
+<li>Each connection object has <code>send()</code> and <code>recv()</code> methods
+<li>Note that data in a pipe may become corrupted if two processes (or threads) try to read from or write to the same end
+of a pipe at the same time
+</ul>
+
+<h2><code>Lock</code> Class</h2>
+<ul>
+<li>Similar to <code>threading.Lock</code> but for multiple processes as opposed to multiple threads
+<li>The <code>Lock</code> class supports two basic methods: <code>acquire()</code> and <code>release()</code>
+<li><code>acquire()</code> is used to obtain a lock. It will block if the lock is currently locked
+<li><code>release()</code> is used to release a lock. It will throw a <code>RuntimeError</code> if called on an unlocked lock
+</ul>
+
+<pre>
+from multiprocessing import Process,Lock
+
+def f (l, i):
+    l.acquire()
+    
+    try:
+        print ("Hello, world!", i)
+
+    finally:
+        l.release()
+
+lock = Lock()
+
+for num in range (0,9):
+    Process(target=f, args=(lock,num)).start()
+</pre>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://docs.python.org">docs.python.org</a>
+</ul>
+
+</div>
+</body>
+</html>
+

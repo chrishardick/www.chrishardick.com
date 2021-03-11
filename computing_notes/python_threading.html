@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: threading module</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>threading</code> Module</h1>
+
+<ul>
+<li>Thread based parallelism
+<li>See also <a href="python_multiprocessing.html"><code>multiprocessing</code> module</a> - which provides process based parallelism
+<li>Python (at least <strong>CPython</strong> - which is the most popular Python implementation) utilizes a <strong>GIL - Global Interpreter Lock</strong> which means only a single thread can have Python bytecode executing in the interpreter at a time.
+<li>Hence the <code>threading</code> library is not suitable for CPU intensive algorithms. 
+<li>The <code>threading</code> library is useful for multithreading I/O
+</ul>
+
+<h2><code>Thread</code> Class</h2>
+
+<ul>
+<li>Represents a separate thread of execution
+<li>There are two ways to specify the thread start function
+<li>pass a callable object to the constructor
+<li>override the <code>run()</code> method in a subclass
+<li>Once a <code>Thread</code> object is created, the thread of execution is started by invoking the <code>start()</code> method
+    - which invokes the <code>run()</code> method in a separate thread
+</ul>
+
+
+<h2><code>Lock</code> Class</h2>
+<ul>
+<li>The <code>Lock</code> class supports two basic methods: <code>acquire()</code> and <code>release()</code>
+<li><code>acquire()</code> is used to obtain a lock. It will block if the lock is currently locked
+<li><code>release()</code> is used to release a lock. It will throw a <code>RuntimeError</code> if called on an unlocked lock
+</ul>
+
+
+<h2><code>RLock</code> Class</h2>
+<ul>
+<li>Similar to the <code>Lock</code> class. However, it's re-enterant. I.e. can be obtained multiple times by the same thread.
+<li>In other words, <code>acquire()/release()</code> calls may be nested and only the final <code>release()</code> actually
+    allow another thread blocked in <code>acquire()</code> to proceed
+</ul>
+
+
+<h2>Context Management Protocol - <code>with</code> statement</h2>
+<ul>
+<li>All of the objects which have <code>acquire()</code> and <code>release()</code> methods can be used as <strong>Context Managers for a 
+<code>with</code> statement</strong>.
+<li>The <code>acquire()</code> method will be called when a block is entered and the <code>release()</code> method will be called when the 
+    block is exited.
+</ul>
+
+<pre>
+# use of with statement
+with some_lock:
+    # do something
+
+
+# equivalent without using with statement
+some_lock.acquire()
+try:
+    # do something
+finally:
+    some_lock.release()
+</pre>
+
+<h2><code>Condition</code> Class</h2>
+<ul>
+<li>Condition Variable class
+<li>Condition variables are always associated with a lock
+<li>Either an associated lock is passed in or one will be created by default.
+<li>The <code>wait()</code> method is called once you have obtained a lock. It will
+    releases the lock and block until awoken by another thread which called either 
+    <code>notify()</code> or <code>notify_all()</code>. Once woken the thread will 
+    have re-acquired the lock
+<li>The <code>notify()</code> method wakes up <strong>one</strong> of the threads waiting
+    on the condition variable
+<li>The <code>notify_all()</code> methods wake up <strong>all</strong> of the threads waiting
+    on the condition variabe
+<li><code>notify()</code> and <code>notify_all()</code> do not release the lock. 
+    This means the woken thread(s) will not return until the thread calling <code>notify()</code>
+    or <code>notify_all()</code> releases the lock
+</ul>
+
+<h2><code>Semaphore</code> Class</h2>
+<ul>
+<li>Semaphores manage an internal counter which is decremented by each <code>acquire()</code> call and
+    incremented by each <code>release()</code> call. 
+<li>Semaphores can be used to manage resources with limited capacity
+</ul>
+
+
+<h2><code>Event</code> Class</h2>
+<ul>
+<li>One thread signals an event and other threads wait for it
+</ul>
+
+<h2><code>Timer</code> Class</h2>
+<ul>
+<li><code>Timer</code> is a subclass of <code>Thread</code>
+<li>Timers can be used any time you want an action to take place after a specified amount of time
+</ul>
+
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://docs.python.org">docs.python.org</a>
+</ul>
+
+</div>
+</body>
+</html>
+

@@ -487,9 +487,11 @@ function print_nav(f)
         <a href="python_socket.html">sockets</a>
         <a href="python_hashlib.html">hashlib</a>
         <a href="python_base64.html">Base64</a>
-        <a href="python_requests.html">requests - HTTP library</a>
-        <a href="python_cookie.html">Cookie - HTTP Cookie library</a>
+        <a href="python_requests.html">requests - HTTP module</a>
+        <a href="python_cookie.html">Cookie - HTTP Cookie module</a>
         <a href="python_permutations_combinations.html">Permutations and Combinations</a>
+        <a href="python_threading.html">threading module</a>
+        <a href="python_multiprocessing.html">multiprocessing module</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>
