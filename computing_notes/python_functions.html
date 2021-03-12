@@ -186,8 +186,14 @@ my_print (a="a", b="b", c="c", d="d")
 c: c
 b: b
 d: d
+</pre>
 
-
+<h3>Using <code>*args</code>and <code>**kwargs</code> Together</h3>
+<ul>
+<li>When using both <code>*args</code> and <code>**kwargs</code> together, <code>*args</code> will contain all
+the undeclared position parameters and <code>**kwargs</code> will contain all the undeclared named parameters
+</ul>
+<pre>
 # an example using both *args and **kwargs
 def foo(*args, **kwargs):
     print "args="
