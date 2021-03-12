@@ -42,8 +42,18 @@ C O N T E N T
 <h1>Python: Functions</h1>
 
 <ul>
+<li>In Python, functions are defined with the keyword <code>def</code>, followed by the function name, followed by a list of optional parameters surrounded by paranthesis, followed by a colon (:)
+<li>The code block of the function must be indented
+<li>Functions must be defined before they are called. I.e. it is not legal to call a function which is defined later in the same source code
+<li>When calling a function, you can specify parameters either by name or by position
+<li>When defining a function, you can specify default values for the parameters
+<li>All objects passed into a function are passed by reference
+</ul>
+
 <pre>
+#
 # function definition
+#
 def foo(x, y, z=None):
     print "foo: Hello, World"
     print "foo: x=" ,x
@@ -54,23 +64,14 @@ def foo(x, y, z=None):
 
     return x
 
+#
 # function call
-foo (5)
+#
+foo (5, 10)
 
-# same using parameter names (allows you to pass arguments in any order)
-foo (n = 5)
-
-def bar (s1="hello", s2="world"):
-    print s1, s2
-
+# same thing using parameter names (allows you to pass arguments in any order)
+foo (y=10, x=5)
 </pre>
-<li>functions are defined with the keyword <code>def</code>, followed by the function name, followed by a list of optional parameters surrounded by paranthesis, followed by a colon (:)
-<li>the code block of the function must be indented
-<li>functions must be defined before they are called. I.e. it is not legal to call a function which is defined later in the same source code
-<li>when calling a function, you can specify parameters either by name or by position
-<li>when defining a function, you can specify default values for the parameters
-<li>all objects passed into a function are passed by reference
-</ul>
 
 <h2>Function Parameters and Local Variables</h2>
 <ul>
@@ -92,17 +93,18 @@ def bar (s1="hello", s2="world"):
 <li>Functions can return values by using the <code>return</code> keyword
 <li>when a <code>return</code> statement is reached, control immediately exits the function
 <li>You can specify a return value after the <code>return</code> statement.
-<li>Functions can only return a single value -- however it can be a <code>list</code>, <code>tuple</code>, or <code>dictionary</code>
+<li>Functions can only return a single value - however it can be a <code>list</code>, <code>tuple</code>, or <code>dictionary</code>
 <li>By default (i.e. if you do not specify one), all functions return <code>None</code>
 </ul>
 
 <h2>Default Parameter Values</h2>
 <ul>
-<li>Python does not support <code>function overloading</code> - i.e. for a given namespace, there can be only one function with a given name.
+<li>Python does not support <strong>function overloading</strong> - i.e. for a given namespace, there can be only one function with a given name.
     If you define a second function with the same name, it will overrite the first function
 <li>Python does support <strong>default parameter values</strong>
 <li>A parameter with a default value is also called an <strong>optional parameter</strong>
 <li>Optional parameters must come after all required parameters
+<li>When calling a function, you must provide a value for all non-optional parameters. Not doing so will cause an exception to be raised.
 <pre>
 # mname (middle name defaults to a blank string
 def foo (fname, lname, mname=""):
@@ -117,7 +119,7 @@ def foo (fname, lname, mname=""):
 <pre>
 foo ("chris", "hardick")
 </pre>
-<li>You can also pass the parameters via name i.e. (<strong>keyword parameters</strong>) -- in which case you can specify the parameters in any order
+<li>You can also pass the parameters via name i.e. (<strong>keyword parameters</strong> or <strong>named paramters</strong>) - in which case you can specify the parameters in any order
 <pre>
 foo (lname="hardick", fname="chris")
 </pre>
@@ -125,6 +127,94 @@ foo (lname="hardick", fname="chris")
 of the order in which they were defined
 <li>You can also mix positional and keyword parameters, however the keyword parameters must come after any positional parameters
 </ul>
+
+<h2>Variable Number of Parameters</h2>
+
+<h3><code>*args</code></h3>
+<ul>
+<li>When defining a function, Python allows you to use <code>*</code> followed by a variable name, to accept a variable number of function parameters
+<li>By convention, the variable name is usually <code>args</code>. However, in reality, Python does not dictate the variable name
+</ul>
+
+<pre>
+#
+# a function which accepts a variable number of arguments
+# - remember, the name 'args' is only by convention. 
+# - for instance, we could have used argv to make C/C++ programmers feel more comfortable
+#
+def myPrint (*args):
+    for a in args:
+        print (a)
+
+myPrint("a", "b", "c")
+
+# yields:
+a
+b
+c
+
+# here args will be the remaining arguments
+def myAdd (a, *args)
+    for arg in args:
+        a += arg
+
+    return a
+
+# yields 18 (notice how 5 is not double counted)
+print "sum=%d" % myAdd(5, 6, 7)
+</pre>
+
+<h3><code>**kwargs</code></h3>
+<ul>
+<li>When defining a function, Python allows you to use <code>**</code> followed by a variable name, to accept a variable number of <strong>named parameters</strong>
+<li>By convention, the variable name is usually <code>kwargs</code>. However, in reality, Python does not dictate the variable name
+<li><em>kwargs</em> can be used inside the function as a dictionary of all named parameters which were not explicitly in the function definition
+</ul>
+
+<pre>
+# variable number of named parameters
+
+def my_print (a, **kwargs):
+
+    for k in kwargs:
+        print ("%s: %s" % (k, kwargs[k]))
+                   
+
+my_print (a="a", b="b", c="c", d="d")
+
+# yields: (notice how 'a' is not included)
+c: c
+b: b
+d: d
+
+
+# an example using both *args and **kwargs
+def foo(*args, **kwargs):
+    print "args="
+    for a in args:
+        print a
+    print ""
+
+    print "kwargs="
+    print k in kwargs:
+        print "%s=%s" (k, kwargs[k])
+    print ""
+
+
+foo ('a', 'b', 'c', aa="aa", bb="bb", cc="cc")
+
+# yields
+args=
+a
+b
+c
+
+kwargs=
+aa=aa
+bb=bb
+cc=cc
+
+</pre>
 
 <h2>Decorators</h2>
 <ul>
