@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: queue module</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>queue</code> Module</h1>
+
+<ul>
+<li>Thread and Process safe (i.e. use across multiple threads and/or processes is supported)
+<li>Supports multi-producer, multi-consumer queues
+<li>Implemented via <code>Queue</code> class
+<li>Implements three types of queues - <strong>LIFO</strong>, <strong>FIFO</strong> (stack), <strong>Priority Queue</strong> 
+(items are sorted and the lowest valued entry is retrieved first)
+<li>Not Re-enterant Safe
+</ul>
+
+<h2>Constructors</h2>
+
+<dl>
+<dt><code>queue.Queue(maxsize=0)</code>
+<dt><code>queue.LifoQueue(maxsize=0)</code>
+<dt><code>queue.PriorityQueue(maxsize=0)</code>
+<dd>Construct a FIFO, LIFO, or Priority Queue of given maximum size. Once <code>maxsize</code> has been reached, insertion wil block until queue items have been consumed.
+If <code>maxsize</code> is less than or equal to zero, there is no maximum size.
+<dd>For <strong>PriorityQueue</strong>, lowest valued entries are retrieved first (i.e. the one returned via <code>sorted(list(entries))</code>)
+</dl>    
+
+<h2>Methods</h2>
+
+Regardless of type, each <code>Queue</code> object supports the following methods:
+
+<dl>
+<dt><code>queue.<strong>qsize</strong>()</code>
+<dd>Return the size of the queue
+
+<dt><code>queue.<strong>empty</strong>()</code>
+<dd>Return <code>True</code> if the queue is empty. <code>False</code> otherwise. 
+
+<dt><code>queue.<strong>put</strong>(item, block=True, timeout=None)</code>
+<dd>Put item in queue. By default, will block if queue is full.
+If timeout is a positive number, block at most <code>timeout</code> seconds and raise a <code>Full</code> exception if space did not become available. 
+If <code>block</code> is <code>False</code>, it will put an item on queue if space is available otherwise a <code>Full</code> exception is raised (<code>timeout</code> is ignored)
+
+<dt><code>queue.<strong>put_nowait</strong>(item)</code>
+<dd>Equivalent to <code>put(item, False)</code>
+
+<dt><code>queue.<strong>get</strong>(block=True, timeout=None)</code>
+<dd>Remove and return an item from the queue. By default, will block until an item is available. 
+If timeout is a positive number, blocks at most <code>timeout</code> seconds and raises an <code>Empty</code> exception if an item did not become available. 
+If <code>block</code> is <code>False</code>, an item will be returned if available otherwise an <code>Empty</code> exception is raised (<code>timeout</code> is 
+ignored)
+
+<dt><code>queue.<strong>get_nowait</strong>()</code>
+<dd>Equivalent to <code>get(False)</code>
+
+<dt><code>queue.<strong>task_done</strong>()</code>
+<dd>Called by consumer to signal to the queue that processing of the item is complete. 
+
+<dt><code>queue.<strong>join</strong>()</code>
+<dd>Blocks until all items in the queue have been removed and processed. Processed is indicated by the consumer calling <code>task_done()</code>
+
+
+
+</dl>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://docs.python.org">docs.python.org</a>
+</ul>
+
+</div>
+</body>
+</html>
+

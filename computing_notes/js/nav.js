@@ -492,6 +492,7 @@ function print_nav(f)
         <a href="python_permutations_combinations.html">Permutations and Combinations</a>
         <a href="python_threading.html">threading module</a>
         <a href="python_multiprocessing.html">multiprocessing module</a>
+        <a href="python_queue.html">queue module</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>
