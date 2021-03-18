@@ -104,6 +104,8 @@ finally:
 <li>Condition Variable class
 <li>Condition variables are always associated with a lock
 <li>Either an associated lock is passed in or one will be created by default.
+<li>The <code>acquire()</code> method is used to acquire the underlying lock.
+    This method calls the corresponding method on the underlying lock. 
 <li>The <code>wait()</code> method is called once you have obtained a lock. It will
     releases the lock and block until awoken by another thread which called either 
     <code>notify()</code> or <code>notify_all()</code>. Once woken the thread will 

@@ -42,16 +42,20 @@ C O N T E N T
 <h1>Python: Classes</h1>
 
 <ul>
-<li>All members are public
-<li>Per class variables are declared within the class definition and are referenced only by using the classname prefix (e.g. Class.num_instances in the example below)
-<li>Per instance variables are declared within the __init__ method
-<li>Unused objects are cleaned up via garbage collection. Objects are cleaned up when their reference count goes to 0 (zero)
-<li><strong>self</strong>
+<li>Unlike other languages (e.g. C++, etc.), Pythnon does not support different levels of access to variables. All class members are public
+<li><strong>Per class variables</strong> are declared within the class definition and are referenced by using the class name as a prefix 
+(e.g. <code>Class.num_instances</code> in the example below)
+<li><strong>Per instance variables</strong> should be declared within the <code>__init__()</code> method. 
+<li>Note that instance variables can be defined in other class methods.  However, doing so probably makes your code less readable.  
+    It probably also makes the code more complex, as you need to ensure the method which defined the members is called prior to the members being 
+    accessed. 
+<li>Unused objects are cleaned up via <strong>garbage collection</strong>. Objects are cleaned up when their reference count goes to 0 (zero)
+<li><strong><code>self</code></strong>
     <ul>
-    <li>Unlike C++, you must use <strong>self</strong> to reference an object methods and data members from its methods
-    <li><strong>self</strong> must be explicitly defined as the 1st parameter of every class method -- including __init__().
-    <li>You need not explicitly pass self when you call an object method, it will implicitly passed for you.
-    <li>It's worth noting that <strong>self</strong> need not be explicitly named <strong>self</strong>, it's only by convention
+    <li>Unlike C++, you must use <strong><code>self</code></strong> to reference an object methods and data members from its methods
+    <li><strong><code>self</code></strong> must be explicitly defined as the 1st parameter of every class method - including <code>__init__()</code>.
+    <li>You do not need to explicitly pass <code>self</code> when you call an object method, it will implicitly passed for you.
+    <li>It's worth noting that <strong>self</strong> need not be named <code>self</code>, it's only by convention
     </ul>
 </ul>
 
@@ -144,6 +148,11 @@ class SubClass (ParentClass1[,ParentClass2, ...]):
 # 
 isinstance(object,class)
 </pre>
+</ul>
+
+<h2>Callable Objects</h2>
+<ul>
+<li>You can make an object callable by defining a <code>__call__()</code> method which (like any other method) can accepts parameters
 </ul>
 
 </div>
