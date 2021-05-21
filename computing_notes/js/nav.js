@@ -352,31 +352,32 @@ function print_nav(f)
 
     <button class="accordion" id="accordion_linux">Linux</button>
     <div class="panel">
-        <a href="linux_cron.html">cron</a>
-        <a href="linux_dhcp.html">DHCP</a>
         <a href="linux_bind.html">BIND</a>
+        <a href="linux_cron.html">cron</a>
+        <a href="linux_curl.html">curl</a>
+        <a href="linux_debian.html">Debian</a>
+        <a href="linux_dhcp.html">DHCP</a>
         <a href="linux_inotifywait.html">inotifywait</a>
         <a href="linux_iptables.html">IPTables</a>
         <a href="linux_ln.html">ln - link files</a>
         <a href="linux_modules.html">Modules</a>
+        <a href="linux_speedtest.html">Network Speed Test</a>
         <a href="linux_networking.html">Networking</a>
         <a href="linux_olson.html">Olson Database</a>
-        <a href="linux_debian.html">Debian</a>
         <a href="linux_raspberrypi.html">Raspberry Pi</a>
         <a href="linux_rcs.html">RCS</a>
         <a href="linux_rsync.html">rsync</a>
         <a href="linux_sendmail.html">sendmail</a>
+        <a href="linux_setup_new_server.html">Set Up New Server</a>
         <a href="linux_shutdown.html">shutdown</a>
         <a href="linux_ssh.html">ssh</a>
         <a href="linux_systemd.html">systemd</a>
         <a href="linux_su.html">su</a>
         <a href="linux_sudo.html">sudo</a>
-        <a href="linux_tcpdump.html">tcpdump</a>
-        <a href="linux_wireless.html">wireless</a>
-        <a href="linux_speedtest.html">Network Speed Test</a>
-        <a href="linux_users.html">Users</a>
-        <a href="linux_setup_new_server.html">Set Up New Server</a>
         <a href="linux_tape_info.html">Tapes</a>
+        <a href="linux_tcpdump.html">tcpdump</a>
+        <a href="linux_users.html">Users</a>
+        <a href="linux_wireless.html">wireless</a>
     </div>
 
     <button class="accordion" id="accordion_mac">Mac</button>

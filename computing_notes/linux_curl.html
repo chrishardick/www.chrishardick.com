@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Linux - curl</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Linux - curl</h1>
+
+<ul>
+<li>Command-line tool to transfer data to or from a server
+<li>Typically used for HTTP or HTTPS. However, curl supports other protocols as well - SCP, SFTP, FTP
+<li>Curl is pretty smart. I.e. the default protocol is HTTP, default request type is GET. 
+    However, if you specify <code>--upload-file</code> or <code>-T</code> option,
+    the request type will change to <code>PUT</code>. In addition, <code>Content-length</code> will be 
+    calculated for you (along with the proper header added)
+<li>The request type can be changed via <code>-X</code> option
+<li>The verbose flag (<code>-v</code> or <code>--verbose</code>) is very useful to see what request was actually sent
+    along with anything else which is going on under the hood.
+</ul>
+
+<pre>
+# default protocol = HTTP
+# default request type = GET
+curl www.chrishardick.com
+
+# HTTP, request type = PUT
+curl --upload-file hello_world.html www.chrishardick.com
+</pre>
+
+</div>
+</body> 
+</html>
+  

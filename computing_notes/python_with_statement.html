@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: with statement</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>with</code> Statement</h1>
+
+<ul>
+<li>In Python, the <code>with</code> statement is usually used in exception handling
+
+</ul>
+
+<pre>
+file = open ('file', 'w')
+try:
+    file.write("hello, world!")
+finally:
+    file.close()
+
+# equivalent using <strong>with</strong> statement
+with open('file', 'w') as file:
+    file.write("hello, world!")
+</pre>
+
+
+</dl>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://docs.python.org">docs.python.org</a>
+</ul>
+
+</div>
+</body>
+</html>
+
