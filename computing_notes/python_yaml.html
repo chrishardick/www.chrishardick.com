@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: yaml</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: PyYAML</h1>
+
+<ul>
+<li>PyYAML is a YAML parser and emitter for Python
+<li>See also <a href="yaml_cheatsheet.html">YAML</a>
+</ul>
+
+<pre>
+import yaml
+
+fh = open (filename)
+
+dict = yaml.load(fh, Loader=yaml.CLoader)
+</pre>
+
+
+</dl>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://pyyaml.org">PyYAML</a>
+</ul>
+
+</div>
+</body>
+</html>
+

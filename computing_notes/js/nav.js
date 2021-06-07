@@ -495,6 +495,9 @@ function print_nav(f)
         <a href="python_multiprocessing.html">multiprocessing module</a>
         <a href="python_queue.html">queue module</a>
         <a href="python_context_managers.html">Context Managers</a>
+        <a href="python_random.html">random module</a>
+        <a href="python_time.html">time module</a>
+        <a href="python_yaml.html">YAML</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>
