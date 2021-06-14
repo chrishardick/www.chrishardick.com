@@ -44,7 +44,7 @@ C O N T E N T
 <ul>
 <li><strong>Context Managers</strong> allow you to easily allocate and release resources. 
 <li>This is how Python supports <strong>RAII</strong> (Resource Allocation is Initialization)
-<li>This is accomplished via the <strong><code>with</code></strong> statement 
+<li>It is accomplished via the <strong><code>with</code></strong> statement 
     as is frequently used with file streams and locks
 </ul>
 
@@ -54,9 +54,15 @@ A File Stream example:
 with open ('filename', 'w') as file
     file.write ("Hello, World!")
 
-file = open ('filename', 'w')
 
 # equivalent without using with statement
+# - NOTE: there is a finally block, but no except block. Hence the exception 
+#       is not caught - at least not at this level in the call stack. In 
+#       this case, the finally statement is [always] executed (irregardless 
+#       of an exception occurring). However, if the exception is not caught
+#       higher up the call stack, the exception will remain unhandled and 
+#       the program will terminate.
+file = open ('filename', 'w')
 try:
     file.write("Hello, World!")
 finally:
@@ -78,16 +84,19 @@ finally:
 </pre>
 
 
-<h2>Implementing a Context Manager as a Class</h2>
+<h2>Implementing a Context Manager as a User Defined Class</h2>
 
 <ul>
-<li>To use the <code><strong>with</strong></code> statement in user defined objects, you need to define
-<code>__enter__()</code> and <code>__exit__()</code> methods. 
-<li>The <code>with</code> statement will cause the object's constructor (<code>__init__()</code>) to be called
-    immediately followed by the object's <code>__enter__()</code> method
-<li>When you leave the block, the <code>__exit__()</code> method will automatically be called.
+<li>To use the <code><strong>with</strong></code> statement with user defined objects, the following two methods need to be defined:
+    <ul>
+    <li><code>__enter__()</code>
+    <li><code>__leave__()</code>
+    </ul>
+<li>When execution enters the block, the object's constructor (<code>__init__()</code>) will be called
+<li>The constructor will be immediately followed by the object's <code>__enter__()</code> method
+<li>Upon leaving the block, the <code>__exit__()</code> method will automatically be called.
 <li><code>__exit__()</code> accepts three arguments - <code>type</code>, <code>value</code>, and <code>traceback</code> -
-    they are used for exception handling. I.e. if an exception occurs within the block, the exception type, value and 
+    which are used for exception handling. If an exception occurs within the block, the exception type, value and 
     traceback will be passed into <code>__exit__()</code>
 <li>If <code>__exit__()</code> returns True, it signals to the Python run-time environment that the exception was gracefully handled.
 Otherwise, the exception will be unhandled.
@@ -95,26 +104,37 @@ Otherwise, the exception will be unhandled.
 </ul>
 
 <pre>
-class File(object):
-    def __init__(self, filename):
-        print "__init__"
-        self.filename = filename
-        self.file = open(filename, 'w')
+# Here is an example which can be helpful when designing unit tests for methods which invoke the <a href="python_subprocess.html"><code>subprocess</code></a> module
+
+import sys
+
+#
+# define context manager class
+#
+
+class MyContextManager():
+
+    # constructor
+    def __init__(self):
+        print ("MyContextManager::init (CONSTRUCTOR) called")
 
     def __enter__(self):
-        print "__enter__"
-        return self
+        print ("MyContextManager::enter called")
 
-    def write (self, s):
-        self.file.write(s)
+    def __exit__(self, exc_type, exc_value, traceback):
+        print ("MyContextManager::exit called")
 
-    def __exit__(self, type, value, traceback):
-        print "__leave__"
-        self.file.close()
+
+#
+# use context manager class
+#
+
+with MyContextManager():
+    foo()
 </pre>
 
 
-<h2>Implementing a Context Manager as a Generato</h2>
+<h2>Implementing a Context Manager as a Generator</h2>
 
 <ul>
 <li>TBD

@@ -43,7 +43,8 @@ C O N T E N T
 
 <ul>
 
-<li>Strings in Python are stored in Unicode
+<li>In Python 2, strings (by default) are ASCII byte strings
+<li>In Python 3, strings (by default) are Unicode encoded via UTF-8
 <li>Strings can be defined using either double or single quotes
 <pre>
 s1 = "Hello, World!"
@@ -149,6 +150,22 @@ words = s.split() # results in ['Today', 'is', 'too', beautiful', 'a', 'day', 't
 <dd>'0123456789AaBbCcDdEeFf'
 
 </dl>
+
+<h2>Byte String</h2>
+<ul>
+<li>Sequence of integers in the range of 0-255 which is displayed as ASCII by Python - albeit prefixed with a <code>b</code>
+<li>For example: <code>b'Hello, World!'</code>
+<li>The <code>subprocess</code> module returns byte strings for the output of commands
+<li>Use the following to convert from a byte string to a unicode string encoded with UTF-8 (Python 3 default) <code>b'hello, world!'.decode("utf-8")</code>
+</ul>
+
+<h2>Raw String</h2>
+<ul>
+<li>A <strong>Raw String</strong> is just like a string except that that escape characters are treated literally.
+<li>For example <code>r'a\n'</code> is interpreted as the character string <code>a</code> followed by <code>\</code> followed by <code>n</code>
+<li>Whereas the string <code>'a\n'</code> is interpreted as the character string <code>a</code> followed by a newline
+</ul>
+
 
 </div>
 </body>

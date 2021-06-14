@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: pytest</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>pytest</code></h1>
+
+<ul>
+<li><code>pytest</code> is a testing framework for Python
+<li>By default, when you run <code>pytest</code>, it will execute all tests in the current directory and any sub-directory
+<li>By default, it looks for files which begin with <code>test</code>
+<li>If tests are defined in functions, the functions should be prefixed with <code>test_</code>
+<li>If tests are defined within a class, the class name should begin with <code>Test</code> and should <strong>not</strong> 
+    have a <code>__init()</code> method. Test methods (similar to stand-alone functions) should begin with <code>test_<code>
+<li>You create simple tests using the Python <code>assert</code> statement
+</ul>
+
+<pre>
+# foo.py
+
+def foo (f):
+
+    return f+5
+
+
+# test_foo.py
+
+def test_foo ():
+
+    assert foo(5) == 10
+
+
+# to run the tests
+pytest
+
+# or alternatively
+python3 -m pytest
+</pre>
+
+
+</div>
+</body>
+</html>
+

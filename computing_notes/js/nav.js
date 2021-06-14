@@ -498,6 +498,9 @@ function print_nav(f)
         <a href="python_random.html">random module</a>
         <a href="python_time.html">time module</a>
         <a href="python_yaml.html">YAML</a>
+        <a href="python_pip.html">pip</a>
+        <a href="python_pytest.html">pytest</a>
+        <a href="python_unittest_mock.html">unittest.mock</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>

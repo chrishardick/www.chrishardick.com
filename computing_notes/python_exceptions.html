@@ -55,23 +55,24 @@ try:
     
 except ExceptionTypeI as eI:                        # catch ExceptionTypeI
     
-    print "Exception Occurred. ", eI.value
+    print ("ExceptionTypeI Occurred |%s|" % (eI))
 
 except ExceptionTypeII as eII:                      # catch ExecptionTypeII
     
-    print "Exception Occurred. ", eII.value
+    print ("ExceptionTypeII Occurred. |%s|" % (eII))
 
-except:     # catch all exceptions                  # catch all other exeptions
+except:                                             # catch all other exeptions
 
-    print "Exception Occurred"
+    print ("Unknown Exception Occurred")
 
-else:       # executed if no exceptions trigger -- you cannot use both else and finally
+else:       # executed if no exceptions trigger - you cannot use both else and finally
 
-finally:    # always executed -- you cannot use both else and finally 
-
-# execution continues here
-
-print "execution continues!"
+finally:    # always executed - you cannot use both else and finally 
+            # NOTE: finally is always executed (regardless if exception was thrown or not)
+            #       However it does not handle the exception. In other words, if an exception
+            #       is thrown and you have a finally block without handling the exception 
+            #       (no except block(s)), and the exception is not caught higher up the
+            #       stack, the exception will be unhandled and the program will terminate
 </pre>
 
 

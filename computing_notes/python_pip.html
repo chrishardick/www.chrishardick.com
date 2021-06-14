@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: pip</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: pip</h1>
+
+<ul>
+<li>Package Manager for Python Modules
+<li><code>pip</code> is for Python 2
+<li><code>pip3</code> is for Python 3
+</ul>
+
+
+<pre>
+Basic Usage:
+
+pip install &lt;package&gt;
+pip uninstall &lt;package&gt;
+pip list                            # list all packages installed on the system
+
+pip3 install &lt;package&gt;
+pip3 uninstall &lt;package&gt;
+pip3 list                            # list all packages installed on the system
+</pre>
+
+<h2>Install pip</h2>
+
+<h3>Debian</h3>
+<pre>
+apt-get install python-pip
+apt-get install python3-pip
+</pre>
+
+
+</div>
+</body>
+</html>
+

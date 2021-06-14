@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: unittest.mock</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>unittest.mock</code></h1>
+
+<ul>
+<li>Python mock object library
+<li>A mock object substitutes and imitates a real object - usually within a testing environment in order
+to better control your tests
+<li>Mock objects also track their own usage which can be queried to ensure your code is behaving as expected
+</ul>
+
+<pre>
+import xyz
+
+import unittest
+from unittest import mock
+
+class TestXyz
+    with mock.patch ('xyz.subprocess') as mock_subprocess:
+        mock_subprocess.check_output.return_value = b"blah"         # any call to subprocess.check_output from within module xyz will return b"blah"
+
+        # code which executes your test
+</pre>
+
+
+</div>
+</body>
+</html>
+
