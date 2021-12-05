@@ -51,6 +51,12 @@ FunctionName ( )
     # $1 is the 1st argument
     # $2 is the 2nd argument
     # ...
+
+    # it's a good idea to assign these to meaningful variable names
+    typeset logfile     # local variable
+    logfile=$1 
+
+
 }
 
 -or-
@@ -61,6 +67,49 @@ function FunctionName
 }
 
 NOTE: 'function' is a keyword in bash.
+
+#
+# utility function to log to file with timestamp
+#
+LogMsg ()
+{
+    typeset logfile     # local variable
+    typeset msg         # local variable
+
+    logfile=$1
+    shift
+
+    msg="$*"
+
+    echo "`date`: ${msg}" &gt;&gt;$logfile
+}
+
+#
+# useful example of executing something making it easy to debug
+#
+DoSomething ()
+{
+    typeset lfil        # local variable
+
+    lfil=$1
+
+    typeset cmd         # local variable
+    typeset out         # local variable
+    typeset rc          # local variable
+
+    cmd="echo hello, world!"
+    LogMsg $lfil "DoSomething: executing cmd=|${cmd}|..."
+
+    out=`${cmd}`
+    rc=$?
+
+
+    if [[ ${rc} -ne 0 ]]; then
+        LogMsg $lfil "DoSomething: ERROR EXECUTING CMD=|${cmd}|. OUT=|${out}|. RC=${rc}"
+    else
+        LogMsg $lfil "DoSomething: CMD SUCCESSS. cmd=|${cmd}|. out=|${out}|"
+    fi
+}
 </pre>
 
 <ul>

@@ -87,6 +87,22 @@ foo.o: foo.cpp foo.h
     g++ -c foo.cpp
 </pre>
 
+<h3>Phony Targets</h3>
+
+<ul>
+<li>A <strong>phony target</strong> is a target in which you're not really trying to build. 
+It's more of a name for a list of instructions to be executed. E.g. <code>make build</code>, 
+<code>make clean</code>
+<li>It's a good idea to explicitly declare your phony targets to avoid an unintentional conflict.
+I.e. if someone creates a file named <code>build</code> or <code>clean</code>, your phony target will cease to work. 
+Since it has no dependencies, it will always be up-to-date
+<li>To explictly declare a target as a phony target, you make it a dependency of a special target <code>.PHONY</code>
+</ul>
+
+<pre>
+.PHONY: build clean
+</pre>
+
 <h3>Macros</h3>
 
 <ul>

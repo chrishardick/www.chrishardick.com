@@ -42,17 +42,17 @@ C O N T E N T
 	
 <h2>Definition</h2>
 
-<p>
-As in all programming languages, variables are named places to store data. In BASH, all variables are stored as character strings. 
-However, BASH does support arithmetic operations (including comparisions) on variables (see below). 
-You can obtain the value of a varable by proceeding the variable name with a dollar sign ($).
-</P>
+<ul>
+<li>As in all programming languages, variables are named places to store data. 
+<li>In BASH, all variables are stored as character strings. 
+<li>However, BASH does support arithmetic operations (including comparisions) on variables (see below). 
+<li>You can obtain the value of a varable by proceeding the variable name with a dollar sign ($).
+</ul>
 
 <h2>Assigning Values to Variables</h2>
 
 <ul>
-<li>Assignment is very similar to its analog in traditional programming languages, except that most variables-all that
-we've seen so far-hold character strings.  
+<li>Assignment is very similar to its analog in traditional programming languages, except that most variables hold character strings.  
 <li><strong>When assigning values to variables it is important not to have any white space (tabs or spaces) on either side of the equal sign.</strong>
 </ul>
 
@@ -85,8 +85,7 @@ export X
 <h2>Positional Parameters & Related Shell Variables</h2>
 <ul>
 <li>Positional Parameters (Command Line Arguments) are passed into a shell script as 1, 2, 3, and so on.  
-<li>There is also positional parameter 0 (zero) which is the name of the shell script as it was invoked (either the absolute path name or a
-relative path name).
+<li>There is also positional parameter 0 (zero) which is the name of the shell script as it was invoked (either the absolute path name or a relative path name).
 </ul>
 
 <p>
@@ -118,15 +117,19 @@ HINT: When accessing the values stored in either <code>*</code> or <code>@</code
 <li><code>!</code> yields the background process ID
 </ul>
 
-<h2>Functions & Variables</h2>
-<p>
-All variables used within a function have, by default, <strong>global scope</strong>.  This means that after they're assigned a value,
-the variable can be accessed anywhere.  To give a variable <strong>local scope</strong>, you must physically declare a variable as <code>local</code>.
-For example: <code>local x</code>.  The exception to this rule is Positional Parameters and their associated variables.  Functions
-can accept arguments; they accept arguments in the same way as a script accepts arguments (with the exception of 0
-positional paramter 0 is not the function name).  In order to accomplish this, positional parameters and their associated 
-arguments are local to the particular function.
-</p>
+<h2>Functions and Variables</h2>
+<ul>
+<li>All variables declared within a function have, by default, <strong>global scope</strong>.  
+In other words, the variable can be accessed anywhere.
+<li>To give a variable <strong>local scope</strong>, you must physically declare a variable as <code>local</code>. For example: <code>local x</code>.  
+<li>The exception to this rule is Positional Parameters - the arguments passed into a function
+<li>Functions can accept arguments; they accept arguments in the same way as a script accepts arguments 
+(with the exception of 0 positional paramter 0 is not the function name).  
+<li>In order to accomplish this, positional parameters are local to the function.
+<li>A more portable way to declare a variable as local is to use <code>typeset</code>. 
+<li>Using <code>typeset</code> without any options declares a variable as having local scope and is supported in more shells than <code>local</code>.  E.g. the Korn shell supports <code>typeset</code>, but not <code>local</code>. 
+<li>Example: <code>typeset x</code> declares <code>x</code> to have local scope.
+</ul>
 
 <h2>Command Substitution</h2>
 <p>
