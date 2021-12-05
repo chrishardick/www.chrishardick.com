@@ -43,20 +43,22 @@ C O N T E N T
 <h2>Applications</h2>
 <ul>
 <li>Breadth First Traversal / Search is usually used to determine the shortest path between two nodes.
-<li>Examples include (albeit not binary trees, but the concept is the same): 
-    Social Networks (difference in depth between 2 individuals),
-    GPS Navigation Systems, etc. 
+<li>Examples include (albeit not binary trees, but the concept is the same only you're usuaually working
+    with children (or neighbors) which are list of nodes rather than just left and right children) - 
+    social networks (difference in depth between 2 individuals), web crawling, puzzle solving
+    GPS navigation systems, etc. 
 </ul>
 
 <h2>Breadth First Traversal (BFT)</h2>
 <ul>
 <li>BFT starts at the root and visits all nodes at the same depth before moving on to the nodes at the next depth level
+<li>This can also be used as BFS if you simply need to know if a path exists between two nodes
 </ul>
 
 <h2>Algorithm</h2>
 <pre>
 //
-// breath first traversal is usually implemented iteratively with a queue
+// breath first traversal can be implemented iteratively with a queue
 //
 void bft (Node* head)
 {
@@ -94,14 +96,15 @@ void bft (Node* head)
 <h2>Algorithm</h2>
 <pre>
 //
-// bfs is usually implemented iteratively with a queue of queues
+// here's is a bfs in which we return the path 
+// - implemented iteratively with a queue of queues
 //
 std::list&lt;Node*&gt; bfs (Node* head, int value)
 {
-    std::list&lt;std::list&lt;Node*&gt;&gt; path_q;
+    std::list&lt;std::list&lt;Node*&gt;&gt; path_q;     // queue of paths
 
     if (!head)
-        return std::list&lt;Node*&gt;
+        return std::list&lt;Node*&gt;()
 
     std::list&lt;Node*&gt; p;
     p.push_back(head);
@@ -110,9 +113,9 @@ std::list&lt;Node*&gt; bfs (Node* head, int value)
 
     while (!path_q.empty())
     {
-        std::list&lt;Node*&gt; path = q.front();
+        std::list&lt;Node*&gt; path = path_q.front();
 
-        q.pop_front();
+        path_q.pop_front();
 
         Node* nn = path.back();
 
@@ -124,28 +127,31 @@ std::list&lt;Node*&gt; bfs (Node* head, int value)
 
         if (nn-&gt;left)
         {
-            std::list&lt;Node&gt; p_left = path;
+            std::list&lt;Node&gt; path_left = path;    // copy entire path
 
-            p_left.push_back(nn&gt;left);
+            path_left.push_back(nn-&gt;left);
 
-            path_q.push_back(p_left);
+            path_q.push_back(path_left);
         }
 
         if (nn-&gt;right)
         {
-            std::list&lt;Node&gt; p_right = p;
+            std::list&lt;Node&gt; path_right = path;    // copy entire path
 
-            p_right.push_back(nn&gt;right);
+            path_right.push_back(nn-&gt;right);
 
-            path_q.push_back(p_right);
+            path_q.push_back(path_right);
         }
     }
 
     // if here, path not found
 
-    return std::list&lt;Node*&gt;
+    return std::list&lt;Node*&gt;();
 }
+
 </pre>
+
 </div>
+
 </body> 
 </html>

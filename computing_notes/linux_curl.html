@@ -47,9 +47,15 @@ C O N T E N T
     However, if you specify <code>--upload-file</code> or <code>-T</code> option,
     the request type will change to <code>PUT</code>. In addition, <code>Content-length</code> will be 
     calculated for you (along with the proper header added)
+<li>To send a <code>POST</code> request, use <code>-d &lt;name=value&gt;</code> or <code>--form &lt;name=value&gt;</code>.
+    This option can be used mulitple times
 <li>The request type can be changed via <code>-X</code> option
 <li>The verbose flag (<code>-v</code> or <code>--verbose</code>) is very useful to see what request was actually sent
     along with anything else which is going on under the hood.
+<li>The insecure flag (<code>-k</code> or <code>--insecure</code>) will allow you to proceed with a non-certified certificate
+<li>The user flag (<code>-u</code> or <code>--user</code>) allows you to pass a username and password for basic HTTP authentication as <code>username:password</code>. E.g. <code>-u username:password</code>
+<li>The cookie flag (<code>-b</code> or <code>--cookie</code>) allows you to pass cookies as <code>name:value</code>. E.g. <code>-b name:value</code>
+    Data should be in the format: NAME1=VALUE1; NAME2=VALUE2
 </ul>
 
 <pre>

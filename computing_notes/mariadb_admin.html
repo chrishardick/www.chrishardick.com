@@ -90,6 +90,7 @@ VALUES ('localhost','chris@localhost',password('chris'),'Y','Y','Y','Y','Y','Y',
 <h3><code>mysqladmin</code></h3>
 <ul>
 <li>Client to administer a MySql/MariaDB server
+<li>May need to log in as <code>root</code> or <code>sudo</code>
 <li>Set root password
     <pre>mysqladmin -u root password 'newpasswd'</pre>
 </ul>
@@ -112,13 +113,11 @@ VALUES ('localhost','chris@localhost',password('chris'),'Y','Y','Y','Y','Y','Y',
     <pre>mysql -u root -p</pre>
 
 <li>To add a user record to 'user' table and host record to 'host' table:
-    <ul>
-    <li>Log in as mysql user root (see above)
-    <li>Execute the following:
-    <pre>mysql&gt; CREATE USER 'chris'@'localhost' IDENTIFIED by 'password';
+<li>Log in as mysql user root (see above)
+<li>Execute the following:
+<pre>mysql&gt; CREATE USER 'chris'@'localhost' IDENTIFIED by 'password';
 mysql&gt; GRANT ALL PRIVILEGES ON * . * TO 'chris'@'localhost';     // *.* indicates all databases, all tables - respectively
 mysql&gt; FLUSH PRIVILEGES;</pre>
-    </ul>
 </ul>
 
 <h2>Porting An Existing MySQL Database</h2>

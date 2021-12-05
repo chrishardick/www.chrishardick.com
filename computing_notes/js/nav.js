@@ -477,6 +477,7 @@ function print_nav(f)
         <a href="python_regex.html">Regular Expressions</a>
         <a href="python_formatted_output.html">Formatted Output</a>
         <a href="python_subprocess.html">subprocess module</a>
+        <a href="python_os.html">os module</a>
         <a href="python_environment_variables.html">Environment Variables</a>
         <a href="python_sqlite.html">Sqlite</a>
         <a href="python_mysql.html">MySQL</a>

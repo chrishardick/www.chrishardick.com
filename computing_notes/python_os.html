@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: os module</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>os</code> module</h1>
+
+<pre>
+# remove all files in a directory
+
+import os
+
+d = "/my/path"
+
+for f in os.listdir(d):
+
+    ff = os.path.join(d,f)
+
+    if os.path.isfile(ff):
+        os.remove(os.path.join(d,f))
+
+    elif os.path.isdir(ff):
+        
+</pre>
+
+
+</div>
+</body>
+</html>
+

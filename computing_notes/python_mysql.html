@@ -41,6 +41,23 @@ C O N T E N T
 
 <h1>Python: MySQL</h1>
 
+<h2>Installation</h2>
+
+<h3>Debian based Systems</h3>
+
+<h4>Python3</h4>
+<pre>
+apt-get install python3-mysqldb
+apt-get install python3-mysql.connector
+</pre>
+
+<h4>Python2</h4>
+<pre>
+apt-get install python-mysqldb
+apt-get install python-mysql.connector
+</pre>
+
+
 <h2>MySQLConnection Class</h2>
 <pre>
 import mysql.connector
@@ -168,13 +185,6 @@ db_conn.commit()
 db_cursor.close()
 db_conn.close()
 </pre>
-
-<h2>Installation</h2>
-
-<h3>Debian based Systems</h3>
-<ul>
-<li><code>apt-get install python-mysqldb</code>
-</ul>
 
 </div>
 </body>
