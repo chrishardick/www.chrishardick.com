@@ -371,7 +371,6 @@ function print_nav(f)
         <a href="linux_setup_new_server.html">Set Up New Server</a>
         <a href="linux_shutdown.html">shutdown</a>
         <a href="linux_ssh.html">ssh</a>
-        <a href="linux_stat.html">stat</a>
         <a href="linux_su.html">su</a>
         <a href="linux_sudo.html">sudo</a>
         <a href="linux_systemd.html">systemd</a>

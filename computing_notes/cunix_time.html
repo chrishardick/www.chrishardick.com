@@ -144,10 +144,10 @@ They will run out of time.
 <h3>CONVERSION TO STRINGS</h3>
 
 <pre>
-	#include &#60time.h&#155
+	#include &lt;time.h&gt;
 
 	char* asctime (const struct tim* timeptr);
-	char* ctime   (const time_t*     timeptr);
+	char* ctime   (const time_t*     timeptr);      // equivalent to asctime(localtime(timeptr)) - will print localtime
 
 	NOTE: Both functions always return a Fixed Format (26 characters long including NULL Ptr)
 

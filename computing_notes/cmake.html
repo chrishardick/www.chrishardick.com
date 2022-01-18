@@ -211,6 +211,36 @@ target_link_libraries (executable_name ${PROJECT_LINK_LIBS})
 <li>The command will apply only to targets created after it was called
 </ul>
 
+<h3><code>install (...)</code></h3>
+<ul>
+<li>Generate installation rules for a project
+<li>Common Options:
+<li><code>DESTINATION</code> - specifies the directory where a file is to be installed.
+    If a relative path is given, it is relative to the value of <code>CMAKE_INSTALL_PREFIX</code>.
+    If an absoute path is given, it is used as is.
+<li><code>PERMISSIONS</code> - specify permissions for installed files.
+    <code>OWNER_READ</code>, <code>OWNER_WRITE</code>, <code>OWNER_EXECUTE</code>,
+    <code>GROUP_READ</code>, <code>GROUP_WRITE</code>, <code>GROUP_EXECUTE</code>,
+    <code>WORLD_READ</code>, <code>WORLD_WRITE</code>, <code>WORLD_EXECUTE</code>,
+<li><code>COMPONENT</code> - specifies an installation component name with which the install rule is associated.
+    E.g. <code>runtime</code>, <code>development</code>, etc.
+<li><code>RENAME</code> - specify a name for the installed file which may be different from than the original file.
+
+<li><strong>Installing Targets</strong>
+    <ul>
+    <li>I assume the fundamental intent here is to install a rule target
+    <li>Targets are: Executables, Static Libraries (Archives), Shared Library, Object Files, Header Files (Public and Private), etc.
+    <li><code>install (<strong>TARGETS</strong> &lt;target&gt;...)</code>
+    </ul>
+
+<li><strong>Installing Files</strong>
+    <ul>
+    <li>Install a file or program
+    <li><code>install (FILES | PROGRAMS &lt;target&gt;...)</code>
+    <li>FILES default permissions - OWNER_WRITE, OWNER_READ, GROUP_READ, WORLD_READ
+    <li>PROGRAMS default permissions include all the permissions for FILES plus OWNER_EXECUTE, GROUP_EXECUTE, WORLD_EXECUTE
+    </ul>
+</ul>
 
 <h2>Installing CMake</h2>
 <pre>
