@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cmake");
+}
+</script>
+
+<title>System Design</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>System Design</h1>
+
+<p>This is an assortment of big ticket items to think about when designing a system</p>
+
+<h2>Capacity Management</h2>
+
+<ul>
+<li><strong>Capacity Management</strong> can be defined as ensuring a given system has sufficient capacity to handle demands - both expected and unexpected
+<li>Do you have enough disk space? Enough machines, etc.
+</ul>
+
+
+<h2>Scalability</h2>
+
+<ul>
+<li><strong>Scalability</strong> is defined by <a href="https://wikipedia">wikipedia</a> as
+    the property of a system to handle a growing amount of work by adding resources to the system
+<li>When talking about computing systems, there are generally two types of scalability - 
+    <strong>Vertically Scaling</strong> and <strong>Horizontally Scaling</strong>
+</ul>
+
+<h3>Vertically Scaling</h3>
+
+<pre>
+/ \         +------+
+ |          |      | 
+ |  +--+    |      |
+ |  |  |    |      |
+ |  +--+    +------+
+</pre>
+
+<ul>
+<li><strong>Vertically Scaling</strong> also known as <em>scaling up</em> refers to adding more resources
+    to a given machine. I.e. more CPU, more memory, etc. 
+<li>This could by dynamically (on the fly, not requiring a re-boot) or statically (requiring the machine to be re-booted)
+<li>Swapping out machines from a less powerful machine to a more powerful machine can also be an example of vertically scaling
+</ul>
+
+
+<h3>Horizontally Scaling</h3>
+
+<pre>
+ +--+  +--+  +--+  +--+
+ |  |  |  |  |  |  |  |
+ +--+  +--+  +--+  +--+
+
+ ---------------------&gt;
+</pre>
+
+<ul>
+<li><strong>Horizontally Scaling</strong> also known as <em>scaling out</em> refers to adding more machines to your pool of resources
+<li>Scaling horizontally requires you to be able to break up your processing (or part of your processing) such that it can be 
+    executed across multiple machines in parallel
+<li>This could be dynamically (on the fly, not requiring any downtime) or statically (requiring at least some downtime)
+<li>For example, you could dynamically add more machines to the pool of machines which accomplishes some calculation for you
+<li>Or you statically reconfigure the data sharding of your system. 
+<li>Your system may be so advanced such that it supports dynamcially reconfiguirng the data sharding
+</ul>
+
+<h2>Distributed Systems</h2>
+
+<ul>
+<li>A <strong>distributed system</strong> is a computing environment in which components are spread across multiple computers
+<li>Distributed systems can help with parallelism
+<li>Distributed systems can also help to reduce single points of failure
+<li>However, because they're distributed, they usually tend to be more complex and more difficult to observe
+</ul>
+
+
+<h2>Observability</h2>
+
+<ul>
+<li>I define <strong>observability</strong> as the ability to measure and monitor the internal state of a system
+<li>How did your queue size change over time?
+<li>How did the incoming message rate change over time?
+<li>How long did it take to process a given message
+<li>The ability to alarm if your queue size reaches a given high water mark
+<li>The ability to alarm if your incoming message rate exceeds a certain rate 
+    (usually a certain percentage of the time time it takes to process a message)
+</ul>
+
+
+<h2>Debuggability</h2>
+
+<ul>
+<li>Very important to me, is how easy a system is to debug
+<li>When things invariably go wrong, how easy is it to figure out what went wrong?
+<li>Did you design a simple system?
+<li>Is each piece of the system well documented with a simple picture depicting the flow of data, etc.?
+<li>Does your system easily inform you when something went wrong?
+<li>Do errors go to a centralized place making them easy to monitor?
+<li>Did someone think about what should actually be an error and what actions should be taken if the error is severe enough?
+</ul>
+
+
+<h2>Incident Management (IM) - SLA's, SLO's, SLI's</h2>
+
+<ul>
+<li><strong>SLA</strong> - Service Level Agreement. The promises you make to your customers and the consequences if you fail to meet those promises.
+<li><strong>SLO</strong> - Service Level Objective. These are the individual promises of an SLA. E.g. Percent Uptime, Response Time, etc.
+<li><strong>SLI</strong> - Service Level Indicator. These are the individual measures. I.e. what was the actual uptime, etc.
+</ul>
+
+
+</div>
+</body> 
+</html>
