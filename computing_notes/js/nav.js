@@ -559,7 +559,7 @@ function print_nav(f)
         <a href="swift_enum.html">Enumerations</a>
     </div>
 
-    <button class="accordion" id="accordion_utf8">System Design</button>
+    <button class="accordion" id="accordion_systemdesign">System Design</button>
     <div class="panel">
         <a href="systemdesign.html">Cheat Sheet</a>
     </div>
