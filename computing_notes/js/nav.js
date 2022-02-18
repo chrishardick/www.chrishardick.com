@@ -318,7 +318,7 @@ function print_nav(f)
         <a href="js_hoisting.html">Hoisting</a>
     </div>
 
-    <button class="accordion" id="accordion_jsclient">JS Client-Side</button>
+    <button class="accordion" id="accordion_jsclient">JavaScript Client-Side</button>
     <div class="panel">
         <a href="jsclient_intro.html">Intro</a>
         <a href="jsclient_window_object.html">Window Object</a>
@@ -338,6 +338,11 @@ function print_nav(f)
         <a href="jsclient_loan_calc.html">Loan Calculator</a>
         <a href="jsclient_scratch_pad.html">Scratch Pad</a>
         <a href="jsclient_canvas_scratch.html">Canvas Scratch Pad</a>
+    </div>
+
+    <button class="accordion" id="accordion_jenkins">Jenkins</button>
+    <div class="panel">
+        <a href="jenkins.html">Intro</a>
     </div>
 
     <button class="accordion" id="accordion_json">JSON</button>

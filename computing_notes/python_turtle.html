@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: turtle module</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>turtle</code> module</h1>
+
+<ul>
+<li>Turtle graphics
+<li>A popular way to introduce programming to kids
+<li>Provides turtle graphic primatives, both object oriented and procedural
+<li>Uses <code>tkinter</code> - Tk Interface for the underlying graphics.
+    Therefore it needs a version of Python with Tk support
+</ul>
+<pre>
+import turtle
+
+turle.getscreen()
+
+turtle.forward(x)       # move the turtle 15 pixels in the direction it's facing, drawing a line as it moves
+turtle.right(25)        # rotate 25 degrees clockwise
+</pre>
+
+<h2><code>TurtleSceen</code> class</h2>
+<ul>
+<li>The <code>TurtleScreen</code> class defines a graphics window for drawing turtles.
+    Its constructor needs a <code>tkinter.Canvas</code> as an argument
+<li>The function <code>Screen()</code> returns a singleton object of a <code>TurtleScreen</code> subclass
+</ul>
+
+<h2><code>Turtle</code> class</h2>
+
+<h3>Turtle Move and Draw Methods</h3>
+
+<ul>
+<li><code>forward(distance)</code> - move turtle forward by the specified distance (integer or floating point) in the turtle's current direction
+<li><code>backward(distance)</code> - move turtle backward by the specified distance (integer or floating point) in the turtle's current direction
+<li><code>right(angle)</code> - move turtle right by angle units (default is degrees)
+<li><code>left(angle)</code> - move turtle left by angle units (default is degrees)
+<li><code>setposition(x,y=None)</code> - move turtle to an absolute position. If the pen is down, draw line
+<li><code>setx(x)</code> - set turtle's x coordinate
+<li><code>sety(y)</code> - set turtle's y coordinate
+<li><code>setheading(to_angle)</code> - set the orientation of the turtle to the specified angle.
+    0 is East, 90 is North, 180 is West, 270 is South.
+<li><code>home()</code> - move turtle to the origin (0,0) and set its heading to start-orientation which depends on <code>mode()</code>
+<li><code>circle(radius,extent=None,steps=None)</code> - draw a circle with given radius. The center is radius units left of the turtle.
+    Extent is an angle andn determines which part of the circle is drawn. 
+<li><code>dot(size=None, *color)</code> - draw a circular dot with specified size and color. 
+    If size is not given, the max of pensize+4 and 2*pensize is used.
+<li><code>stamp()</code> - stamp a copy of turtle's shape onto the canvas at the current position.
+    Returns a stamp_id which can be passed to <code>clearstamp()</code>
+<li><code>clearstamp(stampid)</code> - delete the stamp with the given stampid
+<li><code>clearstamps(n=None)</code> - delete all or the first/last turtle stamps. None = delete all stamps. n &gt; 
+    0 delete first n stamps; n &lt; 0 delete last n stamps
+<li><code>undo()</code> - undo turtle's last action. Number of available undo actions is determined by size of undobuffer
+<li><code>speed(speed=None)</code> - speed - an integer in the range 0-10 or a speedstring 
+    ("fastest":0, "fast": 10, "normal": 6, "slow": 3, "slowest": 1). speed = 0 means no animation takes place
+</ul>
+
+<h3>Turtle Pen Control Methods</h3>
+
+<ul>
+<li><code>pendown()</code> - 
+<li><code>penup()</code> - 
+<li><code>width(width=None)</code> - Set the line thickness to width or return it
+<li><code>isdown()</code> - returns <code>True</code> if pen is down. False otherwise
+</ul>
+
+<h3>Turtle Pen Color Methods</h3>
+
+<ul>
+<li><code>pendown()</code> - 
+<li><code>penup()</code> - 
+
+<h3>Turtle State Methods</h3>
+<ul>
+<li><code>position()</code> - return turtle's current location (x,y)
+<li><code>xcor()</code> - return turtle's x coordinate
+<li><code>ycor()</code> - return turtle's y coordinate
+<li><code>heading()</code> - return turtle's current heading (value depends on <code>mode()</code>
+<li><code>distance(x,y)</code> - return distance from turtle to (x,y)
+</ul>
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jenkins");
+}
+</script>
+
+<title>Jenkins</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+
+<h1>Jenkins</h1>
+
+<ul>
+<li><strong>Jenkins</strong> is an open source automation server allowing automation of 
+    <strong>building</strong>, <strong>testing</strong>, and <strong>deploying</strong> software
+<li>In other words, it's a <strong>CI / CD</strong> server (Continuous Integration, Continuous Deployment)
+<li><strong>Jenkins Pipelines</strong> are typically triggered via a webhook that gets triggered upon commits to a version control system
+<li><strong>Jenkins Pipelines</strong> can also be scheduled via a cron-like system, invoked on demand, etc.
+</ul>
+
+
+<h2>Comments</h2>
+<ul>
+<li>Irregardless if you're using a <strong>Declarative Syntax</strong> or a <strong>Scripted Syntax</strong>, since 
+they are GROOVY scripts, which supports the same types of comments as C++ - namely single and multi-line comments
+</ul>
+
+<pre>
+/* 
+ * multi-line comments
+ */
+
+// single line comment
+</pre>
+
+
+<h2>Jenkins Pipeline</h2>
+
+<ul>
+<li>A <strong><code>Jenkinsfile</code></strong> contains the definition of a <strong>Jenkins Pipeline</strong> and is 
+    checked into source control
+<li>Jenkins pipelines can be defined using either <strong>Declarative Syntax</strong> and <strong>Scripted Syntax</strong>
+<li><strong>Scripted Syntax</strong> is older, more complex and not as popular
+<li><strong>Declarative Syntax</strong> is newer, simpler and more popular. 
+<li>If you're writing a new pipeline, using <strong>Declarative Syntax</strong> is highly recommended
+<li>Jenkins Pipelines consist of <strong>Stages</strong>
+<li>Each <strong>Stage</strong> has <strong>Steps</strong>
+<li>When using the <strong>Declarative Syntax</strong>, the source code is automatically checked out for you.
+</ul>
+
+<h3><code>triggers</code> Directive</h3>
+
+<ul>
+<li>The <strong><code>triggers</code></strong> directive defines an automated way to trigger a pipeline
+<li>Available triggers are: <strong><code>cron</code></strong>, <strong><code>pullSCM</code></strong>, <strong><code>upstream</code></strong>
+<li><strong><code>cron</code></strong> schedules a pipeline at a specified interval
+<li><strong><code>pollSCM</code></strong> polls source code management (SCM) at specified interval - uses same syntax as <strong><code>cron</code></strong>
+</ul>
+
+<pre>
+//
+// Field 1: MINUTE (of the hour) (0-59)
+// Field 2: HOUR (of the day) (0-23)
+// Field 3: DAYOFMONTH (day of the month) (1-31)
+// Field 4: MONTH (month of the year) (1-12)
+// Field 5: DAYOFWEEK (day of the week) (0-7) where 0 and 7 are Sunday
+//
+
+triggers { cron ('*/5 * * * *') }       // every 5 minutes
+triggers { cron ('H/5 * * * *') }       // every 5 minutes - spread load evenly
+
+triggers { pollSCM ('*/5 * * * *') }    // every 5 minutes
+
+</pre>
+
+<h3><code>when</code> Directive</h3>
+<ul>
+<li><strong><code>when</code></strong> directives control when to execute a step
+</ul>
+
+<h3><code>post</code> Build Sections</h3>
+<ul>
+<li><strong><code>post</code> sections</strong> are actions which occur after a single stage or an entire pipeline.
+<li><strong><code>post</code> sections</strong> allow you to control which actions to take based on the result of a single stage or the whole Pipeline
+<li><strong><code>post</code></strong> supports a number of different <strong>run conditions</strong>.
+<code><strong>always</strong></code> - always execute; 
+<code><strong>changed</strong></code> - execute when results differ from previous run; 
+<code><strong>success</strong></code> - execute when the stage was successfully completed
+<code><strong>failure</strong></code> - execute when the stage failed to complete
+</ul>
+
+<pre>
+pipeline 
+{
+    // where to run this pipeline
+    agent any
+
+    options 
+    {
+        // Only keep the 10 most recent builds
+        buildDiscarder(logRotator(numToKeepStr:'10'))
+    }
+    stages 
+    {
+        stage ('Install') 
+        {
+            steps 
+            {
+                // install required gems
+                sh 'bundle install'
+            }
+        }
+        stage ('Build') 
+        {
+            steps 
+            {
+                // build
+                sh 'bundle exec rake build'
+            }
+
+            post 
+            {
+                success 
+                {
+                    // Archive the built artifacts
+                    archive includes: 'pkg/*.gem'
+                }
+            }
+        }
+        stage ('Test') 
+        {
+            steps 
+            {
+                // run tests with coverage
+                sh 'bundle exec rake spec'
+            }
+
+            post 
+            {
+                success 
+                {
+                    // publish html
+                    publishHTML target: 
+                    [
+                        allowMissing: false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll: true,
+                        reportDir: 'coverage',
+                        reportFiles: 'index.html',
+                        reportName: 'RCov Report'
+                    ]
+                }
+            }
+        }
+    }
+    post 
+    {
+        always 
+        {
+            echo "Send notifications for result: ${currentBuild.result}"
+        }
+    }
+}
+</pre>
+
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://www.jenkins.io">jenkins.io</a> 
+</ul>
+
+
+</div>
+</body> 
+</html>
