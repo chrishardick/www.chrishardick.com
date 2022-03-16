@@ -41,7 +41,10 @@ C O N T E N T
 <h1>C++ Map</h1>
 
 <ul>
-<li>Associative containers which hold key value pairs
+<li>Associative, ordered containers which hold key value pairs
+<li>Associative - elements are referenced by their key
+<li>Ordered - elements are ordered
+<li>Unique Keys
 </ul>
 
 
@@ -56,12 +59,17 @@ typedef pair&lt;const Key, T&gt; value_type;
 </pre>
 
 
-<h2>II. Constructors</h2>
+<h2>Constructors</h2>
 <ul>
+<li>Default Constructor
+	<ul>
+	<li>Size: 0
+	</ul>
+<pre>map &lt;Key, T&gt; m;</pre>
 </ul>
 
 
-<h2>III. Destructor</h2>
+<h2>Destructor</h2>
 <ul>
 <li>release any allocated space for the given map
 <pre>~map()</pre>
@@ -70,25 +78,39 @@ typedef pair&lt;const Key, T&gt; value_type;
 
 <h2>IV. Member Functions</h2>
 <ul>
+<li><strong><code>insert()</code></strong>
+    <ul>
+    <li>insert elements into the container
+    <li>see also <code>operator[]</code>
+    </ul>
+<pre>
+// return:
+// - first - iterator pointing either to newly inserted element or element with equivalent key (if item was already present in map)
+// - second - whether or not an item was added to the map
+
+pair&lt;iterator,bool&gt; insert(const value_type&amp; val);
+</pre>
 </ul>
 
-<h2>V. Common Operations</h2>
+<h2>Common Operations</h2>
 
 <h3>Insertion</h3>
 
 <pre>
-map<int,string> my_map;
+map&lt;int,string&gt; my_map;
 
 my_map[1] = "chris";
 my_map[2] = "hardick";
 </pre>
 
+
+
 <h3>Traversal</h3>
 <pre>
-for (map<int,string>::const_iterator i=my_map.begin(); i!=my_map.end();i++)
+for (map&lt;int,string&gt;::const_iterator i = my_map.begin(); i != my_map.end(); i++)
 {
-    cout &lt&lt "LHS=" &lt&lt i->first &lt&lt endl;
-    cout &lt&lt "RHS=" &lt&lt i->second &lt&lt endl;
+    cout &lt;&lt; "LHS=" &lt;&lt; i-&gt;first &lt;&lt; endl;
+    cout &lt;&lt; "RHS=" &lt;&lt; i-&gt;second &lt;&lt; endl;
 }
 </pre>
 

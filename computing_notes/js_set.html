@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>JavaScript - Set</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>JavaScript - Set</h1>
+
+
+<ul>
+<li>The <code>Set</code> object allows you to perform the usual set operations
+</ul>
+
+<h2>Instance Methods</h2>
+
+<ul>
+<li><strong><code>Set.prototype.add(value)</code></strong> - add <code>value</code> to the Set object. 
+    Returns the <code>Set</code> with the added item
+<li><strong><code>Set.prototype.delete(value)</code></strong> - remove <code>value</code> from he Set object. 
+    Returns a boolean as to whether or not the item was successfully removed or not.
+<li><strong><code>Set.prototype.has(value)</code></strong> - returns a boolean as to whether or not <code>value</code>
+    is present in the Set object
+    Returns a boolean as to whether or not the item was successfully removed or not.
+<li><strong><code>Set.prototype.clear()</code></strong> - remove all items from the Set objecdt
+</ul>
+
+<h2>Instance Properties</h2>
+
+<ul>
+<li><strong><code>Set.prototype.size</code></strong> - returns the number of values in the Set object
+</ul>
+
+<h2>Basic Usage</h2>
+<pre>
+let set1 = new Set();
+
+set1.add(1);
+set1.add(2)
+set1.add("hello, world!");
+
+const obj = {a: 1, b: 2};
+set1.add(obj);
+
+set1.size;      // 5
+
+set1.has(2);    // true
+set1.delete(2);
+</pre>
+
+<h2>Iterating Over the Set</h2>
+<pre>
+for (let i of set1)
+{
+    console.log(i);
+}
+</pre>
+
+<h2>Set Intersection</h2>
+<pre>
+let set_intersection = new Set(set1.filter(x=&gt;set2.has(x)));
+</pre>
+
+
+<h2>Set Difference</h2>
+<pre>
+let set_difference = new Set(set1.filter(x=&gt;!set2.has(x)));
+</pre>
+
+
+</div>
+</body> 
+</html>

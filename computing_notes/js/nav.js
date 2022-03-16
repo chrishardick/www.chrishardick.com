@@ -1,9 +1,14 @@
 //==========
 // nav.js
 //
-// on_load()
-// toggle_menu() - onclick handler for menu. toggles between X and navicon
-// toggle_active() - onclick handler for sub-menus
+// on_load()        - onload handler
+// toggle_menu()    - onclick handler for menu. toggles between X and navicon
+// toggle_active()  - onclick handler for sub-menus
+//
+// cookie data
+// ===========
+// menu_open=true
+//
 //==========
 
 var dbg = false;
@@ -33,10 +38,15 @@ function set_viewport ()
 
 //==========
 // onload handler
+//
+// - onload handler is triggered whtn the content of the document has finished loading
+// - typically a great place to attach code
 //==========
 function on_load (f)
 {
     console.log("on_load: ENTER");
+
+    var cookies = get_cookies();
 
     //
     // set viewport
@@ -51,7 +61,7 @@ function on_load (f)
     // - populates nav id
     //
 
-    print_nav(f);
+    print_nav(f, cookies);
 
 
     //
@@ -73,7 +83,7 @@ function on_load (f)
     // handle keeping menu open/closed as user changes pages
     //
 
-    handle_persistent_menu_open_close();
+    handle_persistent_menu_open_close(cookies);
 
 
     if (f)
@@ -89,14 +99,14 @@ function on_load (f)
 }
 
 
-//
+//==========
 // print_nav
 //
 // print html for nav panel
 //
 // populates nav id
-//
-function print_nav(f)
+//==========
+function print_nav(f, cookies)
 {
     if (dbg)
     {
@@ -104,6 +114,65 @@ function print_nav(f)
     }
 
     console.log ("print_nav: ENTER");
+
+    _print_nav();
+
+    //
+    // traverse cookies
+    // - anything matching accordian_* which is true - toggle active
+    // - change code below to keep f active - maybe unique it
+    //
+   
+    let s = new Set();
+
+    if (f)
+    {
+        s.add(f);
+    }
+
+    const re = /^accordion_/;
+
+    for (const c in cookies)
+    {
+        console.log("print_nav: cookies[" + c + "]=" + cookies[c]);
+
+        if (re.test(c) && cookies[c] === "true")
+        {
+            console.log("print_nav: added to set");
+
+            s.add(c);
+        }
+    }
+
+    for (let i of s)
+    {
+        let elem = document.getElementById(i);
+
+        toggle_active(elem);
+    }
+
+    if (f)
+    {
+        console.log ("print_nav: f=" + f);
+
+        //
+        // make this active
+        //
+
+        // var active_element = document.getElementById(f);
+
+        // toggle_active(active_element);
+
+        window.location = '#' + f;
+    }
+
+    console.log ("print_nav: LEAVE");
+}
+
+
+function _print_nav ()
+{
+    console.log ("_print_nav: ENTER");
 
     var nav_html = `
     <button class="accordion" id="accordion_ajax">AJAX</button>
@@ -259,12 +328,18 @@ function print_nav(f)
     <div class="panel">
         <a href="git.html">Cheat Sheet</a>
         <a href="git_hooks.html">Git Hooks</a>
+        <a href="git_github_markdown.html">Github Markdown</a>
     </div>
 
     <button class="accordion" id="accordion_gtest">Google Test / Mock</button>
     <div class="panel">
         <a href="gtest.html">Google Test</a>
         <a href="gmock.html">Google Mock</a>
+    </div>
+
+    <button class="accordion" id="accordion_groovy">Groovy</button>
+    <div class="panel">
+        <a href="groovy.html">Intro</a>
     </div>
 
     <button class="accordion" id="accordion_html">HTML</button>
@@ -312,6 +387,7 @@ function print_nav(f)
         <a href="js_functions.html">Functions</a>
         <a href="js_exceptions.html">Exceptions</a>
         <a href="js_date.html">Date class</a>
+        <a href="js_set.html">Set</a>
         <a href="js_json.html">JSON</a>
         <a href="js_date_examples.html">Date class Examples</a>
         <a href="js_es6.html">ES6</a>
@@ -343,6 +419,7 @@ function print_nav(f)
     <button class="accordion" id="accordion_jenkins">Jenkins</button>
     <div class="panel">
         <a href="jenkins.html">Intro</a>
+        <a href="jenkins_shared_libraries.html">Shared Libraries</a>
     </div>
 
     <button class="accordion" id="accordion_json">JSON</button>
@@ -616,34 +693,10 @@ function print_nav(f)
     </div>`
 
     document.getElementById('nav').innerHTML = nav_html;
+   
 
-    if (f)
-    {
-        console.log ("print_nav: f=" + f);
-
-        //
-        // make this active
-        //
-
-        var active_element = document.getElementById(f);
-
-        toggle_active(active_element);
-
-//        console.log ("print_nav: calling scrollIntoView...");
-
-//        active_element.scrollIntoView();
-
-//        console.log ("print_nav: calling scroll...");
-//        window.scroll(0,findPos(active_element));
-
-//        window.scrollTo(0,1000);
-
-        window.location = '#' + f;
-    }
-
-    console.log ("print_nav: LEAVE");
+    console.log ("_print_nav: LEAVE");
 }
-
 
 //
 // print_title
@@ -859,7 +912,7 @@ function get_cookies ()
 //
 //
 //
-function handle_persistent_menu_open_close()
+function handle_persistent_menu_open_close(cookies)
 {
     console.log ("handle_persistent_menu_open_close: ENTER");
 
@@ -873,7 +926,7 @@ function handle_persistent_menu_open_close()
     // get object (hash) of alll cookies
     //
 
-    var cookies = get_cookies();
+    // var cookies = get_cookies();
 
 
     if (cookies.hasOwnProperty('menu_open'))
@@ -924,7 +977,7 @@ function toggle_active (o)      // object
 
         panel.style.display = "none";
 
-        // document.cookie = id + "=false";
+        document.cookie = id + "=false";
     }
     else
     {
@@ -932,7 +985,7 @@ function toggle_active (o)      // object
 
         panel.style.display = "block";
         
-        // document.cookie = id + "=true";
+        document.cookie = id + "=true";
     }
     
     console.log ("toggle_active: LEAVE");

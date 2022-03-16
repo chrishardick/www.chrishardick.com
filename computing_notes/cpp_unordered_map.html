@@ -58,6 +58,13 @@ template &lt; class Key
 
 <h2>Constructors</h2>
 <ul>
+<li>Default Constructor
+<pre>
+explicit unordered_map (size_type n = 0     // minimum number of hash buckets
+    ,const hasher&amp; hf = hasher              // hash function object. returns integeral value based on passed in object key 
+    ,const key_equal&amp; eql = key_equal()     // comparison function object. returns true if two passed in object keys are equivalent
+    );
+</pre>
 </ul>
 
 
@@ -94,6 +101,16 @@ const_iterator end() const;
 //
 iterator find (const key_type&amp; k);
 const_iterator find (const key_type&amp; k) const;
+</pre>
+
+<li><code>at()</code>
+<pre>
+//
+// returns a reference to the mapped_type of the element with key_type k
+// throw <code>out_of_range</code> exception if not found
+//
+mapped_type&amp; at(const key_type&amp; k);
+const mapped_type&amp; at(const key_type&amp; k) const;
 </pre>
 
 <li><code>insert()</code>

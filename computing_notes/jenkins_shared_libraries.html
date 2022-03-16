@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_jenkins");
+}
+</script>
+
+<title>Jenkins - Shared Libraries</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+
+<h1>Jenkins - Shared Libraries</h1>
+
+<h2>Create Shared Library</h2>
+
+<pre>
+your-library
+    |
+    vars/
+        // this is where your steps go
+        buildExecutable.groovy
+        runTests.groovy
+        deployExecutable.groovy
+    src/
+        // 
+</pre>
+<ul>
+<li>Add Shared Library into Jenkins
+<li>Pull the Shared Library into your pipeline
+</ul>
+
+<h2>Register the Library in Jenkins</h2>
+
+<ul>
+<li>Manage Jenkins &gt; Configure System &gt; Under <em>Global Pipeline Libraries</em> add a library
+</ul>
+
+
+<h2>Use the Library in a Pipeline</h2>
+
+<ul>
+<li>At the top of your <code>Jenkinsfile</code>, place the following: <code>@Library('your-library')_</code> 
+    - don't forget the trailing underscore (it's not a typo)
+<li>You can then reference your steps
+<li><code>buildExecutable('foo-bear')</code>
+</ul>
+
+<pre>
+@Library('your-library')_
+
+stage ('Build')
+{
+    buildExecutable ('foo-bear')
+}
+</pre>
+
+<ul>
+<li><strong>Steps</strong> - custom steps that you want to be available to your Jenkins pipelines
+<li><code>vars/YourStepName.groovy</code>
+</ul>
+
+<pre>
+#!/usr/bin/env groovy
+// vars/YourStepName.groovy
+
+
+// you must implement the call() method
+def call()
+{
+    // ...
+}
+</pre>
+
+
+<ul>
+<li><strong>Other Common Code</strong> - helper lasses or common code that you might want to include inside pipeline steps
+<li>E.g. static constants used throughout your pipelines
+<li><code>src/your/package/name/Foo.groovy</code>
+<li>You can then import this class into your Jenkinsfile and reference the static variable as <code>Foo.bar</code>
+</ul>
+
+<pre>
+#!/usr/bin/env groovy
+package your.package.name
+
+class Foo
+{
+    static String bar = "foo-bar!"
+}
+// 
+
+def call()
+{
+    // ...
+}
+</pre>
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://www.jenkins.io">jenkins.io</a> 
+</ul>
+
+
+</div>
+</body> 
+</html>

@@ -43,27 +43,15 @@ C O N T E N T
 <h1>Jenkins</h1>
 
 <ul>
-<li><strong>Jenkins</strong> is an open source automation server allowing automation of 
-    <strong>building</strong>, <strong>testing</strong>, and <strong>deploying</strong> software
-<li>In other words, it's a <strong>CI / CD</strong> server (Continuous Integration, Continuous Deployment)
+<li><strong>Jenkins</strong> is one of the most popular CI/CD tools in use today. 
+<li><strong>CI/CD</strong> stands for Continuous Integration, Continuous Deployment
+<li>Jenkins allows you to automate the <strong>building</strong>, <strong>testing</strong>, 
+    and <strong>deployment</strong> of software
+<li>To use Jenkins, you normally create a file named <strong><code>Jenkinsfile</code></strong> which is checked into your version control system.
+<li><strong><code>Jenkinsfile</code></strong> defines your <strong>Jenkins Pipeline</strong>
 <li><strong>Jenkins Pipelines</strong> are typically triggered via a webhook that gets triggered upon commits to a version control system
 <li><strong>Jenkins Pipelines</strong> can also be scheduled via a cron-like system, invoked on demand, etc.
 </ul>
-
-
-<h2>Comments</h2>
-<ul>
-<li>Irregardless if you're using a <strong>Declarative Syntax</strong> or a <strong>Scripted Syntax</strong>, since 
-they are GROOVY scripts, which supports the same types of comments as C++ - namely single and multi-line comments
-</ul>
-
-<pre>
-/* 
- * multi-line comments
- */
-
-// single line comment
-</pre>
 
 
 <h2>Jenkins Pipeline</h2>
@@ -72,13 +60,32 @@ they are GROOVY scripts, which supports the same types of comments as C++ - name
 <li>A <strong><code>Jenkinsfile</code></strong> contains the definition of a <strong>Jenkins Pipeline</strong> and is 
     checked into source control
 <li>Jenkins pipelines can be defined using either <strong>Declarative Syntax</strong> and <strong>Scripted Syntax</strong>
-<li><strong>Scripted Syntax</strong> is older, more complex and not as popular
-<li><strong>Declarative Syntax</strong> is newer, simpler and more popular. 
-<li>If you're writing a new pipeline, using <strong>Declarative Syntax</strong> is highly recommended
-<li>Jenkins Pipelines consist of <strong>Stages</strong>
-<li>Each <strong>Stage</strong> has <strong>Steps</strong>
+<li><strong>Declarative Syntax</strong> is a newer, simpler method to define your Jenkins pipeline.
+<li><strong>Scripted Syntax</strong> is older, more complex, but more powerful.
+<li>When starting out, it's probably best to start out with <strong>Declarative Syntax</strong>
+<li>When using <strong>Declarative Syntax</strong>, Jenkins Pipelines consist of <strong><code>stages</code></strong>
+<li>Each <strong><code>stage</code></strong> can be further broken down into a series of <strong><code>steps</code></strong>
 <li>When using the <strong>Declarative Syntax</strong>, the source code is automatically checked out for you.
 </ul>
+
+<h3>Pipeline: Basic Steps</h3>
+
+<ul>
+<li><strong><code>dir</code></strong> - change current directory. Will create directory if necessary
+<li><strong><code>echo</code></strong> - print message
+</ul>
+
+<h3><code>sh</code> - Shell Script</h3>
+<ul>
+<li>Runs a Bourne shell script
+<li>Multiple lines are accepted
+<li>Interpreter can be changed (i.e. to python3, etc.)
+</ul>
+
+<pre>
+foo = sh(returnStdout: true, script: 
+</pre>
+
 
 <h3><code>triggers</code> Directive</h3>
 
@@ -107,8 +114,26 @@ triggers { pollSCM ('*/5 * * * *') }    // every 5 minutes
 
 <h3><code>when</code> Directive</h3>
 <ul>
-<li><strong><code>when</code></strong> directives control when to execute a step
+<li><strong><code>when</code></strong> directives control whether a given stage should be executed. 
+<li>The directive must contain at least one condition. 
+<li>If it contains more than one condition, all conditions must be true for the stage to execute
 </ul>
+
+<pre>
+stage ('blah')
+{
+    when
+    {
+        branch 'master'             // execute only for branch=master
+        changeRequest()             // current build is for change request (a.k.a. pull request)
+        triggeredBy 'TimerTrigger'  // triggered by cron
+    }
+    steps
+    {
+        // ...
+    }
+}
+</pre>
 
 <h3><code>post</code> Build Sections</h3>
 <ul>
@@ -121,11 +146,41 @@ triggers { pollSCM ('*/5 * * * *') }    // every 5 minutes
 <code><strong>failure</strong></code> - execute when the stage failed to complete
 </ul>
 
+<h2>Comments</h2>
+<ul>
+<li>Irregardless if you're using <strong>Declarative Syntax</strong> or <strong>Scripted Syntax</strong> (see below), 
+Jenkins pipelines are Groovy scripts. Hence they support the same types of comments as C++ - namely single and multi-line comments
+</ul>
+
 <pre>
+/* 
+ * multi-line comments
+ */
+
+// single line comment
+</pre>
+
+
+<h2>A Simple Pipeline - Declarative Syntax</h2>
+
+<pre>
+// A sample pipeline using declarative syntax
 pipeline 
 {
     // where to run this pipeline
     agent any
+
+    triggers
+    {
+        // minute of the day (0-59)
+        // hour of the day (0-23)
+        // day of month (1-31)
+        // month (1-12)
+        // day of week (0-7) 0=7=sunday
+
+        // trigger fridays between 6:00 and 6:59
+        cron ('H 6 * * 5')
+    }
 
     options 
     {
@@ -134,54 +189,23 @@ pipeline
     }
     stages 
     {
-        stage ('Install') 
-        {
-            steps 
-            {
-                // install required gems
-                sh 'bundle install'
-            }
-        }
         stage ('Build') 
         {
+            when
+            {
+                branch 'master'
+            }
             steps 
             {
                 // build
-                sh 'bundle exec rake build'
-            }
-
-            post 
-            {
-                success 
-                {
-                    // Archive the built artifacts
-                    archive includes: 'pkg/*.gem'
-                }
+                sh 'make'
             }
         }
         stage ('Test') 
         {
             steps 
             {
-                // run tests with coverage
-                sh 'bundle exec rake spec'
-            }
-
-            post 
-            {
-                success 
-                {
-                    // publish html
-                    publishHTML target: 
-                    [
-                        allowMissing: false,
-                        alwaysLinkToLastBuild: false,
-                        keepAll: true,
-                        reportDir: 'coverage',
-                        reportFiles: 'index.html',
-                        reportName: 'RCov Report'
-                    ]
-                }
+                sh 'make test'
             }
         }
     }
@@ -195,6 +219,39 @@ pipeline
 }
 </pre>
 
+<h2>Declarative vs. Scripted Pipelines</h2>
+<ul>
+<li>Declarative pipelines begin with the keyword <code>pipeline</code>
+<li>Scripted pipelines begin with the keyword <code>node</code>
+<li>Declarative pipelines use the <code>stages</code> keyword to define the stages.
+    Each stage is can be further broken down into <code>steps</code>
+<li>Scripted pipelines contain Groovy code directly in the given stage
+</ul>
+
+<h3>Declarative Pipeline</h3>
+<pre>
+pipeline
+{
+    agent any
+
+    stages
+    {
+        stage('Build')  { steps { } }
+        stage('Test')   { steps { } }
+        stage('Deploy') { steps { } }
+    }
+}
+</pre>
+
+<h3>Scripted Pipeline</h3>
+<pre>
+node
+{
+    stage('Build')  { }
+    stage('Test')   { }
+    stage('Deploy') { }
+}
+</pre>
 
 <h2>Acknowledgements</h2>
 <ul>

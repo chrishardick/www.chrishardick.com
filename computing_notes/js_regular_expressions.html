@@ -42,7 +42,15 @@ C O N T E N T
 
 <ul>
 <li>JavaScript <code>RegExp</code> class represents regular expressions
-<li>JS is fairly consistient with Perl
+<li>Regular Expressions in JS are fairly consistient with Perl
+</ul>
+
+<h2>Creating a Regular Expression Object</h2>
+<ul>
+<li>You can create a <strong>Regular Expression Object</strong> by using a <strong>regular expression literal</strong>
+    - which is a regular expression pattern enclosed by slashes. I.e. <code>const re = /^Hello, World!$/;</code>
+<li>You can also create a Regular Expression Objecdt by using the <strong>regular expression constructor</strong>.
+    I.e. <code>var re = new RegExp('^Hello, World!$');
 </ul>
 
 <pre>
@@ -52,6 +60,12 @@ var reg_exp = /^Chris/;
 // equivalent using RegExp() constructor
 var reg_exp = new RegExp("^Chris");
 </pre>
+
+<h2>Regular Expression Object Methods</h2>
+<ul>
+<li><strong><code>exec()</code></strong> - ex
+<li><strong><code>test()</code></strong> - test for a match in a string. Returns <code>true</code> or <code>false</code>
+</ul>
 
 <h2>String Methods Which Support Regular Expressions</h2>
 <ul>
