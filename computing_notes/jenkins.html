@@ -47,7 +47,8 @@ C O N T E N T
 <li><strong>CI/CD</strong> stands for Continuous Integration, Continuous Deployment
 <li>Jenkins allows you to automate the <strong>building</strong>, <strong>testing</strong>, 
     and <strong>deployment</strong> of software
-<li>To use Jenkins, you normally create a file named <strong><code>Jenkinsfile</code></strong> which is checked into your version control system.
+<li>To use Jenkins, you normally create a file named <strong><code>Jenkinsfile</code></strong> which is checked into your version control system
+    (SCM - Source Code Managment).
 <li><strong><code>Jenkinsfile</code></strong> defines your <strong>Jenkins Pipeline</strong>
 <li><strong>Jenkins Pipelines</strong> are typically triggered via a webhook that gets triggered upon commits to a version control system
 <li><strong>Jenkins Pipelines</strong> can also be scheduled via a cron-like system, invoked on demand, etc.
@@ -84,6 +85,33 @@ C O N T E N T
 
 <pre>
 foo = sh(returnStdout: true, script: 
+</pre>
+
+
+<h3><code>parameters</code> Directive</h3>
+
+<ul>
+<li>The <strong><code>parameters</code></strong> directive provides a method for the user to pass parameters when triggering the Pipeline
+<li>The following types of parameters are supported:
+<li><strong><code>string</code></strong>
+<li><strong><code>text</code></strong> - multi-line text. I.e. allows newlines
+<li><strong><code>booleanParam</code></strong>
+<li><strong><code>choice</code></strong> - the 1st option is the default
+<li><strong><code>password</code></strong>
+<li>Parameters can then be accessed via <code>${params.PARAMETER_NAME}</code>
+</ul>
+
+<pre>
+parameters
+{
+    string (name: 'stringParm1', defaultValue: 'stringParm1Value', description: 'stringParm1 description')
+
+    text (name: 'textParm1', defaultValue: 'line1\nline2\nline3', description: 'textParm1 description')
+
+    booleanParam (name: 'booleanParm1', defaultValue: true, description: 'booleanParm1 description')
+
+    choice (name: 'choiceParm1', 'choices: ['choice1', 'choice2', 'choice3'], description: 'choiceParm1 description') 
+}
 </pre>
 
 
@@ -170,6 +198,12 @@ pipeline
     // where to run this pipeline
     agent any
 
+    parameters
+    {
+        choice (name: 'MODE': choices ['MODEA', 'MODEB'], description: 'Pipeline Mode')
+        string (name: 'SOME_INFO': defaultValue: 'FooBar', description: 'blah blah')
+    }
+
     triggers
     {
         // minute of the day (0-59)
@@ -180,6 +214,11 @@ pipeline
 
         // trigger fridays between 6:00 and 6:59
         cron ('H 6 * * 5')
+
+        parameterizedCron('''
+            H 0 * * 5 %MODE=MODEA;SOME_INFO='wake me up before you go go'
+            H 1 * * 5 %MODE=MODEB
+        ''')
     }
 
     options 
@@ -194,9 +233,12 @@ pipeline
             when
             {
                 branch 'master'
+                expression { params.MODE == 'MODEA' }
             }
             steps 
             {
+                echo "MODE: ${params.MODE}"
+
                 // build
                 sh 'make'
             }
