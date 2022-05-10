@@ -122,8 +122,39 @@ alter table Action add notes text;</pre>
 <dt><code>current_timestamp()</code>
 <dd>E.g. <code>SELECT current_timestamp()</code>
 <dd>Return current date and time
+
+
+<dt><code>DATE_SUB(date,INTERVAL expr unit)</code>
+<dd>E.g. <code>DATE_SUB('2022-05-09', INTERVAL 1 DAY)</code>
+<dd>See <strong>Date and Time Units</strong> below
+
+
 </dl>
 
+<h2>Date and Time Units</h2>
+<table>
+<tr><th>Unit</th>                   <th>Description</th></tr>
+<tr><td>MICROSECOND</td>            <td>Microseconds</td></tr>
+<tr><td>SECOND</td>                 <td>Seconds</td></tr>
+<tr><td>MINUTE</td>                 <td>Minutes</td></tr>
+<tr><td>HOUR</td>                   <td>Hours</td></tr>
+<tr><td>DAY</td>                    <td>Days</td></tr>
+<tr><td>WEEK</td>                   <td>Weeks</td></tr>
+<tr><td>MONTH</td>                  <td>Months</td></tr>
+<tr><td>QUARTER</td>                <td>Quarters</td></tr>
+<tr><td>YEAR</td>                   <td>Years</td></tr>
+<tr><td>SECOND_MICROSECOND</td>     <td>Seconds.Microseconds</td></tr>
+<tr><td>MINUTE_MICROSECOND</td>     <td>Minutes.Seconds.Microseconds</td></tr>
+<tr><td>MINUTE_SECOND</td>          <td>Minutes.Seconds</td></tr>
+<tr><td>HOUR_MICROSECOND</td>       <td>Hours.Minutes.Seconds.Microseconds</td></tr>
+<tr><td>HOUR_SECOND</td>            <td>Hours.Minutes.Seconds</td></tr>
+<tr><td>HOUR_MINUTE</td>            <td>Hours.Minutes</td></tr>
+<tr><td>DAY_MICROSECOND</td>        <td>Days Hours.Minutes.Seconds.Microseconds</td></tr>
+<tr><td>DAY_SECOND</td>             <td>Days Hours.Minutes.Seconds</td></tr>
+<tr><td>DAY_MINUTE</td>             <td>Days Hours.Minutes</td></tr>
+<tr><td>DAY_HOUR</td>               <td>Days Hours</td></tr>
+<tr><td>YEAR_MONTH</td>             <td>Years-Months</td></tr>
+</table>
 
 </div>
 </body> 

@@ -47,15 +47,17 @@ C O N T E N T
 <li>The <code>xml.etree.ElementTree</code> module implements an API for parsing and creating XML data.
 </ul>
 
-<h3>String to <code>Element</code> Object</h3>
-
 <pre>
 import xml.etree.ElementTree as et
 
 # parse a file
+# - returns an ElementTree class
 tree = et.parse('my_xml_file.xml')
 
 # root is an Element object
+# Element objects have:
+# - tag 
+# - dictionary of attributes
 root = tree.getroot()
 
 # similar - parse a string
@@ -70,7 +72,42 @@ print (root.attrib)
 # root element has a list of child nodes (each one is an Element object)
 </pre>
 
-<h3><code>Element</code> Object to String</h3>
+<h3><code>ElementTree</code> Objects</h3>
+
+
+<h3><code>Element</code> Objects</h3>
+
+<ul>
+<li><strong><code>tag</code></strong> - the element type. I.e. a string identifying the type of data 
+
+<li><strong><code>attrib</code></strong> - dictionary containing the element attributes
+
+<li><strong><code>get(key, default=None)</code></strong> - get the element attribute named <code>key</code>. 
+    Return the attribute value or <code>default</code> if the attribute was not found.
+
+<li><strong><code>items()</code></strong> - return the element attributes as a sequence of (name,value) pairs
+
+<li><strong><code>keys()</code></strong> - return the element names as a list
+
+<li><strong><code>findall(match,namespaces=None)</code></strong> - return all matching subelements. 
+    Return a list containing all matching elements in document order. See below for usage examples
+
+
+</ul>
+
+<h3><code>Element.findall</code> Examples</h3>
+
+<pre>
+# All top-level elements
+Element.findall(".")
+
+# All sub-elements on all levels beneath the current element
+Element.findall("//")
+
+# All 'egg' elements on all levels beneath the current element
+Element.findall(".//egg")
+</pre>
+
 
 <pre>
 # generates XML string

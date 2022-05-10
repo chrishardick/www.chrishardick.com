@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_mariadb");
+}
+</script>
+
+<title>MySQL - Table Partitions</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<body>
+
+<h1>MySQL - Table Partitions</h1>	
+
+<h2>Horizontal vs. Vertical Partitioning</h2>
+<ul>
+<li><strong>Horizontal Partioning</strong> - partitioning via rows. Different rows can go to different partitions
+<li><strong>Vertical Partioning</strong> - partitioning via columns. Different columns go to different partitions - not supported by MySQL.
+</ul>
+
+
+<ul>
+<li>To test if your MySQL engine supports partitioning - execute the following statement <code>SHOW PLUGINS</code> and check for 
+    <code>partition</code> is <code>ACTIVE</code>
+<li>Partitions are always numbered sequentially starting from 0 when created. 
+<li>Partition names are not case sensitive
+<li>All columns used in a partition expression must be present im every unique key in the table
+<li>There are 4 partition types available <code>RANGE</code>, <code>LIST</code>, <code>HASH</code> and <code>KEY</code>
+</ul>
+
+
+<h2><code>RANGE</code> Partioning</h2>
+
+<ul>
+<li>Assigns rows to partitions based on column values which fall within a specified range.
+</ul>
+
+<pre>
+CREATE TABLE data (
+    id varchar(40)
+    ,src varchar(50)
+    ,dest varchar(50)
+    ,num_bytes_udp int
+    ,num_bytes_tcp int
+    ,num_pkts_udp int
+    ,num_pkts_tcp int
+    ,timestamp datetime
+    ,create_timestamp datetime
+    ,last_update datetime
+    ,processed int
+    ,dest_mac_addr varchar(20)
+    ,src_mac_addr varchar(20)
+    ,PRIMARY KEY (id, timestamp)
+    )
+
+</pre>
+
+
+</div>
+</body> 
+</html>

@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: Iterators</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: Iterators</h1>
+
+<ul>
+<li><strong>Iterators</strong> are objects which can be iterated upon
+<li>In Python, an iterator is an object which must define <code>__iter__()</code> and <code>__next__()</code>
+<li>The <code>__iter__()</code> method returns the object itself
+<li>The <code>__next__()</code> moethod returns the next item in the sequence. 
+    After reaching the end, subsequent calls raise a <code>StopIteration</code> exception 
+</ul>
+
+<pre>
+// a class which is an iterator
+class Iter:
+
+    def __init__(self):
+
+        self.lst = []
+
+        self.n = 0
+
+    def __iter__(self):
+
+        self.n = 0
+
+        return self
+
+    def __next__(self):
+
+        if self.n &lt; len(self.lst):
+
+            ret = self.lst[self.n]
+            
+            self.n += 1
+
+            return ret
+
+        raise StopIteration
+
+    def append(self,x):
+
+        self.lst.append(x)
+
+it = Iter()
+
+it.append(1); it.append(2); it.append(3)
+
+for i in it:
+    print (i)
+</pre>
+
+</div>
+</body>
+</html>
+

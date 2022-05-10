@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: decimal module</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>decimal</code> module</h1>
+
+<ul>
+<li>The <code>decimal</code> module provides support for decimal floating point
+
+
+<pre>
+import decimal
+
+x = decimal.Decimal(1.1) + decimal.Decimal(2.2)
+
+print ("%f" % (x))                  # will print out 3.3
+print ("type=%s" % (type(x)))       # will print out decimal.Decimal
+
+</pre>
+</ul>
+
+</div>
+</body>
+</html>
+

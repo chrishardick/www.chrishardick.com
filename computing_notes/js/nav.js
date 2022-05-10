@@ -486,6 +486,7 @@ function _print_nav ()
         <a href="mariadb_admin.html">Administration and Utilities</a>
         <a href="mariadb_sql.html">SQL</a>
         <a href="mariadb_data_types.html">Data Types</a>
+        <a href="mariadb_partitions.html">Partitions</a>
     </div>
 
     <button class="accordion" id="accordion_networking">Networking</button>
@@ -584,6 +585,9 @@ function _print_nav ()
         <a href="python_pip.html">pip</a>
         <a href="python_pytest.html">pytest</a>
         <a href="python_unittest_mock.html">unittest.mock</a>
+        <a href="python_xml.html">XML</a>
+        <a href="python_iterators.html">Iterators</a>
+        <a href="python_decimal.html">Decimal Floating Point</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>
