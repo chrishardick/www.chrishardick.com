@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cunix");
+}
+</script>
+
+<title>C/UNIX: getopt()</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+<div id="content" class="content">
+
+<h1>C/UNIX: <code>getopt()</code></h1>
+
+<ul>
+<li>process command line options
+</ul>
+
+<pre>
+#include &lt;unistd.h&gt;
+
+extern char* optarg;
+extern int optind, opterr, optopt;
+
+//
+// optstring - a string containing valid options letters
+//  if any letter is followed by ':', it requires an option
+//  if any letter is followed by '::', it has an optional argument in same argv-element (e.g. -oarg) - GNU extension
+//
+// getopt() can detect two types of errors:
+// (1) an invalid option (not specified in optstring)
+// (2) a known option requiring an argument without an argument
+// by default, getopt() will print an error message to standard error and retunn '?' as the return value
+//
+
+int getopt (int argc
+            ,char* const argv[]
+            ,const char* optstring
+            );
+
+
+//
+// typical usage
+//
+
+int c = 0;
+
+bool a_option = false;
+
+std::string b_option_value;
+
+while((c = getopt(argc, argv,"ab:h")) != -1)
+{
+    switch (c)
+    {
+        case 'a':
+            // process option a
+
+            a_option = true;
+
+            break;
+
+        case 'b':
+            // process option b
+
+            b_option_value = optarg;        // optarg contains the passed in argument 
+
+            break;
+
+        case 'h': // usage
+
+            usage();
+
+            return -1;
+        
+        default:
+            
+            std::cout &lt;&lt; std::endl;
+
+            usage();
+
+            return -1;
+    }
+}
+
+// optind is the index of the first argument
+
+int num = 0;
+
+for (int index = optind; index &lt; argc; index++)
+{
+    std::cout &lt;&lt; argument &lt;&lt; ++num &lt;&lt; "=" &lt;&lt; argv[index] &lt;&lt; std::endl;
+}
+
+</pre>
+
+
+</div>
+</body>
+</html>

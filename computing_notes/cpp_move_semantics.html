@@ -41,10 +41,139 @@ C O N T E N T
 <h1>C++ Move Semantics</h1>
 
 <ul>
-<li>C++ 11 introduced <strong>move semantics</strong> 
-<li>Attempts to solve the problem of temporary object creation
+<li>C++11 introduced <strong>move semantics</strong> 
+<li>Attempts to solve the problem of temporary object creation - which is wasteful
 <li>Allows the contents of objects to be moved between objects - rather than copied
 </ul>
+
+<h2>lvalue</h2>
+<ul>
+<li>You can make assignments to a <strong>lvalue</strong>
+<li>LHS (left hand side) of assignment
+<li>An expression whose address can be taken
+</ul>
+
+<pre>
+int g_int = 5;
+
+
+
+//
+// global_ref() is a lvalue
+//
+int&amp; global_ref()      // returns a reference to a global variable
+{
+    return g_int;
+}
+</pre>
+
+
+<h2>rvalue</h2>
+<ul>
+<li>A <strong>rvalue</strong> is an expression which results in a temporary object
+</ul>
+
+<pre>
+string g_str ("foo");
+
+//
+// global_int() is an rvalue
+//
+int global_int()      // returns a temporary object
+{
+    return g_int;
+}
+
+//
+// likewise, global_string() is an rvalue - it returns a temporary object
+//
+string global_string ()
+{
+    return g_str;
+}
+</pre>
+
+<h2>rvalue reference</h2>
+<ul>
+<li><strong>rvalue reference</strong> a reference which can only bind to a temporary object
+<li>An <strong>rvalue reference</strong> is denoted as <code>type&amp;&amp;</code>
+</ul>
+
+<pre>
+string&amp;&amp; str = global_string(); // str is an rvalue reference
+</pre>
+
+
+<h2>Move Constructors and Move Assignment Operators</h2>
+
+<ul>
+<li>A <strong>Move Constructor</strong> (same as a <strong>copy constructor</strong>) accepts an instance
+    of the object as its argument and creates a new instance based on the passed in object. 
+    However, since its argument is (by definition) a temporary object, it can avoid the memory allocation
+    by transferring the fields from the temporary object to the newly constructed object
+<li><strong>Move Assignment Operators</strong> are similar
+</ul>
+
+<pre>
+class Array
+{
+    private:
+        int* d_vals;
+        int d_size;
+
+    public:
+        Array (int n) :
+            d_vals(new int[n])
+            ,d_size(n)
+        { }
+
+        int size () const       { return d_size; }
+        int&amp; size ()        { return d_size; }
+
+        int* vals ()            { return d_vals; }
+
+        // copy constructor
+        // - deep copy
+        Array (const Array&amp; a) :
+            d_vals (new int[a.size()])
+            ,d_size (a.size())
+        {
+            for (int i = 0; i &lt; size(); i++)
+            {
+                d_vals[i] = a.vals()[i];
+            }
+        }
+
+        // assignment operator
+        Array&amp; operator= (const Array&amp; rhs)
+        {
+            // similar logic
+        }
+
+        // move constructor
+        // - shallow copy
+        Array (Array&amp;&amp; a) :
+            d_vals (a.vals())
+            ,d_size (a.size())
+        {
+            // invalidate temp object
+            a.vals() = 0;
+            a.size() = 0;
+        }
+
+        // move assignment operator
+        Array&amp; operator (Array&amp;&amp; rhs)
+        {
+            // similar logic
+        }
+
+        ~Array ()
+        {
+            delete [] d_vals;
+        }
+};
+</pre>
+
 
 </div>
 </body> 

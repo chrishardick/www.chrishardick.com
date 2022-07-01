@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_swift");
+}
+</script>
+
+<title>Swift - Xcode</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Swift - Xcode</h1>
+
+<ul>
+<li>Xcode is the IDE.
+<li>It's the application used to develop iOS apps
+</ul>
+
+<h2>New Project</h2>
+
+<ul>
+<li>Start up Xcode
+<li>File &#x2192; New &#x2192; Project
+<li>Under iOS, choose 'Application'
+<li>Select 'Single View Application'
+<li>Enter a name for your project - e.g. "hello_world"
+<li>For the Company Identifier field, choose something like com.hardick.chris
+<li>Make sure the Devices pop-up menu is set to iPhone
+<li>Make sure 'Use Code Data' is not checked
+<li>Choose Product &#x2192; Run (which will automaticlly build first if necessary)
+<li>Choose Product &#x2192; Build - to build
+</ul>
+
+<h2>Project Window</h2>
+
+<p>The Project Window usually consists of 4 panes. You can toggle their visibility via the <i>View</i> menu.</p>
+
+<ul>
+<li>Navigator Pane
+<li>Editor Pane
+<li>Utilities Pane
+<li>Debugger Pane
+</ul>
+
+<h3>Navigator Pane</h3>
+<ul>
+<li>Basically, what you select in the Navigator Pane is diplayed in the Editor Pane
+<li>The Navigator Pane can display different types of information which you can access via the icons on the top of the pane
+</ul>
+
+<h3>Editor Pane</h3>
+<ul>
+<li>Self explanatory 
+</ul>
+
+<h3>Utilities Pane</h3>
+<ul>
+<li>Usually on the right of the Project Window.
+<li>It contains information about the current selection or its settings
+<li>It will also display help 
+</ul>
+
+<h3>Debugger Pane</h3>
+<ul>
+<li>Self explanatory 
+</ul>
+
+<h2>Project Files</h2>
+
+<p>To see the files which comprise your project choose File &#x2192; Show in Finder</p>
+<dl>
+
+<dt>hello_world.xcodeproj
+<dd>The <i>project</i> file. This is where Xcode stores everything about your project
+
+</dl>
+
+<h2>Info.plist</h2>
+
+<ul>
+<li>Build settings
+</ul>
+
+<h2>Nib Files</h2>
+
+<ul>
+<li>A piece of UI in a compiled format 
+<li>They're created from a .stoyboard or .xib file 
+<li>The nib file is generated during the build process
+</ul>
+
+<h2>Supported Device Choices</h2>
+
+<p>You can change this value via the Devices pop-up
+<dl>
+
+<dt>iPad
+<dd>
+
+<dt>iPhone
+<dd>The app will run on an iPhone or iPod touch. It can also run on an IPad in compatibility mode.
+
+<dt>Universal
+<dd>
+
+</dl>
+
+<h2>Base SDK</h2>
+
+<p>The latest system your app can run on</p>
+
+
+<h2>iOS Deployment Target</h2>
+
+<p>The earliest system your app can run on</p>
+
+
+</div>
+</body> 
+</html>

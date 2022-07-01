@@ -264,6 +264,7 @@ function _print_nav ()
         <a href="cpp_inserter_back_inserter.html">std::inserter and std::back_inserter</a>
         <a href="cpp_set_difference.html">std::set_difference</a>
         <a href="cpp_versions.html">C++ Versions</a>
+        <a href="cpp_move_semantics.html">Move Semantics</a>
     </div>
 
     <button class="accordion" id="accordion_cmake">CMake</button>
@@ -306,6 +307,7 @@ function _print_nav ()
         <a href="cunix_time.html">Time</a>
         <a href="cunix_nanosleep.html">nanosleep()</a>
         <a href="cunix_clock_gettime.html">clock_gettime()</a>
+        <a href="cunix_getopt.html">getopt()</a>
     </div>
     
     <button class="accordion" id="accordion_db">Databases</button>
