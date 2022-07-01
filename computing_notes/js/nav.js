@@ -586,8 +586,15 @@ function _print_nav ()
         <a href="python_pytest.html">pytest</a>
         <a href="python_unittest_mock.html">unittest.mock</a>
         <a href="python_xml.html">XML</a>
-        <a href="python_iterators.html">Iterators</a>
         <a href="python_decimal.html">Decimal Floating Point</a>
+        <a href="python_iterators.html">Iterators</a>
+        <a href="python_decorators.html">Decorators</a>
+        <a href="python_flask.html">Flask</a>
+    </div>
+
+    <button class="accordion" id="accordion_rabbitmq">RabbitMQ</button>
+    <div class="panel">
+        <a href="rabbitmq_intro.html">Introduction</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>

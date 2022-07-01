@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: Flask</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: Flask</h1>
+
+<ul>
+<li>A Flask application is an instance of the <code><strong>Flask</strong></code> class. 
+<li>The recommended method to create a Flask object is inside a factory method
+</ul>
+
+<h2>Minimal Application</h2>
+
+<pre>
+# hello_world.py
+
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route("/")
+def hello_world():
+    return "&lt;p&gt;Hello, World!&lt;/p&gt;"
+</pre>
+
+<ul>
+<li>To execute <code>hello_world.py</code>, use the <code>flask</code> command or <code>python3 -m flask</code>, 
+    ensuring you set and export the <code>FLASK_APP</code> environment variable
+</ul>
+
+<pre>
+$ export FLASK_APP="$PWD/hello_world.py"
+$ flask run &amp;
+  * Running on http://127.0.0.1:5000
+$ curl 127.0.0.1:5000
+</pre>
+
+
+<h2>...</h2>
+<pre>
+#
+# flask_hello_world.py
+#
+
+import Flask
+
+# Flask needs to 
+app = Flask(__name__)
+
+# "/" should trigger hello_world()
+@app.route("/")
+def index()
+    return &lt;"p&gt;index&lt;/p&gt;"
+
+@app.route("/hello_world")
+def hello_world()
+    return "&lt;p&gt;Hello, World!&lt;/p&gt;"
+</pre>
+
+<ul>
+<li><code>export FLASK_APP=flask_hello_world.py; flask run</code>
+<li><code>curl http://127.0.0.1:5000</code>
+<li>To have an externally visible URL, use <code>flask run --host=0.0.0.0</code> - which instructs Flask to listen on all IP addresses
+</pre>
+</ul>
+
+<h2>[Suggested] Directory Structure</h2>
+
+<pre>
+application
+|-flaskr/               # application code boes here
+|   __init__.py
+</pre>
+
+
+<h2>Acknowledgements</h2>
+<ul>
+<li>
+</ul>
+
+</div>
+</body>
+</html>
+

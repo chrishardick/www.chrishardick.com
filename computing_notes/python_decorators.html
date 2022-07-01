@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: Decorators</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: Decorators</h1>
+
+<ul>
+<li>A <strong>decorator</strong> is a function which accepts a function and extends its behavior
+<li>In other words, decorators wrap a function
+<li>An example:
+</ul>
+
+<pre>
+def before_after_decorator (func):
+    def wrapper():
+        print ("before")
+        func()
+        print ("after")
+
+    return wrapper
+
+def during():
+    print ("during")
+
+
+# note that we're replacing the original function
+during = before_after_decorator(during)
+
+during()
+
+# output:
+before
+during
+after
+</pre>
+
+<h2>Pie Synatax</h2>
+
+<pre>
+# Equivalent to: 
+# during = before_after_decorator(during)
+
+@before_after_decorator                     
+def during():
+    print ("during")
+
+during()
+
+# output:
+before
+during
+after
+</pre>
+
+<h2>Decorators with Arguments</h2>
+
+<ul>
+<li>Add <code>*args, **kwargs</code> to inner function such that it can accept arguments
+</ul>
+
+<pre>
+def before_after_decorator(func):
+    def wrapper (*args,**kwargs):
+        print ("before")
+        func (*args,**kwargs)
+        print ("after")
+    return wrapper
+
+def foo(str):
+    print (str)
+
+foo = before_after_decorator (foo)
+
+# equivalent - using pie syntax
+@before_after_decorator
+def foo (str):
+    print (str)
+
+
+foo ("Hello, World!")
+
+# output
+before
+Hello, World!
+after
+</pre>
+
+<h2>Placing Decorators in Modules</h2>
+<ul>
+<li>Normally, decorators are placed in modules such that they can be re-used.
+</ul>
+
+<pre>
+# do_twice.py
+
+def do_twice(func):
+    def wrapper ():
+        func()
+        func()
+    return wrapper
+
+
+# hello_world.py
+
+from do_twice import do_twice
+
+@do_twice
+def hello_world():
+    print ("Hello, World!")
+
+
+hello_world()
+
+# output
+Hello, World!
+Hello, World!
+</pre>
+
+
+<h2>Timer</h2>
+
+<pre>
+import functools
+import datetime
+import time
+
+def timer (func):
+    def wrapper(*args,**kwargs):
+        t1 = datetime.datetime.utcnow()
+        func(*args, **kwargs)
+        t2 = datetime.datetime.utcnow()
+        print ("%s: Elapsed time: %s sec" % (func.__name__, t2-t1)
+    return wrapper
+
+@timer
+def my_sleep (n):
+
+    print ("my_sleep: Sleeping %d..." % (n)
+    time.sleep(n)
+
+
+my_sleep (10)
+
+# output
+my_sleep: Sleeping 10...
+my_sleep: Elapsed time: 10.001 sec
+
+</pre>
+
+
+<h2>Acknowledgements</h2>
+<ul>
+<li>
+</ul>
+
+</div>
+</body>
+</html>
+

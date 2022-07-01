@@ -48,13 +48,19 @@ C O N T E N T
 <li><strong>Vertical Partioning</strong> - partitioning via columns. Different columns go to different partitions - not supported by MySQL.
 </ul>
 
-
+<h2>Benefits of Partioning</h2>
 <ul>
-<li>To test if your MySQL engine supports partitioning - execute the following statement <code>SHOW PLUGINS</code> and check for 
+<li>The primary purpose people use partitions is efficient <strong>deletion</strong>. I.e. deleting old records, etc.
+</ul>
+
+
+<h2>Basics</h2>
+<ul>
+<li>To test if your MySQL engine supports partitioning - execute the following <code>SHOW PLUGINS</code> and check for 
     <code>partition</code> is <code>ACTIVE</code>
 <li>Partitions are always numbered sequentially starting from 0 when created. 
 <li>Partition names are not case sensitive
-<li>All columns used in a partition expression must be present im every unique key in the table
+<li><strong>All columns used in a partition expression must be present im every unique key in the table</strong>
 <li>There are 4 partition types available <code>RANGE</code>, <code>LIST</code>, <code>HASH</code> and <code>KEY</code>
 </ul>
 
@@ -66,25 +72,36 @@ C O N T E N T
 </ul>
 
 <pre>
-CREATE TABLE data (
-    id varchar(40)
-    ,src varchar(50)
-    ,dest varchar(50)
-    ,num_bytes_udp int
-    ,num_bytes_tcp int
-    ,num_pkts_udp int
-    ,num_pkts_tcp int
-    ,timestamp datetime
-    ,create_timestamp datetime
-    ,last_update datetime
-    ,processed int
-    ,dest_mac_addr varchar(20)
-    ,src_mac_addr varchar(20)
-    ,PRIMARY KEY (id, timestamp)
-    )
-
+PARTITION BY RANGE ( EXTRACT(YEAR_MONTH FROM timestamp) )
+(
+    PARTITION parttion2021 VALUES LESS THAN (202201)
+    ,PARTITION partition2022Q1 VALUES LESS THAN (202204)        ! JAN, FEB, MAR
+    ,PARTITION partition2022Q2 VALUES LESS THAN (202207)        ! APR, MAY, JUN
+    ,PARTITION partition2022Q3 VALUES LESS THAN (202210)        ! JUL, AUG, SEPT
+    ,PARTITION partition2022Q4 VALUES LESS THAN (202301)        ! OCT, NOV, DEC
+    ,PARTITION partition2023Q1 VALUES LESS THAN (202304)        ! JAN, FEB, MAR
+    ,PARTITION partition2023Q2 VALUES LESS THAN (202307)        ! APR, MAY, JUN
+    ,PARTITION partition2023Q3 VALUES LESS THAN (202310)        ! JUL, AUG, SEPT
+    ,PARTITION partition2023Q4 VALUES LESS THAN (202401)        ! OCT, NOV, DEC
+    ,PARTITION partition2024Q1 VALUES LESS THAN (202404)        ! JAN, FEB, MAR
+    ,PARTITION partition2024Q2 VALUES LESS THAN (202407)        ! APR, MAY, JUN
+    ,PARTITION partition2024Q3 VALUES LESS THAN (202410)        ! JUL, AUG, SEPT
+    ,PARTITION partition2024Q4 VALUES LESS THAN (202501)        ! OCT, NOV, DEC
+    ,PARTITION partition2025 VALUES LESS THAN MAXVALUE
+    ,...
+)
 </pre>
 
+<pre>
+ALTER TABLE xyz 
+PARTITION BY RANGE ( EXTRACT(YEAR_MONTH FROM timestamp) )
+(
+    PARTITION parttion2021 VALUES LESS THAN (202201)
+    ,PARTITION partition2022Q1 VALUES LESS THAN (202204)        ! JAN, FEB, MAR
+    ,PARTITION partition2022Q2 VALUES LESS THAN (202207)        ! APR, MAY, JUN
+    ,PARTITION partition2022Q3 VALUES LESS THAN (202210)        ! JUL, AUG, SEPT
+    ...
+)
 
 </div>
 </body> 

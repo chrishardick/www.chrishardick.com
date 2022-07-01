@@ -116,17 +116,35 @@ alter table Action add notes text;</pre>
 
 </ul>
 
-<h2>Functions</h2>
+<h2>Date and Time Functions</h2>
 
 <dl>
+<dt><code>CURDATE()</code>
+<dd>Returns current date as 'YYYY-MM-DD' or YYYYMMDD depending upon string or numeric context
+<dd>E.g. <code>SELECT CURDATE()</code> yields 2022-05-10
+<dd>E.g. <code>SELECT CURDATE()+0 </code> yields 20220510
+<dd>E.g. <code>SELECT CURDATE()-INTERVAL 1 DAY </code> yields 20220509
+<dd>Synonyms: CURRENT_DATE() 
+
 <dt><code>current_timestamp()</code>
 <dd>E.g. <code>SELECT current_timestamp()</code>
 <dd>Return current date and time
 
+<dt><code>DATE_ADD(date,INTERVAL expr unit)</code>
+<dd>E.g. <code>DATE_ADD('2022-05-10 23:59:59', INTERVAL 1 SECOND)</code> yields 2022-05-11 00:00:00
+<dd>See <strong>Date and Time Units</strong> below
 
 <dt><code>DATE_SUB(date,INTERVAL expr unit)</code>
 <dd>E.g. <code>DATE_SUB('2022-05-09', INTERVAL 1 DAY)</code>
 <dd>See <strong>Date and Time Units</strong> below
+
+<dt><code>EXTRACT(unit FROM date)</code>
+<dd>E.g. <code>EXTRACT (YEAR FROM '2022-05-09')</code>, <code>EXTRACT(YEAR_MONTH FROM '2022-05-09 17:30:00')</code> yields <code>202205</code>
+<dd>See <strong>Date and Time Units</strong> below
+
+<dt><code>UNIX_TIMESTAMP(date)</code>
+<dd>E.g. <code>UNIX_TIMESTAMP()</code>, <code>UNIX_TIMESTAMP('2022-05-09')</code>, <code>UNIX_TIMESTAMP('2022-05-09 17:30:00')</code>
+<dd>If called without arguments, returns a Unix timestamp (seconds since epoch) as an unsigned integer
 
 
 </dl>
