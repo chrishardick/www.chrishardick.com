@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cunix");
+}
+</script>
+
+<title>C/UNIX: popen()</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+<div id="content" class="content">
+
+<h1>C/UNIX: <code>popen()</code></h1>
+
+<ul>
+<li>The <code>popen()</code> function creates a pipe, forks, and invokes the shell. 
+<li>The usual use case is to executes an external command capturing the output
+</ul>
+
+<pre>
+#include &lt;stdio.h&gt;
+
+//
+// RETURN
+// ======
+// file descriptor which must be closed with pclose() rather than fclose() 
+//
+FILE* popen(const char* command         // command - c string
+            ,const char* type           // "r" - reading; "w" - writing
+            );
+
+
+//
+// pclose() waits for the associated process to terminate and returns the exit status of the command as returned by wait4()
+//
+int pclose(FILE* stream);
+
+
+//
+// typical usage
+//
+
+std::string cmd = "echo 'Hello, World!'";
+
+FILE* file = popen(cmd.c_str(), "r");
+
+if (file == 0)
+    // error handling
+
+char buf[1024];
+
+std::string output;
+
+while (fgets (buf, sizeof(buf), file))
+    output.append(buf);
+
+pclose(file);
+</pre>
+
+
+</div>
+</body>
+</html>

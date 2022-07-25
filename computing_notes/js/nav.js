@@ -119,7 +119,7 @@ function print_nav(f, cookies)
 
     //
     // traverse cookies
-    // - anything matching accordian_* which is true - toggle active
+    // - anything matching accordion_* which is true - toggle active
     // - change code below to keep f active - maybe unique it
     //
    
@@ -308,6 +308,7 @@ function _print_nav ()
         <a href="cunix_nanosleep.html">nanosleep()</a>
         <a href="cunix_clock_gettime.html">clock_gettime()</a>
         <a href="cunix_getopt.html">getopt()</a>
+        <a href="cunix_popen.html">popen()</a>
     </div>
     
     <button class="accordion" id="accordion_db">Databases</button>
@@ -372,6 +373,14 @@ function _print_nav ()
         <a href="http_cookies.html">Cookies</a>
         <a href="http_redirection.html">Re-direction</a>
         <a href="http_web_services.html">Web Services</a>
+    </div>
+
+    <button class="accordion" id="accordion_java">Java</button>
+    <div class="panel">
+        <a href="java_intro.html">Introduction</a>
+        <a href="java_variables.html">Variables</a>
+        <a href="java_operators.html">Operators</a>
+        <a href="java_control_structures.html">Control Structures</a>
     </div>
 
     <button class="accordion" id="accordion_js">JavaScript</button>

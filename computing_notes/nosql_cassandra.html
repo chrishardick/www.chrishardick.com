@@ -41,10 +41,23 @@ C O N T E N T
 <h1>Apache Cassandra</h1>
 
 <ul>
-<li>distributed NoSQL database management system designed to handle large amounts of data across commodity servers
+<li>Distributed NoSQL database management system designed to handle large amounts of data across commodity servers
 <li>High availability
 <li>No single point of failure
-<li>Robutst support for clusters spanning multiple datacenters
+<li>Robust support for clusters spanning multiple datacenters
+<li>Nodes communicate with one another through a protocol called gossip
+<li>RF = Replication Factor, RF=1 (data is only on 1 replicant), RF=2 (data is stored on 2 nodes), ...
+<li>CL = Consistency Level - the minimum number of nodes that must acknowledge a read or write operation before the operation is considered successful. 
+<li>CL=QUORUM (i.e. majority), I.e. RF/2+1, or 2 for a RF of 3.
+</ul>
+
+<h2>Partitions</h2>
+<ul>
+<li>Each node owns a particular set of tokens
+<li>Cassandra distributes data based on the ranges of the tokens across the cluster
+<li>The partition key is responsible for distributing data among nodes 
+<li>When data is inserted into the cluster, a hash function is applied to the partition key. The output is used to determine which node will get the data
+<li>
 </ul>
 
 </div>

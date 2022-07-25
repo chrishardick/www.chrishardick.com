@@ -41,6 +41,35 @@ C O N T E N T
 
 <h1>Python: Flask</h1>
 
+<h2>WSGI</h2>
+<ul>
+<li>The <strong>Web Server Gateway Interface</strong> (<strong>WSGI</strong>, pronounced whiskey) is a Python specification 
+    which specifies how a web server can communicate with web applications in order to satisfy requests.
+<li><code><strong>Flask</strong></code> is a <strong>WSGI <em>application</em></strong>
+<li>A <strong>WSGI <em>server</em></strong> is used to run the application. It converts incoming HTTP requests 
+    to WSGI requests and WSGI responses to HTTP responses.
+<li>WSGI servers have HTTP servers built-in. 
+<li>However, for a multitude of reasons (security, etc.) WSGI servers are usually fronted by a dedicated HTTP server 
+    such as Apache or Nginx
+</ul>
+
+<h2>Gunicorn - a WSGI Server</h2>
+<ul>
+<li><strong>Gunicorn</strong> is a WSGI server with a simple configuration which supports multiple worker implementations for performance tuning
+<li>Here is how you start <strong>Gunicorn</strong>
+</ul>
+
+<pre>
+# -w = number of workers (rule of thumb - #cpu*2)
+gunicorn -w 4 'hello:app'       # equivalent to 'from hello import app' - 4 workers
+</pre>
+
+<ul>
+<li><strong>Gunicorn</strong> should not be run as <code>root</code>, because that would cause your applicaiton code to also run as <code>root</code> - which is not secure
+<li>However, this means you will not be able to bind to port 80 or 443
+<li>If you need to be listening on these ports, a reverse proxy such as nginx or Apache should be used in front of gunicorn
+</ul>
+
 <ul>
 <li>A Flask application is an instance of the <code><strong>Flask</strong></code> class. 
 <li>The recommended method to create a Flask object is inside a factory method

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_java");
+}
+</script>
+
+<title>Java: Introduction</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h2>Java: Introduction</h2>
+
+<ul>
+<li>Source Code &gt; Byte Code &gt; Executable
+<li>Java Development Kit (JDK)
+<li>Java Runtime Environment (JRE) - a subset of the JDK. 
+    It only contains the tools needed to run a Java application
+<li>Java classes must be in a file with the same name as the class name with a <code>.java</code> extension
+<li>By convention, Java class names begin with an uppercase letter
+<li>J2EE - Java Enterprise Edition - set of tools and libraries to create enterprise-class applications
+</ul>
+
+<h2>Hello, World!</h2>
+<ul>
+<li>Create <code>HelloWorld.java</code>
+</ul>
+
+<pre>
+// HelloWorld.java
+
+public class HelloWorld
+{
+    public static void main (String... args)
+    {
+        System.out.println("Hello, World!");
+    }
+}
+</pre>
+
+<ul>
+<li><code>javac HelloWorld.java</code>
+<li><code>java HelloWorld</code>
+</ul>
+
+</div>
+</body>
+</html>
+

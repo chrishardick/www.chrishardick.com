@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_java");
+}
+</script>
+
+<title>Java: Variables</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Java: Variables</h1>
+
+<p>In Java, there are:</p> 
+<ul>
+<li><strong>Instance Variables</strong> - non-static member variables unique to each class instance
+<li><strong>Class Variables</strong> - static members - in which there is exactly one copy per class 
+<li><strong>Local Variables</strong> - temporary variables declared within a method
+</ul>
+
+<h2>Primative Types</h2>
+
+<ul>
+<li>Java is statically-typed (all variables must be declared - along with their type - before they can be used).
+<li>However, starting with Java SE 10, you can use the <code>var</code> identifier to declare a local variable
+allowing the compiler to determine the type
+<li><strong><code>byte</code></strong> - 8 bit two's complement integer [-128, 127].
+<li><strong><code>short</code></strong> - 16 bit two's complement integer [-32,768, 32,767].
+<li><strong><code>int</code></strong> - 32 bit two's complement integer [-2<sup>31</sup>, 2<sup>-32</sup>-1]
+<li><strong><code>long</code></strong> - 64 bit two's complement integer [-2<sup>63</sup>, 2<sup>-64</sup>-1].
+<li><strong><code>float</code></strong> - 32 bit IEEE floating point.
+<li><strong><code>double</code></strong> - 64 bit IEEE floating point.
+<li><strong><code>boolean</code></strong> - has only two possible values <code>true</code> and <code>false</code>. 
+    The size of <code>boolean</code> is not precisely defined. 
+<li><strong><code>char</code></strong> - 16 bit Unicode character.
+</ul>
+
+<pre>
+int i = 5;
+
+// <strong>var</strong> example
+var str = "Hello, World!";
+</pre>
+
+
+<h2>Arrays</h2>
+<ul>
+<li>Declared as <code>type[]</code> - where <code>type</code> is the array's data type
+<li>The declaration does not actualy create an array.
+<li>Indexed from 0 (zero)
+</ul>
+
+<pre>
+int[] myIntArray;           // does not actually create the array
+
+// alternative syntax
+int myIntArray[];           // does not actually create the array
+
+// create an array of 5 int's
+myIntArray = new int[5];    // creates the array
+
+// assigning values
+myIntArray[0] = 0;
+myIntArray[1] = 1;
+myIntArray[2] = 2;
+myIntArray[3] = 3;
+myIntArray[4] = 4;
+
+// shortcut syntax to create and initialize an array 
+int[] myIntArray = {
+    0, 1, 2, 3, 4
+};
+
+// same shortcut syntax for 2 dimentional array
+int[][] = {
+      { 0, 1, 2, 3, 4 }
+    , { 5, 6, 7, 8, 9 }
+};
+</pre>
+
+<h3>Copying Arrays</h3>
+
+<ul>
+<li>The <code>System.arraycopy()</code> method allows you to efficiently copy data from one array to another
+</ul>
+
+<pre>
+public static void arraycopy (Object src        // in:      source array
+                            ,int srcPos         // in:      starting position
+                            ,Object dest        // in/out:  destination array
+                            ,int destPos        // in:      destination position
+                            ,int length         // in:      # of elements to copy
+                            )
+</pre>
+
+<h3>Useful Array Operations provided by <code>java.util.Arrays</code> class</h3>
+
+<ul>
+<li><strong><code>binarySearch()</code></strong>
+<li><strong><code>equals()</code></strong>
+<li><strong><code>fill()</code></strong>
+<li><strong><code>sort()</code></strong>
+<li><strong><code>toString()</code></strong>
+</ul>
+
+</div>
+</body>
+</html>
+
