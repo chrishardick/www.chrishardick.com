@@ -666,6 +666,8 @@ function _print_nav ()
     <button class="accordion" id="accordion_systemdesign">System Design</button>
     <div class="panel">
         <a href="systemdesign.html">Cheat Sheet</a>
+        <a href="systemdesign_etl.html">ETL</a>
+        <a href="systemdesign_idempotent.html">Idempotent</a>
     </div>
 
     <button class="accordion" id="accordion_utf8">UTF-8</button>
