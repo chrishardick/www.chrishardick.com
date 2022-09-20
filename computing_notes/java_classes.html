@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_java");
+}
+</script>
+
+<title>Java: Classes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Java: Classes</h1>
+
+<pre>
+public class Foo
+{
+    public int d_x;
+    public int d_y;
+    public int d_z;
+
+    // constructor
+    public Foo(int x, int y, int z)
+    {
+        d_x = x;
+        d_y = y;
+        d_z = z;
+    }
+
+    public void setX(int x)
+    {
+        d_x = x;
+    }
+
+    public void setY(int y)
+    {
+        d_y = y;
+    }
+
+    public void setZ(int z)
+    {
+        d_z = z;
+    }
+
+    public int bar()
+    {
+        return d_x + d_y + d_z;
+    }
+</pre>
+</div>
+</body>
+</html>
+

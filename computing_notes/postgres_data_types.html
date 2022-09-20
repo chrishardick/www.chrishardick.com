@@ -48,7 +48,7 @@ C O N T E N T
 </tr>
 
 <tr>
-<td><code>BOOL</code>, <code>BOOLEAN</code></td>
+<td><code>bool</code>, <code>boolean</code></td>
 <td><code>true</code>, <code>false</code>. Implicit conversions are also done. E.g. 1, yes, y, t are converted to true. 0, no, n are converted to false </td>
 <tr>
 
@@ -68,19 +68,30 @@ C O N T E N T
 </tr>
 
 <tr>
-<td><code>SMALLINT</code></td>
+<td><code>smallint</code></td>
 <td>2-byte signed integer. Range -32,768 to 32,767</td>
 </tr>
 
 <tr>
-<td><code>INT</code></td>
-<td>4-byte signed integer. Range -2,147,483,648 to 2,147,483,647
+<td><code>int</code>or <code>INTEGER</code></td>
+<td>4-byte signed integer. Range -2,147,483,648 to 2,147,483,647</td>
 </tr>
 
 <tr>
-<td><code>SERIAL</code></td>
-<td>The same as <code>INT</code> except that PostgreSQL will automatically populate values on inserts. 
-Similar to <code>AUTO_INCREMENT</code> in MySQL</td>
+<td><code>bigint</code></td>
+<td>8-byte signed integer. Range -9,223,372,036,854,775,808 to 9,223,372,036,854,775,807</td>
+</tr>
+
+<tr>
+<td><code>serial</code></td>
+<td>auto incrementing integer fro 1 to 2,147,483,647
+Similar to <code>auto_increment</code> in MySQL</td>
+</tr>
+
+<tr>
+<td><code>bigserial</code></td>
+<td>auto incrementing integer from 1 to 9,223,372,036,854,775,807
+Similar to <code>auto_increment</code> in MySQL</td>
 </tr>
 
 <tr>
@@ -144,13 +155,13 @@ with 4 dashes (36 characters in total) e.g. 01234567-0123-0123-0123-012345678901
 <tr>
 
 <tr>
-<td>JSON</td>
+<td><code>JSON</code></td>
 <td>
 </td>
 <tr>
 
 <tr>
-<td>hstore</td>
+<td><code>hstore</code></td>
 <td>key-value pair</td>
 <tr>
 

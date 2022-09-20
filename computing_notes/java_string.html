@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_java");
+}
+</script>
+
+<title>Java: Strings</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Java: Strings</h1>
+
+<pre>
+String s = "Hello, World!";
+</pre>
+
+<h2><code>String</code> methods</h2>
+
+<ul>
+<li><strong><code>length()</code></strong>
+<li><strong><code>toUpperCase()</code></strong>
+<li><strong><code>toLowerCase()</code></strong>
+<li><strong><code>indexOf()</code></strong> - returns the index of the 1st occurrence of the specified text in the string
+<li><strong><code>concat()</code></strong> - concatenate specified string returning the resultant string
+</ul>
+
+<pre>
+String s = "Hello, World!";
+
+System.out.println ("s.length=" + s.length());
+System.out.println ("s.indexOf(\"W\")=" + s.indexOf("W"));      // 7
+
+String ss = s.concat(" Welcome Everyone!");
+</pre>
+
+
+</div>
+</body>
+</html>
+

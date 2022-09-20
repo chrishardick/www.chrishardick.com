@@ -39,22 +39,56 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<h2>Java: Introduction</h2>
+<h1>Java: Introduction</h1>
+
+<h2>JDK, OpenJDK, J2EE, Et. Al.</h2>
 
 <ul>
-<li>Source Code &gt; Byte Code &gt; Executable
-<li>Java Development Kit (JDK)
-<li>Java Runtime Environment (JRE) - a subset of the JDK. 
-    It only contains the tools needed to run a Java application
+<li><strong>JDK</strong> (Java Development Kit) is a distribution of Java by <a href="https://www.oracle.com">Oracle Corporation</a>.
+    JDK normally refers to the <strong>Java SE (Standard Edition) Development Kit</strong>.
+    There is also an Enterprise Edition (<strong>J2EE</strong>) and Micro Edition.
+<li><strong>OpenJDK</strong> is a free and open source implementation of the JDK (SE)
+<li>Development Kits contain <strong>JRE - Java Runtime Environment</strong> (the environment needed to execute a Java application) 
+    along with tools useful to build Java applications 
+</ul>
+
+<h2><code>javac</code> - Java Compiler</h2>
+<ul>
+<li>Compiles Java source code (<code>.java</code>) into bytecode class files (<code>.class</code>)
 <li>Java classes must be in a file with the same name as the class name with a <code>.java</code> extension
 <li>By convention, Java class names begin with an uppercase letter
-<li>J2EE - Java Enterprise Edition - set of tools and libraries to create enterprise-class applications
 </ul>
+
+<h2><code>java</code> - Java Launcher</h2>
+<ul>
+<li>The <code>java</code> command starts a Java application. 
+It starts the Java Runtime Environment (JRE), loads the specified class, and calls the class' main() method. 
+The method must be declared <code>public</code> and <code>static</code>, it must not return any value, and it must accept a String array as a parameter. 
+The method declaration has the following form: <code>public static void main(String[] args)</code>
+</ul>
+
+<pre>
+# classname 
+java [options] classname [args]
+java [options] -jar filename [args]
+</pre>
+
+<h2><code>jar</code> - Java Archive Tool</h2>
+<ul>
+<li>The Java Archive Tool (<code>jar</code>) is used to package a group of <code>.class</code> files into a single file for ease of deployment and execution
+<li>The result is a jar file (with a <code>.jar</code> extension)
+</ul>
+
+<pre>
+jar cf Foo.jar Foo.class Bar.class FooBar
+</pre>
+
 
 <h2>Hello, World!</h2>
 <ul>
 <li>Create <code>HelloWorld.java</code>
 </ul>
+
 
 <pre>
 // HelloWorld.java
@@ -72,6 +106,25 @@ public class HelloWorld
 <li><code>javac HelloWorld.java</code>
 <li><code>java HelloWorld</code>
 </ul>
+
+<h2>Java Basics</h2>
+
+<ul>
+<li>Java is a true object oriented programming language in that every line of code which executes in Java must be inside a class
+<li>In Java, every class needs to be in a file whose name matches that of the class. E.g. <code>class Foo</code> must be defined in <code>Foo.java</code>
+<li>The <code>java</code> command is used to launch a Java application. It starts the JRE, loads the specified class and 
+    calls the class' <code>main()</code> method
+</ul>
+
+<h2>Comments</h2>
+<ul>
+<li>Java supports both <code>//</code> and <code>/* ... */</code> - similar to C++
+</ul>
+
+<h2>Output</h2>
+<ul> 
+<li><strong><code>System.out.println("Hello World");</code></strong> - prints the specified string followed by a newline
+<li><strong><code>System.out.print("Hello World");</code></strong> - prints the specified string (without a newline)
 
 </div>
 </body>

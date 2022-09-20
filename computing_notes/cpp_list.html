@@ -229,6 +229,37 @@ void clear();
 
 </ul>
 
+
+<h2>List as a Queue</h2>
+
+<ul>
+<li>A <strong>Queue</strong> is a linear data structure
+<li>FIFO (First In, First Out)
+<li>A list lends itself well as a base data structure for a queue as additions are at the rear and removals are from the front
+</ul>
+
+<pre>
+// using a list as a queue
+    
+#include &lt;cassert&gt;
+    
+std::list<int> queue;
+
+for (int i=0;i&lt;5;i++)
+{
+    queue.push_back(i);
+}
+
+for (int i=0;i&lt;5;i++)
+{
+    int x = queue.front();
+
+    assert (x == i);
+
+    queue.pop_front();
+}
+</pre>
+
 </div>
 </body> 
 </html>

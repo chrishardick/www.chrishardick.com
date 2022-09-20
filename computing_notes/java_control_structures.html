@@ -55,6 +55,67 @@ if (condition)
 }]
 </pre>
 
+<h2><code>switch</code> statements</h2>
+
+<ul>
+<li>The selector variable must be one of the following types:
+<li>Primative types: <code>byte</code>, <code>short</code>, <code>char</code> or <code>int</code>
+<li>Wrapper types: <code>Character</code>, <code>Byte</code>, <code>Short</code>, <code>Integer</code>
+<li>enumerated types
+<li><code>String</code> type
+<li>The following primative types cannot be used for selector variables:
+<li><code>boolean</code>, <code>long</code>, <code>float</code>, <code>double</code>
+</ul>
+
+<pre>
+String ret;
+switch (x)
+{
+    case 0:
+        rtn = "0";
+        break;
+
+    case 1:
+        rtn = "1";
+        break;
+
+    case 2:
+        rtn = "2";
+        break;
+
+    case 3:
+        rtn = "3";
+        break;
+
+    case 4:
+        rtn = "4";
+        break;
+
+    case 5:
+        rtn = "5";
+        break;
+
+    case 6:
+        rtn = "6";
+        break;
+
+    case 7:
+        rtn = "7";
+        break;
+
+    case 8:
+        rtn = "8";
+        break;
+
+    case 9:
+        rtn = "9";
+        break;
+
+    default:
+        rtn = "";
+};
+</pre>
+
 <h2><code>while</code> Loops</h2>
 
 <ul>
@@ -108,11 +169,6 @@ for (int item : intArray)
 <h2><code>return</code> Statement</h2>
 <pre>
 </pre>
-
-<h2><code>yield</code> Statement</h2>
-<pre>
-</pre>
-
 
 </div>
 </body>
