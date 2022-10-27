@@ -39,210 +39,262 @@ C O N T E N T
 
 <div id="content" class="content">
 
-<H1>C++ Class Templates</H1>
+<h1>C++ Class Templates</h1>
 
-<UL>
-<LI>Class templates allow you to parameterize the datatypes of a class
-<LI>Class templates are an appropriate choice when you find yourself creating a lot of classes which are identical
+<ul>
+<li>Class templates allow you to parameterize datatype(s) of a class
+<li>Class templates are an appropriate choice when you find yourself creating a lot of classes which are identical
 	except they deal with different types (i.e. int, float, double, user-defined types)
-<LI>Introduces 2 new C++ keywords: <i>template</I> & <i>typename</i>
-<LI>See also Function Templates which allow you to parameterize the parameters and
-	return types of functions
-</UL>
+<li>Introduces 2 new C++ keywords: <code>template</code> and <code>typename</code>
+<li>See also <a href="cpp_function_templates.html">Function Templates</a> which allow you to parameterize 
+    the parameters and return types of functions
+</ul>
 
 
-<BR><BR>
-<H2>Defining Class Templates</H2>
+<h2>Defining Class Templates</h2>
 
-<UL>
-<LI>Class templates and their methods are normally defined within header files, such that they can be used by multiple source files
-<LI>Here's an example of a class template <i>CList</i>
-<LI>The keyword <i>class</i> can be substituted for the keyword <i>typename</i> with no change in meaning (see below)
-<PRE>
+<ul>
+<li>Class templates and their methods are normally defined within header files, such that they can be used by multiple source files
+<li>Here's an example of a class template <code>CList</code>
+<li>The keyword <code>class</code> can be substituted for the keyword <code>typename</code> with no change in meaning (see below)
+</ul>
+
+<pre>
 // clist.h
 #ifndef CLIST_H
 #define CLIST_H
 
-template &lttypename T&gt              // same as: template &ltclass T&gt 
+template &lt;typename T&gt;              // same as: template &lt;class T&gt; 
 class CList 
 {
-     T m_Value[100];
-     long m_lNum;
+    private:
 
-public:
-     CList() { m_lNum = 0L; }
-     CList(T Value) { m_lNum = 1L; m_Value = Value; }
-     CList(const T Value[], long lNum);
+        const int m_maxsize;
+
+        T m_value[100];
+        int m_size;
+
+
+    public:
+
+        // CREATORS
+
+        CList() : 
+            m_maxsize(100)
+            ,m_size(0)
+        { }
+
+        CList(const T&amp; t) : 
+            m_maxsize(100)
+            ,m_size(1)
+        {
+            m_value[m_size-1] = t;
+        }
+
+        CList(const T&amp; t[], int num) :
+            m_maxsize(100)
+            ;
  
-     ~CList();
+        ~CList();
 
-     void Add(T Value) { m_Value[m_lNum++] = Value; }
-     void Add(const T Value[], long lNum);
+        void Add(T&amp; t) 
+        { 
+            if (m_size &lt; m_maxsize)
+            {
+                m_value[m_size-1] = t; 
 
-     const T& Max() const;
+                m_size++;
+            }
+        }
+
+        void Add(const T&amp; t[], int num);
+
+        const T&amp; Max() const;
 };
 
-template &lttypename T&gt
-CList&ltT&gt::CList (const T Value[], long lNum)
+// CONSTRUCTOR (CREATOR)
+template &lt;typename T&gt;
+CList&lt;T&gt;::CList (const T&amp; t[], int size)
 {
-     m_lNum = lNum;
+    if (size &gt; m_maxsize)
+        return;
 
-     for (int i=0; i&lt lNum; i++)
-          m_Value[i] = Value[i];
+    m_size = size;
+
+    for (int i=0; i&lt; m_size; i++)
+        m_value[i] = t[i];
 }
 
-template &lttypename T&gt
-CList&ltT&gt::~Clist ()
+template &lt;typename T&gt;
+CList&lt;T&gt;::~Clist ()
 {
-     cout &lt&lt "CList Destructor" &lt&lt endl;
+    std::cout &lt;&lt; "CList Destructor" &lt;&lt; std::endl;
 }
 
-template &lttypename T&gt
-void CList&ltT&gt::Add (const T Value[], long lNum)
+template &lt;typename T&gt;
+void CList&lt;T&gt;::Add (const T&amp; t[], int num)
 {
-     m_lNum += lNum;
+    if (m_size + size &gt; m_maxsize)
+        return;
 
-     for (int i=0; i&lt lNum; i++)
-          m_Value[m_lNum++] = Value[i];
+    for (int i=0; i&lt; size; i++)
+    {
+        m_Value[m_size-1] = t[i];
+        m_size++;
+    }
 }
 
-template &lttypename T&gt
-const T& CList&ltT&gt::Max() 
+template &lt;typename T&gt;
+const T&amp; CList&lt;T&gt;::Max() 
 {
-     T* p_Max = &m_Value[0];
+    T* p_Max = &amp;m_Value[0];
 
-     for (int i=1; i&ltm_lNum; i++)
-         if (m_Value[i] &gt *p_Max)
-              p_Max = &m_Value[i];
+    for (int i=1; i&lt;m_lNum; i++)
+        if (m_Value[i] &gt; *p_Max)
+            p_Max = &amp;m_Value[i];
 
-     return *p_Max;
+    return *p_Max;
 }
 
 #endif
-</PRE>
-<LI>Here's an example of a class template which has more than one parameterized type
-<PRE>
-template &lttypename T T1, U U1&gt
+</pre>
+
+<ul>
+<li>Here's an example of a class template which has more than one parameterized type
+</ul>
+
+<pre>
+template &lt;typename T T1, U U1&gt;
 class CMyNewClass
 {
     ...
 };
-</PRE>
-<LI>In addition to parameterizing types, you can also parameterize constants
-<PRE>
-template &lttypename T, <strong>int iSize</strong>&gt
+</pre>
+
+<ul>
+<li>In addition to parameterizing types, you can also <strong>parameterize constants</strong>
+</ul>
+
+<pre>
+template &lt;typename T, <strong>int SIZE</strong>&gt;
 class CList 
 {
-     T m_Value[<strong>iSize</strong>];
-     long m_lNum;
+    private:
+        T m_value[<strong>SIZE</strong>];
+        int m_size;
 
-public:
-     CList() { m_lNum = 0L; }
-     CList(T Value) { m_lNum = 1L; m_Value = Value; }
-     CList(const T Value[], long lNum);
+    public:
 
-     void Add(T Value) { m_Value[m_lNum++] = Value; }
-     void Add(const T Value[], long lNum);
+        // CREATORS
 
-     const T& Max() const;
+        CList() :
+            m_size(0)
+        { }
+
+        CList(const T&amp; t) : 
+            m_size (1)
+        {
+            m_value[0] = t;
+        }
+
+        CList(const T&amp; t[], int size);
+
+        void Add(const T&amp; t);
+        void Add(const T&amp; t[], int size);
+
+        const T&amp; Max() const;
 };
-</PRE>
-</UL>
+</pre>
 
-<BR><BR>
-<H2>Class Template Instantiation</H2>
 
-<PRE>
-                         +-------------------+
-                         | class template    |
-                         +-------------------+
-                               |      |
-                  +------------+      +----------+  class template instantiation
-                  |                              |  (compile time)
-                 \ /                            \ /
+<h2>Class Template Instantiation</h2>
+
+<pre>
+                              +-------------------+
+                              | class template    |
+                              +-------------------+
+                                    |      |
+                  +-----------------+      +--------------------+
+                  | class template instantiation (compile time) |
+                 \ /                                           \ /
              +-------------------------+    +-------------------------+
              | class template instance |    | class template instance |
              +-------------------------+    +-------------------------+
-</PRE>
+</pre>
 
-<UL>
-<LI>You can instantiate a class template with the following syntax
-<PRE>
-#include&ltclist.h&gt
+<ul>
+<li>You can instantiate a class template with the following syntax
+</ul>
+
+<pre>
+#include&lt;clist.h&gt;
 
 int main (int argc, char** argv)
 {
-     CList&ltint&gt cMyList;          // instantiate a CList of int's
+     CList&lt;int&gt; cMyList;          // instantiate a CList of int's
 
-     cMyList.Add(5);              // instantiate CList::Add&ltint&gt
+     cMyList.Add(5);              // instantiate CList::Add&lt;int&gt;
 }
-</PRE>
-<LI>At the point where a template function is first used, the appropriate function definition is generated and compiled
-<LI><strong>Class Template Specializations</strong> allows the programmer to explicitly define a class template instance.
-	This is useful when the implicit instance would not give the desired result or would have been highly ineffecient (see below)
-<PRE>
-/*
- * a trivial example
- * - class template specialization for type double
- */
-template &lt&gt
-class CList&ltdouble&gt
+</pre>
+<ul>
+<li>At the point where a template function is first used, the appropriate function definition is generated and compiled
+</ul>
+
+
+<h2>Class Template Specialization</h2>
+
+<ul>
+<li><strong>Class Template Specializations</strong> allows the programmer to explicitly define a class template instance.
+<li>This is useful when the implicit instance would not give the desired result or would have been highly ineffecient
+</ul>
+
+<pre>
+//
+// a trivial incomplete example
+// - class template specialization for type double
+//
+template &lt;&gt;
+class CList&lt;double&gt;
 {
-     double m_Value[100];
-     long m_lNum;
+    private:
 
-public:
-     CList() { m_lNum = 0L; }
-     CList(double Value) { m_lNum = 1L; m_Value = Value; }
-     CList(const double Value[], long lNum);
- 
-     ~CList();
+        const int m_maxsize;
 
-     void Add(double Value) { m_Value[m_lNum++] = Value; }
-     void Add(const double Value[], long lNum);
+        double m_value[100];
+        int m_size;
 
-     const double& Max() const;
+
+    public:
+
+        // CREATORS
+
+        CList() : 
+            m_maxsize(100)
+            ,m_size(0)
+        { }
+
+        // ...
 };
 
-template &lt&gt
-CList&ltdouble&gt::CList (const double Value[], long lNum)
+// CONSTRUCTOR (CREATOR)
+template &lt;&gt;
+CList&lt;T&gt;::CList (const double&amp; t[], int size)
 {
-     m_lNum = lNum;
+    if (size &gt; m_maxsize)
+        return;
 
-     for (int i=0; i&lt lNum; i++)
-          m_Value[i] = Value[i];
+    m_size = size;
+
+    for (int i=0; i&lt; m_size; i++)
+        m_value[i] = t[i];
 }
+</pre>
 
-template &lt&gt
-CList&ltdouble&gt::~Clist ()
-{
-     cout &lt&lt "CList Destructor" &lt&lt endl;
-}
-
-template &lt&gt
-void CList&ltdouble&gt::Add (const double Value[], long lNum)
-{
-     m_lNum += lNum;
-
-     for (int i=0; i&lt lNum; i++)
-          m_Value[m_lNum++] = Value[i];
-}
-
-template &lt&gt
-const double& CList&ltdouble&gt::Max() 
-{
-     double* p_Max = &m_Value[0];
-
-     for (int i=1; i&ltm_lNum; i++)
-         if (m_Value[i] &gt *p_Max)
-              p_Max = &m_Value[i];
-
-     return *p_Max;
-}
-
-</PRE>
-</UL>
+<h2>Templates and Static Variables</2>
+<ul>
+<li>Each instantiation of a class template has its own copy of member static variables
+</ul>
 
 </div>
-</BODY> 
-</HTML>
+</body> 
+</html>

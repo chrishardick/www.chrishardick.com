@@ -42,6 +42,11 @@ C O N T E N T
 
 <h1>MySQL - Table Partitions</h1>	
 
+<ul>
+<li>Table Partioning is when you divide table data across multiple storage objects called partitions
+<li>E.g. partitioning a table by date allows you to easily trim off older data
+</ul>
+
 <h2>Horizontal vs. Vertical Partitioning</h2>
 <ul>
 <li><strong>Horizontal Partioning</strong> - partitioning via rows. Different rows can go to different partitions
@@ -56,12 +61,18 @@ C O N T E N T
 
 <h2>Basics</h2>
 <ul>
-<li>To test if your MySQL engine supports partitioning - execute the following <code>SHOW PLUGINS</code> and check for 
+<li>To test if your MySQL engine supports partitioning - execute <code>SHOW PLUGINS</code> and check for 
     <code>partition</code> is <code>ACTIVE</code>
 <li>Partitions are always numbered sequentially starting from 0 when created. 
 <li>Partition names are not case sensitive
-<li><strong>All columns used in a partition expression must be present im every unique key in the table</strong>
-<li>There are 4 partition types available <code>RANGE</code>, <code>LIST</code>, <code>HASH</code> and <code>KEY</code>
+<li><strong>All columns used in a partition expression must be present in every unique key in the table</strong>
+<li>There are 4 partition types available:
+    <ul>
+    <li><code>RANGE</code>
+    <li><code>LIST</code>
+    <li><code>HASH</code>
+    <li><code>KEY</code>
+    </ul>
 </ul>
 
 
@@ -69,12 +80,35 @@ C O N T E N T
 
 <ul>
 <li>Assigns rows to partitions based on column values which fall within a specified range.
+<li><code>RANGE</code> partitioning works best for deleting old records
+<li>Note the <code>MAXVALUE</code> expression below. This covers you when someone tries to add a record
+    with a date greater than Dec 31, 2024. 
+<li><code>ALTER TABLE logs DROP PARTITION partition2021</code>
 </ul>
 
 <pre>
+CREATE TABLE log (id varchar(40)
+        ,dt datetime
+        ,txt varchar(180)
+        ,primary key (id, dt)
+        )
+PARTITION BY RANGE (YEAR(dt))
+(
+    PARTITION partition2021 VALUES LESS THAN (2022)
+    ,PARTITION partition2022 VALUES LESS THAN (2023)
+    ,PARTITION partition2023 VALUES LESS THAN (2024)
+    ,PARTITION partition2024 VALUES LESS THAN (2025)
+    ,PARTITION partition2025 VALUES LESS THAN (2026)
+    ,PARTITION partition2026 VALUES LESS THAN (2027)
+    ,PARTITION partition2027 VALUES LESS THAN (2028)
+    ,PARTITION partition2028 VALUES LESS THAN (2029)
+    ,PARTITION partition2029 VALUES LESS THAN (2030)
+    ,PARTITION partitionMAX  VALUES LESS THAN MAXVALUE
+)
+
 PARTITION BY RANGE ( EXTRACT(YEAR_MONTH FROM timestamp) )
 (
-    PARTITION parttion2021 VALUES LESS THAN (202201)
+     PARTITION parttion2021    VALUES LESS THAN (202201)
     ,PARTITION partition2022Q1 VALUES LESS THAN (202204)        ! JAN, FEB, MAR
     ,PARTITION partition2022Q2 VALUES LESS THAN (202207)        ! APR, MAY, JUN
     ,PARTITION partition2022Q3 VALUES LESS THAN (202210)        ! JUL, AUG, SEPT
@@ -87,7 +121,7 @@ PARTITION BY RANGE ( EXTRACT(YEAR_MONTH FROM timestamp) )
     ,PARTITION partition2024Q2 VALUES LESS THAN (202407)        ! APR, MAY, JUN
     ,PARTITION partition2024Q3 VALUES LESS THAN (202410)        ! JUL, AUG, SEPT
     ,PARTITION partition2024Q4 VALUES LESS THAN (202501)        ! OCT, NOV, DEC
-    ,PARTITION partition2025 VALUES LESS THAN MAXVALUE
+    ,PARTITION partitionMAX  VALUES LESS THAN MAXVALUE
     ,...
 )
 </pre>
@@ -96,12 +130,26 @@ PARTITION BY RANGE ( EXTRACT(YEAR_MONTH FROM timestamp) )
 ALTER TABLE xyz 
 PARTITION BY RANGE ( EXTRACT(YEAR_MONTH FROM timestamp) )
 (
-    PARTITION parttion2021 VALUES LESS THAN (202201)
+     PARTITION parttion2021 VALUES LESS THAN (202201)
     ,PARTITION partition2022Q1 VALUES LESS THAN (202204)        ! JAN, FEB, MAR
     ,PARTITION partition2022Q2 VALUES LESS THAN (202207)        ! APR, MAY, JUN
     ,PARTITION partition2022Q3 VALUES LESS THAN (202210)        ! JUL, AUG, SEPT
     ...
 )
+</pre>
+
+<h2>Displaying Table Partitions</h2>
+
+<pre>
+SHOW CREATE TABLE xyz
+</pre>
+
+<h2>Removing Partitions</h2>
+
+<pre>
+ALTER TABLE xyz DROP PARTITION partition2021;
+</pre>
+
 
 </div>
 </body> 

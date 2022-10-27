@@ -53,7 +53,7 @@ C O N T E N T
 <li><code>create database DBNAME;</code>
 
 
-<li><code>create table TABLENAME (field1-name field1-type field1-modifiers, ... fieldN-name fieldN-type fieldN-modifiers;</code>
+<li><code>create table TABLENAME (field1-name field1-type field1-modifiers, ... fieldN-name fieldN-type fieldN-modifiers);</code>
 
 <pre>
 create table Event (	id int not null primary key auto_increment,
@@ -113,6 +113,20 @@ create table composite_key (table1_id int
 <pre>#add a fld 'notes' of type text (variable length char fld less than or equal to 64K)
 alter table Action add notes text;</pre>
 
+<li><code>drop index index_name on table_name [algorithm_option | lock option</code>
+<li>drops the specified index from the specified table
+<li>Optional <code>ALGORITHM</code> and <code>LOCK</code> clauses influence the copying method and level of concurrency for reading and writing the table while
+    its indexes are being modified
+<pre>algorithm_option:
+    ALGORITHM = {DEFAULT | INPLACE | COPY}
+lock_option:
+    LOCK = {DEFAULT | NONE | SHARED | EXCLUSIVE}
+
+# DROP PRIMARY KEY (ALWAYS NAMED 'PRIMARY')
+drop index 'PRIMARY' on t;
+
+
+</pre>
 
 </ul>
 

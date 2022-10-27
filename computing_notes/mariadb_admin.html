@@ -47,6 +47,32 @@ C O N T E N T
 <li><code>systemctl status mariadb</code>
 </ul>
 
+<h2>Determining MySQL Version</h2>
+
+<pre>
+# to determine the version of the mysql client utility
+# - the version of the client utility need not be the same as the version number of the server
+mysql -V
+
+# typical output (version=10.1.48-MariaDB):
+ql  Ver 15.1 Distrib <strong>10.1.48-MariaDB</strong>, for debian-linux-gnu (x86_64) using readline 5.2
+
+
+# to determine the version of the mysql server
+# - upon connection to the database, the version of the server will be printed out
+mysql -u foo -p
+
+# typical output (version 10.1.48-MariaDB-0+deb9u2 Debian 9.13)
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 1803
+Server version: <strong>10.1.48-MariaDB-0+deb9u2 Debian 9.13</strong>
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+</pre>
+
+
 <h2><code>mysql</code> DATABASE</h2>
 <ul>
 <li>The <code>mysql</code> database is used for permissioning 

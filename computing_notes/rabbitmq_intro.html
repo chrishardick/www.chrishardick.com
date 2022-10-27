@@ -48,6 +48,29 @@ C O N T E N T
 <li>RabbitMQ offers persistence and message ordering
 </ul>
 
+<h2>Exchange vs. Queue</h2>
+<ul>
+<li>In RabbitMQ, a producer never send messages directly to a queue.
+<li>Instead, producers write to an <strong>exchange</strong> 
+<li>The <strong>exchange</strong> determines if the message is written to one queue, multiple queues or is discarded
+</ul>
+
+<h2>Virtual Host (vhost)</h2>
+<ul>
+<li>RabbitMQ is a multi-tenant system
+<li>Each exchange, queue, etc. must belong to a <strong>virtual host (vhost)</strong>
+<li>Each vhost has a name. When a client connects to RabbitMQ, it specifies a vhost name to connect to
+<li>Vitrual hosts can be created using CLI tools or via HTTP
+</ul>
+
+<pre>
+# creating a vhost using CLI tools
+rabbitmqctl add_vhost vhost123
+
+# creating a vhost using HTTP request
+curl -u userename:password -X PUT http://rabbitmq.local:15672/api/vhosts/vhost123
+</pre>
+
 <h2>Design Patterns</h2>
 
 <ul>

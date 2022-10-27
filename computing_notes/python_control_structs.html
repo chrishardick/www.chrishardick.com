@@ -47,11 +47,11 @@ C O N T E N T
 <pre>
 i = 5
 if i == 5:
-    print "i equals 5"
+    print ("i equals 5")
 elif i == 6: 
-    print "i equals 6"
+    print ("i equals 6")
 else:
-    print "i equals ", i
+    print ("i equals ", i)
 </pre>
 </ul>
 
@@ -61,12 +61,35 @@ else:
 <pre>
 words = [ 'every', 'good', 'boy', 'does', 'fine' ]
 for w in words:
-    print 'word=', w, " length=", len(w)
+    print ('word=', w, " length=", len(w))
 
 for i in range(0,10):       # equilalent to for (i=0;i&lt;10;i++ in c/c++
-    print i
+    print (i)
 </pre>
 </ul>
+
+<h3><code>range()</code> Function</h3>
+<ul>
+<li>The <code>range()</code> function returns a sequence of numbers starting from 0 by default and incremented by 1 (by default) while the number is 
+    <strong>less than</strong> the specified end value
+<li>You can use the <code>range()</code> function to create a typical for loop for other languages. 
+    I.e. a loop with a starting point, ending point and increment value
+</ul>
+
+<pre>
+# print 10 lines: 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+for x in range(10):
+    print (x)
+
+# print 4 lines: 2, 3, 4, 5
+for x in range(2,6):
+    print (x)
+
+# print 3 lines: 10, 15, 20
+for x in range (10,25,5)
+    print (x)
+</pre>
+
 
 <h2>While Loops</h2>
 <ul>

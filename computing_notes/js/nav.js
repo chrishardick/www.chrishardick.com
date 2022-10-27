@@ -382,6 +382,7 @@ function _print_nav ()
         <a href="java_operators.html">Operators</a>
         <a href="java_control_structures.html">Control Structures</a>
         <a href="java_string.html">Strings</a>
+        <a href="java_spring.html">Spring</a>
     </div>
 
     <button class="accordion" id="accordion_js">JavaScript</button>
