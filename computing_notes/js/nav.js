@@ -608,6 +608,8 @@ function _print_nav ()
     <button class="accordion" id="accordion_rabbitmq">RabbitMQ</button>
     <div class="panel">
         <a href="rabbitmq_intro.html">Introduction</a>
+        <a href="rabbitmq_exchanges.html">Exchanges</a>
+        <a href="rabbitmq_queues.html">Queues</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_rabbitmq");
+}
+</script>
+
+<title>RabbitMQ - Exchanges</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>RabbitMQ - Exchanges</h1>
+
+<ul>
+<li>In RabbitMQ, a producer cannot send a message directly to a queue. 
+<li>Instead, producers send messages to an <strong>exchange</strong>. 
+<li>The <strong>exchange</strong> determines if the messages is written to one queue, multiple queues, or discarded.
+<li>Queues can be bound to multiple exchanges
+</ul>
+
+Types of Exchanges:
+<ul>
+<li><a href="#direct"><code>direct</code></a>
+<li><a href="#topic"><code>topic</code></a>
+<li><a href="#fanout"><code>fanout</code>
+<li><a href="#headers"><code>headers</code></a>
+</ul>
+
+Besides the exchange type, exchanges are declared with the following attributes:
+<ul>
+<li>Name
+<li>Durability (durable or transient) - whether or not the exchange survives a broker restart
+<li>Auto-delete - whether or not the exchange is deleted with the last queue is unbound from it
+<li>Optional Arguments - used by plugins and broker-specific features
+</ul>
+
+
+<h2><a name="direct">Direct Exchange</a></h2>
+<ul>
+<li>A direct exchange delivers messages to queues based on the message <strong>routing key</strong>
+<li>A queue binds to the exchange with a <strong>binding key</strong>
+<li>When a mesage with routing key RK arrives at a direct exchange, the exchange routes the message to all bound queues with a matching binding key
+</ul>
+
+<h3>The Default Exchange (<code>""</code>)</h3>
+<ul>
+<li>The default (or nameless) exchange is a <strong>direct exchange</strong> predefined by the broker and is identified by the empty string (<code>""</code>)
+<li>Every queue is automatically bound to the Default Exchange with a routing key equal to the queue name
+<li>In other words, messages directed to the default exchange are routed to the queue with the name of the specified <code>routing_key</code> - if it exists
+</ul>
+
+<h2><a name="topic">Topic Exchange</a></h2>
+<ul>
+<li>Typically used for publish/subscribe
+<li>Topic Exchanges route messages to one or many queues based on matching between a message routing key and 
+    the pattern that was used to bind a queue to the exchange
+<li>Messages sent to a topic exchange have a routing key which is a list of words, delimited by dots.
+    E.g. <code>stock.usd.nyse.ibm</code>
+<li>The routing logic of a topic exchange is similar to the routing logic of a direct exchange. 
+    I.e. a message with a given routing key will be delivered to all queues that are bound with a matching binding key
+<li>However, a topic exchange also supports the following <strong>wildcards</strong>:
+<li><code>*</code> matches exactly one word
+<li><code>#</code> matches zero or more words
+</ul>
+
+<h2><a name="fanout">Fanout Exchange</a></h2>
+<ul>
+<li>A Fanout Exchange ignores the routing key and routes each message to all queues that are bound to it
+<li>If a new messages is published to a fanout exchange with N bound queues, a copy of the message will be delivered to all N queues
+</ul>
+
+<h2><a name="headers">Headers Exchange</a></h2>
+<ul>
+<li>A Headers Exchange is designed for routing on multiple attributes which are more easily expressed as message headers thatn a routing key.
+<li>Headers Exchanges ignore the routing key attribute
+<li>Instead, the attributes used for routing are taken from the headers attribute
+<li>A message is considered matching if the value of the header equals the value specified upon binding
+</ul>
+
+
+</div>
+</body> 
+</html>

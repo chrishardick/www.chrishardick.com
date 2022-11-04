@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_rabbitmq");
+}
+</script>
+
+<title>RabbitMQ - Queues</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>RabbitMQ - Queues</h1>
+
+<ul>
+<li>A queue is a sequential FIFO data structure in which items can be enqueued (to the back) and dequeued (from the front)
+</ul>
+
+<h2>Queue Names</h2>
+
+<ul>
+<li>Applications can assign their own queue names or ask the broker to generate a name.
+<li>Queue names can be up to 255 bytes of UTF-8 characters
+<li>Queue names starting with <code>amq.</code> are reserved for internal use
+</ul>
+
+<h2>Queue Properties</h2>
+
+<ul>
+<li>Name
+<li>Durable (whether or not the queue will survive a broker restart)
+<li>Exclusive (used by only one connection and the queue will be deleted when the connection closes)
+<li>Auto-delete (queue will be deleted when the last consumer unsubscribes)
+<li>Optional arguments - e.g. message TTL, queue length limit, etc.
+</ul>
+
+
+<h2>Queue Creation</h2>
+
+<ul>
+<li>Before a queue can be used, it has to be declared
+<li>Declaring a queue will cause it to be created if it does not already exist
+<li>Declaring a queue is idempotent. Creating a queue which already exists with the same attributes has no effect
+<li>Declaring a queue which already exists with different attributes will return an error.
+</ul>
+
+</div>
+</body> 
+</html>

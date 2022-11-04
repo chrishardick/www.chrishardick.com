@@ -144,9 +144,17 @@ PARTITION BY RANGE ( EXTRACT(YEAR_MONTH FROM timestamp) )
 SHOW CREATE TABLE xyz
 </pre>
 
+<h2>Adding Additional Partitions</h2>
+
+<pre>
+# NOTE: does not currently support IF [NOT ]EXISTS
+ALTER TABLE xyz ADD PARTITION (partition2023Q1 VALUES LESS THAN (202304));
+</pre>
+
 <h2>Removing Partitions</h2>
 
 <pre>
+# NOTE: does not currently support IF [NOT ]EXISTS
 ALTER TABLE xyz DROP PARTITION partition2021;
 </pre>
 

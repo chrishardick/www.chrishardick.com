@@ -48,11 +48,15 @@ C O N T E N T
 <li>RabbitMQ offers persistence and message ordering
 </ul>
 
-<h2>Exchange vs. Queue</h2>
 <ul>
-<li>In RabbitMQ, a producer never send messages directly to a queue.
+<li>A <strong>producer</strong> is a user application which sends messages
+<li>A <strong>consumer</strong> is a user application which receives messages
+<li>A queue is a FIFO data structure which stores messages
+<li>In RabbitMQ, a producer never sends messages directly to a queue.
 <li>Instead, producers write to an <strong>exchange</strong> 
 <li>The <strong>exchange</strong> determines if the message is written to one queue, multiple queues or is discarded
+<li>A <strong>Binding</strong> is the relationship between an exchange and a queue
+<li><strong>Queues</strong> can bind to multiple exchanges
 </ul>
 
 <h2>Virtual Host (vhost)</h2>
@@ -130,6 +134,20 @@ curl -u userename:password -X PUT http://rabbitmq.local:15672/api/vhosts/vhost12
     <li>The message is dropped because a queue is full (exceeded length limit)
     </ul>
 </ul>
+
+<h2><code>rabbitmqctl</code></h2>
+
+<pre>
+# list unacknowledged messages
+rabbitmqctl list_queues name messages_ready messages_unacknowledged
+
+# list exchanges
+rabbitmqctl list_exchanges
+
+# list bindings
+rabbitmqctl list_bindings
+</pre>
+
 
 </div>
 </body> 
