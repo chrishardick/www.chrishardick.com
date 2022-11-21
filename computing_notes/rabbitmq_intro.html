@@ -58,20 +58,20 @@ C O N T E N T
 <li>In RabbitMQ, a producer never sends messages directly to a queue.
 <li>Instead, producers write to an <strong>exchange</strong> 
 <li>The <strong>exchange</strong> determines if the message is written to one queue, multiple queues or is discarded
-<li>A <strong>Binding</strong> is the relationship between an exchange and a queue
+<li>A <strong>binding</strong> is the relationship between an exchange and a queue
 <li><strong>Queues</strong> can bind to multiple exchanges
 </ul>
 
 <h2>AMQP 0-9-1</h2>
 <ul>
-<li><strong>AMQP</strong> (Advanced Message Queueing Protocol) is an <strong>application layer protocol</strong>
-    which enables conforming client applications (producers and consumers) to communicate with conforming middleware brokers.
+<li><strong>AMQP (Advanced Message Queueing Protocol)</strong> is an <strong>application layer protocol</strong>.
+    It enables conforming client applications (producers and consumers) to communicate with conforming middleware brokers.
 <li>AMQP is a binary, wire level protocol. I.e. it defines the format in which data is transported over the network
-<li>AQMP provides flow controlled, message-oriented communcation with message-delivery guarantees such as 
+<li>AMQP provides flow controlled, message-oriented communcation with message-delivery guarantees such as 
     <a href="#atmostonce">at most once</a>, <a href="#atleastonce">at least once</a>, and <a href="#exactlyonce">exactly once</a>.
 <li>AMQP provides authentication and encryption
 <li><strong>producers</strong>, <strong>exchanges</strong>, <strong>queues</strong>, <strong>bindings</strong>, and <strong>consumers</strong>
-    are AQMP entites
+    are AMQP entites
 </ul>
 
 <h2>Design Patterns</h2>
@@ -83,36 +83,9 @@ C O N T E N T
 <li><strong>Publish / Subscribe</strong> - sending messages to multiple consumers at once
 <li><strong>Routing</strong> - routing messages to a specific endpoint
 <li><strong>Topics</strong> - receiving messages based on a pattern (topic)
-<li><strong>RPC</strong> - Request / Reply
-<li><strong>Publisher Confirms</strong> - messages the client published are confirmed by the broker
-    asynchronously.  
+<li><strong>RPC</strong> - Request / Response
 </ul>
 
-
-<h2>Virtual Host (vhost)</h2>
-<ul>
-<li>RabbitMQ is a multi-tenant system
-<li>Connections, exchanges, queues, bindings, user permissionings, etc. belong to a <strong>virtual host (vhost)</strong>
-<li>Each vhost has a name. When a client connects to RabbitMQ, it specifies a vhost name to connect to
-<li>Vitrual hosts are created and deleted using either <code>rabbitmqcdtl</code> or via HTTP
-</ul>
-
-<pre>
-# creating a vhost using CLI tools
-rabbitmqctl add_vhost vhost123
-
-# creating a vhost using HTTP request
-curl -u userename:password -X PUT http://rabbitmq.local:15672/api/vhosts/vhost123
-</pre>
-
-
-<h2>Publisher Confirms</h2>
-<ul>
-<li>If a message is marked as <strong>persistent</strong>, publisher confirms means the message has 
-    been received by the publisher's broker, sent to all other connected brokers and written to disk by each and every broker.
-<li><strong>Split Brain</strong> does not seem to be handled well with RabbitMQ. Depending on your application, it might be best to
-    implement application level acknowledgements.
-</ul>
 
 
 <h2>At Most, At Least Once, Exactly Once Delivery</h2>
@@ -120,19 +93,19 @@ curl -u userename:password -X PUT http://rabbitmq.local:15672/api/vhosts/vhost12
 <h3>At Most Once Delivery</h3>
 <ul>
 <li>Code which does not use <strong>Consumer Acknowledgements</strong> or <strong>Publisher Confirms</strong>
-<li>Results in simple code with fast execution speed.
+<li>Simple code with fast execution speed.
 <li>However, messages can get lost
 </ul>
 
 <h3>At Least Once Delivery</h3>
 <ul>
-<li>Code which does not use <strong>Consumer Acknowledgements</strong> or <strong>Publisher Confirms</strong>
+<li>Code which uses <strong>Consumer Acknowledgements</strong> and <strong>Publisher Confirms</strong>
 </ul>
 
 <h3>Exactly Once Delivery</h3>
 <ul>
 <li>A unicorn
-<li>Does not exist
+<li>Does not really exist. Better to make your code idempotent. 
 </ul>
 
 <h2>Flags</h2>
@@ -145,7 +118,7 @@ curl -u userename:password -X PUT http://rabbitmq.local:15672/api/vhosts/vhost12
 <h2>Dead Letter Exchanges</h2>
 <ul>
 <li>Messages from a queue can be <strong>dead-lettered</strong>
-<li><strong>Dead-lettered</strong> is when a message is republished to an exchange when any of the following occur:
+<li><strong>Dead-lettered</strong> is when a message is republished to a dead letter exchange (DLX) when any of the following occur:
     <ul>
     <li>The message is negatively acked (NACK) by a consumer using <code>basic.reject</code> or <code>basic.nack</code>
         with <code>requeue</code> parameter set to <code>false</code>
@@ -167,6 +140,21 @@ rabbitmqctl list_exchanges
 rabbitmqctl list_bindings
 </pre>
 
+<h2>Virtual Host (vhost)</h2>
+<ul>
+<li>RabbitMQ is a multi-tenant system
+<li>Connections, exchanges, queues, bindings, user permissionings, etc. belong to a <strong>virtual host (vhost)</strong>
+<li>Each vhost has a name. When a client connects to RabbitMQ, it specifies a vhost name to connect to
+<li>Vitrual hosts are created and deleted using either <code>rabbitmqctl</code> or via HTTP
+</ul>
+
+<pre>
+# creating a vhost using CLI tools
+rabbitmqctl add_vhost vhost123
+
+# creating a vhost using HTTP request
+curl -u userename:password -X PUT http://rabbitmq.local:15672/api/vhosts/vhost123
+</pre>
 
 </div>
 </body> 

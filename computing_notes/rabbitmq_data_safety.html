@@ -45,7 +45,7 @@ C O N T E N T
 <li><strong>Durable Exchanges</strong> - can survive a broker restart
 <li><strong>Durable Bindings</strong> - bindings between durable queues and durable exchanges are durable 
     and therefore can survive a broker restart
-<li><strong>Persistient Messages</strong>
+<li><strong>Persistient Messages</strong> - can survive a broker restart
 <li><strong>Consumer Acknowledgements</strong>
 <li><strong>Publisher Confirms</strong>
 </ul>
@@ -72,7 +72,10 @@ C O N T E N T
 
 <h2>Publisher Confirms</h2>
 <ul>
-<li>
+<li>If a message is marked as <strong>persistent</strong>, publisher confirms means the message has 
+    been received by the publisher's broker, sent to all other connected brokers and written to disk by each and every broker.
+<li><strong>Split Brain</strong> does not seem to be handled well with RabbitMQ. Depending on your application, it might be best to
+    implement application level acknowledgements.
 </ul>
 
 </div>

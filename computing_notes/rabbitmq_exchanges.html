@@ -97,14 +97,14 @@ Besides the exchange type, exchanges are declared with the following attributes:
 
 <h2><a name="fanout">Fanout Exchange</a></h2>
 <ul>
-<li>A Fanout Exchange ignores the routing key and routes each message to all queues that are bound to it
+<li>A Fanout Exchange <em>ignores the routing key</em> and routes each message to all queues that are bound to it
 <li>If a new messages is published to a fanout exchange with N bound queues, a copy of the message will be delivered to all N queues
 </ul>
 
 <h2><a name="headers">Headers Exchange</a></h2>
 <ul>
-<li>A Headers Exchange is designed for routing on multiple attributes which are more easily expressed as message headers thatn a routing key.
-<li>Headers Exchanges ignore the routing key attribute
+<li>A Headers Exchange is designed for routing on multiple attributes which are more easily expressed as message headers than a routing key.
+<li>Headers Exchanges <em>ignore the routing key attribute</em>
 <li>Instead, the attributes used for routing are taken from the headers attribute
 <li>A message is considered matching if the value of the header equals the value specified upon binding
 </ul>
