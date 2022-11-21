@@ -191,6 +191,11 @@ function _print_nav ()
         <a href="bash_flowcontrol.html">Flow Control</a>
         <a href="bash_precedence.html">Precedence</a>
     </div>
+   
+    <button class="accordion" id="accordion_ber">BER Encoding</button>
+    <div class="panel">
+        <a href="ber_intro.html">Introduction</a>
+    </div>
     
     <button class="accordion" id="accordion_binarytree">Binary Trees</button>
     <div class="panel">
@@ -481,6 +486,7 @@ function _print_nav ()
         <a href="mac_hosts_file.html">Hosts File</a>
         <a href="mac_root_user.html">Root User</a>
         <a href="mac_setup_new_workstation.html">Set Up New Work Station</a>
+        <a href="mac_parallels.html">Parallels</a>
     </div>
 
     <button class="accordion" id="accordion_make">Make</button>
@@ -550,7 +556,12 @@ function _print_nav ()
         <a href="#">Thread Specific Data - TBD</a>
         <a href="#">Read/Write Locks - TBD</a>
     </div>
-    
+   
+    <button class="accordion" id="accordion_protobuf">Protocol Buffers</button>
+    <div class="panel">
+        <a href="protobuf_intro.html">Introduction</a>
+    </div>
+
     <button class="accordion" id="accordion_python">Python</button>
     <div class="panel">
         <a href="python_intro.html">Introduction</a>
@@ -603,6 +614,7 @@ function _print_nav ()
         <a href="python_iterators.html">Iterators</a>
         <a href="python_decorators.html">Decorators</a>
         <a href="python_flask.html">Flask</a>
+        <a href="python_pika.html">Pika - RMQ</a>
     </div>
 
     <button class="accordion" id="accordion_rabbitmq">RabbitMQ</button>
@@ -610,6 +622,7 @@ function _print_nav ()
         <a href="rabbitmq_intro.html">Introduction</a>
         <a href="rabbitmq_exchanges.html">Exchanges</a>
         <a href="rabbitmq_queues.html">Queues</a>
+        <a href="rabbitmq_data_safety.html">Data Safety</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>

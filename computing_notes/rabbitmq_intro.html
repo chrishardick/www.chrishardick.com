@@ -41,17 +41,20 @@ C O N T E N T
 <h1>RabbitMQ - Introduction</h1>
 
 <ul>
-<li>Open Source <strong>Message Broker</strong>
-<li>A Message Broker is basically a program which transports messages from senders to receivers.
-<li>Implements Advanced Message Queuing Protocol (AMQP)
-<li>Extended to support other protocols
-<li>RabbitMQ offers persistence and message ordering
+<li>RabbitMQ (RMQ) is an <em>Open Source</em> <strong>Message Broker</strong>
+<li>A Message Broker transports messages from senders (producers) to receivers (consumers).
+<li>RMQ Implements AMQP (Advanced Message Queuing Protocol) version 0-9-1
+<li>RMQ has been extended to support other protocols
+<li>RMQ offers persistence and message ordering
+<li>See also <a href="python_pika.html">Python - Pika</a>
 </ul>
+
+<img src="rmq_basic.png" alt="basic rmq diagram">
 
 <ul>
 <li>A <strong>producer</strong> is a user application which sends messages
 <li>A <strong>consumer</strong> is a user application which receives messages
-<li>A queue is a FIFO data structure which stores messages
+<li>A <strong>queue</strong> is a FIFO data structure which stores messages
 <li>In RabbitMQ, a producer never sends messages directly to a queue.
 <li>Instead, producers write to an <strong>exchange</strong> 
 <li>The <strong>exchange</strong> determines if the message is written to one queue, multiple queues or is discarded
@@ -59,12 +62,39 @@ C O N T E N T
 <li><strong>Queues</strong> can bind to multiple exchanges
 </ul>
 
+<h2>AMQP 0-9-1</h2>
+<ul>
+<li><strong>AMQP</strong> (Advanced Message Queueing Protocol) is an <strong>application layer protocol</strong>
+    which enables conforming client applications (producers and consumers) to communicate with conforming middleware brokers.
+<li>AMQP is a binary, wire level protocol. I.e. it defines the format in which data is transported over the network
+<li>AQMP provides flow controlled, message-oriented communcation with message-delivery guarantees such as 
+    <a href="#atmostonce">at most once</a>, <a href="#atleastonce">at least once</a>, and <a href="#exactlyonce">exactly once</a>.
+<li>AMQP provides authentication and encryption
+<li><strong>producers</strong>, <strong>exchanges</strong>, <strong>queues</strong>, <strong>bindings</strong>, and <strong>consumers</strong>
+    are AQMP entites
+</ul>
+
+<h2>Design Patterns</h2>
+<ul>
+<li><strong>Work Queue</strong> - distributing work to N consumers
+    <ul>
+    <li>1 queue, multiple consumers [connected to the same queue]
+    </ul>
+<li><strong>Publish / Subscribe</strong> - sending messages to multiple consumers at once
+<li><strong>Routing</strong> - routing messages to a specific endpoint
+<li><strong>Topics</strong> - receiving messages based on a pattern (topic)
+<li><strong>RPC</strong> - Request / Reply
+<li><strong>Publisher Confirms</strong> - messages the client published are confirmed by the broker
+    asynchronously.  
+</ul>
+
+
 <h2>Virtual Host (vhost)</h2>
 <ul>
 <li>RabbitMQ is a multi-tenant system
-<li>Each exchange, queue, etc. must belong to a <strong>virtual host (vhost)</strong>
+<li>Connections, exchanges, queues, bindings, user permissionings, etc. belong to a <strong>virtual host (vhost)</strong>
 <li>Each vhost has a name. When a client connects to RabbitMQ, it specifies a vhost name to connect to
-<li>Vitrual hosts can be created using CLI tools or via HTTP
+<li>Vitrual hosts are created and deleted using either <code>rabbitmqcdtl</code> or via HTTP
 </ul>
 
 <pre>
@@ -75,17 +105,6 @@ rabbitmqctl add_vhost vhost123
 curl -u userename:password -X PUT http://rabbitmq.local:15672/api/vhosts/vhost123
 </pre>
 
-<h2>Design Patterns</h2>
-
-<ul>
-<li><strong>Work Queue</strong> - distributing work to N consumers
-<li><strong>Publish / Subscribe</strong> - sending messages to multiple consumers at once
-<li><strong>Routing</strong> - routing messages to a specific endpoint
-<li><strong>Topics</strong> - receiving messages based on a pattern (topic)
-<li><strong>RPC</strong> - Request / Reply
-<li><strong>Publisher Confirms</strong> - messages the client published are confirmed by the broker
-    asynchronously.  
-</ul>
 
 <h2>Publisher Confirms</h2>
 <ul>

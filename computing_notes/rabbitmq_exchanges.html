@@ -57,18 +57,21 @@ Types of Exchanges:
 
 Besides the exchange type, exchanges are declared with the following attributes:
 <ul>
-<li>Name
-<li>Durability (durable or transient) - whether or not the exchange survives a broker restart
-<li>Auto-delete - whether or not the exchange is deleted with the last queue is unbound from it
-<li>Optional Arguments - used by plugins and broker-specific features
+<li><strong>Exchange Name</strong>
+<li><strong>Durability</strong> (durable or transient) - whether or not the exchange survives a broker restart
+<li><strong>Auto-delete</strong> - whether or not the exchange is deleted with the last queue is unbound from it
+<li><strong>Optional Arguments</strong> - used by plugins and broker-specific features
 </ul>
 
 
 <h2><a name="direct">Direct Exchange</a></h2>
+<img src="rmq_direct_exch.png" alt="direct exchange diagram">
 <ul>
 <li>A direct exchange delivers messages to queues based on the message <strong>routing key</strong>
 <li>A queue binds to the exchange with a <strong>binding key</strong>
-<li>When a mesage with routing key RK arrives at a direct exchange, the exchange routes the message to all bound queues with a matching binding key
+<li>When a mesage with routing key K arrives at a direct exchange, the exchange routes the message to all bound queues with a matching binding key
+<li>Direct exchanges are typically used to distribute a task to multiple workers in a round robin fashion
+<li>Implicit here is that if multiple consumers are attached to a given queue, each messages will be delivered to a single consumer in a round robin fashion
 </ul>
 
 <h3>The Default Exchange (<code>""</code>)</h3>
@@ -80,7 +83,7 @@ Besides the exchange type, exchanges are declared with the following attributes:
 
 <h2><a name="topic">Topic Exchange</a></h2>
 <ul>
-<li>Typically used for publish/subscribe
+<li>Typically used for <strong>publish/subscribe</strong>
 <li>Topic Exchanges route messages to one or many queues based on matching between a message routing key and 
     the pattern that was used to bind a queue to the exchange
 <li>Messages sent to a topic exchange have a routing key which is a list of words, delimited by dots.

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_rabbitmq");
+}
+</script>
+
+<title>RabbitMQ - Data Safety</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>RabbitMQ - Data Safety</h1>
+
+<ul>
+<li><strong>Durable Queues</strong> - can survive a broker restart
+<li><strong>Durable Exchanges</strong> - can survive a broker restart
+<li><strong>Durable Bindings</strong> - bindings between durable queues and durable exchanges are durable 
+    and therefore can survive a broker restart
+<li><strong>Persistient Messages</strong>
+<li><strong>Consumer Acknowledgements</strong>
+<li><strong>Publisher Confirms</strong>
+</ul>
+
+<h2>Consumer Acknowledgements</h2>
+<ul>
+<li>By default, consumers are configured for <strong>Manual Consumer Acknowledgements</strong>
+<li>I.e. if a client application consumes a message and crashes prior to acknowledging the message, 
+    the broker will detect this and resend the message
+<li>Positive Acknowledgements (Acks) let RabbitMQ know the message has been successfully delivered and processed. 
+    Hence it should be deleted.
+<li>Negative Acknowledgments (Nacks) and Rejects have <code>requeue</code> parameter. If true, the broker will requeue the message(s).
+    If false, the message will be routed to a <strong>Dead Letter Exchange</strong> if configured. Otherwise it will discarded.
+</ul>
+
+<h3>Automatic Acknowledgements</h3>
+<ul>
+<li>If a client is configured for automatic acknowledgements, messages are considered successfully 
+    delivered immediately after it is sent
+<li>Generally, automatic acknowledgements should be considered unsafe. However, it may be ok for applications in which 
+    message loss is acceptable
+<li>Consumer overload must also be considered as manual acknowledgements also provide flow-control. 
+</ul>
+
+<h2>Publisher Confirms</h2>
+<ul>
+<li>
+</ul>
+
+</div>
+</body> 
+</html>

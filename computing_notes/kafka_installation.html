@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_kafka");
+}
+</script>
+
+<title>Kafka: Installation</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Kafka: Installation</h1>
+
+<h2>Consumers</h2>
+<ul>
+<li><strong>Consumers</strong> label themselves with a <strong>consumer group name</strong>
+<li>Each record published to a topic is delivered to <strong>one</strong> consumer instance within a subscribing consumer group 
+- allowing for load balancing the consumers
+</ul>
+
+<h2>Installing</h2>
+<ul>
+<li>Execute the following to download the gzipped tarball: <code>curl -o kafka_2.13-3.3.1.tgz https://dlcdn.apache.org/kafka/3.3.1/kafka_2.13-3.3.1.tgz</code>
+<li>Extract: <code>tar -xvzf kafka_2.13-3.3.1.tgz</code>
+</ul>
+
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://kafka.apache.org">kafka.apache.org</a>
+</ul>
+
+</div>
+</body> 
+</html>

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_protobuf");
+}
+</script>
+
+<title>Protocol Buffers: Introduction</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Protocol Buffers: Introduction</h1>
+
+<ul>
+<li>Protocol Buffers (protobuf) allows for platform agnostic serialization of structured data.
+<li>Forward and Backward compatibility supported
+<li>Support for many languages
+<ii>Built by <a href="https://www.google.com">www.google.com</a>
+</ul>
+
+<h2>Protocol Buffers Definition Syntax</h2>
+<ul>
+<li>Protocol Buffer Definitions are stored in <code>.proto</code> files
+</ul>
+
+
+<h2>Protocol Buffer Compiler <code>protoc</code></h2>
+
+<pre>
+# to generate C++ classes
+
+protoc -I=$PWD --cpp_out=$PWD $PWD/foo.proto
+</pre>
+
+<h2>Extending a Protocol Buffer</h2>
+<ul>
+<li>You cannot change the tag number of any existing field
+<li>you cannot add or delete any required fields. required fields were only valid in proto2
+<li>you may delete optional ro repeated fields
+<li>you can add new optional or repeated fields provied you provide brand new tag numbers - tag numbers which were never used in this procol buffer.
+</ul>
+
+<h2>Backward and Forward Compatibility</h2>
+<ul>
+<li>Old code can read new messages - ignoring any newly added fields
+<li>Fields which have been deleted will have default values
+<li>New code can read old messages - new fields will not be present
+</ul>
+
+</div>
+</body>
+</html>
+
