@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: eval()</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>eval()</code></h1>
+
+<ul>
+<li><code>eval()</code> allows you to dynamically evaluate string based mathmatical expressions
+<li>NOTE: <code>eval()</code> is not safe if its input is not coming from a trusted source
+</ul>
+
+<pre>
+eval("7+5")     # 12
+eval("7+5*2")   # 17
+</pre>
+
+</div>
+</body>
+</html>
+

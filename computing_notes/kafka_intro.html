@@ -40,6 +40,44 @@ C O N T E N T
 <div id="content" class="content">
 <h1>Kafka</h1>
 
+<h2>Events and Topics</h2>
+
+Each event has the following:
+<ul>
+<li><strong>key</strong>
+<li><strong>value</strong>
+<li><strong>timestamp<strong>
+<li><strong>optional metadata headers</strong>
+</ul>
+
+<ul>
+<li><strong>Events</strong> are organized and durably stored in <strong>topics</strong>
+<li>Topics are always multi-producer and multi-subscriber. 
+    I.e. a topic can have zero, one or many publishers
+    Likewise, a topic can have zero, one or many subscribers
+<li>Each event can be read as often as needed. 
+<li>You define how long Kafka should retain your events thru a per-topic configuration setting
+<li>Topics are <strong>partitioned</strong> meaning the events are spread over 
+<li>Events with the same <strong>key</strong> are written to the same partition
+<li>Kafka guarantees that any consumer of a given topic-partition will always read the partition's events in exactly the same order as they were written
+</ul>
+
+<h2>Producers and Consumers</h2>
+<ul>
+<li><strong>Producers</strong> - client applications which publish Kafka events
+<li><strong>Consumers</strong> - client applications which subscribe to Kafka events
+<li>Producers and Consumers are fully de-coupled from each other
+</ul>
+
+<h2>API's</h2>
+<ul>
+<li><strong>Producer API</strong> - allows applications to publish streams of data to topics in the Kafka cluster
+<li><strong>Consumer API</strong> - allows applications to receive streams of data from topics in the Kafka cluster
+<li><strong>Streams API</strong> - allows transforming streams of data from input topics to output topics
+<li><strong>Connect API</strong> - allows transforming streams of data from input topics to output topics
+</ul>
+
+
 <ul>
 <li>a distributed streaming platform
 <li>Publish and subscribe to streams of records - similar to a message queue or enterprise messaging system

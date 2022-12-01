@@ -41,21 +41,37 @@ C O N T E N T
 
 <h1>Python: Files</h1>
 
+<h2>Reading Lines from <code>stdin</code></h2>
 
-<h2>open()</h2>
-<ul>
 <pre>
+import sys
+
+for line in sys.stdin:
+
+    line = line.rstrip()        # remove any white space from end of string
+
+    ...
+</pre>
+
+
+<h2><code>open()</code></h2>
+<pre>
+#
 # modes
 # - r = read (default)
 # - w = write
 # - a = append
 # - r+ = both reading and writing
-# returns a file object
+#
+# <strong>return</strong>
+# <strong>======</strong>
+# <strong>file object</strong>
+#
+
 f = open (  filename        # filename string
             ,mode           # defaults to r
             )
 </pre>
-</ul>
 
 <h2>File Object Methods</h2>
 <ul>

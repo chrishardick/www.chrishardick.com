@@ -384,9 +384,10 @@ function _print_nav ()
     <div class="panel">
         <a href="java_intro.html">Introduction</a>
         <a href="java_variables.html">Variables</a>
+        <a href="java_string.html">Strings</a>
         <a href="java_operators.html">Operators</a>
         <a href="java_control_structures.html">Control Structures</a>
-        <a href="java_string.html">Strings</a>
+        <a href="java_packages.html">Packages</a>
         <a href="java_spring.html">Spring</a>
     </div>
 
@@ -448,6 +449,7 @@ function _print_nav ()
     <button class="accordion" id="accordion_kafka">Kafka</button>
     <div class="panel">
         <a href="kafka_intro.html">Intro</a>
+        <a href="kafka_installation.html">Installation</a>
     </div>
 
     <button class="accordion" id="accordion_linux">Linux</button>
@@ -576,7 +578,7 @@ function _print_nav ()
         <a href="python_set.html">Set</a>
         <a href="python_functions.html">Functions</a>
         <a href="python_cmd_line_args.html">Command Line Arguments</a>
-        <a href="python_external_files.html">External Files</a>
+        <a href="python_files.html">Files</a>
         <a href="python_modules.html">Modules</a>
         <a href="python_classes.html">Classes</a>
         <a href="python_dates_times.html">Dates and Times</a>
@@ -586,6 +588,7 @@ function _print_nav ()
         <a href="python_subprocess.html">subprocess module</a>
         <a href="python_os.html">os module</a>
         <a href="python_environment_variables.html">Environment Variables</a>
+        <a href="python_eval.html">eval()</a>
         <a href="python_sqlite.html">Sqlite</a>
         <a href="python_mysql.html">MySQL</a>
         <a href="python_logging.html">Logging</a>
@@ -623,6 +626,11 @@ function _print_nav ()
         <a href="rabbitmq_exchanges.html">Exchanges</a>
         <a href="rabbitmq_queues.html">Queues</a>
         <a href="rabbitmq_data_safety.html">Data Safety</a>
+    </div>
+
+    <button class="accordion" id="accordion_recursion">Recursion</button>
+    <div class="panel">
+        <a href="recursion_intro.html">Introduction</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>

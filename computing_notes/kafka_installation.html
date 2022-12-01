@@ -40,11 +40,11 @@ C O N T E N T
 <div id="content" class="content">
 <h1>Kafka: Installation</h1>
 
-<h2>Consumers</h2>
+<h2>Add <code>kafka</code> User</h2>
 <ul>
-<li><strong>Consumers</strong> label themselves with a <strong>consumer group name</strong>
-<li>Each record published to a topic is delivered to <strong>one</strong> consumer instance within a subscribing consumer group 
-- allowing for load balancing the consumers
+<li><code>sudo adduser kafka</code>
+<li><code>sudo adduser kafka sudo</code> - add the <code>kafka</code> user to the <code>sudo</code> group
+<li><code>sudo -l kafka</code> - log in as <code>kafka</code> user
 </ul>
 
 <h2>Installing</h2>

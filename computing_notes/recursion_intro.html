@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_recursion");
+}
+</script>
+
+<title>Recursion</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Recursion</h1>
+
+<ul>
+<li><strong>Recursion</strong> - defining a problem in terms of itself
+<li>Recursion can be a powerful tool when writing algorithms
+<li>Recursion works because it saves part of the problem in the progam's call stack
+</ul>
+
+For example, let's solve the problem of "find your way home" as the following:
+
+<ul>
+<li>If you're home, you're done! 
+<li>Take one step torward home
+<li>"find your way home"
+</ul>
+
+<ul>
+<li>Base Case (when you stop)
+<li>Work toward Base Case - make the problem simpler. E.g. divide list in 2, etc.
+<li>Recursive Call (call ourselves)
+</ul>
+
+<h2>Well Known Examples</h2>
+
+<ul>
+<li><strong>Fibonacci Sequence</strong> - F(i) = F(i-1) + F(i-2)
+</ul>
+
+
+<pre>
+# python example
+
+# add_numbers (1,2,3,4) 
+# results in the following call stack:
+
+# add_numbers (1,2,3,4)
+#   add_numbers (1,2,7)
+#       add_numbers (1,9)
+#           return 10
+
+def add_numbers(*args):
+
+    v = list(args)      # tuple to list
+
+    l = len(v)
+
+    if l == 2:            # <strong>base case</strong>
+
+        return (v[0] + v[1])
+
+    elif l &gt; 2:           # <strong>work toward base case</strong>
+
+        x = v[l-1] + v[l-2]
+
+        v.pop()
+        v.pop()
+
+        return (add_numbers (x,*v))     # *v expands the list to individual parameters
+
+
+    raise RuntimeError ("Invalid Length")
+</pre>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://cs.utah.edu">https://cs.utah.edu</a>
+</ul>
+
+
+</div>
+</body> 
+</html>
