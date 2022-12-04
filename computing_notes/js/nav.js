@@ -702,6 +702,7 @@ function _print_nav ()
 
     <button class="accordion" id="accordion_vim">Vim</button>
     <div class="panel">
+        <a href="vim_intro.html">Introduction</a>
         <a href="vim_cheatsheet.html">Cheat Sheet</a>
         <a href="vim_templates.html">Templates</a>
     </div>

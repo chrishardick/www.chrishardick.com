@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_vim");
+}
+</script>
+
+<title>Vim Introduction</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Vim Introduction</h1>
+
+<ul>
+<li>Fundamentally, <strong>Vim</strong> has different modes.
+<li><strong>Normal Mode</strong> - this is the default mode and allows for navigation, etc.
+    Press the <code>Esc</code> key to enter normal mode. From normal mode, you can switch to
+    Insert and Comand Modes
+<li><strong>Insert Mode</strong> - used to insert text. From Normal mode, press <code>i</code>
+    to enter insert mode. When in insert mode, <code>-- INSERT --</code> will be displayed on the 
+    bottom left of the screen
+<li><strong>Command Mode</strong> - used to save, save and exit, etc. From normal mode, you
+    can switch to command mode by pressing <code>:</code>
+</ul>
+
+<h2>Command Mode Commands</h2>
+<ul>
+<li><code>:x</code> - save and exit. will save changes to the file and exit
+<li><code>:q</code> - quit. Will only work if you have not made any changes to the file
+<li><code>:q!</code> - quit without saving. Any changes made to the file since last saving it will be lost
+<li><code>:w</code> - save changes.
+<li><code>:/&lt;search text&gt;</code> - search for the specified text. Use <code>n</code> to find the 
+    next match and <code>p</code> to find the previous match (both from Normal mode)
+<li><code>:set number</code> - display line numbers
+<li><code>:set nonumber</code> - do not display line numbers
+<li><code>:&lt;line-number&gt;</code> - go to specified line number. Use <code>$</code> to go to the last line
+</ul>
+
+<h2>Normal Mode Commands</h2>
+<ul>
+<li><code>u</code> - undo the last command - probably the most important command for new users!
+<li><code>0</code> - go to the beginning of the current line
+<li><code>$</code> - go to the end of the current line
+<li><code>yy</code> - copy the current line to the clipboard
+<li><code>p</code> - paste the clipboard comments to the current position
+</ul>
+
+<h2>Split Window Mode</h2>
+<ul>
+<li>Split window mode splits the screen in two allowing you to view/edit two files at once, or two locations of the same file at once
+<li>Use <code>:sp [file]</code> to enter split window mode
+<li>Once you're in split window mode, you can use <code>CTRL-W up-arrow</code> and <code>CTRL-W down-arrow</code> to switch between windows 
+<li>You can use <code>CTRL-W +5</code> or any number you'd like to increase the size of the current window by 5 lines
+</ul>
+
+</div>
+</body> 
+</html>
+  
