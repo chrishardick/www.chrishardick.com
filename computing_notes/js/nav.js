@@ -190,6 +190,8 @@ function _print_nav ()
         <a href="bash_arithmetic.html">Arithmetic</a>
         <a href="bash_flowcontrol.html">Flow Control</a>
         <a href="bash_precedence.html">Precedence</a>
+        <a href="bash_hello_world.html">Hello, World!</a>
+        <a href="bash_bashlib.html">bashlib</a>
     </div>
    
     <button class="accordion" id="accordion_ber">BER Encoding</button>
@@ -576,6 +578,7 @@ function _print_nav ()
         <a href="python_tuple.html">Tuple</a>
         <a href="python_dictionary.html">Dictionary</a>
         <a href="python_set.html">Set</a>
+        <a href="python_collections.html">collections</a>
         <a href="python_functions.html">Functions</a>
         <a href="python_cmd_line_args.html">Command Line Arguments</a>
         <a href="python_files.html">Files</a>

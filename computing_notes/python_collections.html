@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: collections</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>collections</code></h1>
+
+<ul>
+<li><code>namedtuple()</code>
+<li><code>deque</code>
+<li><code>ChainMap</code>
+<li><code>Counter</code>
+<li><code>OrderedDict</code>
+<li><code>defaultDict</code>
+<li><code>UserDict</code>
+<li><code>UserList</code>
+<li><code>UserString</code>
+</ul>
+
+<h2>deque as a Queue</h2>
+<pre>
+import collections
+
+q = collections.deque()
+
+q.append('a')
+q.append('b')
+q.append('c')
+
+print (q.popleft())
+print (q.popleft())
+print (q.popleft())
+</pre>
+
+</div>
+</body>
+</html>
+

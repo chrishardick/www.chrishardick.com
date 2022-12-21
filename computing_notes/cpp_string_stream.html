@@ -96,6 +96,19 @@ while (iss &gt;&gt; word)
 }   
 
 </pre>
+
+<h2>Clearing a <code>stringstream</code> Variable</h2>
+
+<pre>
+std::ostringstream oss;
+
+// ...
+
+oss.str(std::string());     // clear contents
+oss.clear();                // reset error state - if applicable
+</pre>
+
+
 <h2>String Stream Operators</h2>
 
 <h3>Insertion Operator - <code>&lt;&lt;</code></h3>

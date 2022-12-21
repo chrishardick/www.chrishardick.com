@@ -41,13 +41,24 @@ C O N T E N T
 <H1>Bash: Arithmetic</H1>
 
 <ul>
-<li>Bash supports integer arithmetic, floating point arithmetic is not supported.
-
-<li>The shell interprets words surrounded by <i>$((</i> and <i>))</i> as arithmetic expressions.
-Variables in arithmetic expressions do <i>not</i> need to be preceded by dollar signs, although doing so is <i>not</i> an error.  
-
+<li>Bash supports <strong>integer arithmetic</strong>
+<li>Bash does NOT support <strong><strike>floating point arithmetic</strike></strong>
+<li>The shell interprets expressions surrounded by <strong>double parenthesis</strong> <code>((...))</code> as <strong>arithmetic expressions</strong>.
+<li>If you prefix the double parenthesis with a dollar sign (<code>$</code>), its output will be produced. Otherwise, only the arithmetic
+    will be performed - with no output. 
+<li>Variables in arithmetic expressions do <i>not</i> need to be preceded by dollar signs, although doing so is <i>not</i> an error.  
 <li>Arithmetic expressions are NOT evaluated inside of single quotes
 </ul>
+
+<pre>
+i=5
+
+((i+1))         # performs arithmetic - no output
+
+echo ${i}       # prints 6
+
+echo $((i+1))   # prints 7 - perform arithmetic and produce output
+</pre>
 
 
 <h2>Declaring Integer Variables</h2>
@@ -55,33 +66,24 @@ Variables in arithmetic expressions do <i>not</i> need to be preceded by dollar 
 <p>
 Bash allows you to declare integer variables with the following syntax:
 
-<font face=courier>
 <pre>
 declare -i IntegerVariable
 </pre>
-</font>
+
 This allows you to explicitly state that a variable is to hold integer values.  Any expression which is assigned to an
 integer variable is assumed to be arithmetic.  For example:
-<font face=courier>
 <pre>
 declare -i Integer
 
 x=2+5
 Integer=2+5
 
-echo "x = $x"
-echo "Integer = $Integer"
-
-Produces the following output:
-x = 2+5
-Integer = 7
-
+echo "x = $x"                   # produces: x = 2+5
+echo "Integer = $Integer"       # produces: Integer = 7
 </pre>
-</font>
 
 You can also force an expression to be arithmetic using the 'let' statement.  'let' causes the expression following the 
 assignment to be interpreted as an arithmetic expression.  For example:
-<font face=courier>
 <pre>
 let AVariable=5+2
 
@@ -89,10 +91,10 @@ echo "AVariable = $AVariable"
 
 Produces the following output:
 AVariable = 7
-
 </pre>
-</div>
-</BODY> 
 
-</HTML>
+</div>
+</body> 
+
+</html>
   

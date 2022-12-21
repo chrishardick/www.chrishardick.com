@@ -359,7 +359,7 @@ done
 
 </pre>
 
-<h2>for loop</h2>
+<h2><code>for</code> loop</h2>
 
 <p>
 The for loop is different from the for loop in traditional programming in that it accepts a list of arguments rather than
@@ -368,6 +368,8 @@ traditional high-level language, use the while loop (see below).
 </p>
 
 <h3>Syntax</h3>
+<p><code>list</code> is a list of names; if it is omitted, it defaults to <code>"$@"</code> (the command line arguements each enclosed in double
+quotes and separated by spaces).
 <pre>
 for name [in list]
 do
@@ -375,8 +377,28 @@ do
 done
 </pre>
 
-<p>'list' is a list of names; if it is omitted, it defaults to "$@" (the command line arguements each enclosed in double
-quotes and seperated by spaces).
+<h3>Examples</h3>
+<pre>
+for x in 1 2 3
+do
+    echo ${x}
+done
+</pre>
+
+<pre>
+for x in in {1..10}
+do
+    echo "${x}"
+done
+</pre>
+
+<pre>for x in $(cmd-to-run)
+do
+    echo ${x}
+done
+</pre>
+
+
 
 <h2>while &amp; until</h2>
 
@@ -400,6 +422,18 @@ done
 NOTE: both loops are pre-test (testing occurs prior to entering the loop)
 </pre>
 
+<h3>Examples</h3>
+<pre>
+i=0
+last=10
+
+while [ $i -lt $last ];
+do
+    echo $i
+
+    i=$(($i+1))
+done
+</pre>
 
 <h2>case</h2>
 

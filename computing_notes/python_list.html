@@ -42,21 +42,21 @@ C O N T E N T
 <h1>Python: List</h1>
 
 <ul>
-<pre>
-days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
-weekdays = days[1:6]    # start:end -- note that end is not included
-</pre>
-<li>Similar to a vector in C++ -- I believe look-up is in constant time
-<li>A list is written as a list of comma separated values between square brackets
-<li>You can access individual elements via indexing (square brackets). Lists are indexed from 0 (zero)
-<pre>
-days[3]='Humpday'
-</pre>
-<li>You can get the length of a list using the <strong>len</strong> function.
-<pre>
-print len(days)    # would print out 7
-</pre>
+<li>A dynamically sizing array (similar to a vector in C++)
+<li>A list in Python is denoted as comma separated list of values between square brackets
+<li>You can access individual elements via indexing (square brackets). 
+<li>Lists are indexed from 0 (zero)
+<li>You can get the length of a list using the <strong>len()</strong> function.
 </ul>
+
+<pre>
+# index:          0         1       2           3           4       5           6
+days        = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday']
+weekdays    = days[1:6]    # start:end - note that end is not included
+
+print ("#days=%d" % (len(days)))                # 7
+print ("#weekdays=%d" % (len(weekdays)))        # 5
+</pre>
 
 <h3><code>list</code> methods</h3>
 <ul>
@@ -108,6 +108,14 @@ a = [1, 2, 3, 4, 5]
 
 b = a[1:4]                  # [2, 3, 4] 
 </pre>
+
+<h2>Arrays</h2>
+<ul>
+<li>An array can be thought of a statically sized list
+<li>You can simulate an array in Python using the following syntax: <code>array = [None] * 7</code>
+    - which creates a list of <code>None</code> of size 7
+</ul>
+
 
 </div>
 </body>
