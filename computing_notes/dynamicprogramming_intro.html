@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_dynamicprogramming");
+}
+</script>
+
+<title>Dynamic Programming</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Dynamic Programming</h1>
+
+<ul>
+<li><strong>Dynamic Programming</strong> refers to optimizing an algorithm of a problem which has overlapping sub-problems.
+<li><strong>Top-Down Dynamic Programming</strong> is an optimization (usually over recursion) in which repeated calls 
+    for the same input are cached - such that they do not need to be re-calculated.
+<li>This is also known as <strong>memoization</strong>
+<li>A typical example is <em>computing factorials</em> - in which we can cache results rather than re-calculating
+<li>Another example is <em>calculating the fibonacci sequence using recursion and caching prior results</em>
+<li><em>Calculating the fibonacci sequence using iteration</em> (e.g. starting at fib(0) and iterating until fib(N)) is an example of
+    <strong>Bottom-Up Dynamic Programming</strong>
+</ul>
+
+</div>
+</body> 
+</html>
+  

@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_graph");
+}
+</script>
+
+<title>Graph - Depth First Search</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Graph - Depth First Search (DFS)</h1>
+
+<center>
+<img src="grph.png" alt="graph">
+</center>
+
+<h3>Algorithm</h3>
+<pre>
+struct Node
+{
+    std::string val;
+
+    std::list&lt;Node*&gt; children;
+
+    Node (const std::string&amp; v)
+        : val(v)
+    {}
+
+    void print_self (std::ostream&amp; os) const;
+};
+
+void dfs (  const Node* n1
+            ,const Node* n2
+            ,std::set&lt;const Node*&gt;&amp; visited
+            ,std::list&lt;const Node*&gt;&amp; path)
+{
+    if (n1 == n2)
+    {
+        std::cout &lt;&lt; path &lt;&lt; std::endl &lt;&lt; std::endl;
+        return;
+    }
+
+    for (auto a = n1-&gt;children.begin(); a != n1-&gt;children.end(); a++)
+    {
+        if (visited.find(*a) == visited.end())
+        {
+            // yet to visit
+
+            visited.insert(*a);
+            path.push_back(*a);
+
+            dfs (*a, n2, visited, path);
+
+            path.pop_back();
+            visited.erase(*a);
+        }
+    }
+}
+
+void print_all_paths (const Node* n1, const Node* n2)
+{
+    std::cout   &lt;&lt; "print_all_paths:"
+                &lt;&lt; " begin=" &lt;&lt; *n1 
+                &lt;&lt; " end=" &lt;&lt; *n2
+                &lt;&lt; std::endl;
+
+    std::set&lt;const Node*&gt; visited;
+    std::list&lt;const Node*&gt; path;
+
+    path.push_back(n1);
+    visited.insert(n1);
+    dfs (n1, n2, visited, path);
+}
+
+int main (int argc, const char* argv[])
+{
+    Node* a = new Node ("a");
+    Node* b = new Node ("b");
+    Node* c = new Node ("c");
+    Node* d = new Node ("d");
+    Node* e = new Node ("e");
+
+    a-&gt;children.push_back(b);
+    a-&gt;children.push_back(c);
+
+    b-&gt;children.push_back(a);
+    b-&gt;children.push_back(c);
+    b-&gt;children.push_back(d);
+
+    c-&gt;children.push_back(a);
+    c-&gt;children.push_back(b);
+    c-&gt;children.push_back(d);
+    c-&gt;children.push_back(e);
+
+    d-&gt;children.push_back(b);
+    d-&gt;children.push_back(c);
+    d-&gt;children.push_back(e);
+
+    e-&gt;children.push_back(c);
+    e-&gt;children.push_back(d);
+
+    print_all_paths (a, e);
+
+    return 0;
+}
+</pre>
+
+</div>
+</body> 
+</html>

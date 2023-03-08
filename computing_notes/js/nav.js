@@ -199,14 +199,6 @@ function _print_nav ()
         <a href="ber_intro.html">Introduction</a>
     </div>
     
-    <button class="accordion" id="accordion_binarytree">Binary Trees</button>
-    <div class="panel">
-        <a href="binarytree_bt.html">Binary Tree</a>
-        <a href="binarytree_breadth_first.html">Breadth First</a>
-        <a href="binarytree_depth_first.html">Depth First</a>
-        <a href="binarytree_bst.html">Binary Search Tree</a>
-    </div>
-
     <button class="accordion" id="accordion_c">C</button>
     <div class="panel">
         <a href="c_bit_operations.html">Bit Operations</a>
@@ -329,6 +321,11 @@ function _print_nav ()
         <a href="dns.html">Cheat Sheet</a>
     </div>
 
+    <button class="accordion" id="accordion_dynamicprogramming">Dynamic Programming</button>
+    <div class="panel">
+        <a href="dynamicprogramming_intro.html">Intro</a>
+    </div>
+
     <button class="accordion" id="accordion_endianness">Endianness</button>
     <div class="panel">
         <a href="endianness_endianness.html">Endianness</a>
@@ -339,12 +336,22 @@ function _print_nav ()
         <a href="git.html">Cheat Sheet</a>
         <a href="git_hooks.html">Git Hooks</a>
         <a href="git_github_markdown.html">Github Markdown</a>
+        <a href="git_github_ssh.html">Github SSH</a>
     </div>
 
     <button class="accordion" id="accordion_gtest">Google Test / Mock</button>
     <div class="panel">
         <a href="gtest.html">Google Test</a>
         <a href="gmock.html">Google Mock</a>
+    </div>
+
+    <button class="accordion" id="accordion_graph">Graphs and Trees</button>
+    <div class="panel">
+        <a href="graph_bt.html">Binary Tree</a>
+        <a href="graph_bt_breadth_first.html">Binary Tree - Breadth First</a>
+        <a href="graph_bt_depth_first.html">Binary Tree - Depth First</a>
+        <a href="graph_bst.html">Binary Search Tree</a>
+        <a href="graph_depth_first.html">Graph - Depth First</a>
     </div>
 
     <button class="accordion" id="accordion_groovy">Groovy</button>

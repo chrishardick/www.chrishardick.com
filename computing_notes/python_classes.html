@@ -42,7 +42,7 @@ C O N T E N T
 <h1>Python: Classes</h1>
 
 <ul>
-<li>Unlike other languages (e.g. C++, etc.), Pythnon does not support different levels of access to variables. All class members are public
+<li>Unlike other languages (e.g. C++, etc.), Python does not support different levels of access to variables. All class members are public
 <li><strong>Per class variables</strong> are declared within the class definition and are referenced by using the class name as a prefix 
 (e.g. <code>Class.num_instances</code> in the example below)
 <li><strong>Per instance variables</strong> should be declared within the <code>__init__()</code> method. 
@@ -50,13 +50,10 @@ C O N T E N T
     It probably also makes the code more complex, as you need to ensure the method which defined the members is called prior to the members being 
     accessed. 
 <li>Unused objects are cleaned up via <strong>garbage collection</strong>. Objects are cleaned up when their reference count goes to 0 (zero)
-<li><strong><code>self</code></strong>
-    <ul>
-    <li>Unlike C++, you must use <strong><code>self</code></strong> to reference an object methods and data members from its methods
-    <li><strong><code>self</code></strong> must be explicitly defined as the 1st parameter of every class method - including <code>__init__()</code>.
-    <li>You do not need to explicitly pass <code>self</code> when you call an object method, it will implicitly passed for you.
-    <li>It's worth noting that <strong>self</strong> need not be named <code>self</code>, it's only by convention
-    </ul>
+<li>You must use <strong><code>self</code></strong> to reference an object's methods and data members from within its methods
+<li><strong><code>self</code></strong> must be explicitly defined as the 1st parameter of every class method - including <code>__init__()</code>.
+<li>You do not need to explicitly pass <code>self</code> when you call an object method, it will implicitly passed for you.
+<li>It's worth noting that <strong>self</strong> need not be named <code>self</code>, it's only by convention
 </ul>
 
 <pre>
@@ -70,13 +67,11 @@ class Class:
     num_instances = 0
     num_foo_calls = 0
 
-    #==========
+    #
     # __init__()
-    # 
     # - constructor
-    # - Python does not support multiple constructors, but you can define default parameters
-    #  
-    #==========
+    # - multiple constructors are not supported, but you can define default parameters
+    #
     def __init__(self,val=0):         # __init__() is the constructor
 
         # instance variables go here
@@ -86,6 +81,49 @@ class Class:
         self.i = val
 
         Class.num_instances += 1
+
+    #
+    # __str__()
+    # - this method returns the string representation of the object
+    # - it's called when print() or str() functions are invoked on an object
+    # - it must return a String object
+    #
+
+    def __str__(self):
+
+        return str(i)
+
+    #
+    # __repr__()
+    # - this method returns the unique string representation of the object
+    # - it should be able to reconstruct the object using it
+    # - if __repr__() is defined, but __str__() is not, __repr__() will be used instead
+    #
+
+    def __repr__(self):
+        ...
+
+    #
+    # when comparing two objects, Python by default compares the object references
+    # (not the data contained in the objects). To override this behavior, the class
+    # can implement __eq__() which accepts two arguments (self and other)
+    #
+
+    def __eq__(self, other):
+        ...
+
+   
+    # less than
+
+    def __lt__(self, other):
+        ...
+
+
+    def __hash__(self):
+        ...
+        
+
+        
 
     def bar(self):
 

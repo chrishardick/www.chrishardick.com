@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_git");
+}
+</script>
+
+<title>Github SSH</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Github SSH Key</h1>
+
+<h2>Generate Public and Private Keys</h2>
+
+<ul>
+<li>On Mac or Linux box:
+</ul>
+
+<pre>
+cd ~/.ssh
+
+ssh-keygen -o -t rsa -C "foo@bar.com"
+</pre>
+
+
+<h2>Upload Public Key to Github</h2>
+
+<ul>
+<li>If not already logged in, log in to <a href="https://www.github.com">github</a>
+<li>Click on your avatar on top right corner
+<li>Settings
+<li>SSH and GPG keys
+<li>New SSH Key
+<li>Paste your public key
+<li>Add SSH key
+</ul>
+
+</div>
+</body> 
+</html>

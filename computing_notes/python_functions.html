@@ -84,7 +84,10 @@ foo (y=10, x=5)
 <h3>Pass by Value vs. Pass by Reference</h3>
 <ul>
 <li>Primative types are passed by value
-<li>Complex types (lists, dictionaries, etc.) are passed by reference
+<li>Complex types (lists, dictionaries, objects, etc.) are passed by reference
+<li>Strings in Python are immutable. Although they are passed by reference, if you modify a string 
+    inside a function, you're creating a new string which the local variable will point to. This has the
+    effect of behaving similar to pass by value.
 </ul>
 
 
