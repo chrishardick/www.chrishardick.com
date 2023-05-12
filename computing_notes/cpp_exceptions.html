@@ -43,55 +43,60 @@ C O N T E N T
 
 <ul>
 <li>A method of handling runtime errors
-<li>Provides a standard mechanism for handling runtime errors
-<li>3 new keywords: <i>try</i>, <i>throw</i>, and <i>catch</i>
+<li><a href="#try_block"><code>try</code> blocks</a>
+<li><a href="#throw_statement"><code>throw</code> statements</a>
+<li><a href="#catch_block"><code>catch</code> blocks</a>
 </ul>
 
-<h2>I. <i>try</i> block</h2>
+<h2 id="try_block"><code>try</code> block</h2>
 <ul>
-<li>defines a region of code where an exception may be thrown
-<li><strong>When an exception is thrown</strong>:
+<li>Defines a region of code where an exception may be thrown
+<li>When an exception is thrown:
     <ol>
     <li><strong>Destructors</strong> are invoked for any automatic objects defined within the block 
-    <li>Control goes to the <i>catch</i> block and the catch block is executed
-	<li>When The catch block completes, execution continues with the statement immediately following the catch block
+    <li>Control goes to the <code>catch</code> block and the catch block is executed
+	<li>When the <code>catch</code> block completes, execution continues with the statement immediately following the <code>catch</code> block
     </ol>
-<li>If an exception is not thrown, the catch block is not executed
-<li>The <i>throw</i> statement throws an exception
-<li>The operand following the throw statement determines the <strong>exception type</strong>
+<li>If an exception is not thrown, the <code>catch</code> block is not executed
 <li>If an exception is not caught by the function which generated the exception, 
     it will be delivered to the calling function, and if not caught there, the calling function's caller, 
     down the entire call stack until the exception is caught.
-<li>One of the benefits (and complexities) of using exceptions is that they can be handled high up in a given module 
 <li>If the exception is never caught, the program will terminate by calling the registered terminate handler or 
-    abort() -- the default terminate handler -- see discussion below.
+    <code>abort()</code> - the default terminate handler - see discussion below.
+<li>One of the benefits (and complexities) of using exceptions is that they can be handled high up in a given module 
 </ul>
 
-<h2>II. <i>catch</i> block</h2>
+<h2 id="throw_statement"><code>throw</code> statement</h2>
 <ul>
-<li>catch any exception of a given type
-<li>you must specify @ least 1 catch block for a try block
-<li>catch block must immediately follow the try block
+<li>The <code>throw exception_type</code> statement throws an exception
+<li>The operand following the throw statement determines the <strong>exception type</strong>
+</ul>
+
+<h3>Exception Types</h3>
+<ul>
+<li>Usually all exception types are derived from <code>std::exception</code> - see an example below
+<li>All exceptions thrown by the standard library are derived from this class
+<li>Hence, all exceptions thrown by the standard library can be caught via a 
+    <code>catch(std::exception&amp; e) { ... }</code> block
+</ul>
+
+
+<h2 id="catch_block"><code>catch</code> block</h2>
+<ul>
+<li>catch exceptions of a given type
+<li>each try block must specify at least 1 catch block
+<li>catch block(s) must immediately follow the try block
 <li>a catch block will catch all exceptions (of the correct type) that occur anywhere 
-	in the immediately proceding try block--including any functions which are
-	called from within the try block (and the functions which they call... etc.)
+    in the immediately proceding try block--including any functions which are
+    called from within the try block (and the functions which they call... etc.)
 <li>you can specify that a catch block should handle all exceptions (regardless of type) 
-	by placing an elipse within the parenthesis--rather than an explicit type.
-	If you're going to use this catch block along with others, make sure this is the
-	last one you define.
+    by specifying an elipse as the type (<code>catch (...)</code>)
+    If you're going to use this catch block along with others, make sure this is the
+    last one you define.
 </ul>
 
 
-<h2>III. Nested try blocks</h2>
-<ul>
-<li>you may nest try blocks within one another
-<li>if an exception is thrown from within an inner try block which is not handled in a catch block
-	immediately following the nested try block, the catch handlers for the outer try block
-	will be searched.
-</ul>
-
-
-<h2>IV. Code</h2>
+<h2>Example</h2>
 
 <pre>
 #include &lt;iostream.h&gt;
@@ -127,6 +132,10 @@ void foo ()
 {
     std::cout &lt;&lt; "foo: START" &lt;&lt; std::endl;
     throw foo_exception();
+
+    // a simpler alternative
+    // throw "plain old string exception";
+
     std::cout &lt;&lt; "foo: END" &lt;&lt; std::endl;
 }
 
@@ -157,15 +166,19 @@ int main (int argc, const char* argv[])
 
     try 
     {   
-            foo();
+        foo();
     }   
     catch (std::exception&amp; e)
     {   
-        std::cout &lt;&lt; "CAUGHT STD EXCEPTION. WHAT=|" &lt;&lt; e.what() &lt;&lt; "|" &lt;&lt; std::endl;
-    }   
+        std::cout &lt;&lt; "EXCEPTION OCCURRED. WHAT=|" &lt;&lt; e.what() &lt;&lt; "|" &lt;&lt; std::endl;
+    }
+    catch (const char* str)
+    {
+        std::cout &lt;&lt; "EXCEPTION OCCURRED. |" &lt;&lt; str &lt;&lt; "|" &lt;&lt; std::endl;
+    }
     catch (...)
     {   
-        std::cout &lt;&lt; "CAUGHT UNKNOWN EXCEPTION" &lt;&lt; std::endl;
+        std::cout &lt;&lt; "EXCEPTION OCCURRED" &lt;&lt; std::endl;
     }   
 
 
@@ -186,5 +199,5 @@ int main (int argc, const char* argv[])
 </pre>
 
 </div>
-</BODY> 
-</HTML>
+</body> 
+</html>

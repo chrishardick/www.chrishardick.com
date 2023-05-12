@@ -42,27 +42,66 @@ C O N T E N T
 
 <UL>
 <LI>In UNIX, everything is a file
-<LI>Programs can interact with serial ports, printers, sockets & other devices in exactly the same way they would a file. Directories are also files (albeit a special type)
-<LI>Two methods can be used to interact with files: System Calls & Library Functions. 
-Library Functions are mainly used for files & terminal I/O.  
+<LI>Programs can interact with serial ports, printers, sockets and other devices in exactly the same way they would a file. Directories are also files (albeit a special type)
+<LI>Two methods can be used to interact with files: System Calls and Library Functions. 
+Library Functions are mainly used for files and terminal I/O.  
 However, when you need explicit control over devices, you're better off with low-level system calls, as they do not involve buffering
 </UL>
 
-<H2>I. System Calls</H2>
-<UL>
-<LI>We can access & control files (and devices, etc.) using system calls. 
-<LI>System calls are a direct interface to the OS (Linux/UNIX), provided by the OS.
-<LI>The basic system calls relating to files are:
-	<UL>
-	<LI>open( )
-	<LI>close( )
-	<LI>read( )
-	<LI>write( )
-	<LI>ioctl( )
-	<LI>Random Access: lseek( )
-	<LI>Status: fstat( ), stat( ), lstat( )
-	</UL>
-</UL>
+<h2>I. System Calls</h2>
+<ul>
+<li>We can access and control files (and devices, etc.) using system calls. 
+<li>System calls are a direct interface to the OS (Linux/UNIX), provided by the OS.
+<li>The basic system calls relating to files are:
+	<ul>
+	<li><code>open()</code>
+	<li><code>close()</code>
+	<li><code>read()</code>
+	<li><code>write()</code>
+	<li><code>ioctl()</code>
+	<li>Random Access: <code>lseek()</code>
+	<li>Status: <code>fstat()</code>, <code>stat()</code>, <code>lstat()</code>
+	</ul>
+</ul>
+
+<h3><code>open()</code>
+<pre>
+#include &lt;fcntl.h&gt;
+
+//
+// open the file specified by pathname
+// 
+// flags (bitmap)
+// ==============
+// flags must contain one of the following:
+// - O_RDONLY, O_WRONLY, O_RDWR - open file read only, write only or read-write
+// 
+// other flags:
+// O_APPEND     - append mode. before each write, the file offset is positioned at the end of the file
+//              - the file offset and the write operation are performed as an atomic operation
+//              - can lead to problems on NFS filesystems 
+// O_CREAT      - if pathname does not exist, create it as a regular file
+//              - the mode argument specifies the file mode bits to be applied when a new file is created
+//              - the effective mode is modified by the process's umask
+// O_EXCL       - ensure this call creates the file
+//              - in general, used in conjunction with with O_CREAT
+//              - if file already exists, open() will return an error
+//              - on NFS, only supported when using NFSv3 or later on kernel 2.6 or later
+// O_TRUNC      - if the file already exists and is a regular file and the access mode allows writing
+//                truncate the file to 0 bytes
+//
+// return
+// ======
+// file descriptor - essentially a non-negative integer which is an index into the process's table
+//      of open file descriptors. the fd is used in subsequent calls - e.g. read(), write(), etc.
+// on error, -1 is returned and errno is set with the applicable error
+//
+
+int open(   const char* pathname
+            ,int flags
+            ,mode_t mode            // OPTIONAL: ignored if O_CREAT nor O_TMPFILE is specified
+            )
+</pre>
 
 <H2>II. Library Functions</H2>
 <UL>
@@ -90,7 +129,7 @@ However, when you need explicit control over devices, you're better off with low
 <H3>1. fgets( ) - Get Input From a File 1 Line At a Time</H3>
 
 <UL>
-<PRE>#include &ltstdio.h&gt
+<PRE>#include &lt;stdio.h&gt;
 
 char* fgets (   char* s,        // OUT: Preallocated Buffer to Write to	
                 int size,       // IN:  Read @ Most size-1 characters
