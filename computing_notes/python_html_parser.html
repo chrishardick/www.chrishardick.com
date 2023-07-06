@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: HTMLParser</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: HTMLParser</h1>
+
+<ul>
+<li>The <code>HTMLParser</code> class allows you to parse HTML and XHTML files
+<li><code>HTMLParser</code> is defined in module <code>html.parser</code>.
+<li>A HTMLParser instance is fed HTML data and calls handler methods when start tags, end tags, text, comments and other 
+    markup elements are encountered. The user should subclass HTMLParser and override its method to implement the desired behavior
+</ul>
+
+<pre>
+from html.parser import HTMLParser
+
+class FooHTMLParser (HTMLParser):
+
+    def handle_starttag (self, tag, attrs):
+        print ("START TAG - %s" % (tag))
+
+    def handle_endtag (self, tag)
+        print ("END TAG - %s" % (tag))
+
+    def handle_data (self, data):
+        print ("DATA: %s" % data)
+
+parser = FooHTMLParser()
+
+parser.feed ('&lt;html&gt;&lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;h1&gt;HEADING!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;')
+</pre>
+
+Produces the following output:
+
+<pre>
+START TAG - html
+START TAG - head
+START TAG - title
+DATA: Test
+END TAG - title
+END TAG - head
+START TAG - body
+START TAG - h1
+DATA: HEADING!
+END TAG - h1
+END TAG - body
+END TAG - html
+</pre>
+
+</dl>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://docs.python.org">docs.python.org</a>
+</ul>
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ Priority Queue</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ <code>priority_queue</code></h1>
+
+<ul>
+<li>In C++, a <code>priority_queue</code> is a container adapter similar to a heap in that 
+    the first element is always the greatest
+</ul>
+
+<pre>
+// basic usage
+
+#include &lt;queue&gt;
+
+std::priority_queue<int> pq;
+
+pq.push(10);
+pq.push(20);
+pq.push(1);
+pq.push(5);
+
+assert (pq.top() == 20);    pq.pop();
+assert (pq.top() == 10);    pq.pop();
+assert (pq.top() ==  5);    pq.pop();
+assert (pq.top() ==  1);    pq.pop();
+
+assert (pq.empty());
+</pre>
+
+<ul>
+<li>The underlying container is normally a <a href="cpp_vector.html"><code>vector</code></a>.
+<li>However it can be any container which supports the following:
+<li>random access iterators
+<li><code>empty()</code>
+<li><code>size()</code>
+<li><code>front()</code>
+<li><code>push_back()</code>
+<li><code>pop_back()</code>
+</ul>
+
+<pre>
+// another example in which we specify both the container and the comparision function
+// - by default the comparision function is <code>less&lt;T&gt;</code>
+
+#include &lt;queue&gt;
+
+struct cmp
+{
+    bool operator() (const int&amp; l, const int&amp; r) const
+    {
+        if (l &lt; r)
+            return true;
+        return false;
+    }
+};
+
+std::priority_queue&lt;int, std::vector&lt;int&gt;, cmp&gt; pq;
+
+pq.push(10);
+pq.push(20);
+pq.push(1);
+pq.push(5);
+
+assert (pq.top() == 20);    pq.pop();
+assert (pq.top() == 10);    pq.pop();
+assert (pq.top() ==  5);    pq.pop();
+assert (pq.top() ==  1);    pq.pop();
+
+assert (pq.empty());
+</pre>
+
+</div>
+</body> 
+</html>

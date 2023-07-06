@@ -1,0 +1,79 @@
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_db");
+}
+</script>
+
+<title>Databases: SQL Subqueries</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Databases: SQL Subqueries</h1>
+
+<ul>
+<li>A <strong>subquery</strong> (or inner query) is a SQL query nested inside a larger query
+<li>The inner query is executed before its parent query such that the results can be passed to the outer query
+<li>subqueries must be enclosed in parentheses
+</ul>
+
+<p>Here is an example:</p>
+
+<table>
+<code>student</code> table
+<tr><th>ID</th><th>Name</th></tr>
+<tr><td>1 </td><td>"AA"</td></tr>
+<tr><td>2 </td><td>"BB"</td></tr>
+<tr><td>3 </td><td>"CC"</td></tr>
+<tr><td>4 </td><td>"DD"</td></tr>
+</table>
+
+<table>
+<code>final_exam_grades</code> table
+<tr><th>student_ID</th><th>score</th></tr>
+<tr><td>1 </td><td>90</td></tr>
+<tr><td>2 </td><td>81</td></tr>
+<tr><td>3 </td><td>74</td></tr>
+<tr><td>4 </td><td>80</td></tr>
+</table>
+
+<p>Build a query which will yield all student names who did better than student DD</p>
+
+<pre>
+SELECT student.Name 
+FROM student,final_exam_grades 
+WHERE student.ID = final_exam_grades.student_ID AND final_exam_grades.score &gt; 
+(SELECT score FROM student,final_exam_grades 
+    WHERE student.ID = final_exam_grades.student_ID AND Name = "DD")
+</pre>
+
+</div>
+</body> 
+</html>

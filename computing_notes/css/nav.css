@@ -175,7 +175,7 @@ tr:hover
 table
 {
     border-collapse:    collapse;
-    width: 100%;
+    /* width: 100%; */
 }
 
 table.type1 th, td

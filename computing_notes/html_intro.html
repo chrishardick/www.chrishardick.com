@@ -49,21 +49,41 @@ C O N T E N T
 
 <h2>Tags</h2>
 
-<dl>
-<dt><code>&lt;a&gt;</code>
-<dd>anchor - e.g. hyperlink. <code>href</code> attribute - a link beginning with a slash is relative to the base element (e.g. assuming the current page is www.chrishardick.com/dir1/page1.html), href="/dir2/page2.html" would point to www.chrishardick.com/dir2/page2 whereas href="dir2/page2.html" would point to www.chrishardick.com/dir1/dir2/page2.html"
-<dd><code>&lt;a&gt; href='http://www.chrishardick.com/interesting_page.html#interesting_id'&gt;An Interesting Page.ID&lt;/a&gt;</code>
+<code>&lt;a&gt;</code>
+<ul>
+<li>anchor - e.g. hyperlink. <code>href</code> attribute - a link beginning with a slash is relative to the base element (e.g. assuming the current page is www.chrishardick.com/dir1/page1.html), href="/dir2/page2.html" would point to www.chrishardick.com/dir2/page2 whereas href="dir2/page2.html" would point to www.chrishardick.com/dir1/dir2/page2.html"
+<li><code>&lt;a&gt; href='http://www.chrishardick.com/interesting_page.html#interesting_id'&gt;An Interesting Page.ID&lt;/a&gt;</code>
+</ul>
 
-<dt><code>&lt;div&gt;</code>
-<dd>A generic block element. I.e. provides no default style.
+<code>&lt;div&gt;</code>
+<ul>
+<li>A generic block element. I.e. provides no default style.
+</ul>
 
-<dt><code>&lt;link&gt;</code>
-<dd>A link defines a link between a document and an external resource (i.e. a style sheet). See note above re: href attribute.
+<code>&lt;link&gt;</code>
+<ul>
+<li>A link defines a link between a document and an external resource (i.e. a style sheet). See note above re: href attribute.
+</ul>
 
-<dt><code>&lt;span&gt;</code>
-<dd>A Generic inline element. I.e. provides no default style.
+<code>&lt;span&gt;</code>
+<ul>
+<li>A Generic inline element. I.e. provides no default style.
+</ul>
 
-</dl>
+<code>&lt;meta&gt;</code> 
+<ul>
+<li>Defines metadata (i.e. information about the HTML document). 
+<li>It should be contained within the <code>&lt;head&gt;</code> element and is typically used to specify either: 
+    the character set, the page description, keywords, the author of the document, or viewport setttings
+<li>metadata will not be displayed on the page. It's used by browsers, search engines, etc.
+<li><code>&lt;meta name="keywords" content="html tags"&gt;</code>
+<li><code>&lt;meta name="description" content="HTML Introduction"&gt;</code>
+<li><code>&lt;meta name="author" content="John Smith"&gt;</code>
+<li><code>&lt;meta http-equiv="refresh" content="30"&gt;</code>
+    <ul><li>refresh page every 30 seconds</ul>
+<li><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code> 
+    <ul><li>set the width of the page to the screen width of the device<li>set the initial zoom level when the page is first loaded by the browser</ul>
+</ul>
 
 <h2>JavaScript</h2>
 <ul>

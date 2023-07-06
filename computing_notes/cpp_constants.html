@@ -38,73 +38,53 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<H1>C++ CONSTANTS</H1>
+<h1>C++ Constants</h1>
 
-<H2>I. Pointer-To-Constant & Constant pointers</H2>
+<h2>Pointer-To-Constant</h2>
 
-<PRE>
-                                             0x5568
-                                            +---+---+---+---+---+---+---+---+---+---+---+---+
-                                            |   |   |   |   |   |   |   |   |   |   |   |   |
-               +--------------------------->| H | E | L | L | O |   | W | O | R | L | D |\0 |
-               |                            |   |   |   |   |   |   |   |   |   |   |   |   |
-     +---------|-----+                      +---+---+---+---+---+---+---+---+---+---+---+---+
-     | 0x5568  +     |                    
-     +---------------+                   
-     - const char* szStr = "Hello World\n";  
-       - pointer-to-constant
-       - you can't change the contents pointed to by a pointer-to-constant ("Hello World") using this pointer
+<ul>
+<li>Prevents you from changing the data which is pointed to 
+<li><code>const</code> keyword comes before the datatype
+<li>You are allowed to change the pointer to something else
+</ul>
 
-     - char* const szStr = "Hello World\n";
-       - constant-pointer
-       - you can't change the address stored in a constant-pointer (0x5568)
-       - Once a constant pointer is initialized to an address, it cannot be changed
-       - i.e. the pointer can never point to another memory address for its lifetime
-</PRE>
+<pre>
+int x = 5;
+int y = 10;
 
-<BR><BR>
-<H3>1. Pointer-To-Constant</H3>
+const int* xx = &amp;x; 
 
-<UL>
-<LI>Prevents you from changing the data which is pointed to using this pointer
-<LI><i>const</i> keyword comes before the datatype
-<PRE>
-const char* sz1 = "CAN'T CHANGE CONTENTS OF THIS";
-char sz2[]      = "HELLO WORLD!";
+// compilation error - as we cannot change the contents of what is being pointed to
+// *xx = y;
 
-sz1[0] = 'A';   // compile error - attempt to change data pointed to by a pointer-to-constant
-
-sz1 = sz2;      // allowed.
-
-/*
- * interesting points
- * - you can't use sz1 to change contents of sz2
- * - but you can use sz2 to change the contents
- */
-</PRE>
-</UL>
+// ok - as we can change the pointer to point to something else
+xx = &amp;y;
+</pre>
 
 
-<BR><BR>
-<H3>2. Constant Pointers</H3>
+<h2>Constant Pointers</h2>
 
-<UL>
-<LI>Prevents you from changing the address stored in the pointer
-<LI><i>const</i> keyword comes after the datatype
-<PRE>
-char* const sz1 = "CAN CHANGE THE CONTENTS OF THIS";
-char sz2[]      = "HELLO WORLD!";
+<ul>
+<li>Prevents you from changing the address stored in the pointer
+<li><code>const</code> keyword comes after the datatype
+</ul>
 
-sz1[0] = 'A'; // allowed
+<pre>
+int x = 5;
+int y = 10;
 
-sz1 = sz2;    // comile error
-</PRE>
-</UL>
+int* const yy = &amp;y;
+
+// compilation error - as we cannot change what we point to
+// yy = &amp;x;
+
+// ok - as we can change the contents of what is being pointed to
+*yy = x;
+</pre>
 
 
 
-<BR><BR>
-<H2>II. Constant Objects & Constant Member Functions</H2>	
+<h2>Constant Objects & Constant Member Functions</h2>	
 
 <UL>
 <LI>You can declare an object to be constant, just as you can any other data type.

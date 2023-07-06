@@ -1,0 +1,92 @@
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_db");
+}
+</script>
+
+<title>Databases: SQL over() clause</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Databases: SQL OVER() clause</h1>
+
+<p>GIVEN:</p>
+<p>TABLE: transactions</p>
+<table>
+<tr><th>id</th><th>date    </th><th>fld1 </th><th>fld2 </th><th>qty</th></tr>
+<tr><td> 1</td><td>20230601</td><td>"aaa"</td><td>"bbb"</td><td>1.1</td></tr>
+<tr><td> 2</td><td>20230601</td><td>"bbb"</td><td>"ccc"</td><td>1.1</td></tr>
+<tr><td> 3</td><td>20230602</td><td>"ccc"</td><td>"ddd"</td><td>6.2</td></tr>
+<tr><td> 4</td><td>20230602</td><td>"ddd"</td><td>"eee"</td><td>6.2</td></tr>
+</table>
+
+<br><br>
+
+<h2><code>over()</code> clause</h2>
+<pre>
+SELECT id, date, fld1, fld2, SUM (qty) OVER() as daily_sum
+FROM transactions
+WHERE date = 20230601
+</pre>
+
+produces the following result:
+
+<pre>
+1|20230601|aaa|bbb|2.2
+2|20230601|bbb|ccc|2.2
+</pre>
+
+
+<ul>
+</ul>
+
+
+<h2><code>PARTITION BY</code> subclause</h2>
+
+
+<pre>
+SELECT id, date, fld1, fld2, SUM (qty) OVER(partition by date) as daily_sum
+FROM transactions
+</pre>
+
+produces the following:
+
+<pre>
+1|20230601|aaa|bbb|2.2
+2|20230601|bbb|ccc|2.2
+3|20230602|ccc|ddd|12.4
+4|20230602|ddd|eee|12.4
+</pre>
+
+
+</div>
+</body> 
+</html>

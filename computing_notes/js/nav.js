@@ -248,6 +248,7 @@ function _print_nav ()
         <a href="cpp_unordered_map.html">Unordered Map, Multimap</a>
         <a href="cpp_unordered_set.html">Unordered Set, Multiset</a>
         <a href="cpp_deque.html">Deque</a>
+        <a href="cpp_priority_queue.html">Priority Queue</a>
         <a href="cpp_string.html">String</a>
         <a href="cpp_string_stream.html">String Streams</a>
         <a href="cpp_file_stream.html">File Streams</a>
@@ -314,6 +315,8 @@ function _print_nav ()
     <div class="panel">
         <a href="db_join.html">Join Types</a>
         <a href="db_transactions.html">Transactions</a>
+        <a href="db_sql_over_clause.html">SQL over clause</a>
+        <a href="db_sql_subqueries.html">SQL Subqueries</a>
     </div>
 
     <button class="accordion" id="accordion_dns">DNS</button>
@@ -500,6 +503,11 @@ function _print_nav ()
         <a href="mac_parallels.html">Parallels</a>
     </div>
 
+    <button class="accordion" id="accordion_ml">Machine Learning (ML)</button>
+    <div class="panel">
+        <a href="ml_intro.html">Introduction</a>
+    </div>
+
     <button class="accordion" id="accordion_make">Make</button>
     <div class="panel">
         <a href="make.html">Cheat Sheet</a>
@@ -605,6 +613,7 @@ function _print_nav ()
         <a href="python_json.html">JSON</a>
         <a href="python_guid.html">GUID</a>
         <a href="python_cgi.html">CGI</a>
+        <a href="python_html_parser.html">HTML Parser</a>
         <a href="python_struct.html">struct</a>
         <a href="python_socket.html">sockets</a>
         <a href="python_hashlib.html">hashlib</a>

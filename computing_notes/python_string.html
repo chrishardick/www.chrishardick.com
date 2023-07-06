@@ -43,6 +43,8 @@ C O N T E N T
 
 <ul>
 
+<li>Strings in Python are handled with <code>str</code> objects or <em>strings</em>.
+<li>Strings are immutable.
 <li>In Python 2, strings (by default) are ASCII byte strings
 <li>In Python 3, strings (by default) are Unicode encoded via UTF-8
 <li>Strings can be defined using either double or single quotes
@@ -72,7 +74,7 @@ line 3
 line 4
 </pre>
 
-<li>Use the built-in function <code>len()</code> to obtain the length of the string</li>
+<li>Use the built-in function <code>len()</code> to obtain the length of a string</li>
 <pre>
 s = "Hello, World!"
 print len(s)            # 13
@@ -105,9 +107,22 @@ print r'c:\abc\def' # results in 'c:\abc\def'
 
 </ul>
 
-<h3>String Methods</h3>
+
+<h2><code>str</code> Objects</h2>
 <ul>
-<li><code>string.isdigit()</code> - return true if all characters in the string are decimal characters. False otherwise. 
+<li>Python has a built-in class named <code>str</code>
+<li><code>str</code> objects (aka <strong>strings</strong>)
+<li>Strings are immutable sequences of Unicode 
+<li>String literals can be written as
+    <ul>Single quotes: <code>'allows embedded "double" quotes'</code>
+    <ul>Double quotes: <code>"allows embedded 'single' quotes"</code>
+    <ul>Triple quoted: <code>"""can span multiple lines"""</code> or <code>'''can span multiple lines'''</code>
+<li>Strings can also be created from other objects using the <code>str</code> constructor
+</ul>
+
+<h3>str Methods</h3>
+<ul>
+<li><code>str.isdigit()</code> - return true if all characters in the string are decimal characters. False otherwise. 
 <pre>
 s = "12345"
 t = "1234a"
@@ -115,19 +130,29 @@ print s.isdigit()   # True
 print t.isdigit()   # False
 </pre>
 
-<li><code>string.lower()</code> - return a copy of the string with all uppercase characters converted to lowercase
+<li><code>str.lower()</code> - return a copy of the string with all uppercase characters converted to lowercase
 
-<li><code>string.rstrip([chars])</code> - similar to perl chomp(). Returns a copy of the string with trailing characters removed. chars is optional (defaults to whitespace -- SPACE, TAB, NEW LINE (\n), LINE FEED, FORM FEED, CARRIAGE RETURN, etc. if not specified)
+<li><code>static str.maketrans(x[, y[, z]])</code> - return a translation table for <code>str.translate()</code>. 
+    If there is only one argument, it must be a dictionary mapping input character to output character. 
+    If there are two arguments, they must be strings of equal length. E.g. <code>maketrans("abc", "def")</code> will 
+        change a's to d's, b's to e's, and c's to f's
+    If there is a third argument, it must be a string, whose characters will be mapped to <code>None</code> in the result
 
-<li><code>string.split(sep=None,maxsplit=-1)</code> - split the string into a list of sub strings based on given delimiter (which defaults to whitespace if not specified). If maxsplit is specified, at most maxsplits are done.
+<li><code>str.replace (old, new [,max])</code> method - returns a copy of the string in which all occurrences of <code>old</code> have been replaced with <code>new</code>, optionally stopping after <code>max</code> replacements.
+
+<li><code>str.split(sep=None,maxsplit=-1)</code> - split the string into a list of sub strings based on given delimiter (which defaults to whitespace if not specified). If maxsplit is specified, at most maxsplits are done.
 <pre>
 s = "Today is too beautiful a day to be spent inside."
 words = s.split() # results in ['Today', 'is', 'too', beautiful', 'a', 'day', 'to', 'be', 'spent', 'inside.']
 </pre>
 
-<li><code>string.replace (old, new [,max])</code> method - returns a copy of the string in which all occurrences of <code>old</code> have been replaced with <code>new</code>, optionally stopping after <code>max</code> replacements.
-<li><code>string.translate (table[, deletechars])</code> method - returns a copy of the string translating characters as specified via the table (use maketrans() to construct the table). Optionally delete all chaters found in the string deletechars. 
+<li><code>str.translate (table[, deletechars])</code> method - returns a copy of the string translating characters as specified via the table (use maketrans() to construct the table). Optionally delete all chaters found in the string deletechars. 
+<li><code>str.rstrip([chars])</code> - similar to perl chomp(). Returns a copy of the string with trailing characters removed. chars is optional (defaults to whitespace -- SPACE, TAB, NEW LINE (\n), LINE FEED, FORM FEED, CARRIAGE RETURN, etc. if not specified)
+
+
+
 <li><code>string.maketrans()</code> method - takes 3 parameters. Each character in the 3rd argument is mapped to <code>None</code>.
+
 
 </ul>
 
@@ -166,7 +191,6 @@ words = s.split() # results in ['Today', 'is', 'too', beautiful', 'a', 'day', 't
 <li>For example <code>r'a\n'</code> is interpreted as the character string <code>a</code> followed by <code>\</code> followed by <code>n</code>
 <li>Whereas the string <code>'a\n'</code> is interpreted as the character string <code>a</code> followed by a newline
 </ul>
-
 
 </div>
 </body>
