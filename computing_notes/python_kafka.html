@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: kafka</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: kafka</h1>
+
+<ul>
+<li><code>kafka</code> is a Python client for Apache Kafka
+</ul>
+
+<h2>Install</h2>
+<ul>
+<li><code>pip3 install kafka-python</code>
+</ul>
+
+<h2><code>KafkaConsumer</code></h2>
+
+<pre>
+import kafka
+
+consumer = kafka.KafkaConsumer('foo_topic')
+
+for msg in consumer:
+    print (msg)
+</pre>
+
+<pre>
+# join a consumer group
+# - e.g. work queue design pattern, kafka will deliver the message to only one instance of the consumer group
+
+import kafka
+
+consumer = kafka.KafkaConsumer('foo_topic', group_id='foo_group')
+
+for msg in consumer:
+    print (msg)
+</pre>
+
+
+<h2><code>KafkaProducer</code></h2>
+
+<ul>
+<li><code>KafkaProducer</code> is a Kafka client which asynchronously publishes events to the Kafka cliuster
+<li>Thread safe. Sharing a single producer instance across multiple threads will generally be faster than having multiple instances
+<li><code>send()</code> is asynchronous. 
+</ul>
+
+<pre>
+import kafka
+
+producer = kafka.KafkaProducer(bootstrap_servers='localhost:1234')
+</pre>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://kafka-python.readthedocs.io">kafka-python.readthedocs.ioL</a>
+</ul>
+
+</div>
+</body>
+</html>
+

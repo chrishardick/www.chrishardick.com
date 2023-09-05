@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_kafka");
+}
+</script>
+
+<title>Kafka Consumers</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Kafka Consumers</h1>
+
+<ul>
+<li>Applications read data from Kafka using a <strong>KafkaConsumer</strong> to subscribe to Kafka topics 
+</ul>
+
+<h2>Consumer Groups</h2>
+
+<ul>
+<li>Kafka consumers are usually part of a <strong>Consumer Group</strong>
+<li>Basically, each Consumer Group subscribed to a given topic will receive all messages published to the topic
+<li>Each Consumer Group is essentially a different consumer for the given stream
+<li>Consumer Groups also allow you split message load across multiple consumers
+<li>I.e. a <em>work queue</em> design pattern in which the work is distributed to N consumers, 
+    each one receiving a subset of the total message set
+<li>In Kafka, when multiple consumers belonging to the same consumer group subscribe for a given topic, 
+    each consumer in the group will receive messages from a different subset of partitions in the topic
+<li>If the number of consumers in a Consumer Group is equivalent to the number of partitions of the stream, each consumer 
+    will receive messages from a single partition
+<li>If the number of consumers in a Consumer Group is greater than the number of partitions of the stream, there will be idle
+    consumers that will not receive any messages
+</ul>
+
+<h2>Commits and Offsets</h2>
+
+<ul>
+<li>When subscribing to a given topic with a given consumer group, Kafka will only return records which have not yet been processed by the given
+    consumer group
+<li>When a consumer has processed a given message, it sends a message to Kafka to update the <strong>offset</strong> of the partition for the given consumer group. 
+    This is called a <strong>commit</strong>
+</ul>
+
+
+<h2>Automatic Commits</h2>
+<ul>
+<li>The simplest, but least robust configuration
+<li>If a consumer is configured with <code>enable.auto.commit</code> set to <code>true</code>, every 5 seconds (by default), 
+    the consumer will commit the largest offset the client received from <code>poll()</code>. 
+<li>The interval is configured via <code>auto.commit.interval.ms</code>
+</ul>
+
+
+<h2>Commit Current Offset</h2>
+<ul>
+<li>Most applications want better control than Automatic Commits provides
+<li>If a consumer is configured with <code>enable.auto.commit</code> set to <code>false</code>, offsets will only be committed 
+    explicitly by the application
+<li>The simplest amd most reliable commit API is <code>commitSync()</code> which will commit the latest offset returned by <code>poll()</code>
+    and will block only when the offset is physically committed, throwing an exception if an error occurs.
+</ul>
+
+<h2>Asynchronous Commit</h2>
+<ul>
+<li>Instead of waiting for the broker to respond, Kafka also provides asynchronous commits via <code>commitAsync()</code>
+<li><code>commitAsync()</code> allows you to pass a callback function which will be called whenever a callback is received.
+<li>Unlike the synchronus commit, the asynchronous commit does not have any retry logic.
+<li>Be careful if you 
+</ul>
+
+<h2>Other Client Configurations</h2>
+
+<ul>
+<li><code>max.poll.records</code> - this controls the maximum number of records that a single call to <code>poll()</code> will return
+</ul>
+
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://kafka.apache.org">kafka.apache.org</a>
+</ul>
+
+</div>
+</body> 
+</html>

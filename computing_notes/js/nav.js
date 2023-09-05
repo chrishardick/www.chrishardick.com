@@ -461,6 +461,7 @@ function _print_nav ()
     <button class="accordion" id="accordion_kafka">Kafka</button>
     <div class="panel">
         <a href="kafka_intro.html">Intro</a>
+        <a href="kafka_consumers.html">Consumers</a>
         <a href="kafka_installation.html">Installation</a>
     </div>
 

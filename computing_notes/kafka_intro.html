@@ -40,66 +40,32 @@ C O N T E N T
 <div id="content" class="content">
 <h1>Kafka</h1>
 
-<h2>Events and Topics</h2>
-
-Each event has the following:
 <ul>
-<li><strong>key</strong>
-<li><strong>value</strong>
-<li><strong>timestamp<strong>
-<li><strong>optional metadata headers</strong>
-</ul>
-
-<ul>
-<li><strong>Events</strong> are organized and durably stored in <strong>topics</strong>
-<li>Topics are always multi-producer and multi-subscriber. 
-    I.e. a topic can have zero, one or many publishers
-    Likewise, a topic can have zero, one or many subscribers
-<li>Each event can be read as often as needed. 
-<li>You define how long Kafka should retain your events thru a per-topic configuration setting
-<li>Topics are <strong>partitioned</strong> meaning the events are spread over 
-<li>Events with the same <strong>key</strong> are written to the same partition
-<li>Kafka guarantees that any consumer of a given topic-partition will always read the partition's events in exactly the same order as they were written
-</ul>
-
-<h2>Producers and Consumers</h2>
-<ul>
-<li><strong>Producers</strong> - client applications which publish Kafka events
-<li><strong>Consumers</strong> - client applications which subscribe to Kafka events
-<li>Producers and Consumers are fully de-coupled from each other
-</ul>
-
-<h2>API's</h2>
-<ul>
-<li><strong>Producer API</strong> - allows applications to publish streams of data to topics in the Kafka cluster
-<li><strong>Consumer API</strong> - allows applications to receive streams of data from topics in the Kafka cluster
-<li><strong>Streams API</strong> - allows transforming streams of data from input topics to output topics
-<li><strong>Connect API</strong> - allows transforming streams of data from input topics to output topics
-</ul>
-
-
-<ul>
-<li>a distributed streaming platform
-<li>Publish and subscribe to streams of records - similar to a message queue or enterprise messaging system
-<li>Store streams of records in a fault-tolerant durable way
-<li>Run as a cluster on one or more servers that can span multiple datacenters
-<li>The Kafka cluster stores streams of <strong>records</strong> in categories called <strong>topics</strong>
-<li>Each record consists of a <strong>key</strong>, <strong>value</strong>, and a <strong>timestamp</strong>
+<li><strong>Kafka</strong> is a distributed event streaming platform
+<li>It is run as a cluster on one or more servers that can span multiple datacenters
+<li>Written in Java and Scala
+<li>Originally developed at <a href="https://www.linkedin.com">LinkedIn</a>
 <li>Communication between clients and servers is done via TCP/IP
 <li>Clients can be written in many languages including C/C++, Python, etc.
 </ul>
 
+<h2>Events, Topics, Partitions</h2>
 
-Kafka has four core API's:
+
 <ul>
-<li>The <strong>Producer API</strong> allows an applciation to publish a stream of records to one or more Kafka topics.
-<li>The <strong>Consumer API</strong> allows an applciation to subscribe to one or more topics and process the streams of records produced to them. 
-<li>The <strong>Streams API</strong> allows an applciation to act as a stream processor consuming an input stream from one or more topics and
-    producing an output stream to one or more output topics, transforming the input streams to output streams
-<li>The <strong>Connector API</strong> allows for reusable producers or consumers - e.g. a connector to a relational database which captures each change to a table
+<li>Each event has: <strong>key</strong>, <strong>value</strong>, <strong>timestamp</strong> and <strong>optional metadata headers</strong>
+<li><strong>Events</strong> are organized and durably stored in <strong>topics</strong>
+<li>A <strong>topic</strong> is a durable ordered collection of events
+<li>Topics are always multi-producer and multi-subscriber. 
+    I.e. a topic can have zero, one or many publishers
+    Likewise, a topic can have zero, one or many subscribers
+<li>Each topic contains one or more <strong>partitions</strong>
+<li>Events with the same <strong>key</strong> are written to the same partition
+<li>Each event can be read as often as needed. 
+<li>You define how long Kafka should retain your events thru a per-topic configuration setting
+<li>Kafka guarantees that any consumer of a given topic-partition will always read the partition's events in exactly the same order as they were written
 </ul>
 
-<h2>Topics and Logs</h2>
 <ul>
 <li>For each topic, the Kafka cluster maintains a partitioned log
 <li>Each partition is an ordered, immutable sequence of records that is continually appened to
@@ -109,7 +75,7 @@ Kafka has four core API's:
     After that time, it is discarded to free up space.
 </ul>
 
-<h2>Partitions</h2>
+<h3>Partitions</h3>
 <ul>
 <li>Each partition is replicated across a configurable number of servers
 <li>Each partition has one server which is deemed the <strong>leader</strong> and one or more servers which are <strong>followers</strong>
@@ -119,22 +85,35 @@ Kafka has four core API's:
 <li>Each server acts as a leader for some partitions and a follower for others such that the load is well balanced
 </ul>
 
-<h2>Producers</h2>
+<h2>Producers and Consumers</h2>
+<ul>
+<li><strong>Producers</strong> - client applications which publish Kafka events
+<li><strong>Consumers</strong> - client applications which subscribe to Kafka events
+<li>Producers and Consumers are fully de-coupled from each other
+</ul>
+
+<h3>Producers</h3>
 <ul>
 <li>The producer is responsible for choosing the partition within the topic
 </ul>
 
-<h2>Consumers</h2>
+<h3>Consumers</h3>
 <ul>
 <li><strong>Consumers</strong> label themselves with a <strong>consumer group name</strong>
 <li>Each record published to a topic is delivered to <strong>one</strong> consumer instance within a subscribing consumer group 
 - allowing for load balancing the consumers
 </ul>
 
-<h2>Installing</h2>
+<h2>API's</h2>
+
+Kafka has four core API's:
+
 <ul>
-<li>Execute the following to download the gzipped tarball: <code>curl -o kafka_2.13-3.3.1.tgz https://dlcdn.apache.org/kafka/3.3.1/kafka_2.13-3.3.1.tgz</code>
-<li>Extract: <code>tar -xvzf kafka_2.13-3.3.1.tgz</code>
+<li>The <strong>Producer API</strong> allows an applciation to publish a stream of records to one or more Kafka topics.
+<li>The <strong>Consumer API</strong> allows an applciation to subscribe to one or more topics and process the streams of records produced to them. 
+<li>The <strong>Streams API</strong> allows an applciation to act as a stream processor consuming an input stream from one or more topics and
+    producing an output stream to one or more output topics, transforming the input streams to output streams
+<li>The <strong>Connector API</strong> allows for reusable producers or consumers - e.g. a connector to a relational database which captures each change to a table
 </ul>
 
 
