@@ -61,7 +61,18 @@ C O N T E N T
     consumers that will not receive any messages
 </ul>
 
+<h2>Partition Rebalance</h2>
+<ul>
+<li>If you have multiple partitions and multiple consumers and you add or remove a consumer (or it crashes), clients will most likely
+    start consuming messages from different partitions. 
+<li>Moving partition ownership from one consumer to another is called a rebalance
+<li>During a rebalance, consumers cannot consume messages.
+</ul>
+
+
 <h2>Commits and Offsets</h2>
+
+<img src="kafka_commits_and_offsets.png" alt="kafka commits and offsets diagram">
 
 <ul>
 <li>When subscribing to a given topic with a given consumer group, Kafka will only return records which have not yet been processed by the given
@@ -77,6 +88,8 @@ C O N T E N T
 <li>If a consumer is configured with <code>enable.auto.commit</code> set to <code>true</code>, every 5 seconds (by default), 
     the consumer will commit the largest offset the client received from <code>poll()</code>. 
 <li>The interval is configured via <code>auto.commit.interval.ms</code>
+<li>With automatic commits enabled, a call to <code>poll()</code> will automatically commit the last offset returned from the previous 
+    <code>poll()</code>.
 </ul>
 
 
@@ -85,17 +98,27 @@ C O N T E N T
 <li>Most applications want better control than Automatic Commits provides
 <li>If a consumer is configured with <code>enable.auto.commit</code> set to <code>false</code>, offsets will only be committed 
     explicitly by the application
-<li>The simplest amd most reliable commit API is <code>commitSync()</code> which will commit the latest offset returned by <code>poll()</code>
-    and will block only when the offset is physically committed, throwing an exception if an error occurs.
+</ul>
+
+<h2>Synchronous Commit</h2>
+<ul>
+<li>The simplest and most reliable commit API is <code>commitSync()</code> which will commit the latest offset returned by <code>poll()</code>
+    and will block until the offset is physically committed, throwing an exception if an error occurs.
+<li><code>commitSync()</code> is overloaded and also allows you to pass a map of partitions and offsets in which you'd like to commit
+<li><code>commitSync()</code> will retry the commit until it's either successful or encounters a non-retryable error
 </ul>
 
 <h2>Asynchronous Commit</h2>
 <ul>
 <li>Instead of waiting for the broker to respond, Kafka also provides asynchronous commits via <code>commitAsync()</code>
 <li><code>commitAsync()</code> allows you to pass a callback function which will be called whenever a callback is received.
+<li>Like the synchronous commit, by default, it will commit the latest offset returned by <code>poll()</code>. 
+    However, it too is overloaded, and allows you to pass a map of partitions and offsets in which you'd like to commit
 <li>Unlike the synchronus commit, the asynchronous commit does not have any retry logic.
-<li>Be careful if you 
+<li>If you use the callback function to request re-tries on errors, you need to be aware of commit order. I.e. there is a potential that 
+    a previous commit returns an error after a later commit has already succeeded. 
 </ul>
+
 
 <h2>Other Client Configurations</h2>
 

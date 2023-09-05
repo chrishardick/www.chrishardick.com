@@ -49,6 +49,8 @@ C O N T E N T
 <li>Clients can be written in many languages including C/C++, Python, etc.
 </ul>
 
+<img src="kafka_overview.png" alt="kafka overview diagram">
+
 <h2>Events, Topics, Partitions</h2>
 
 
@@ -57,7 +59,7 @@ C O N T E N T
 <li><strong>Events</strong> are organized and durably stored in <strong>topics</strong>
 <li>A <strong>topic</strong> is a durable ordered collection of events
 <li>Topics are always multi-producer and multi-subscriber. 
-    I.e. a topic can have zero, one or many publishers
+    I.e. a topic can have zero, one or many publishers.
     Likewise, a topic can have zero, one or many subscribers
 <li>Each topic contains one or more <strong>partitions</strong>
 <li>Events with the same <strong>key</strong> are written to the same partition
@@ -68,10 +70,10 @@ C O N T E N T
 
 <ul>
 <li>For each topic, the Kafka cluster maintains a partitioned log
-<li>Each partition is an ordered, immutable sequence of records that is continually appened to
-<li>Each record is assigned a sequential id (called an offset) which uniquely identifies the record within the partition
-<li>The Kafka cluster durably persists all published reords using a configurable retention period
-<li>For example if the retention policy is set to 2 days, then for record is available for consumption for 2 days after it is published.
+<li>Each partition is an ordered, immutable sequence of events that is continually appened to
+<li>Each event is assigned a sequential id (called an offset) which uniquely identifies the event within the partition
+<li>The Kafka cluster durably persists all published events using a configurable retention period
+<li>For example if the retention policy is set to 2 days, the event is available for consumption for 2 days after it is published.
     After that time, it is discarded to free up space.
 </ul>
 
