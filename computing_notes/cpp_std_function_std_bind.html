@@ -19,7 +19,7 @@ window.onload = function() {
 }
 </script>
 
-<title>C++ - std::bind and std::function</title>
+<title>C++ - std::function and std::bind</title>
 
 </head>
 
@@ -38,11 +38,50 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>C++ - std::bind and std::function</h1>
+<h1>C++ - std::function and std::bind</h1>
+
+<h2><code>std::function</code></h2>
+<ul>
+<li>A wrapper for storing any type of matching: <em>function</em>, <em>lambda function</em>, <em>functor</em>, or <em>function pointer</em>
+<li>The premise behind <code>std::function</code> is to be able to refer to all callable objects in an interchangeable manner. 
+<li>Requires you to specify the exact types of the argument list and the return value
+<li>You can test if it has been set by checking for 0 (NULL)
+</ul>
+
+<pre>
+#include &lt;functional&gt;
+
+template &lt;class Ret, class... Args&gt; 
+    class function &lt;Ret (Args...)&gt;;
+</pre>
+
+
+<pre>
+bool print_string (const std::string&amp; s)
+{
+    std::cout &lt;&lt; s &lt;&lt; std::endl;
+
+    if (s.size())
+        return true;
+
+    return false;
+}
+
+
+// declaring a std::function
+<strong>std::function&lt;bool (const std::string&amp;)&gt; print_string_alias;</strong>
+
+// assigning a std::function
+<strong>print_string_alias = print_string;</strong>
+
+// using a std::function to call its target
+<strong>print_string_alias ("hello, world!");</strong>
+
+</pre>
 
 <h2><code>std::bind</code></h2>
 <ul>
-<li><code>std::bind</code> allows for partial function specialization
+<li>The <strong>function template</strong> <code>std::bind</code> allows for partial function specialization
 <li>I.e. It allows you to bind one or more parameters to values and to specify placeholders for others
 </ul>
 
@@ -72,6 +111,7 @@ template &lt;class Fn, class... Args&gt;
 double divide (double x, double y) { return x / y; }
 
 auto d1 = std::bind (divide, 10, 2);
+std::function &lt;double (void)&gt; d1 = std::bind (divide, 10, 2);     // explicit
 
 std::cout &lt;&lt; d1() &lt;&lt; std::endl; // 5
 
@@ -114,26 +154,6 @@ std::cout &lt;&lt; m1(p1) &lt;&lt; std::endl;  // 20
 auto cb = std::bind (&amp;Class::onCallback, this, _1);
 </pre>
 
-
-<h2><code>std::function</code></h2>
-<ul>
-<li>A wrapper for storing any type of function, lambda function, functor, or function pointer
-<li>The idea behind <code>std::function</code> is to be able to refer to all callable objects in an interchangeable manner. 
-<li>Requires you to specify the exact types of the argument list and the return value
-<li>You can test if it has been set by checking for 0 (NULL)
-</ul>
-
-<pre>
-#include &lt;functional&gt;
-
-template &lt;class Ret, class... Args&gt; 
-    class function &lt;Ret(Args...)&gt;;
-</pre>
-
-
-<pre>
-std::function&lt;bool (const std::string&amp;)&gt; func;
-</pre>
 
 </div>
 </body> 

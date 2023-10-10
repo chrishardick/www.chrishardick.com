@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Linux - GDB</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Linux - GDB</h1>
+
+<ul>
+<li><code><strong>gdb</strong></code> is the GNU Debuger
+<li>Ensure you compiled with debugging information with <code>-g</code>. E.g. <code>g++ -g foo.cpp -o foo</code>
+</ul>
+
+<h2>Installation</h2>
+
+<pre>
+sudo apt-get install libc6-dbg dbg valgrind
+</pre>
+
+<h2>Cheat Sheet</h2>
+
+<pre>
+gdb foo
+break 45        # break at line 45
+break bar       # break at function bar
+watch x != 0    # set a watchpoint. pause a program when a condition occurs
+continue        # continue execution after being paused
+delete N        # delete breakpoint N (breakpoints are numbered as they're created)
+r               # run
+r arg1 arg2     # run with arguments 
+r &lt; file     # 
+l               # list
+l 500           # list line 500
+l bar           # list a function
+next            # execcute the next line
+step            # execute the next instruction, if it's a function, execute the 1st statement of the function and pause
+finish          # finish executing the current function 
+next            
+print x         # print the current value of variable x
+set x = 3       # set x equal to 3
+display x       # constantly display the value of variable x. it will be shown after each step or pause
+undisplay x     
+bt              # backtrace - print the call stack
+up              # move up the call stack
+down            # move down the call stack
+</pre>
+
+</div>
+</body> 
+</html>
+  

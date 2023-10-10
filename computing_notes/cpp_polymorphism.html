@@ -38,60 +38,55 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<H1>C++ Polymorphism</H1>
+<h1>C++ Polymorphism</h1>
 
-<UL>
-<LI><strong>Polymorphism</strong> (the ability to have many forms), is where different objects 
-	can share the same external interface and can be used in the same way. 
-	Much in the same way that both a tape player, a CD player, and a DVD player all have PLAY buttons. 
-<LI>In C++, polymorphism is supported via <strong>virtual functions</strong> and <strong>abstract base classes</strong>
-</UL>
+<ul>
+<li><strong>Polymorphism</strong> (the ability to have many forms) is where different objects 
+    share the same external interface.
+<li>Much in the same way that both a tape player, a CD player, and a DVD player all have PLAY buttons. 
+<li>In C++, polymorphism is supported via <strong>virtual functions</strong> and <strong>abstract base classes</strong>
+</ul>
 
-<H2 id=virtual_member_functions>I. Virtual Functions</H2>
-<UL>
-<LI>C++ Keyword: <code>virtual</code>
-<LI>More precisely virtual <i>member</i> functions, because they're only useful within classes
-<LI>Even more precisely -- they're only useful within classes which utilize <i>inheritance</i>
-<LI>When utilizing inheritance in C++, methods may be overridden (not to be confused with overloaded)
-<LI>A Method in a base class may be overridden by a method in a derived class by defining the same function (same name and parameter list)
-	in the derived as that in the base class (assuming the derived class has access to the method in the base class)
-<LI>Virtual functions differ from non-virtual functions as to which function (method) gets called (the base class version or the derived class version),
-	when a pointer (or reference) to an object is used to access the method
-<LI>Non-virtual functions have early (compile time) binding
-	<UL>
-	<LI>When calling a non-virtual function via either a pointer (or a reference) to an object, the type of the pointer
-		determines which function will be called. 
-	</UL>
-<LI>Virtual functions have late (run-time) binding
-	<UL>
-	<LI>When calling a virtual function via either a pointer or a reference to an object, the type of the class in which the
-		pointer points to determines which function will be called. 
-	</UL>
-<li>use of the keyword <code>virtual</code> is not necessary in derived class definitions (by definition, if you override a virtual function, 
-	the function within the derived class is also virtual). However, it's recommended that you also specify <code>virtual</code> in the derived class
-	as it can avoid confusion and help you catch potential bugs
-<LI>This is best explained by example:
+<h2 id=virtual_member_functions>Virtual Functions</h2>
+<ul>
+<li>C++ Keyword: <code>virtual</code>
+<li>When utilizing inheritance in C++, methods may be overridden (i.e. the derived class can define a function with the same name and parameter list)
+<li>Virtual functions differ from their non-virtual counterparts when a pointer (or reference) to an object is used to access the method. 
+<li>Non-virtual functions have early (compile time) binding. I.e. the type of the pointer or reference determine which function is called
+<li>Virtual functions have late (run-time) binding. I.e. the type of the class in which the pointer points to determines which function is called
+<li>Keep in mind that <code>this</code> is a pointer.
+<li>Use of the <code>virtual</code> keyword is not mandatory in the derived class. If you override a virtual function, 
+the function in the derived class is also virtual. 
+<li>C++11 introduced the <code>override</code> keyword (technically it's an <em>identifier</em> - not a keyword). 
+    It allows you to let the compiler know that you are intending to override a virtual function in a base class. 
+    Therefore if you make a mistake and the derived class method does not exactly match that of the parent class, a compile time error will be generated.
+<li><a href="cpp_constructors.html">Constructors</a> cannot be virtual as it does not make much sense. Constructors are used to instantiate new objects
+<li><a href="cpp_destructors.html">Destructors</a> can (and probably should be) virtual. 
+    When an object referred to by a pointer or reference is destroyed, you want the class of the object pointed to (rather than the type of pointer), 
+    determining which destructor will be called.
+</ul>
+
 <pre>
-class CRectangle
+class Rect
 {
-        public:
-                virtual void Draw(); 
+    public:
+        virtual void draw() const; 
 };
 
-void CRectangle::Draw()
+void Rect::draw() const
 {
         std::cout &lt;&lt; "+=============+" &lt;&lt; std::endl;
         std::cout &lt;&lt; "|  RECTANGLE  |" &lt;&lt; std::endl;
         std::cout &lt;&lt; "+=============+" &lt;&lt; std::endl;
 }
 
-class CSquare : public CRectangle
+class Sq : public Rect
 {
-        public:
-                virtual void Draw();
+    public:
+        void draw() const override;
 };
 
-void CSquare::Draw()
+void Sq::draw() const
 {
         std::cout &lt;&lt; "+==========+" &lt;&lt; std::endl;
         std::cout &lt;&lt; "|          |" &lt;&lt; std::endl;
@@ -100,28 +95,21 @@ void CSquare::Draw()
         std::cout &lt;&lt; "+==========+" &lt;&lt; std::endl;
 }
 
-int main (int argc, char* argv[])
+
+Rect    rect;
+Sq      sq;
+
+std::vector&lt;Rect*&gt; v;
+v.push_back(&amp;rect);
+v.push_back(&amp;sq);
+
+for (auto i = v.begin(); i != v.end(); i++)
 {
-        CRectangle cRect;
-        CSquare    cSq;
-
-        CRectangle* cRectPtr[2];
-
-        cRectPtr[0] = &amp;cRect ;
-        cRectPtr[1] = &amp;cSq ;
-
-        for (int i=0; i &lt;lt 2; i++)
-        {
-                cRectPtr[i]-&gt;Draw();
-                std::cout &lt;&lt; std::endl;
-        }
-
-        return 0;
+    (*i)-&gt;draw();
 }
+</pre>
 
-OUTPUT
-======
-
+<pre>
 +=============+
 |  RECTANGLE  |
 +=============+
@@ -132,21 +120,44 @@ OUTPUT
 |          |
 +==========+
 </pre>
-<li><a href="cpp_constructors.html">Constructors</a> cannot be virtual. It wouldn't make sense - constructors are used to instantiate new objects
-<li>When an object referred to by a pointer or reference is destroyed, the class of the object pointed to (rather than the type of pointer), 
-determines which destructor will be called. However, it you're using inheritance, you're still required to explicitly declare the destructor as virtual.
-<li>In other words, if a class is using inheritance, the <a href="cpp_destructors.html">Destructor</a> MUST be virtual. Even if it does nothing.
-Deleting a derived class object using a pointer to a base class which has a non-virtual destructor is not defined. 
-</ul>
 
-<H2>II. Abstract Base Classes</H2>
-<UL>
-<LI>Abstract base classes are classes which can only be used for deriving other classes. They cannot be instantiated.
-<LI>An abstract base class is a class with a <strong>pure virtual function</strong>
-<LI>In a class derived from an abstract base class, each pure virtual function must either be defined or re-defined as pure virtual
+
+<pre>
+class Foo
+{
+    public:
+
+        // noo is not virtual
+        void noo ()
+        {
+            voo();
+        }
+
+        virtual void voo ()
+        {
+            std::cout &lt;&lt; "Foo::voo" &lt;&lt; std::endl;
+        }
+};
+
+class Bar : public Foo
+{
+    public:
+        void voo ()
+        {
+            std::cout &lt;&lt; "Bar::voo" &lt;&lt; std::endl;
+        }
+};
+</pre>
+
+
+<h2>Abstract Base Classes</h2>
+<ul>
+<li>Abstract base classes are classes which can only be used for deriving other classes. They cannot be instantiated.
+<li>An abstract base class is a class with a <strong>pure virtual function</strong>
+<li>In a class derived from an abstract base class, each pure virtual function must either be defined or re-defined as pure virtual
 	(in which case the class is another abstract base class which cannot be instantiated)
-<LI>Pure virtual functions are defined as follows:
+<li>Pure virtual functions are defined as follows:
 
 </div>
-</BODY> 
-</HTML>
+</body> 
+</html>

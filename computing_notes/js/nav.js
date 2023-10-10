@@ -257,7 +257,7 @@ function _print_nav ()
         <a href="cpp_auto_keyword.html">auto keyword</a>
         <a href="cpp_include_guards.html">Include Guards</a>
         <a href="cpp_lambda.html">Lambdas</a>
-        <a href="cpp_std_bind_std_function.html">std::bind and std::function</a>
+        <a href="cpp_std_function_std_bind.html">std::function and std::bind</a>
         <a href="cpp_sort.html">std::sort</a>
         <a href="cpp_curly_bracket_initialization.html">Curly Bracket Initialization</a>
         <a href="cpp_stream_buffers_and_streams.html">Stream Buffers and Streams</a>
@@ -472,6 +472,7 @@ function _print_nav ()
         <a href="linux_curl.html">curl</a>
         <a href="linux_debian.html">Debian</a>
         <a href="linux_dhcp.html">DHCP</a>
+        <a href="linux_gdb.html">GDB</a>
         <a href="linux_inotifywait.html">inotifywait</a>
         <a href="linux_iptables.html">IPTables</a>
         <a href="linux_ln.html">ln - link files</a>

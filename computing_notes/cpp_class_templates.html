@@ -42,30 +42,44 @@ C O N T E N T
 <h1>C++ Class Templates</h1>
 
 <ul>
+<li>Class template - a template from which classes can be generated
 <li>Class templates allow you to parameterize datatype(s) of a class
 <li>Class templates are an appropriate choice when you find yourself creating a lot of classes which are identical
 	except they deal with different types (i.e. int, float, double, user-defined types)
-<li>Introduces 2 new C++ keywords: <code>template</code> and <code>typename</code>
+<li>2 C++ keywords: <code>template</code> and <code>typename</code>
 <li>See also <a href="cpp_function_templates.html">Function Templates</a> which allow you to parameterize 
     the parameters and return types of functions
 </ul>
+
+<h2>Terminology</h2>
+<ul>
+<li>Class Template - a template from which classes are generated
+</ul>
+
+<pre>template &lt;typename T&gt;
+class Foo
+{
+    ...
+};</pre>
+
+
+<ul>
+<li>Template Class - a class generated from a class template
+</ul>
+<pre>Foo&lt;int&gt; foo_int</pre>
 
 
 <h2>Defining Class Templates</h2>
 
 <ul>
 <li>Class templates and their methods are normally defined within header files, such that they can be used by multiple source files
-<li>Here's an example of a class template <code>CList</code>
+<li>Here's an example of a class template <code>List</code>
 <li>The keyword <code>class</code> can be substituted for the keyword <code>typename</code> with no change in meaning (see below)
 </ul>
 
 <pre>
-// clist.h
-#ifndef CLIST_H
-#define CLIST_H
-
 template &lt;typename T&gt;              // same as: template &lt;class T&gt; 
-class CList 
+class List 
 {
     private:
 
@@ -79,23 +93,23 @@ class CList
 
         // CREATORS
 
-        CList() : 
+        List() : 
             m_maxsize(100)
             ,m_size(0)
         { }
 
-        CList(const T&amp; t) : 
+        List(const T&amp; t) : 
             m_maxsize(100)
             ,m_size(1)
         {
             m_value[m_size-1] = t;
         }
 
-        CList(const T&amp; t[], int num) :
+        List(const T&amp; t[], int num) :
             m_maxsize(100)
             ;
  
-        ~CList();
+        ~List();
 
         void Add(T&amp; t) 
         { 
@@ -114,7 +128,7 @@ class CList
 
 // CONSTRUCTOR (CREATOR)
 template &lt;typename T&gt;
-CList&lt;T&gt;::CList (const T&amp; t[], int size)
+List&lt;T&gt;::List (const T&amp; t[], int size)
 {
     if (size &gt; m_maxsize)
         return;
@@ -126,13 +140,13 @@ CList&lt;T&gt;::CList (const T&amp; t[], int size)
 }
 
 template &lt;typename T&gt;
-CList&lt;T&gt;::~Clist ()
+List&lt;T&gt;::~Clist ()
 {
-    std::cout &lt;&lt; "CList Destructor" &lt;&lt; std::endl;
+    std::cout &lt;&lt; "List Destructor" &lt;&lt; std::endl;
 }
 
 template &lt;typename T&gt;
-void CList&lt;T&gt;::Add (const T&amp; t[], int num)
+void List&lt;T&gt;::Add (const T&amp; t[], int num)
 {
     if (m_size + size &gt; m_maxsize)
         return;
@@ -145,7 +159,7 @@ void CList&lt;T&gt;::Add (const T&amp; t[], int num)
 }
 
 template &lt;typename T&gt;
-const T&amp; CList&lt;T&gt;::Max() 
+const T&amp; List&lt;T&gt;::Max() 
 {
     T* p_Max = &amp;m_Value[0];
 
@@ -155,8 +169,6 @@ const T&amp; CList&lt;T&gt;::Max()
 
     return *p_Max;
 }
-
-#endif
 </pre>
 
 <ul>
@@ -164,8 +176,8 @@ const T&amp; CList&lt;T&gt;::Max()
 </ul>
 
 <pre>
-template &lt;typename T T1, U U1&gt;
-class CMyNewClass
+template &lt;typename T, U&gt;
+class MyNewClass
 {
     ...
 };
@@ -177,7 +189,7 @@ class CMyNewClass
 
 <pre>
 template &lt;typename T, <strong>int SIZE</strong>&gt;
-class CList 
+class List 
 {
     private:
         T m_value[<strong>SIZE</strong>];
@@ -187,17 +199,17 @@ class CList
 
         // CREATORS
 
-        CList() :
+        List() :
             m_size(0)
         { }
 
-        CList(const T&amp; t) : 
+        List(const T&amp; t) : 
             m_size (1)
         {
             m_value[0] = t;
         }
 
-        CList(const T&amp; t[], int size);
+        List(const T&amp; t[], int size);
 
         void Add(const T&amp; t);
         void Add(const T&amp; t[], int size);
@@ -227,13 +239,13 @@ class CList
 </ul>
 
 <pre>
-#include&lt;clist.h&gt;
+#include&lt;list.h&gt;
 
 int main (int argc, char** argv)
 {
-     CList&lt;int&gt; cMyList;          // instantiate a CList of int's
+     List&lt;int&gt; cMyList;           // instantiate a List of int's
 
-     cMyList.Add(5);              // instantiate CList::Add&lt;int&gt;
+     MyList.Add(5);                     // instantiate List::Add&lt;int&gt;
 }
 </pre>
 <ul>
@@ -244,7 +256,7 @@ int main (int argc, char** argv)
 <h2>Class Template Specialization</h2>
 
 <ul>
-<li><strong>Class Template Specializations</strong> allows the programmer to explicitly define a class template instance.
+<li><strong>Class Template Specializations</strong> allows you to explicitly define a class template instance.
 <li>This is useful when the implicit instance would not give the desired result or would have been highly ineffecient
 </ul>
 
@@ -254,7 +266,7 @@ int main (int argc, char** argv)
 // - class template specialization for type double
 //
 template &lt;&gt;
-class CList&lt;double&gt;
+class List&lt;double&gt;
 {
     private:
 
@@ -268,7 +280,7 @@ class CList&lt;double&gt;
 
         // CREATORS
 
-        CList() : 
+        List() : 
             m_maxsize(100)
             ,m_size(0)
         { }
@@ -278,7 +290,7 @@ class CList&lt;double&gt;
 
 // CONSTRUCTOR (CREATOR)
 template &lt;&gt;
-CList&lt;T&gt;::CList (const double&amp; t[], int size)
+List&lt;T&gt;::List (const double&amp; t[], int size)
 {
     if (size &gt; m_maxsize)
         return;
@@ -294,6 +306,36 @@ CList&lt;T&gt;::CList (const double&amp; t[], int size)
 <ul>
 <li>Each instantiation of a class template has its own copy of member static variables
 </ul>
+
+<h2>Virtual Template Functions</h2>
+<ul>
+<li>C++ does not allow virtual template functions
+</ul>
+
+<pre>
+template &lt;typename T&gt;
+class Foo
+{
+    public:
+
+        virtual void moo (T&amp; t)     // a virtual template function - not allowed
+        {
+            ...
+        }
+};
+</pre>
+
+<h2>Inheriting from a Template Class</h2>
+<pre>template &lt;typename T&gt;
+class Foo
+{
+};
+
+class Foobar : public &lt;int&gt;
+{
+    ...
+};
+</pre>
 
 </div>
 </body> 
