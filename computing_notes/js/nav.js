@@ -227,6 +227,9 @@ function _print_nav ()
         <a href="cpp_typecasting.html">Typecasting</a>
         <a href="cpp_constants.html">Constants</a>
         <a href="cpp_dynamic_memory_allocation.html">Dynamic Memory Allocation</a>
+        <a href="cpp_smart_pointers.html">Smart Pointers</a>
+        <a href="cpp_shared_ptr.html">shared_ptr</a>
+        <a href="cpp_for_loop.html">for loop</a>
         <a href="cpp_inline.html">Inline Functions</a>
         <a href="cpp_initialization_list.html">Initialization List</a>
         <a href="cpp_functional_notation.html">Functional Notation</a>
@@ -249,6 +252,7 @@ function _print_nav ()
         <a href="cpp_unordered_set.html">Unordered Set, Multiset</a>
         <a href="cpp_deque.html">Deque</a>
         <a href="cpp_priority_queue.html">Priority Queue</a>
+        <a href="cpp_bitset.html">Bitset</a>
         <a href="cpp_string.html">String</a>
         <a href="cpp_string_stream.html">String Streams</a>
         <a href="cpp_file_stream.html">File Streams</a>
@@ -257,7 +261,7 @@ function _print_nav ()
         <a href="cpp_auto_keyword.html">auto keyword</a>
         <a href="cpp_include_guards.html">Include Guards</a>
         <a href="cpp_lambda.html">Lambdas</a>
-        <a href="cpp_std_function_std_bind.html">std::function and std::bind</a>
+        <a href="cpp_std_bind_std_function.html">std::bind and std::function</a>
         <a href="cpp_sort.html">std::sort</a>
         <a href="cpp_curly_bracket_initialization.html">Curly Bracket Initialization</a>
         <a href="cpp_stream_buffers_and_streams.html">Stream Buffers and Streams</a>
@@ -639,6 +643,7 @@ function _print_nav ()
         <a href="python_decorators.html">Decorators</a>
         <a href="python_flask.html">Flask</a>
         <a href="python_pika.html">Pika - RMQ</a>
+        <a href="python_bisect.html">bisect</a>
     </div>
 
     <button class="accordion" id="accordion_rabbitmq">RabbitMQ</button>

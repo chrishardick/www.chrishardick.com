@@ -40,6 +40,11 @@ C O N T E N T
 <div id="content" class="content">
 <h1>C++ std::sort</h1>
 
+<ul>
+<li>Note: as <code>sort()</code> requires <code>RandomAccesIterator</code>, it will not work on a list
+<li>Hence <code>std::list</code> has its own sorting method <code>list.sort()</code>
+</ul>
+
 <pre>
 #include &lt;algorithm&gt;
 

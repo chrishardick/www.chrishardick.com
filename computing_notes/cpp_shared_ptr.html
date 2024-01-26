@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ shared_ptr</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ <code>shared_ptr</code></h1>
+
+<ul>
+<li>Shared ownership of an object through a pointer
+<li>Several shared_ptr objects may own the same object
+<li>The object is destroyed and its memory deallocated when the last remaining 
+    <code>shared_ptr</code> which owns the object is destroyed, assigned another pointer 
+    via <code>operator=</code> or <code>reset</code>
+<li>A <code>shared_ptr</code> which does not own any objects is called <em>empty</em>
+</ul>
+
+<h2>Constructors</h2>
+
+<ul>
+<li>Default Constructor
+    <ul>
+    <li>Create <em>empty</em> <code>shared_ptr</code> (no managed object)
+    <pre>
+    std::shared_ptr&lt;T&gt;::shared_ptr()
+    </pre>
+    </ul>
+<li>Construct a <code>shared_ptr</code> with a managed object
+    <ul>
+    <pre>
+    std::shared_ptr&lt;T&gt;::shared_ptr(T*)
+    </pre>
+    </ul>
+</ul>
+
+
+<h2>Member Functions</h2>
+
+<ul>
+<li><code>reset()</code> - replace the managed objecdt
+
+    <ul>
+    <li>If the <code>shared_ptr</code> already owns an object and is the last <code>shared_ptr</code> owning the object,
+        the object will be destroyed
+    </ul>
+
+<pre>
+void reset();
+
+template&lt;class T&gt;
+void reset (T* ptr);
+</pre>
+</ul>
+
+
+</div>
+</body> 
+</html>

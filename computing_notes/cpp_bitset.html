@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ bitset</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ <code>bitset</code></h1>
+
+<ul>
+<li>Similar to an array of booleans
+<li>Optimized for space 
+<li>Usually a bit per entry as opposed to a byte per entry (for a vector of <code>bool</code>)
+<li>Note that since <code>bitset</code> is implemented as a template, the size
+    must be declared at compile time. 
+<li>If you need a dynamic bitset, possible options include <code>vector&lt;bool&gt;</code>
+    or maybe a vector of statically sized bitmaps
+</ul>
+
+<pre>
+#include &lt;bitset&gt;
+
+template &lt; typename size_t N&gt;
+class bitset;
+</pre>
+
+
+<h2>Constructors</h2>
+
+<ul>
+<li>Default Constructor
+	<ul>
+	<li>Create a <code>bitset</code> with all values initialized to <code>0</code>
+	</ul>
+<pre>bitset&lt;16&gt; set1;
+std::cout &lt;&lt; set1 &lt;&lt; std::endl; // 0000000000000000</pre>
+
+<li>Integer Value
+	<ul>
+	<li>Create a <code>bitset</code> initialized with bits initialized via an integer
+	</ul>
+<pre>bitset&lt;16&gt; set2(9);
+std::cout &lt;&lt; set1 &lt;&lt; std::endl; // 0000000000001001</pre>
+
+<li>String Value
+	<ul>
+	<li>Create a <code>bitset</code> initialized with bits initialized via binary string (string with <code>'0'</code>'s and <code>'1'</code>'s)
+	</ul>
+<pre>bitset&lt;16&gt; set3(std::string("0000000000000101");
+std::cout &lt;&lt; set3 &lt;&lt; std::endl; // 0000000000000101</pre>
+
+</ul>
+
+<h2>Member Functions</h2>
+
+<ul>
+
+<li><code>bool bitset::test(size_t pos) const</code>
+    <ul>
+    <li>Return the value of the bit as the specified position - indexed from 0
+    <li>Range checking is enforced. Will throw a <code>out_of_range</code> exception if 
+        <code>pos</code> is invalid
+    </ul>
+
+<li><code>bool bitset::operator[]</code>
+<li><code>bool&amp; bitset::operator[]</code>
+    <ul>
+    <li>Return the value (or a reference) of the bit as the specified position - indexed from 0
+    <li>Caution - no range check is performed. 
+    <li>See also <code>bitset::test()</code>
+    </ul>
+
+<li><code>bitset&amp; bitset::reset()</code>
+<li><code>bitset&amp; bitset::reset(size_t pos)</code>
+    <ul>
+    <li>reset all bits (or a single bit at the specified position <code>pos</code>) to zero
+    <li>returns a reference to the bitset
+    </ul>
+
+<li><code>size_t bitset::size() const</code>
+    <ul>
+    <li>return number of bits in the bitset
+    </ul>
+
+<li><code>size_t bitset::count() const</code>
+    <ul>
+    <li>return number of bits enabled (value = 1)
+    </ul>
+
+<li><code>bool bitset::any() const</code>
+    <ul>
+    <li>returns bolean as to whether or not any bits are set (value = 1)
+    <li>true = at least one bit is set
+    <li>false otherwise
+    </ul>
+
+<li><code>bool bitset::none() const</code>
+    <ul>
+    <li>returns bolean as to whether or not any bits are set (value = 1)
+    <li>true = no bits are set
+    <li>false otherwise
+    </ul>
+
+<li><code>bool bitset::all() const</code>
+    <ul>
+    <li>returns bolean as to whether or not all bits are set (value = 1)
+    <li>true = all bits are set
+    <li>false otherwise
+    </ul>
+
+<li><code>bitset&amp; bitset::flip()</code>
+    <ul>
+    <li>flip the value of all bits (or a single bit at specified position <code>pos</code>)
+    <li>returns a reference to the bitset
+    </ul>
+
+</ul>
+
+
+<h2>Bitwise Operators</h2>
+
+<ul>
+
+<li><code>&amp;</code> bitwise and
+<li><code>|</code> bitwise or
+<li><code>^</code> bitwise xor
+
+<li><code>&amp;=</code> bitwise and with assignment
+<li><code>|=</code> bitwise or with assignment
+<li><code>^=</code> bitwise xor with assignment
+
+<li><code>&lt;&lt;</code> left shift
+<li><code>&gt;&gt;</code> right shift
+
+<li><code>&lt;&lt;=</code> left shift with assignment
+<pre>
+std::bitset&lt;16&gt; x(1);         // 0000000000000001
+x &lt;&lt;= 1;                      // 0000000000000010
+
+std::bitset&lt;16&gt; y("1000000000000000");        // 1000000000000000
+y &lt;&lt; 1;                                       // 0000000000000000
+</pre>
+<li><code>&gt;&gt;=</code> right shift with assignment
+
+</ul>
+
+
+</div>
+</body> 
+</html>

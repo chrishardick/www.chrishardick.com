@@ -100,8 +100,29 @@ bool empty() const;
 size_t size() const;
 </pre>
 
-<h3>find()</h3>
-<h3>append()</h3>
+<h3><code>find()</code></h3>
+<ul>
+<li>Search the string for the 1st occurrence of the sequence specified
+<li>Returns the position of the first character that matches or <code>string::npos</code> if no match is found
+<li>If <code>pos</code> is specified, the search begins at <code>pos</code>
+</ul>
+
+<pre>
+size_t find (const std::string&amp; str, size_t pos = 0) const;
+</pre>
+
+<h3><code>find_first_of()</code></h3>
+<ul>
+<li>Search the string for the first character that matches <strong>any</strong> of the characters of the specified string
+<li>Returns the position of the first character that matches or <code>string::npos</code> if no match is found
+<li>If <code>pos</code> is specified, the search begins at <code>pos</code>
+</ul>
+
+<pre>
+size_t find_first_of (const std::string&amp; str, size_t pos = 0) const;
+</pre>
+
+<h3><code>append()</code></h3>
 
 <pre>
 // append range [begin,end)

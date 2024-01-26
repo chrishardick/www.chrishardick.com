@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ for Loops</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ <code>for</code> Loops</h1>
+
+<h2>C++ Range-based <code>for</code> Loops</h2>
+
+<ul>
+<li>Introduced in C++11
+</ul>
+
+<pre>
+for (datatype iterator : list)
+    // ...
+</pre>
+
+<ul>
+<li>If you specify an <em>actual data type</em> (e.g. <code>int</code>) rather than a 
+    <em>reference data type</em> (e.g. <code>int&amp;</code>) a copy will be made
+<li><code>auto</code> can be used rather than the actual data type
+<li><code>auto&amp;</code> can be used rather than a reference data type
+</ul>
+
+<pre>
+std::vector&lt;int&gt; foo = { 1, 2, 3, 4, 5 };
+
+std::cout &lt;&lt; "original vector" &lt;&lt; std::endl;
+
+for (int&amp; i : foo)
+    std::cout &lt;&lt; "i=" &lt;&lt; i &lt;&lt; std::endl;
+
+std::cout &lt;&lt; std::endl;
+
+
+std::cout &lt;&lt; "copy version - values in the vector will not be modified" &lt;&lt; std::endl;
+
+for (int i : foo)   // alternately: for (auto i : foo)
+    i += 1;
+
+for (int&amp; i : foo)      
+    std::cout &lt;&lt; "i=" &lt;&lt; i &lt;&lt; std::endl;
+
+
+std::cout &lt;&lt; "reference version - values in the vector will be modified" &lt;&lt; std::endl;
+
+for (int&amp; i : foo)   // alternately: for (auto&amp; i : foo)
+    i += 1;
+
+for (int&amp; i : foo)
+    std::cout &lt;&lt; "i=" &lt;&lt; i &lt;&lt; std::endl;
+
+</pre>
+
+</div>
+</body> 
+</html>

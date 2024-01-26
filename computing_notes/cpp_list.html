@@ -227,6 +227,16 @@ iterator erase(iterator first, iterator last);      // remove [first, last)
 void clear();
 </pre>
 
+<li><code>sort()</code>
+<pre>
+//
+// sort the elements in the list (altering their position)
+// 
+void sort();    // use operator&lt;()
+
+void sort(Compare cmp); // Compare is a binary predicate taking two values of the same type as contained in the list
+</pre>
+
 </ul>
 
 
