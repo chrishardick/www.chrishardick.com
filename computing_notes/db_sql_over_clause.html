@@ -38,8 +38,21 @@ C O N T E N T
 <div id="content" class="content">
 <h1>Databases: SQL OVER() clause</h1>
 
-<p>GIVEN:</p>
-<p>TABLE: transactions</p>
+<ul>
+<li>When using a <code>group by</code> clause in SQL, you can only include columns in your <code>select</code> clause 
+    that are also in your <code>group by</code> clause. 
+<li>The <code>over()</code> clause and the <code>over()</code> clause with <code>partition by</code> subclause
+    address this problem
+<li>The <code>over()</code> clause and the <code>over()</code> clause with <code>partition by</code> subclause produce
+    aggregated columns with each record
+<li>as opposed to the <code>group by</code> clause which only yields <em>a single row per group</em> in the resultant set
+</ul>
+
+<dl>
+<dt><strong>GIVEN:</strong></dt>
+<dt><strong>TABLE: transactions</strong></dt>
+</dl>
+
 <table>
 <tr><th>id</th><th>date    </th><th>fld1 </th><th>fld2 </th><th>qty</th></tr>
 <tr><td> 1</td><td>20230601</td><td>"aaa"</td><td>"bbb"</td><td>1.1</td></tr>
@@ -48,7 +61,26 @@ C O N T E N T
 <tr><td> 4</td><td>20230602</td><td>"ddd"</td><td>"eee"</td><td>6.2</td></tr>
 </table>
 
-<br><br>
+<h2>Example using <code>group by</code></h2>
+
+<pre>
+<strong># VALID SQL STATEMENT</strong>
+
+SELECT date, sum(qty)
+FROM transactions
+GROUP BY date
+</pre>
+
+<pre>
+<strong># INVALID SQL STATEMENT</strong> - fld1 IS NOT PART OF GROUP BY clause
+
+SELECT date, <em>fld1</em>, sum(qty)
+FROM transactions
+GROUP BY date
+</pre>
+
+
+
 
 <h2><code>over()</code> clause</h2>
 <pre>

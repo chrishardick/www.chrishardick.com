@@ -1,0 +1,220 @@
+<!doctype html>
+
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: Machine Learning</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: Machine Learning</h1>
+
+<h2>Libraries</h2>
+
+<ul>
+<li><a href='python_numpy.html'>NumPy</a>
+<li><a href='python_pandas.html'>pandas</a>
+<li><a href='python_matplotlib.html'>MatPlotLib</a> - a plotting library for Python. 
+<li><a href='python_scikit-learn.html'>sciKit-Learn</a> - provides common algorithms
+<li><a href='python_jupyter.html'>Jupyter</a> - a tool for interactive programming - typically with Python
+<li><a href='python_anaconda.html'>Anaconda</a> - a distribution of Python and R programming languages for programming languages
+    that aims to simplify package management and deployment. The distribution includes data science packages. It's 
+    supported on Windows, Linux and macOS. It comes with <code>conda</code> - which is Anaconda's own package manager
+</ul>
+
+<h2>Anaconda</h2>
+<ul>
+<li>will install Jupyter plus all the ml libraries
+<li>open up terminal, <code>jupyter notebook</code>. This will open up Jupyter dashboard in your browser(<a href=http://localhost:8888>http://localhost:8888</a>
+<li>by default, it will point to your home directory
+
+</ul>
+
+
+<li><strong>NumPy</strong> has support for large, multi-dimensional arrays and matrices
+    along with mathematical functions to operate on them
+<li>The predecessor of <strong>NumPy</strong> was <strong>Numeric</strong>
+<li>Many <strong>NumPy</strong> operations release the <em>global interpreter lock</em> which allows for multi-threaded
+    processing
+</ul>
+
+<h2>Installing NumPy</h2>
+<pre>
+pip3 install numpy
+</pre>
+
+
+<h2>Arrays</h2>
+
+<ul>
+<li>A NumPy <code>array</code> is similar to a Python List.
+<li>The main difference is all elements of a NumPy <code>array</code> must be of the same type
+<li>Operations on a NumPy <code>array</code> are also usually much faster
+</ul>
+
+<pre>
+import numpy
+
+arr = numpy.array([1,2,3,4,5])
+
+mat = numpy.array(
+        [
+            [1,2,3], 
+            [4,5,6]
+         ])
+
+arr3 = numpy.array(
+        [
+            [
+                [1,2,3], 
+                [4,5,6]
+            ], 
+            [
+                [1,2,3], 
+                [4,5,6]
+            ]
+        ])
+
+print (arr)
+
+print (mat)
+print (mat[0,1])    # 2
+
+print (arr3)
+print (arr3[0,1,2]) # 6
+
+</pre>
+
+
+<h3>Negative Indexes</h3>
+<ul>
+<li>Just like <em>lists</em>, negative indexes (<code>arr[-1]</code>) are supported
+</ul>
+
+<h3>Slices</h3>
+<ul>
+<li>Just like <em>lists</em>, slices are supported
+<li><code>[start:end]</code>
+<li>where <code>start</code> is included, and <code>end</code> is not included
+<li><code>[start:end:step]</code> is also supported 
+<li>If you do not specify <code>start</code>, it defaults to <code>0</code>. E.g. <code>[:end]</code>
+<li>If you do not specify <code>end</code>, it defaults to the length of the array. E.g. <code>[3:]</code>
+</ul>
+
+
+<h2><code>random</code></h2>
+
+<ul>
+<li>Generate a random integer from 0 - given value (inclusive)
+<li>You can also generate arrays of random numbers of variable dimensions
+</ul>
+
+<pre>
+from nymby import random
+
+# generate a random number from 0-100
+x = random.randint(100)
+print (x)
+
+# generate a 1-D array containing 5 random integers from 0-100
+y = random.randint(100, size=(5))
+print (y)
+
+# generate a 2-D array containing 3 rows, each with 10 elements
+z = random.randint(100, size=(3,5))
+print (z)
+</pre>
+
+<ul>
+<li>Generate a random float from 0 to 1
+<li>You can also generate arrays of random numbers of variable dimensions
+</ul>
+
+<pre>
+from numpy import random
+
+x = random.rand()
+print (x)
+
+# generate a 1-D array of random floats from 0 to 1
+y = random.rand(5)
+print (y)
+
+# generate a 2-D array (3 rows, each with 5 columns) of random floats from 0 to 1
+z = random.rand(3,5)
+print (z)
+</pre>
+
+<ul>
+<li><code>choice()</code> allows you to obtain a random number from an array
+<li>It takes an array as a parameter and randomly returns one of its values
+<li>Use the <code>size</code> parameter to generate an array of arbitray dimensions
+<li>Use the <code>p</code> parameter to specify probabilities for each value.
+    The numbers should be floating point values between 0 and 1. The sum of all
+    the probabilities specified should be 1.
+
+</ul>
+
+<pre>
+x = random.choice([1,2,3,4])
+print (x)
+
+y = random.choicxe([1,2,3,4], size=(3,5))
+print (y)
+
+# probability: 1:50%, 2:30%, 3:10%, 4:10%
+z = random.choicxe([1,2,3,4], p=[0.5, 0.3, 0.1, 0.1], size=(3,5))
+print (y)
+
+
+</pre>
+
+
+<h3>Data Distribution</h3>
+<ul>
+<li>A list of all possible values along with how often each one occurs
+</ul>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://wikipedia.org">https://wikipedia.org</a>
+<li><a href="https://w3schools.com">https://w3schools.com</a>
+</ul>
+
+</div>
+</body>
+</html>
+

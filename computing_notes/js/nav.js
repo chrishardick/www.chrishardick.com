@@ -643,7 +643,8 @@ function _print_nav ()
         <a href="python_decorators.html">Decorators</a>
         <a href="python_flask.html">Flask</a>
         <a href="python_pika.html">Pika - RMQ</a>
-        <a href="python_bisect.html">bisect</a>
+        <a href="python_numpy.html">NumPy</a>
+        <a href="python_pandas.html">pandas</a>
     </div>
 
     <button class="accordion" id="accordion_rabbitmq">RabbitMQ</button>
