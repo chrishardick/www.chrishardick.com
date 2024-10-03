@@ -319,6 +319,7 @@ function _print_nav ()
     <div class="panel">
         <a href="db_join.html">Join Types</a>
         <a href="db_transactions.html">Transactions</a>
+        <a href="db_sql_count.html">SQL count()</a>
         <a href="db_sql_over_clause.html">SQL over clause</a>
         <a href="db_sql_subqueries.html">SQL Subqueries</a>
     </div>
@@ -720,6 +721,16 @@ function _print_nav ()
         <a href="systemdesign.html">Cheat Sheet</a>
         <a href="systemdesign_etl.html">ETL</a>
         <a href="systemdesign_idempotent.html">Idempotent</a>
+    </div>
+
+    <button class="accordion" id="accordion_ts">TypeScript</button>
+    <div class="panel">
+        <a href="ts_intro.html">Introduction</a>
+        <a href="ts_variables_and_data_types.html">Variables and Data Types</a>
+        <a href="ts_array.html">Arrays</a>
+        <a href="ts_control_structs.html">Control Structures</a>
+        <a href="ts_functions.html">Functions</a>
+        <a href="ts_interface.html">Interface</a>
     </div>
 
     <button class="accordion" id="accordion_utf8">UTF-8</button>

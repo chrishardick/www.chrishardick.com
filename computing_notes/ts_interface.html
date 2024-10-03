@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_ts");
+}
+</script>
+
+<title>TypeScript Interfaces</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>TypeScript Interfaces</h1>
+
+<ul>
+<li>An <strong>interface</strong> is a contract for a given type.
+<li>It defines a syntax which classes need to obey
+<li>The TypeScript compiler does not convert interfaces to JavaScript. It uses interfaces for type checking.
+<li>This is known as <em>duck typing</em>
+<li>An interface is defined with keyword <code>interface</code>
+<li>It can include properties and method declarations
+</ul>
+
+<pre>interface Person
+{
+    id:         number;
+    firstName:  string;
+    lastName:   string;
+    getAge:     (number) =&gt; number;  // arrow function
+    getFullName (number): string;
+}</pre>
+
+<pre>interface KeyValue
+{
+    key:    string;
+    value:  string;
+}
+
+let kv1: KeyValue = { key:"foo" , value:"bar"   };
+let kv2: KeyValue = { key:"foo" , val:"bar"     };      // compiler error. 'val' does exist in 'KeyValue'
+let kv2: KeyValue = { key:5     , val:"5"       };      // compiler error. 'key' is not of type string
+</pre>
+
+<h2>Interface for a Function</h2>
+
+<ul>
+<li>A TypeScript interface can be used to define a type of function which will ensure the function signature
+</ul>
+
+<pre>interface KeyValueFunc
+{
+    (key: string, value: string): void;
+}
+
+function keyValueFoo (key: string, value, string) : void
+{
+    console.log("keyValueFoo: key=" + key + ", value=' + value);
+}
+
+let kvp: KeyValueFunc = keyValueFoo;
+
+kvp ("foo", "bar");</pre>
+
+</div>
+</body> 
+</html>

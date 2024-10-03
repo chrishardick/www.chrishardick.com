@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_ts");
+}
+</script>
+
+<title>TypeScript - Control Structures</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>TypeScript - Control Structures</h1>
+
+<h2>for...of Loop</h2>
+<ul>
+<li>Keep in mind that while JS has a <code>for...in</code> loop contruct, TS has a <code>for...<strong>of</strong></code> construct
+</ul>
+
+<pre>
+let arr = [10, 20, 30, 40];
+
+for (var a of arr)
+{
+    console.log (a);
+}
+</pre>
+
+</div>
+</body> 
+</html>

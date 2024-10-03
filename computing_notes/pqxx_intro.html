@@ -1,0 +1,75 @@
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_pqxx");
+}
+</script>
+
+<title>pqxx - C++ Client Library for PostgreSQL</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>pqxx - C++ Client Library for PostgreSQL</h1>
+
+<ul>
+<li><code>liqpqxx</code> builds on top of PostgreSQL's standard C API <code>libpq</code>
+</ul>
+
+<pre>
+#include &lt;iostream&gt;
+#include &lt;pqxx/pqxx&gt;
+
+try
+{
+    // connect to the db
+    pqxx::connection c;
+
+    // start a transaction
+    pqxx::work w(c);
+
+    // execute a query
+    // - exec1 executes a query returning a single row of data
+    pqxx::row r = w.exec1("SELECT count(*) FROM foo");
+
+    // commit the transaction
+    // - make its work final
+    // - without this, the work will be rolled back when the transaction object is destroyed.
+    // - until then, you call the transactions exec, query_value, and stream functions (and variants) to execute SQL statements
+    // - you pass the SQL statements as simple strings
+    // - most of the exec funcdtions return a pqxx::result object which acts like a container of rows pqxx::row
+    // - each row is a container of fields - pqxx::field
+    // - each field's data is stored internally as a text string - in a format specified by PostgreSQL. 
+    // - you 
+    w.commit()
+</pre>
+
+</div>
+</body> 
+</html>

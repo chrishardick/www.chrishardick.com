@@ -1,0 +1,150 @@
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_db");
+}
+</script>
+
+<title>Databases: SQL count()</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Databases: SQL count() function</h1>
+
+<p>The <code>count()</code> function allows you to count rows of a table</p>
+
+<hr>
+
+<p><strong>SYNTAX:</strong></p>
+<strong><pre>SELECT column list, count(*)
+FROM table list
+[WHERE condition]
+[GROUP BY column list]
+[HAVING condition]
+[ORDER BY column list];</pre></strong>
+
+
+<hr>
+
+<p><strong>GIVEN:</strong></p>
+<p><strong>TABLE: transactions</strong></p>
+
+<table>
+<tr><th>id</th><th>date    </th><th>fld1 </th><th>fld2 </th><th>fld3</th><th>qty</th></tr>
+<tr><td> 1</td><td>20230601</td><td>"aaa"</td><td>"bbb"</td><td>"qqq"</td><td>1.1</td></tr>
+<tr><td> 2</td><td>20230601</td><td>"aaa"</td><td>"ccc"</td><td>"qqq"</td><td>1.1</td></tr>
+<tr><td> 3</td><td>20230601</td><td>"bbb"</td><td>"ccc"</td><td>"qqq"</td><td>1.1</td></tr>
+<tr><td> 4</td><td>20230601</td><td>"bbb"</td><td>"ddd"</td><td>"qqq"</td><td>1.1</td></tr>
+<tr><td> 5</td><td>20230602</td><td>"ccc"</td><td>"ddd"</td><td>"qqq"</td><td>6.2</td></tr>
+<tr><td> 6</td><td>20230602</td><td>"aaa"</td><td>"eee"</td><td>"vvv"</td><td>6.2</td></tr>
+</table>
+
+<hr>
+
+<h2>Count all rows of a table</h2>
+
+<p><code>SELECT count(*) from transactions</code></p>
+
+<code>
+<table>
+<tr><th>count(*)</th><tr>
+<tr><td>6</td><tr>
+</table>
+</code>
+
+<!-- ============================================================ -->
+
+
+<h2>Count all rows of a table matching a given criteria - <code>count()</code> with <code>WHERE</code> clause</h2>
+
+<p><code>SELECT count(*) from transactions where date=20230601</code></p>
+
+<code>
+<table>
+<tr><th>count(*)</th><tr>
+<tr><td>4</td><tr>
+</table>
+</code>
+
+<!-- ============================================================ -->
+
+
+<h2><code>count()</code> with <code>GROUP BY</code> clause</h2>
+
+<p><code>SELECT date, count(*) from transactions group by date</code></p>
+
+<code>
+<table>
+<tr><th>date</th><th>count(*)</th><tr>
+<tr><td>20230601</td><td>4</td><tr>
+<tr><td>20230602</td><td>2</td><tr>
+</table>
+</code>
+
+<!-- ============================================================ -->
+
+
+<h2><code>count()</code> with <code>GROUP BY</code> clause - multiple columns</h2>
+
+<p><code>SELECT date, fld1, count(*) from transactions group by date, fld1</code></p>
+
+<code>
+<table>
+<tr><th>date</th><th>fld1</th><th>count(*)</th><tr>
+<tr><td>20230601</td><td>"aaa"</td><td>2</td><tr>
+<tr><td>20230601</td><td>"bbb"</td><td>2</td><tr>
+<tr><td>20230602</td><td>"ccc"</td><td>1</td><tr>
+<tr><td>20230602</td><td>"aaa"</td><td>1</td><tr>
+</table>
+</code>
+
+<!-- ============================================================ -->
+
+
+<h2><code>count()</code> with <code>GROUP BY</code> clause - with filter criteria</h2>
+
+<p><code>SELECT date, fld1, count(*) from transactions group by date, fld1 WHERE fld3="qqq"</code></p>
+
+<code>
+<table>
+<tr><th>date</th><th>fld1</th><th>count(*)</th><tr>
+<tr><td>20230601</td><td>"aaa"</td><td>2</td><tr>
+<tr><td>20230601</td><td>"bbb"</td><td>2</td><tr>
+<tr><td>20230602</td><td>"ccc"</td><td>1</td><tr>
+<tr><td>20230602</td><td>"aaa"</td><td>1</td><tr>
+</table>
+</code>
+
+<!-- ============================================================ -->
+
+
+</div>
+</body> 
+</html>

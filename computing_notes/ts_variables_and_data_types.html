@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_ts");
+}
+</script>
+
+<title>TypeScript</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>TypeScript Variables and Data Types</h1>
+
+<ul>
+<li>As mentioned before, TypeScript is a <em>strongly typed language</em>
+</ul>
+
+<pre>let x = "foo";
+x = 50;     // valid for JavaScript. A compile time error in TypeScript
+</pre>
+
+<h2>Primative Types</h2>
+<ul>
+<li>JavaScript has <a href="js_variables_and_data_types.html#primitives">3 primitive data types</a>: string, number, and boolean
+    and each has a corresponding type in TypeScript
+<li>Most of the time, the variable type can be inferred
+</ul>
+
+<pre>
+let f = "foo";  // f is implicitly a string
+let n = 5;      // n is implicitly a number
+let b = true;   // b is implicitly a boolean
+</pre>
+
+<ul>
+<li>TypeScript also supports explicitly specifying the types
+</ul>
+
+<pre>
+let f: string = "foo";      // explicit
+let n: number = 5;          // explicit
+let b: boolean = true;      // explicit
+</pre>
+
+
+</div>
+</body> 
+</html>

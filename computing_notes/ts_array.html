@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_ts");
+}
+</script>
+
+<title>TypeScript Arrays</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>TypeScript Arrays</h1>
+
+<ul>
+<li>JS Array
+</ul>
+
+<pre>var arr = [];
+
+arr.push(1);
+arr.push(2);
+arr.push(3);</pre>
+
+
+<ul>
+<li>TS Array
+</ul>
+
+<pre>var arr: number[] = []
+
+arr.push(1);
+arr.push(2);
+arr.push(3);</pre>
+
+<ul>
+<li>TS Array of User Defined Types
+</ul>
+<pre>var kvArr: KeyValue[] = []</pre>
+</div>
+</body> 
+</html>

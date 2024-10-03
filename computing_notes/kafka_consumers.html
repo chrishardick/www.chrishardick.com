@@ -69,6 +69,178 @@ C O N T E N T
 <li>During a rebalance, consumers cannot consume messages.
 </ul>
 
+<h2>The <code>poll()</code> Loop</h2>
+<ul>
+<li>At the heart of the Consumer API is the <code>poll()</code> loop
+<li>Once a consumer subscribes to topics, the pool loop is the source of all incoming data and control messages (rebalance, etc.)
+<li>The parameter passed to <code>poll()</code> is a timeout interval and controls how long <code>poll()</code> will block if data is not available
+<li>If set to <code>0</code>, <code>poll()</code> will return immediately if data is not available.
+<li>Otherwise, <code>poll()</code> will wait the specified number of milliseconds for data to arrive from the broker before returning
+<li>The 1st time a consumer calls <code>poll()</code> it will join the Consumer Group and obtain a partition assignment. 
+<li><strong>Each call to <code>poll()</code> will return a list of records</strong>
+<li>Typically, the consumer will iterate of the list and process each record
+<li><code>poll()</code> is also responsible for sending <em>heartbeats</em> to the broker - which tell the broker that the client is still alive
+<li>For this reason, it's imperitive that processing between <code>poll()</code> calls is quick and efficient
+<li>By default, <code>enable.auto.commit</code> is enabled, and consumers will automatically commit offsets every <code>auto.commit.interval.ms</code> 
+    using a background thread (which defaults to 5,000 - every 5 seconds)
+</ul>
+
+<h2>Commits and Offsets</h2>
+
+
+<img src="kafka_commits_and_offsets.png" alt="kafka commits and offsets diagram">
+
+<ul>
+<li>When subscribing to a given topic with a given consumer group, Kafka will only return records which have not yet been processed by the given
+    consumer group
+<li>When a consumer has processed a given message, it sends a message to Kafka to update the <strong>offset</strong> of the partition for the given consumer group. 
+    This is called a <strong>commit</strong>
+</ul>
+
+
+<h2>Automatic Commits</h2>
+<ul>
+<li>The simplest, but least robust configuration
+<li>If a consumer is configured with <code>enable.auto.commit</code> set to <code>true</code>, every 5 seconds (by default), 
+    the consumer will commit the largest offset the client received from <code>poll()</code>. 
+<li>The interval is configured via <code>auto.commit.interval.ms</code>
+<li>With automatic commits enabled, a call to <code>poll()</code> will automatically commit the last offset returned from the previous 
+    <code>poll()</code>.
+<li>It's important to remember that each call to <code>poll()</code> returns a list of records. Hence, with this configuration, 
+    it's possible for your application to have committed more records than you've physically processed.
+<li>This configuration leads to <strong>at-most-once delivery</strong> 
+</ul>
+
+
+<h2>Commit Current Offset</h2>
+<ul>
+<li>Most applications want better control than Automatic Commits provides
+<li>If a consumer is configured with <strong><code>enable.auto.commit</code></strong> set to <strong><code>false</code></strong>, offsets will only be committed 
+    explicitly by the application
+</ul>
+
+<h2>Synchronous Commit</h2>
+<ul>
+<li>The simplest and most reliable commit API is <code>commitSync()</code> which will commit the latest offset returned by <code>poll()</code>
+    and will block until the offset is physically committed, throwing an exception if an error occurs.
+<li><code>commitSync()</code> is overloaded and also allows you to pass a map of partitions and offsets in which you'd like to commit
+<li><code>commitSync()</code> will retry the commit until it's either successful or encounters a non-retryable error
+</ul>
+
+<h2>Asynchronous Commit</h2>
+<ul>
+<li>Instead of waiting for the broker to respond, Kafka also provides asynchronous commits via <code>commitAsync()</code>
+<li><code>commitAsync()</code> allows you to pass a callback function which will be called whenever a callback is received.
+<li>Like the synchronous commit, by default, it will commit the latest offset returned by <code>poll()</code>. 
+    However, it too is overloaded, and allows you to pass a map of partitions and offsets in which you'd like to commit
+<li>Unlike the synchronus commit, the asynchronous commit does not have any retry logic.
+<li>If you use the callback function to request re-tries on errors, you need to be aware of commit order. I.e. there is a potential that 
+    a previous commit returns an error after a later commit has already succeeded. 
+</ul>
+
+<h2>Hybrid Solution - Auto Commit Manually Specified Offset</h2>
+<ul>
+<li>As discussed above, when <strong><code>enable.auto.commit=true</code></strong>, offsets will be committed at specified intervals (defaulting to 5s)
+<li>However, since <code>poll()</code> returns a list of records, it's possible for your consumer to commit messages your application code has yet to actually process
+<li>Auto Commit works by committing an offset which is stored in local memory. You can disable the automatic storage this offset by setting 
+    <strong><code>enable.auto.offset.store=false</code></strong> and instead manually store an offset after you've processed it by calling 
+    <code>rd_kafka_offsets_store()</code> - <code>librdkafka</code> 
+</ul>
+
+<h2>Other Client Configurations</h2>
+
+<ul>
+<li><code>auto.offset.reset</code>
+    <ul>
+    <li>controls the behavior of the consumer when it starts reading from a partition for which it does not have a committed
+        offset or the offset is invalid (usually because the given offset has already been purged).
+    <li>The default is <code>latest</code> which means lacking a valid offset, the consumer will start reading from the latest records
+        i.e. the records written after the consumer started.
+    <li>When set to <code>earliest</code>, lacking a valid offset, the consumer will read all data in the partition. 
+    </ul>
+<li><code>max.poll.records</code> - this controls the maximum number of records that a single call to <code>poll()</code> will return
+</ul>
+
+
+<h2>Acknowledgements</h2>
+<ul>
+<li><a href="https://kafka.apache.org">kafka.apache.org</a>
+</ul>
+
+</div>
+</body> 
+</html>
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_kafka");
+}
+</script>
+
+<title>Kafka Consumers</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Kafka Consumers</h1>
+
+<ul>
+<li>Applications read data from Kafka using a <strong>KafkaConsumer</strong> to subscribe to Kafka topics 
+</ul>
+
+<h2>Consumer Groups</h2>
+
+<ul>
+<li>Kafka consumers are usually part of a <strong>Consumer Group</strong>
+<li>Basically, each Consumer Group subscribed to a given topic will receive all messages published to the topic
+<li>Each Consumer Group is essentially a different consumer for the given stream
+<li>Consumer Groups also allow you split message load across multiple consumers
+<li>I.e. a <em>work queue</em> design pattern in which the work is distributed to N consumers, 
+    each one receiving a subset of the total message set
+<li>In Kafka, when multiple consumers belonging to the same consumer group subscribe for a given topic, 
+    each consumer in the group will receive messages from a different subset of partitions in the topic
+<li>If the number of consumers in a Consumer Group is equivalent to the number of partitions of the stream, each consumer 
+    will receive messages from a single partition
+<li>If the number of consumers in a Consumer Group is greater than the number of partitions of the stream, there will be idle
+    consumers that will not receive any messages
+</ul>
+
+<h2>Partition Rebalance</h2>
+<ul>
+<li>If you have multiple partitions and multiple consumers and you add or remove a consumer (or it crashes), clients will most likely
+    start consuming messages from different partitions. 
+<li>Moving partition ownership from one consumer to another is called a rebalance
+<li>During a rebalance, consumers cannot consume messages.
+</ul>
+
 
 <h2>Commits and Offsets</h2>
 
