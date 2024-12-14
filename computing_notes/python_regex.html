@@ -64,17 +64,46 @@ Appending a <code>?</code> after <code>'*', '+', '?'</code> produces a non-greed
 
 <h2>character classes</h2>
 <ul>
-<li><code>[abcd]</code> -- matches a, b, c, or d
-<li><code>[^abcd]</code> -- matches anything but a, b, c, d
-<li><code>[a-z]</code> -- matches any lowercase character
-<li><code>[A-Z]</code> -- matches any uppercase character
-<li><code>[0-9]</code> -- matches a digit
+<li><code>r'[abcd]'</code> - matches a, b, c, or d
+<li><code>r'[^abcd]'</code> - matches anything but a, b, c, d
+<li><code>r'[a-z]'</code> - matches any lowercase character
+<li><code>r'[A-Z]'</code> - matches any uppercase character
+<li><code>r'[0-9]'</code> - matches a digit
 </ul>
 
-<h2>search Function</h2>
+<h2><code>Match</code> Object</h2>
 <ul>
+<li>Match objects are returned by successful matches or searches. Otherwise, I believe <code>None</code> is returned
+<li>Methods:
+<li><code>group(0)</code> - returns the entire match
+<li><code>group(1)</code> - returns the 1st parenthesized subgroup - assuming subgroups were specified
+<li><code>group(2)</code> - returns the 2nd parenthesized subgroup - assuming subgroups were specified
+<li><code>start([group])</code> - return the index of the beginning of the substring matched by group; group defaults to 0 (zero)
+    e.g. entire match
+<li><code>end([group])</code> - return the index of the end of the substring matched by group; group defaults to 0 (zero)
+    e.g. entire match
+</ul>
+
+<h2><code>re.finditer()</code></h2>
+<ul>
+<li><code>re.finditer(pattern,string, flags=0)</code>
+<li>Return an iterator yielding <code>Match</code> objects over all non-overlapping matches for the RE pattern in string
+<li>The string is scanned left-to-right and matches are returned in the order found
+<li>Empty matches may be included inthe result
+<li><code>flags</code> is a bitmap and multiple flags can be specified by using the bitwise OR operator (<code>|</code>
+</ul>
+
 <pre>
-# returns: a MatchObject on success, none on failure
+res = re.finditer(pattern,str)
+if res:
+    for match in res:
+        idx = match.start()
+</pre>
+
+
+<h2>search Function</h2>
+<pre>
+# returns: a Match Object on success, none on failure
 # 
 # use group(num=0) to return the matched portion of the string or specify a number to return a specific saved string (see () above)
 #
@@ -104,11 +133,11 @@ if match:
 else:
     print "NOT A MATCH"
 </pre>
+<ul>
 <li>The <code>match()</code> function is similar except that that the match must start at the beginning of the string
 </ul>
 
 <h2>Substitution: sub function</h2>
-<ul>
 <pre>
 # replace all occurrences of the specified regular expression 
 # - you can limit the # of replaces with the max parameter
@@ -131,7 +160,6 @@ new_str = re.sub (r'cool','independent',str)
 
 print new_str       # Cats are independent!
 </pre>
-</ul>
 
 </div>
 </body>

@@ -47,7 +47,7 @@ C O N T E N T
 <tr><td><code>ChainMap</code></td><td></td></tr>
 <tr><td><code>Counter</code></td><td></td></tr>
 <tr><td><code>OrderedDict</code></td><td></td></tr>
-<tr><td><code>defaultDict</code></td><td></td></tr>
+<tr><td><code>defaultdict</code></td><td></td></tr>
 <tr><td><code>UserDict</code></td><td></td></tr>
 <tr><td><code>UserList</code></td><td></td></tr>
 <tr><td><code>UserString</code></td><td></td></tr>
@@ -67,6 +67,73 @@ print (q.popleft())
 print (q.popleft())
 print (q.popleft())
 </pre>
+
+<h2>defaultdict</h2>
+<ul>
+<li><code>defaultdict</code> is similar to a Python <a href="python_dictionary.html">Dictionary</a> 
+    - except the defaultdict never raises a <code>KeyError</code>. 
+<li>Instead, it provides a default value if the key does not exist.
+<li><code>defaultdict</code> is a subclass of Dictionary. It overrides the <code>__missing__</code> method 
+    to provide a default value for missing keys
+</ul>
+
+<h3>E.g. <code>defaultdict</code> with default value of an empty list</h3>
+<pre>
+from collections import defaultdict
+
+# create a defaultdict with a default value of an empty list
+ddict = defaultdict(list)
+
+ddict["A"].append("hello")
+ddict["A"].append("world")
+ddict["B"].append("happy")
+ddict["B"].append("friday")
+
+for d in ddict:
+    for i in ddict[d]:
+        ...
+</pre>
+
+<h3>E.g. <code>defaultdict</code> with default value of an integer</h3>
+<pre>
+from collections import defaultdict
+
+# create a defaultdict with a default value of an integer
+# - integer by default is 0
+ddict = defaultdict(int)
+
+ddict["foo"] += 1
+ddict["bar"] += 2
+
+for d in ddict:
+    print (ddict[d])        
+
+# result:
+# 1
+# 2
+</pre>
+
+
+<h3>E.g. <code>defaultdict</code> with default value of a string</h3>
+<pre>
+from collections import defaultdict
+
+# create a defaultdict with a default value of a string
+ddict = defaultdict(str)
+
+ddict["foo"] += "hello"
+ddict["foo"] += " world"
+ddict["bar"] += "happy"
+ddict["bar"] += " friday"
+
+for d in ddict:
+    print (ddict[d])        
+
+# result:
+# hello world
+# happy friday
+</pre>
+
 
 </div>
 </body>
