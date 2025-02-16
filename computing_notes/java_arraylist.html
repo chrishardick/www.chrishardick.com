@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_java");
+}
+</script>
+
+<title>Java: ArrayList</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Java: <code>ArrayList</code></h1>
+
+<ul>
+<li><code>ArrayList</code> is a resizable array
+<li>It's found in the <code>java.util</code> package
+<li>To append an element to an <code>ArrayList</code> use the <code>add(E element)</code> method.
+    There is also another version of <code>add(int index, E element)</code> which allows you to specify 
+    a location. This version inserts the element at the specified location and shifts the element at that 
+    location (if any) and all subsequent locations by one to the right
+<li>To access an element in an <code>ArrayList</code> use the <code>get()</code> method
+<li>To modify an element in an <code>ArrayList</code> use the <code>set()</code> method
+<li>To remove an element from an <code>ArrayList</code> use the <code>remove()</code> method
+<li>To clear all elements from an <code>ArrayList</code> use the <code>clear()</code> method
+<li>To find out how many elements are in an <code>ArrayList</code> use the <code>size()</code> method
+<li>Elements in an <code>ArrayList</code> must be objects. You cannot have an <code>ArrayList</code>
+    of primitives. You can have an <code>ArrayList</code> of the equivalent wrapper class
+</ul>
+
+<pre>
+import java.util.ArrayList;
+
+ArrayList&lt;Integer&gt; int_list = new ArrayList&lt;Integer&gt;();
+
+// assigning values
+int_list.add(0);
+int_list.add(1);
+int_list.add(2);
+int_list.add(3);
+
+int_list.add(0,4);
+
+System.out.println (int_list);          // [4,0,1,2,3]
+System.out.println (int_list.get(0));   // 4
+System.out.println (int_list.size()));  // 5
+
+for (int i = 0; i &lt; int_list.size(); i++)
+{
+    System.out.println ("element " + i + " = " + int_list.get(i));
+}
+
+int_list.set(0,5);
+
+System.out.println (int_list);          // [5,0,1,2,3]
+
+for (Integer i : int_list)
+{
+    System.out.println(i);
+}
+
+int_list.remove(0);
+
+System.out.println (int_list);          // [0,1,2,3]
+System.out.println (int_list.size()));  // 4
+
+int_list.clear();
+
+System.out.println (int_list);          // []
+System.out.println (int_list.size()));  // 0
+</pre>
+
+<h3>Copying Arrays</h3>
+
+<ul>
+<li>The <code>System.arraycopy()</code> method allows you to efficiently copy data from one array to another
+</ul>
+
+<pre>
+public static void arraycopy (Object src        // in:      source array
+                            ,int srcPos         // in:      starting position
+                            ,Object dest        // in/out:  destination array
+                            ,int destPos        // in:      destination position
+                            ,int length         // in:      # of elements to copy
+                            )
+</pre>
+
+<h3>Useful Array Operations provided by <code>java.util.Arrays</code> class</h3>
+
+<ul>
+<li><strong><code>binarySearch()</code></strong>
+<li><strong><code>equals()</code></strong>
+<li><strong><code>fill()</code></strong>
+<li><strong><code>sort()</code></strong>
+<li><strong><code>toString()</code></strong>
+</ul>
+
+
+</div>
+</body>
+</html>
+

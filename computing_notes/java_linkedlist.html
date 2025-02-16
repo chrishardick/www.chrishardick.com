@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_java");
+}
+</script>
+
+<title>Java: LinkedList</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Java: <code>LinkedList</code></h1>
+
+<ul>
+<li>Java's linked list implementation. It's implemented as a doubly linked list
+<li>Found in the <code>java.util</code> package 
+</ul>
+
+<h2>Adding Elements</h2>
+<ul>
+<li><code>add(E element)</code> method will append an element to the list
+<li><code>add(int index, E element)</code> method will add an element to the specified location
+<li><code>addAll(Collection&lt;E&gt; c)</code> method will append all elements of the collection 
+    to the list in the order they are returned by the collection's iterator.
+<li><code>addAll(int index, Collection&lt;E&gt;)</code> will add add elements of the collection to the list
+    at the specified location. 
+<li><code>addFirst(E e)</code> inserts the element at the beginning of the list
+<li><code>addLast(E e)</code> inserts the element at the end of the list
+</ul>
+
+<h2>Accessing Elements</h2>
+<ul>
+<li><code>get(int index)</code> method returns the element at the specified location
+<li><code>getFirst()</code> returns the first element of the list
+<li><code>getLast()</code> returns the last element of the list
+</ul>
+
+<h2>Removing Elements</h2>
+<ul>
+<li><code>remove(int index)</code> removes the element at the specified position in the list.
+<li><code>remove()</code> or <code>removeFirst()</code> will remove the head (first element) 
+    of the list
+<li><code>removeLast</code> will remove the last element of the list
+</ul>
+
+<h2>Stack Methods</h2>
+<ul>
+<li><code>push(E e)</code> will push an element to the head of the list
+<li><code>pop()</code> will remove the element at the head of the list
+</ul>
+
+<h2>Utility Methods</h2>
+<ul>
+<li><code>size()</code> - will return size (number of elements) of the list
+<li><code>toArray()</code> - will return an array containing all elements of the list in the proper order
+<li><code>toString()</code> - will return a string of all elements of the list in the proper order.
+    Each element is separated by commas. The entire string will be enclosed in square brackets
+</ul>
+
+<pre>
+import java.util.LinkedList;
+
+LinkedList&lt;Integer&gt; int_list = new LinkedList&lt;Integer&gt;();
+
+// assigning values
+int_list.add(0);
+int_list.add(1);
+int_list.add(2);
+
+System.out.println (int_list);          // [4,0,1,2,3]
+
+for (int i = 0; i &lt; int_list.size(); i++)
+{
+    System.out.println ("element " + i + " = " + int_list.get(i));
+}
+
+for (Integer i : int_list)
+{
+    System.out.println(i);
+}
+</pre>
+
+</div>
+</body>
+</html>
+

@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_java");
+}
+</script>
+
+<title>Java: Wrapper Classes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Java Wrapper Classes</h1>
+<ul>
+<li>Wrapper classes provide a way to use primitive data types (<code>int</code>, <code>double</code>, etc.) as objects
+<li>Sometimes, you must use wrapper classes, for example when working with <a href="java_arraylist.html"><code>ArrayList</code></a>
+    which can only store objects
+<li>Like any other object, the variables which point to them are references. Hence, if you do not initialize them, 
+    they default to <code>null</code>
+<li>Each wrapper object has a <code>toString()</code> method - which allows you to obtain the string representation of the object
+</ul>
+
+<table>
+<tr><th>Primitive</th>                      <th>Wrapper</th></tr>
+<tr><td><code>byte</code></td>              <td><code>Byte</code></td></tr>
+<tr><td><code>short</code></td>             <td><code>Short</code></td></tr>
+<tr><td><code>int</code></td>               <td><code>Integer</code></td></tr>
+<tr><td><code>long</code></td>              <td><code>Long</code></td></tr>
+<tr><td><code>float</code></td>             <td><code>Float</code></td></tr>
+<tr><td><code>double</code></td>            <td><code>Double</code></td></tr>
+<tr><td><code>boolean</code></td>           <td><code>Boolean</code></td></tr>
+<tr><td><code>char</code></td>              <td><code>Character</code></td></tr>
+</table>
+
+<pre>
+Integer i = 5;
+Double d = 6.5;
+Character c = 'a';
+Float f;                // null
+
+System.out.println (i);     // 5
+System.out.println (d);     // 6.5
+System.out.println (c);     // a
+System.out.println (f);     // compiler error
+</pre>
+
+
+</div>
+</body>
+</html>
+

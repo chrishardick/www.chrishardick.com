@@ -41,6 +41,15 @@ C O N T E N T
 
 <h1>Java: Classes</h1>
 
+<ul>
+<li>Java is a true object oriented programming language. 
+<li>Every line of executable code must be inside a class
+<li>In Java, every class needs to be in a file whose name matches that of the class. E.g. <code>class Foo</code> must be defined in <code>Foo.java</code>
+<li>You can refer to classes defined within the same directory without using an <code>import</code> statement
+</ul>
+
+<h2>Defining a Class</h2>
+
 <pre>
 public class Foo
 {
@@ -76,6 +85,106 @@ public class Foo
         return d_x + d_y + d_z;
     }
 </pre>
+
+
+<h2>Creating an Object</h2>
+
+<pre>
+// f is a reference which points to the newly created Foo objecdt
+Foo f = new Foo();
+</pre>
+
+<h2>Access Modifiers - Classes</h2>
+<ul>
+<li><code>public</code> - the class is accessible to any other class
+<li><em>default</em> - the class is sonly accessible to classes in the same package. 
+    This is in effect when you do not specify an access modifier.
+</ul>
+
+<h2>Non-Access Modifiers - Classes</h2>
+<ul>
+<li><code>final</code> - the class can not be inherited by other classes
+<li><code>abstract</code> - the class can not be used to create objects
+</ul>
+
+<h2>Access Modifiers - Methods and Attributes</h2>
+<ul>
+<li><code>public</code> - the method or attribute is accessible everywhere
+<li><code>private</code> - the method or attribute is only accessible within the class
+<li><em>default</em> - the method or attribute is only accessible within the same package.
+    This is in effect when you do not specify an access modifier.
+<li><code>protected</code> - the method or attribute is accessible in the same package and subclasses
+</ul>
+
+
+<h2>Non-Access Modifiers - Methods and Attributes</h2>
+<ul>
+<li><code>final</code> - the method can not be overridden or the attribute cannot be modified
+<li><code>static</code> - the method or attribute belongs to the class rather than the individual objects of the class
+    and can be accessed without creating an objecdt of the class
+<li><code>abstract</code> - can only be used in an abstract class and can only be used on methods.
+    The given method does not have a body. 
+<li><code>transient</code> - the attribute can be skipped when serializing the object
+<li><code>synchronized</code> - the method can only be accessed by one thread at a time.
+    If a thread is currently executing a <code>synchronized</code> function, if another thread attempts to 
+    execute the same function, it will be blocked until the first thread exits the function. 
+<li><code>volatile</code> - 
+</ul>
+
+<h2>Inheritance</h2>
+
+<pre>
+class TimePiece
+{
+}
+
+class Watch extends TimePiece
+{
+}
+</pre>
+
+<h2><code>Object</code> class</h2>
+<ul>
+<li>Every class in Java is directly or indirectly derived from the <code>Object</code> class
+<li>I.e. if the class does not extend any other class, it's a directly derived; otherwise it's indirectly derived
+<li>The <code>Object</code> class provides several methods:
+    <ul>
+    <li><code>hashCode()</code> - for every object, the JVM generates a unique hashcode. I believe it's basically
+        a cryptographic hash of the object's address. In Java, you cannot access addresses.
+    <li><code>toString()</code> - usually overridden. The default <code>toString()</code> method returns a string 
+        consisting of the name of the object's class followed by <code>@</code> followed by the hash code of the 
+        object (in hex)
+    <li><code>equals(Object obj)</code> - compares the two objects. Usually overridden. In the default method,
+        the hash codes of the two objects are compared
+    <li><code>finalize()</code> - the method called right before an object is garbage collected. 
+        You should override the <code>finalize()</code> method when you need to dispose of system resources, etc.
+    <li><code>getClass()</code> - returns the class of the "this" object 
+    <li><code>clone()</code> - creates and returns a new object which is a copy of the current object
+    <li><code>wait()</code>
+    <li><code>notify()</code>
+    <li><code>notifyAll()</code>
+    </ul>
+</ul>
+
+<h2>Java Wrapper Classes</h2>
+<ul>
+<li>Wrapper classes provide a way to use primitive data types (<code>int</code>, <code>double</code>, etc.) as objects
+<li>Sometimes, you must use wrapper classes, for example when working with <a href="java_arraylist.html"><code>ArrayList</code></a>
+    which can only store objects
+</ul>
+
+<table>
+<tr><th>Primitive</th>                      <th>Wrapper</th></tr>
+<tr><td><code>byte</code></td>              <td><code>Byte</code></td></tr>
+<tr><td><code>short</code></td>             <td><code>Short</code></td></tr>
+<tr><td><code>int</code></td>               <td><code>Integer</code></td></tr>
+<tr><td><code>long</code></td>              <td><code>Long</code></td></tr>
+<tr><td><code>float</code></td>             <td><code>Float</code></td></tr>
+<tr><td><code>double</code></td>            <td><code>Double</code></td></tr>
+<tr><td><code>boolean</code></td>           <td><code>Boolean</code></td></tr>
+<tr><td><code>char</code></td>              <td><code>Character</code></td></tr>
+</table>
+
 </div>
 </body>
 </html>

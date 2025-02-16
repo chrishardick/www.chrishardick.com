@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_java");
+}
+</script>
+
+<title>Java: Hello, World!</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Java: Hello, World!</h1>
+
+<pre>
+// HelloWorld.java
+
+public class HelloWorld
+{
+    public static void main (String[] args)
+    {
+        System.out.println("Hello, World!");
+    }
+}
+</pre>
+
+<ul>
+<li><code>javac HelloWorld.java</code> - this will produce a bytecode file <code>HelloWorld.class</code>
+<li><code>java HelloWorld</code> - this will start the Java Runtime Environment (JRE), loads the specified class (HelloWorld) and
+    calls the <code>main()</code> method on the class - which must be declard <code>public</code> and <code>static</code>
+</ul>
+
+</div>
+</body>
+</html>
+

@@ -65,6 +65,32 @@ String ss = s.concat(" Welcome Everyone!");
 </pre>
 
 
+<h2>Passing Strings Into Functions</h2>
+
+<pre>
+public StringPassingExample 
+{
+    public static void main (String[] args)
+    {
+        String s = "main";
+        modifyString(s);
+        System.out.println("str=" + s);     // main will print out
+    }
+
+    public static void modifyString (String s)
+    {
+        s = "modifyString";
+    }
+}
+</pre>
+
+<p>Here's what happens:
+
+<ul>
+<li><code>modifyString</code> receives a reference to the "main" String
+<li><code>modifyString</code> creates a new String - "modifyString"
+</ul>
+
 </div>
 </body>
 </html>

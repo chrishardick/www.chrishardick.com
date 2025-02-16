@@ -60,8 +60,9 @@ C O N T E N T
 <h2><code>java</code> - Java Launcher</h2>
 <ul>
 <li>The <code>java</code> command starts a Java application. 
-It starts the Java Runtime Environment (JRE), loads the specified class, and calls the class' main() method. 
-The method must be declared <code>public</code> and <code>static</code>, it must not return any value, and it must accept a String array as a parameter. 
+<li>It starts the Java Runtime Environment (JRE), loads the specified class, and calls the class' <code>main()</code> method. 
+<li><code>main()</code> must be declared <code>public</code> (visible to everyone) and <code>static</code> 
+(e.g. a method belonging to the class - as opposed to any particular object). It must not return any value, and it must accept a String array as a parameter. 
 The method declaration has the following form: <code>public static void main(String[] args)</code>
 </ul>
 
@@ -82,29 +83,6 @@ jar cf Foo.jar Foo.class Bar.class FooBar
 </pre>
 
 
-<h2>Hello, World!</h2>
-<ul>
-<li>Create <code>HelloWorld.java</code>
-</ul>
-
-
-<pre>
-// HelloWorld.java
-
-public class HelloWorld
-{
-    public static void main (String... args)
-    {
-        System.out.println("Hello, World!");
-    }
-}
-</pre>
-
-<ul>
-<li><code>javac HelloWorld.java</code>
-<li><code>java HelloWorld</code>
-</ul>
-
 <h2>Comments</h2>
 <ul>
 <li>Java supports both <code>//</code> and <code>/* ... */</code> - similar to C++
@@ -114,6 +92,16 @@ public class HelloWorld
 <ul> 
 <li><strong><code>System.out.println("Hello World");</code></strong> - prints the specified string followed by a newline
 <li><strong><code>System.out.print("Hello World");</code></strong> - prints the specified string (without a newline)
+</ul>
+
+<pre>
+// here is an example of printing variables
+
+int i = 5;
+String s = "Hello, World!";
+
+System.out.println("i=" + i + " s=" + s);
+</pre>
 
 
 <h2>JDK, OpenJDK, J2EE, Et. Al.</h2>
@@ -126,6 +114,19 @@ public class HelloWorld
 <li>Development Kits contain <strong>JRE - Java Runtime Environment</strong> (the environment needed to execute a Java application) 
     along with tools useful to build Java applications 
 </ul>
+
+<h2>Installation - macOS</h2>
+
+<ul>
+<li>Download OpenJDK tar file from <a href="https://jdk.java.net/">https://jdk.java.net/</a>, etc. 
+<li>Extract tar file <code>tar -xvf tar_file</code> or similar
+<li>Move contents of tar file to <code>/Library/Java/JavaVirtualMachines/</code>
+<li>Set-up Shell Environment. E.g. for Bash - 
+</ul>
+<pre>
+export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk-23.0.2.jdk/Contents/Home
+export PATH=$JAVA_HOME/bin:$PATH
+</pre>
 
 </div>
 </body>

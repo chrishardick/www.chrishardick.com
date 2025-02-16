@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_java");
+}
+</script>
+
+<title>Java: Methods</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Java: Methods</h1>
+
+<ul>
+<li>A method is a block of code which is executed when the function is called
+<li>You can pass parameters to methods
+<li>Methods are also called functions
+<li>In Java, methods must be declared within a class
+<li>Methods are defined with their name followed by parentheses (<code>(</code>...<code>)</code>)
+<li>Within the parentheses, a comma delimited list of parameters can be passed to the method
+<li>Methods can be declared as <code>static</code> meaning they belong to the class (as opposed to the objects of the class)
+<li>Primative types are passed by value. I.e. the primative type is copied and it's the copy of the primative type which is passed to the function
+<li>Reference types are passed as reference variables. 
+<li>Methods can return values via the <code>return</code> keyword
+<li>Methods can be <strong>overloaded</strong>. I.e. multiple functions can have the same name with each definition having a different set of parameter types
+</ul>
+
+<pre>
+//
+// Main.java
+//
+
+public class Main
+{
+    static void foo (   String s        // since String is a reference type, a reference variable is created
+                        ,int i
+                        )
+    {
+        s = "foo";      // this creates a new String ("foo") and the reference variable points to it. Note the original string is not modified
+
+        i = 50;         // as this is passed by value, this will not be visible from the caller
+    }
+
+    static void main ()
+    {
+        String s = "main";
+        int i = 25;
+
+        foo (s, i);
+
+        System.out.println("s=" + s);       // will print "s=main"
+        System.out.println("i=" + i);       // will print "i=25"
+    }
+}
+</pre>
+
+
+</div>
+</body>
+</html>
+

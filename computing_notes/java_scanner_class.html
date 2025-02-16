@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_java");
+}
+</script>
+
+<title>Java: Scanner Class</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Java: <code>Scanner</code> class</h1>
+
+<ul>
+<li>The <code>Scanner</code> class (in the <code>java.util</code> package) is used to get user input.
+</ul>
+
+<pre>
+import java.util.Scanner;
+
+Scanner scanner = new Scanner(System.in);
+
+System.out.println("Enter something");
+
+String str = scanner.nextLine();
+
+System.out.println ("You entered |" + str + "|")
+</pre>
+
+<h2>Methods</h2>
+<ul>
+<li><code>nextLine()</code> - Read a <code>string</code> from the user
+<li><code>nextInt()</code> - Read an <code>integer</code> from the user
+<li><code>nextShort()</code> - Read a <code>short</code> from the user
+<li><code>nextLong()</code> - Read a <code>long</code> from the user
+<li><code>nextBoolean()</code> - Read a <code>boolean</code> from the user
+<li><code>nextDouble()</code> - Read a <code>double</code> from the user
+<li><code>nextFloat()</code> - Read a <code>float</code from the user
+</ul>
+
+</div>
+</body>
+</html>
+

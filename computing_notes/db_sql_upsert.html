@@ -1,0 +1,54 @@
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_db");
+}
+</script>
+
+<title>Databases: SQL upsert</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Databases: SQL upsert</h1>
+
+<ul>
+<li>add a record if it does not exist. Otherwise, update an existing record
+</ul>
+
+<pre>
+insert into foo (id, fld1, fld2, fld3) values ('id_val', 1, 2, 3)
+on conflict (id) do update set 
+fld1=fld1+1, fld2=fld2+2, fld3=fld3+3
+</pre>
+
+
+</div>
+</body> 
+</html>

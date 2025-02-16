@@ -322,6 +322,7 @@ function _print_nav ()
         <a href="db_sql_count.html">SQL count()</a>
         <a href="db_sql_over_clause.html">SQL over clause</a>
         <a href="db_sql_subqueries.html">SQL Subqueries</a>
+        <a href="db_sql_upsert.html">SQL upsert</a>
     </div>
 
     <button class="accordion" id="accordion_dns">DNS</button>
@@ -400,11 +401,22 @@ function _print_nav ()
     <button class="accordion" id="accordion_java">Java</button>
     <div class="panel">
         <a href="java_intro.html">Introduction</a>
+        <a href="java_hello_world.html">Hello, World!</a>
         <a href="java_variables.html">Variables</a>
         <a href="java_string.html">Strings</a>
+        <a href="java_classes.html">Classes</a>
+        <a href="java_wrapper_classes.html">Wrapper Classes</a>
+        <a href="java_methods.html">Methods</a>
+        <a href="java_arrays.html">Arrays</a>
+        <a href="java_arraylist.html">ArrayList</a>
+        <a href="java_linkedlist.html">LinkedList</a>
         <a href="java_operators.html">Operators</a>
         <a href="java_control_structures.html">Control Structures</a>
+        <a href="java_interfaces.html">Interfaces</a>
+        <a href="java_enums.html">Enums</a>
         <a href="java_packages.html">Packages</a>
+        <a href="java_scanner_class.html">Scanner Class</a>
+        <a href="java_dates_and_times.html">Dates and Times</a>
         <a href="java_spring.html">Spring</a>
     </div>
 

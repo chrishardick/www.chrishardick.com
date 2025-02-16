@@ -148,12 +148,13 @@ for (initialization; termination; increment)
 }
 </pre>
 
-<h2><code>for</code> Loop - to iterate thru an array or Collection</h2>
+<h2><code>for-each</code> Loop - to iterate thru an array or Collection</h2>
 <pre>
 int[] intArray = {1, 2, 3, 4, 5};
 
 for (int item : intArray)
 {
+    // note: item is a copy, so modifying it inside the loop has no impact to the container
     System.out.println ("item=" + item)
 }
 </pre>

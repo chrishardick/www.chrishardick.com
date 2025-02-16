@@ -42,51 +42,64 @@ C O N T E N T
 <h1>Java: Packages</h1>
 
 <ul>
-<li>Similar to a <code>namespace</code> in C++
-<li>Library &gt; Package &gt; Classes
-<li>I.e. the Java API is a library. It contains multiple packages. Each package contains classes
+<li>In Java, a <strong>package</strong> is used to group related classes
+<li>Remember that each class in Java needs to be defined in a file with a matching name
+<li>You can place all files of a package in the same directory
+<li>In the files of the package, you need to use the <code>package</code> keyword to specify the files are part of the package
+<li>In the calling code, you can then use the <code>import</code> statement to import the entire package or a single class
+    e.g. <code>import package.name.*</code> to import the entire package or
+    <code>import package.name.ClassName</code> to import a single class
+<li>There are <strong>Built-in Packages</strong> and <strong>User-Defined Packages</strong>
 </ul>
-
-<h2><code>import</code></h2>
-
-<ul>
-<li><code>import package_name.Class;    // import a single class</code>
-<li><code>import package_name.*;        // import the entire package</code>
-</ul>
-
-<pre>
-import java.util.Scanner;       // import Scanner class
-
-import java.util.*              // import all classes in java.util
-</pre>
 
 <h2>Built-in Packages</h2>
-
 <ul>
-<li>
+<li>The Java API is a library of packages and classes included in the Java Development Environment
+<li>The complete list of available packages and classes can be found at 
+<a href="https://docs.oracle.com/javase/23/docs/api">https://docs.oracle.com/javase/23/docs/api"</a>
+- as of this writing 23 was the latest version. Alter the URL if you're interested in a different version
 </ul>
 
-<h2>User-defined Packages</h2>
 
+<h2>User-Defined Packages - An Example</h2>
 <ul>
-<li>
+<li>Let's say we have two related classes <code>Foo</code> and <code>Bar</code>
+<li>Since they're related, we want to put them in the same <strong>package</strong> - package <code>foobar</code>
+<li>At the top of both <code>Foo.java</code> and <code>Bar.java</code> we use the <code>package</code> keyword
+<li>Let's say they're in the <code>foobar</code> directory
+<li>You can import the entire package via <code>import foobar.*</code> or you can import individual classes
+    <code>import foobar.Foo</code>
+
 </ul>
 
 <pre>
-// Ch.java
+// foo.java
 
-package ch
-class ChClass
+package foobar;
+
+public class Foo
 {
-    ...
+    // constructor
+    public Foo()
+    {
+    }
 }
 </pre>
 
+<pre>
+// bar.java
 
-<h2>Acknowledgements</h2>
-<ul>
-<li><a href="https://w3schools.com">https://w3schools.com</a>
-</ul>
+package foobar;
+
+public class Bar
+{
+    // constructor
+    public Bar()
+    {
+    }
+}
+</pre>
+
 
 </div>
 </body>

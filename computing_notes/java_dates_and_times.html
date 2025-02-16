@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_java");
+}
+</script>
+
+<title>Java: Dates and Times</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Java: Dates and Times</h1>
+
+<ul>
+<li>Java does not have a built in Date class, but you can import the <code>java.time</code> package
+<li>The <code>LocalDate</code> class represents a date (year, month, day)
+<li>The <code>LocalDate</code> class represents a date (year, month, day)
+<li>The <code>LocalDateTime</code> class represents both a date and a time
+<li>The <code>DateTimeFormatter</code> allows you to display and parse date and time objects
+</ul>
+
+<h2><code>LocalDate</code></h2>
+
+<pre>
+import java.time.LocalDate;
+
+...
+LocalDate lclDate = LocalDate.now();    // create a LocalDate object set to the current date
+System.out.println(lclDate);            // print current date
+</pre>
+
+
+<h2><code>LocalTime</code></h2>
+
+<pre>
+import java.time.LocalTime;
+
+...
+LocalTime lclTime = LocalTime.now();    // create a LocalTime object set to the current time
+System.out.println(lclTime);            // print current time
+</pre>
+
+
+<h2><code>LocalDateTime</code></h2>
+
+<pre>
+import java.time.LocalDateTime;
+
+...
+LocalDateTime lclDateTime = LocalDateTime.now();    // create a LocalDateTime object set to the current date and time
+System.out.println(lclDateTime);                    // print the current date and time
+</pre>
+
+
+
+<h2><code>DateTimeFormatter</code></h2>
+
+<pre>
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+...
+LocalDateTime lclDateTime = LocalDateTime.now();    // create a LocalDateTime object set to the current date and time
+
+System.out.println(lclDateTime);                    // print the current date and time - unformatted
+
+
+DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+
+String formattedDateTime = lclDateTime.format(dtFormat);
+
+System.out.println(formattedDateTime)               // print the current date and time - formatted
+</pre>
+
+
+</div>
+</body>
+</html>
+

@@ -41,6 +41,15 @@ C O N T E N T
 
 <h1>Java: Variables</h1>
 
+<ul>
+<li>In Java, you cannot use a variable before it's initialized
+<li>Instance variables of a class are automatically initialized to default values -
+    <code>0</code> (zero) for numeric types, <code>false</code> for boolean, or <code>null</code> for reference types
+    if you do not explicitly initialize them.
+<li>Local variables - defined within a method - are NOT automatically initialized.
+    Attempting to use a local variable before it is initialized results in a compiler error
+</ul> 
+
 <p>In Java, there are:</p> 
 <ul>
 <li><strong>Instance Variables</strong> - non-static member variables unique to each class instance
@@ -48,7 +57,7 @@ C O N T E N T
 <li><strong>Local Variables</strong> - temporary variables declared within a method
 </ul>
 
-<h2>Primative Types</h2>
+<h2 id="primatives">Primative Variables</h2>
 
 <ul>
 <li>Java is statically-typed (all variables must be declared - along with their type - before they can be used).
@@ -72,11 +81,10 @@ int i = 5;
 var str = "Hello, World!";
 </pre>
 
-
 <h2>Final Variables</h2>
 
 <ul>
-<li>variables declared as <code>final</code> are constant. I.e. their value cannot be changed
+<li>Variables declared as <code>final</code> are constant. I.e. their value cannot be changed
 </ul>
 
 <pre>
@@ -84,72 +92,30 @@ final int pi = 3.14159;
 </pre>
 
 
-<h2>Non-Primative Data Types</h2>
-<ul>
-<li>Non-primative data types are <strong>reference types</strong> because they refer to objects
-<li>Primative types always have a value, while non-primative types can be <code>null</code>
-<li>Examples of non-primative types: String, Array, Classes
-</ul>
+<h2 id="references">Reference Variables (References)</h2>
 
-<h2>Arrays</h2>
 <ul>
-<li>Declared as <code>type[]</code> - where <code>type</code> is the array's data type
-<li>The declaration does not actualy create an array.
-<li>Indexed from 0 (zero)
+<li>In Java, a <strong>reference variable</strong> points to an object
+<li>Whereby a primative variable holds the data itself, a reference variable holds a reference (e.g. the address) to an object
+<li>A reference variable can also point to a special value - <code>null</code>
+    - which indicates that the reference is currently pointing to nothing
+<li>You can create multiple reference variables which point to the same object
+<li>This is similar to when you pass an object to a method.
 </ul>
 
 <pre>
-int[] myIntArray;           // does not actually create the array
+// f is a reference 
+Foo f; 
 
-// alternative syntax
-int myIntArray[];           // does not actually create the array
+// f points to the newly created object
+f = new Foo();
 
-// create an array of 5 int's
-myIntArray = new int[5];    // creates the array
+// same thing - single line - f is a reference variable which points to a newly created Foo object
+Foo f = new Foo();
 
-// assigning values
-myIntArray[0] = 0;
-myIntArray[1] = 1;
-myIntArray[2] = 2;
-myIntArray[3] = 3;
-myIntArray[4] = 4;
-
-// shortcut syntax to create and initialize an array 
-int[] myIntArray = {
-    0, 1, 2, 3, 4
-};
-
-// same shortcut syntax for 2 dimentional array
-int[][] = {
-      { 0, 1, 2, 3, 4 }
-    , { 5, 6, 7, 8, 9 }
-};
+// f1 and f both point to the same object
+Foo f1 = f;
 </pre>
-
-<h3>Copying Arrays</h3>
-
-<ul>
-<li>The <code>System.arraycopy()</code> method allows you to efficiently copy data from one array to another
-</ul>
-
-<pre>
-public static void arraycopy (Object src        // in:      source array
-                            ,int srcPos         // in:      starting position
-                            ,Object dest        // in/out:  destination array
-                            ,int destPos        // in:      destination position
-                            ,int length         // in:      # of elements to copy
-                            )
-</pre>
-
-<h3>Useful Array Operations provided by <code>java.util.Arrays</code> class</h3>
-
-<ul>
-<li><strong><code>binarySearch()</code></strong>
-<li><strong><code>equals()</code></strong>
-<li><strong><code>fill()</code></strong>
-<li><strong><code>sort()</code></strong>
-<li><strong><code>toString()</code></strong>
-</ul>
 
 </div>
 </body>
