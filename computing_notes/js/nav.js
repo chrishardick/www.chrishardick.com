@@ -269,6 +269,7 @@ function _print_nav ()
         <a href="cpp_set_difference.html">std::set_difference</a>
         <a href="cpp_versions.html">C++ Versions</a>
         <a href="cpp_move_semantics.html">Move Semantics</a>
+        <a href="cpp_iterators.html">Iterators</a>
     </div>
 
     <button class="accordion" id="accordion_cmake">CMake</button>
@@ -381,6 +382,7 @@ function _print_nav ()
         <a href="html_unicode.html">Unicode</a>
         <a href="html_canvas.html">Canvas</a>
         <a href="html_svg.html">SVG</a>
+        <a href="html_svg_tester.html">SVG Tester</a>
     </div>
 
     <button class="accordion" id="accordion_http">HTTP</button>

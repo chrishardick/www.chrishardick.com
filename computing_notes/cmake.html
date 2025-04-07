@@ -168,6 +168,13 @@ target_link_libraries (executable_name ${PROJECT_LINK_LIBS})
     (e.g. <code>name.exe</code>)
 </ul>
 
+<h3><code>target_compile_options (target PRIVATE -Wall -Wextra -Wpedantic -Werror)</code></h3>
+<ul>
+<li>Set Warning 
+<li>Unix/Linux GCC Only
+<li>Use <code>(void)varname</code> to avoid unused errors
+</ul>
+
 <h3><code>add_library (name [ STATIC | SHARED | MODULE ] source1 source2 ...)</code></h3>
 <ul>
 <li>Used when you're building a library.

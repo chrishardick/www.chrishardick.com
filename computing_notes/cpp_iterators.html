@@ -41,8 +41,17 @@ C O N T E N T
 <h1>C++ Iterators</h1>
 
 <ul>
-<li>In C++, an ierator is an object which has the ability to iteratre through a range of elements
-<li>There are 5 categories of iterators based on the functionality they support
+<li>In C++, an <code>iterator</code> is an object which has the ability to iterate through a range of elements in a container
+<li>There are 5 categories of iterators based on the functionality they support:
+<li><strong>input iterator</strong> - reads elements sequentially
+<li><strong>output iterator</strong> - writes elements sequentially
+<li><strong>forward iterator</strong> - can move forward and read/write elements
+<li><strong>bidirectional iterator</strong> - can move forward, backward and read/write elements
+<li><strong>random access iterator</strong> - provides direct access to any element
+<li>input and output iterators are the most restricted. 
+<li>forward iterators have all the functionality of input and output iterators
+<li>bidirectional iterators have all the functionality of forward iterators, but can also be iterated backwards
+<li>random access iterators have all the functionality of bidirectional iterators, but also have the ability to direcdtly access any element 
 </ul>
 
 </div>

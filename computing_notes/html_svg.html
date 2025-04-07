@@ -42,46 +42,272 @@ C O N T E N T
 
 <ul>
 <li>Scalable Vector Graphics
-<li>SVG is written in XML
+<li>SVG is an XML based language which can be used to describe/draw 2D vector graphics.
+<li>It is an open standard
+<li>SVG images are scalable, zoomable
+<li>SVG drawings can be manipulated via the DOM interface
+<li>You can also render SVG files (a file containing SVG) using an &lt;object&gt; element
+    e.g. <code>&lt;object data="foo.svg" type="image/xvg_xml"&gt;&lt;/object&gt;</code>
 </ul>
 
-<svg width="500" height="500" style="border-style: solid;">
+<h2><code>svg</code> element</h2>
 
-<circle cx="50" cy="50" r="40" stroke="green" stroke-width="4" fill="yellow" />
+<ul>
+<li>The <code>&lt;svg&gt;...&lt;/svg&gt;</code> element is a container for SVG graphics
+<li>Top left corner is <code>(0,0)</code> and the bottom right is <code>(maxX,maxY)</code>
+    - measured in pixels
+<li>Attributes:
+<li><code>height</code> - the displayed height of the rectangular viewpoint specified as a length or percentage (number followed by %)
+<li><code>width</code> - the displayed width of the rectangular viewpoint specified as a length or percentage (number followed by %)
+<li><code>x</code> - the displayed x coordinate of the svg container
+<li><code>y</code> - the displayed y coordinate of the svg container
+</ul>
+
+<pre>
+&lt;svg width="100" height="100"&gt;
+...
+&lt;/svg&gt;
+</pre>
+
+<p>Here is a SVG image in which the image is defined directly in the HTML document:</p>
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" style="border-style: solid;">
+
+<text x="0" y="10" font-size="10" text-anchor="left" fill="black">(0,0)</text>
+<text x="155" y="195" font-size="10" text-anchor="right" fill="black">(200,200)</text>
+
+<circle cx="50" cy="50" r="40" stroke="yellow" stroke-width="4" fill="red" />
+<text x="10" y="120" font-size="12" text-anchor="left" fill="black">Hello, World!</text>
 
 </svg>
 
-<h2>Rectangle</h2>
+<p>Here is the SVG:</p>
+<pre>
+&lt;svg width="200" height="200" xmlns="http://www.w3.org/2000/svg" style="border-style: solid;"&gt;
 
+&lt;text x="0" y="10" font-size="10" text-anchor="left" fill="black"&gt;(0,0)&lt;/text&gt;
+&lt;text x="155" y="195" font-size="10" text-anchor="right" fill="black"&gt;(200,200)&lt;/text&gt;
+
+&lt;circle cx="50" cy="50" r="40" stroke="yellow" stroke-width="4" fill="red" /&gt;
+&lt;text x="10" y="120" font-size="12" text-anchor="left" fill="black"&gt;Hello, World!&lt;/text&gt;
+
+&lt;/svg&gt;
+</pre>
+
+<p>Here is a SVG image in which the image is defined in an external file:</p>
+<object data="image.svg" type="image/svg+xml" style="border-style: solid;"></object>
+
+<p>Here is a link to the file: <a href="image.svg">image.svg</a></p>
+
+
+<h2>Rectangle - <code>rect</code> element</h2>
 <ul>
 <li>The <code>rect</code> element is used to draw a rectangle
-<li><code>x</code> attribute - x coordinate for the left position of the rectangle
-<li><code>y</code> attribute - y coordinate for the top position of the rectangle
-<li><code>height</code> attribute - height of the rectangle
-<li><code>width</code> attribute - width of the rectangle
-<li><code>style</code> attribute - CSS style for the rectangle
-<li><code>style.fill</code> defines the fill color
-<li><code>style.stroke-width</code> defines the width of the border
-<li><code>style.stroke</code> defines the color of the border
+<li>Attributes:
+<li><code>x</code> - x coordinate for the top left position of the rectangle
+<li><code>y</code> - y coordinate for the top left position of the rectangle
+<li><code>height</code> - height of the rectangle
+<li><code>width</code> - width of the rectangle
+<li><code>&lt;rect x="20" y="50" height="50" width="50" fill="none" stroke="black"/&gt;</code>
 </ul>
 
 
-<h2>Circle</h2>
-
+<h2>Circle - <code>circle</code> element</h2>
 <ul>
 <li>The <code>circle</code> element is used to create a circle
+<li>Attributes:
 <li><code>cx</code> - x coordinate for the center of the circle (defaults to 0)
 <li><code>cy</code> - y coordinate for the center of the circle (defaults to 0)
 <li><code>r</code> - radius of the circle
+<li><code>&lt;circle cx="150" cy="100" r="50" fill="none" stroke="black"/&gt;</code>
 </ul>
 
-<h2>Ellipse</h2>
-<h2>Line</h2>
-<h2>Polygon</h2>
-<h2>Polyline</h2>
-<h2>Path</h2>
+
+<h2>Ellipse - <code>ellipse</code> element</h2>
+<ul>
+<li>The <code>ellipse</code> element is used to create a circle
+<li>Attributes:
+<li><code>cx</code> - center x-axis coordinate. default=0
+<li><code>cy</code> - center y-axis coordinate. default=0
+<li><code>rx</code> - x radius of the ellipse. required
+<li><code>ry</code> - y radius of the ellipse. required
+<li><code>&lt;ellipse cx="275" cy="100" rx="50" ry="25"/&gt; fill="none" stroke="black"</code>
+</ul>
+
+
+<h2>Line - <code>line</code> element</h2>
+<ul>
+<li>Attributes:
+<li><code>x1</code> - x position point 1
+<li><code>y1</code> - y position point 1
+<li><code>x2</code> - x position point 2
+<li><code>y2</code> - y position point 2
+<li><code>&lt;line x1="225" y1="100" x2="225" y2="200" stroke="black"/&gt;</code>
+<li><code>&lt;line x1="325" y1="100" x2="325" y2="200" stroke="black"/&gt;</code>
+</ul>
+
+
+<h2>Polyline - <code>polyline</code> element</h2>
+<ul>
+<li>A <code>polyline</code> is a group of connected straight lines. 
+<li>Attributes:
+<li><code>points</code> - list of points - comma, space, line feed, etc. delimited. each point must contain two numbers (x and y)
+</ul>
+
+<h2>Polygon - <code>polygon</code> element</h2>
+<ul>
+<li>A <code>polygon</code> is similar to a <code>polyline</code> except that it's closed. I.e. the last point connects wih the first point
+    creating a closed shape
+<li>Attributes:
+<li><code>points</code> - list of points - comma, space, line feed, etc. delimited. each point must contain two numbers (x and y)
+</ul>
+
 <h2>Text</h2>
-<h2>Stroke Related Properties</h2>
+<ul>
+<li><code>x</code> - x coordinate
+<li><code>y</code> - y coordinate
+<li><code>text-anchor</code> - determines which direcdtion the text flows from the given coordinate
+<li><code>dominant-baseline</code> - determines the vertical alignment
+<li><code>font-family</code>
+<li><code>font-style</code>
+<li><code>font-weight</code>
+<li><code>font-variant</code>
+<li><code>font-stretch</code>
+<li><code>font-size</code>
+<li><code>font-size-adjust</code>
+<li><code>letter-spacing</code>
+<li><code>word-spacing</code>
+<li><code>text-decoration</code>
+</ul>
+
+
+<h2>Path</h2>
+<ul>
+<li>The most general shape in SVG. 
+<li>Using the <code>path</code> element, you can draw rectangles, circles, ellipses polylines, and polygons
+</ul>
+
+<h3>Path - Line Commands</h3>
+
+<ul>
+<li><code>M</code> - move to
+    <ul>
+    <li><code>M x y</code>
+    <li><code>m dx dy</code>
+    </ul>
+
+<li><code>L</code> - line to
+    <ul>
+    <li>draw a line from the current position to the specified position
+    <li><code>L x y</code>
+    <li><code>l dx dy</code>
+    </ul>
+
+<li><code>H</code> - horizontal line
+<li><code>V</code> - vertical line
+    <ul>
+    <li>draw a horizontal or vertical line from the current position to the specified position
+    <li><code>H x</code>
+    <li><code>h dx</code>
+    <li><code>V y</code>
+    <li><code>v dy</code>
+    </ul>
+
+<li><code>Z</code> - close path
+    <ul>
+    <li>draw a straight line from the current position to the first point of the path
+    <li><code>Z</code> and <code>z</code> are equivalent
+    <li><code>Z</code> does not accept any parameters
+    </ul>
+
+</ul>
+
+
+<h3>Path - Curve Commands</h3>
+
+<ul>
+<li><code>a</code> - arc
+    <ul>
+    <li>Draw an ellipse in which the starting position and the given x, y
+    <li><code>A rx ry x-axis-rotation large-arc-flag sweep-flag x y</code>
+    <li><code>a rx ry x-axis-rotation large-arc-flag sweep-flag x y</code>
+    <li><code>rx</code> x-radius
+    <li><code>ry</code> y-radius
+    <li><code>x-axis rotation</code> angle to rotate the ellipse around the x axis 
+    <li><code>large-arc-flag</code> a=large arc, 0=small arc
+    <li><code>sweep-flag</code> which direction the arc is drawn. 1=clockwise, 0=counterclockwise
+    <li><code>x</code>
+    <li><code>y</code>
+    </ul>
+</ul>
+
+<h2><code>fill</code> and <code>stroke</code> Attributes</h2>
+
+<ul>
+<li>The <strong><code>fill</code> attribute</strong> sets the color inside the object.
+    You can use the value <code>none</code> or <code>transparent</code> to not fill the object
+<li>The <strong><code>stroke</code> attribute</strong> sets the color of the line drawn around the object
+<li>Colors can be specified via <a href="css_color_and_bg_properties.html">CSS Colors</a>
+</ul>
+
+<h2><code>stroke-width</code> Attribute</h2>
+<ul>
+<li>The <strong><code>stroke-width</code> attribute</strong> sets the width of the line
+</ul>
+
+<h2><code>stroke-linecap</code> Attribute</h2>
+<ul>
+<li><code>butt</code> - closes the line with a straight edge 
+<li><code>square</code> - similar to butt, but extends the line half the length of the <code>stroke-width</code>
+<li><code>round</code> - produces a rounded effect on the end of the line. 
+</ul>
+
+<h2><code>stroke-linejoin</code> Attribute</h2>
+<ul>
+<li>The <strong><code>stroke-linejoin</code> attribute</strong> controls how the join between two line segments is ddawn
+<li><code>miter</code> - a right angle
+<li><code>round</code> - a right angle which is rounded
+<li><code>bevel</code> - a right angle in which the tip is cut off 
+</ul>
+
+<h2><code>stroke-dasharray</code> Attribute</h2>
+<ul>
+<li>The <strong><code>stroke-dasharray</code> attribute</strong> is used to create a dashed line
+<li>It takes a series of numbers as its value (either space or comma delimited)
+<li>1st number - distance the filled area
+<li>2nd number - distance between the filled areas
+<li>e.g. <code>stroke-dasharray 5 5</code> - would produce a dashed line of 5 pixels followed by an blank space of 5 pixels, ...
+<li>You can specify more numbers to indicate a more complicated dash pattern
+</ul>
+
+<h2><code>paint-order</code> Attribute</h2>
+<ul>
+<li>The <strong><code>paint-order</code> attribute</strong> controls the order in which the fill and stroke are painted
+<li>Specifying <code>fill</code> will cause the fill (inside color) to be drawn first
+<li>Specifying <code>stroke</code> will cause the stroke (line) to be drawn first
+</ul>
+
+<h2>Using CSS</h2>
+<ul>
+<li>In addition to setting fill and stroke attributes, you can also use CSS to style fills and strokes
+<li>E.g. inline CSS <code>&lt;rect x="10" y="10" height="100" width="100" style="stroke: black; fill: yellow;"/&gt;</code>
+</ul>
+
+<pre>
+&l1;svg version="1.1" width="200" height="200" xmlns="http://www.w3.org/2000/svg"&gt;
+&lt;defs&gt;
+&lt;style&gt;
+&lt;![CDATA[
+    #RectId
+    {
+        stroke: black;
+        fill:   red;
+    }
+]]&gt;&lt;/style&gt;
+&lt;/defs&gt;
+
+&lt;rect x=
+&lt;/svg&gt;
+</pre>
 
 </div>
 </body>

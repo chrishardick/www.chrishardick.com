@@ -52,12 +52,14 @@ C O N T E N T
 <pre>
 &lt;?xml version="1.0" encoding="utf-8"&gt;
 &lt;xs:schema
-    xmlns:xs="http://www.w3.org/2001/XMLSchema"     &lt;!-- xs namespace --&gt;
-    xmlns="http://www.w3.org/2001/XMLSchema"     &lt;!-- default namespace (prefix not specified) --&gt;
-    elementFormDefault="qualified"              &lt;!-- all elements in a document following this schema must be ns qualified --&gt;
-    &gt;
+    xmlns:<strong>xs</strong>="http://www.w3.org/2001/XMLSchema"        &lt;!-- <strong>xs</strong> namespace --&gt;
+    xmlns:<strong>ch</strong>="http://www.chrishardick.com"             &lt;!-- <strong>ch</strong> namespace --&gt;
+    xmlns="http://www.w3.org/2001/XMLSchema"           &lt;!-- <strong>default</strong> namespace <strong>(prefix not specified)</strong> --&gt;
+    elementFormDefault="qualified"                     &lt;!-- <strong>all elements in a document following this schema must be ns qualified</strong> --&gt;
+    targetNamespace="ch"&gt;                              &lt;!-- all unqualified elements in this document will be in the <strong>ch</strong> namespace
+                                                            e.g. person will be <strong>ch.person</strong> --&gt;
 
-&lt;xs:element name="person"l&gt;
+&lt;xs:element name="person"&gt;
     &lt;xs:complexType&gt;
         &lt;xs:sequence&gt;
             &lt;xs:element name="lastname" type="xs:string"/&gt;

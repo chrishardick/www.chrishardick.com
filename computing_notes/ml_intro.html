@@ -61,14 +61,14 @@ C O N T E N T
 
 <h2>Features</h2>
 <ul>
-<li><strong>Features</strong> are the attributes which describe the inpute data
-<li>The goal is to choose the most relevant features which are applicable to the job at hand (feature selection)
+<li><strong>Features</strong> are the attributes which describe the input data
+<li>The goal is to choose the most relevant features which are applicable to the job at hand (<strong>feature selection</strong>)
 </ul>
 
 <h2>Model</h2>
 <ul>
 <li>The mathematical representation of the relationship between the input (features) and the output (predictions or decisions)
-<li>Models are training using a a training dataset and evaluated using a validation dataset
+<li>Models are trained using a training dataset and evaluated using a validation dataset
 </ul>
 
 
@@ -104,7 +104,6 @@ C O N T E N T
 <h2>Generative AI</h2>
 <ul>
 <li>Generative AI is a class of models which create content based on user input
-<li>Generative AI is a class of models which create content based on user input
 </ul>
 
 
@@ -132,6 +131,53 @@ C O N T E N T
 <ul>
 <li>Training a model on unlabeled data
 </ul>
+
+<h2>Python Libraries</h2>
+<ul>
+<li><strong>numpy</strong> - provides multi-dimensional array
+<li><strong>pandas</strong> - data analysis. provides data frames (2d array)
+<li><strong>MatPlotLib</strong> - 2d plotting library for creating graphs/plots
+<li><strong>Scikit-Learn</strong> - ML library. Contains common algorithms. Neural networks, decision trees, etc.
+</ul>
+
+<h2>Steps in ML Project</h2>
+<ol>
+<li>Import data
+<li>Clean data
+<li>Split data into training/test sets
+<li>Create a model
+<li>Train the model
+<li>Make predictions
+<li>Evaluate and improve
+</ol>
+
+<h2>jupyter notebook</h2>
+<ul>
+<li>anaconda distribution - installs jupyter + popular ml libs (see above)
+<li>jupyter notebook - opens up browser window to localhost 
+<li>file extension: jpynb
+<li>kaggle.com - allows you to download data sets
+<li>green bar on LHS, means it's in edit mode, blue=currently in cmd mode
+<li>ESC puts you in cmd mode
+<li>a = insert cell above
+<li>b = insert cell below
+<li>dd = delete cell
+<li>Run button will execute the code within the cell
+<li>jupyter saves the result for each cell
+<li>Cell &gt; Run All
+</ul>
+
+<pre>
+import pandas as pd
+
+df = pd.read_csv('csv file')        # data_frame
+
+df.shape                            # # rows, # columns
+df.describe()                       # basic info about columns in the data - count mean, std, min, 25%, 50%, 75%, max
+df.values                           # shows you the data
+</pre>
+
+
 
 <h2>Acknowledgements</h2>
 <ul>

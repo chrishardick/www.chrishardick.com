@@ -38,7 +38,7 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>C++ Map</h1>
+<h1>C++ <code>map</code></h1>
 
 <ul>
 <li>Associative, ordered containers which hold key value pairs
@@ -60,36 +60,28 @@ typedef pair&lt;const Key, T&gt; value_type;
 
 
 <h2>Constructors</h2>
+
+<h3><code>map &lt;Key, T&gt; m;</code></h3>
 <ul>
 <li>Default Constructor
-	<ul>
-	<li>Size: 0
-	</ul>
-<pre>map &lt;Key, T&gt; m;</pre>
+<li>Creates a map with no elements (size = 0)
 </ul>
 
 
-<h2>Destructor</h2>
+<h2>Destructor (<code>~map()</code>)</h2>
 <ul>
-<li>release any allocated space for the given map
-<pre>~map()</pre>
+<li>destruct each element and destruct the container
 </ul>
 
 
-<h2>IV. Member Functions</h2>
+<h2>Member Functions</h2>
+<h3><code>pair&lt;iterator, bool&gt; insert(const valiue_type&amp; val)</code></h3>
 <ul>
-<li><strong><code>insert()</code></strong>
-    <ul>
-    <li>insert elements into the container
-    <li>see also <code>operator[]</code>
-    </ul>
-<pre>
-// return:
-// - first - iterator pointing either to newly inserted element or element with equivalent key (if item was already present in map)
-// - second - whether or not an item was added to the map
-
-pair&lt;iterator,bool&gt; insert(const value_type&amp; val);
-</pre>
+<li>insert elements into the container
+<li>see also <code>operator[]</code>
+<li><strong>Return Value</strong>
+<li><code>pair.first</code> - iterator pointing either to newly inserted element or element with equivalent key (if item was already present in map)
+<li><code>pair.second</code> - whether or not an item was added to the map
 </ul>
 
 <h2>Common Operations</h2>
@@ -119,18 +111,18 @@ for (map&lt;int,string&gt;::const_iterator i = my_map.begin(); i != my_map.end()
 <pre>
 string* my_find (int key)
 {
-    map<int,string>::const_iterator i = my_map.find(1);
+    map&lt;int,string&gt;::const_iterator i = my_map.find(1);
 
     if (i!=my_map.end())
     {
-        return &(i->second);
+        return &amp;(i-&gt;second);
     }
 
     return 0;
 }
 </pre>
 
-<h2>Overloading Less Than Operator</h2>
+<h2>Overloading <code>&lt;</code> (Less Than Operator)</h2>
 
 <pre>
 class Player

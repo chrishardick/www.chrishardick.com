@@ -100,8 +100,13 @@ var len = x.push("another item");     // equivalent to x[x.length] = "another it
     The remaining parameters define the new elements to be added.
 <li>The <code>concat()</code> method concatenates two arrays. It does not change the existing arrays. It returns a new array containing both sets of items
 <pre>var items = existing_items.concat(new_items); // items will contain the elements from existing_items followed by the elements from new_items</pre>
-<li>The <code>slice()</code> method will create a new array from the specified elements of the exisitng array
-<pre>var sp_items = existing_arr(1,5)</pre>
+<li>The <code>slice(start, [end])</code> method will create a new array from the specified elements of the existing array
+    You can also specify a negative start index. 
+<pre>
+var sp_items = existing_arr(1,5)
+var last_two_items = arr(-2);
+</pre>
+
 <li>Since arrays are objects, the <code>toString</code> method will convert an array to a string of comma delimited values
 <li>The <code>sort()</code> method will sort the elements of an array (alphabetically by default). You can override this by providing your own compare function. 
 The compare funcdtion should return a negative, zero or positive value depending if the lhs is less than, equal to, or greater than the rhs.

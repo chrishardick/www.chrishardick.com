@@ -52,14 +52,16 @@ C O N T E N T
 rect x y width height
 fillRect x y width height
 clearRect x y width height
+ellipse x y radiusX radiusY [,startAngle, endAngle] - use startAngle=0, endAngle=1 for 1/2 ellipse
 line x1 y1 x2 y2
 text x y text
 clear
 </pre>
 
-<input type="text" id="draw_instr" placeholder="Enter Instructions"></input>
+<input type="text" id="str" placeholder="Enter Instructions"></input>
 <button type="button" id="draw_button">Draw</button>
 <br><br>
+<p>width=1000, height=500</p>
 
 <canvas id="canvas" width="1000" height="500" style="border:1px solid black;"></canvas>
 
@@ -72,68 +74,96 @@ function drawIt ()
 {
     console.info ("drawIt: ENTER");
 
-    var draw_instr = document.getElementById("draw_instr").value;
-    
+    var str = document.getElementById("str").value;
 
-    console.info ("drawIt: INSTR=|" + draw_instr + "|");
+    console.info ("drawIt: CMD=|" + str + "|");
+
+    var arr = str.split(" ");
+
+    var op = arr.shift();
+
+    console.info ("drawIt: OP=" + op);
 
     var canvas  = document.getElementById("canvas");
     var context = canvas.getContext("2d");
 
-    // returns an array of substrings
-    var str = draw_instr.split(" ");
 
-    var op = str[0];
+    let i = 0;
 
     switch (op)
     {
         case "rect":
-        {
-            let x = str[1];
-            let y = str[2];
-            let w = str[3];
-            let h = str[4];
-
-            console.info ("drawIt: rect: x=" + x + " y=" + y + " w=" + w + " h=" + h);
-
-            context.rect (x, y, w, h);
-            context.stroke();
-
-            break;
-        }
         case "fillRect":
-        {
-            let x = str[1];
-            let y = str[2];
-            let w = str[3];
-            let h = str[4];
-
-            console.info ("drawIt: fillRect: x=" + x + " y=" + y + " w=" + w + " h=" + h);
-
-            context.fillRect (x, y, w, h);
-            context.stroke();
-
-            break;
-        }
         case "clearRect":
         {
-            let x = str[1];
-            let y = str[2];
-            let w = str[3];
-            let h = str[4];
+            let x = arr.shift();
+            let y = arr.shift();
+            let w = arr.shift();
+            let h = arr.shift();
 
-            console.info ("drawIt: fillRect: x=" + x + " y=" + y + " w=" + w + " h=" + h);
+            console.info ("drawIt: op=" + op
+                            + " x=" + x 
+                            + " y=" + y 
+                            + " w=" + w 
+                            + " h=" + h
+                            );
 
-            context.clearRect (x, y, w, h);
+            if (op == "rect")
+                context.rect (x, y, w, h);
+            else if (op == "fillRect")
+                context.fillRect (x, y, w, h);
+            else if (op == "clearRect")
+                context.clearRect (x, y, w, h);
+
+            context.stroke();               // draw it
+
+            break;
+        }
+        case "ellipse":
+        {
+            let x           = arr.shift();
+            let y           = arr.shift();
+            let radiusX     = arr.shift();
+            let radiusY     = arr.shift();
+
+            let rotation    = 0;            // radians
+
+            let startAngle  = 0;            // radians
+
+            if (arr.length > 0)
+            {
+                startAngle = arr.shift() * Math.PI;
+            }
+
+            let endAngle    = 2*Math.PI;    // radians 2*Math.PI=360 degrees 
+
+            if (arr.length > 0)
+            {
+                endAngle = arr.shift() * Math.PI;
+            }
+
+            console.info ("drawIt: ellipse:"
+                            + " x=" + x
+                            + " y=" + y 
+                            + " radiusX=" + radiusX 
+                            + " radiusY=" + radiusY 
+                            + " rotation=" + rotation 
+                            + " startAngle=" + startAngle
+                            + " endAngle=" + endAngle
+                            )
+
+            context.beginPath();
+            context.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle);
             context.stroke();
+
             break;
         }
         case "line":
         {
-            let x1  = str[1];
-            let y1  = str[2];
-            let x2  = str[3];
-            let y2  = str[4];
+            let x1  = arr[i++];
+            let y1  = arr[i++];
+            let x2  = arr[i++];
+            let y2  = arr[i++];
 
             console.info ("drawIt: line: x1=" + x1 + " y1=" + y1);
             console.info ("drawIt: line: x2=" + x2 + " y2=" + y2);
@@ -147,17 +177,21 @@ function drawIt ()
         }
         case "text":
         {
-            let x = str[1];
-            let y = str[2];
+            let x = arr[i++];
+            let y = arr[i++];
+    
+            let txt = arr.slice(i);
 
-            console.info ("drawIt: fillText: x=" + x + " y=" + y);
+            console.info ("drawIt: fillText:"
+                            + " x=" + x 
+                            + " y=" + y
+                            + " txt=" + txt);
 
-            context.fillText (x, y, w, h);
-            context.stroke();
+            context.font = "12px Arial";
+            context.fillText (txt, x, y);
+
             break;
         }
-            alert (op);
-            break;
         case "clear":
         {
             let x = 0;
@@ -171,11 +205,11 @@ function drawIt ()
             context.stroke();
             break;
         }
-            alert (op);
-            break;
         default:
+        {
             alert ("Unknown Operation - " + op);
             return;
+        }
     }
 }
 </script>

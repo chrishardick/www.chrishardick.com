@@ -78,6 +78,34 @@ void preorder (Node* head)
     preorder (head-&gt;left);
     preorder (head-&gt;right);
 }
+
+//
+// iterative solution
+//
+void dfs_iter (Node* head)
+{
+    if (!head)
+        return;
+
+    std::vector&lt;Node*&gt; s;     // stack
+
+    s.push_back(head);
+
+    while (!s.empty())
+    {
+        Node* ptr = s.back();
+
+        s.pop_back();
+
+        if (!ptr)
+            continue;
+
+        std::cout &lt;&lt; *ptr &lt;&lt; " ";
+
+        s.push_back(ptr-&gt;right);
+        s.push_back(ptr-&gt;left);
+    }
+}
 </pre>
 
 <h3>In-Order Traversal</h3>
@@ -150,7 +178,7 @@ void dfs (Node* n, int end, std::vector&lt;Node*&gt;&amp; path=std::vector&lt;No
         dfs(n-&gt;left, end, path);
 
     if (n-&gt;right)
-        dfs(n-gt;right, end, path);
+        dfs(n-&gt;right, end, path);
    
     path.pop_back();
 }

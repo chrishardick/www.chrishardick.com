@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_html");
+}
+</script>
+
+<title>HTML: SVG Images</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>HTML: SVG Tester</h1>
+
+<button type="button" id="draw_button">Draw</button>
+
+<br>
+
+<textarea id="textarea" name="text" rows="50" cols="80">
+<text x="20" y="20" font-size="20" text-anchor="left" fill="black">Hello, World!</text>
+
+<path d="M 100 100 A 2 1, 0 0 0, 50 100 " fill="none" stroke="black"/>
+<path d="M 100 100 A 2 1, 0 0 1, 50 100 " fill="none" stroke="black"/>
+<path d="M 50 100 v 50" fill="none" stroke="black"/>
+<path d="M 100 100 v 50" fill="none" stroke="black"/>
+<path d="M 100 150 A 2 1, 0 0 1, 50 150 " fill="none" stroke="black"/>
+</textarea>
+
+<svg id="svg" width="400" height="650" xmlns="http://www.w3.org/2000/svg" style="border-style: solid;"></svg>
+
+
+<script>
+document.getElementById("draw_button").addEventListener("click",drawIt);
+
+function drawIt()
+{
+    console.info ("drawIt: ENTER");
+
+    var str = document.getElementById("textarea").value;
+
+    var svg = document.getElementById("svg").innerHTML = str;
+}
+
+
+</script>
+
+
+</div>
+</body>
+</html>
+

@@ -48,7 +48,7 @@ C O N T E N T
 <li>A list in Python is denoted as comma separated list of values between square brackets
 <li>You can access individual elements via indexing (square brackets). 
 <li>Lists are indexed from 0 (zero)
-<li>You can get the length of a list using the <strong>len()</strong> function.
+<li>You can get the length of a list using the stand-alone <code>len()</code> function.
 </ul>
 
 <pre>
@@ -67,8 +67,9 @@ print ("#weekdays=%d" % (len(weekdays)))        # 5
 <li><code>list.insert(i,x)</code> - insert an item (or items) to the list at position i. All subsequent items are moved down
 <li><code>list.remove(x)</code> - remove the 1st item from the list whose value is x
 <li><code>list.pop([i])</code> - remove the item at the specified position in the list and return it. i defaults to the last item in the list
-<li><code>list.sort(reverse=True, key=Func)</code> - sort the list - ascending by default. <code>Reverse=True</code> for descending. 
-    <code>key</code> is an optional sorting function
+<li><code>list.sort(reverse=True, key=Func)</code> - sort the list, in-place - ascending by default. <code>Reverse=True</code> for descending. 
+    <code>key</code> is an optional sorting function. There is also a stand-alone function <code>sorted</code> - see below - which behaves similarly,
+    but does not modify the original list. Instead, it returns a new list
 </ul>
 
 <pre>
@@ -92,14 +93,28 @@ lst.append(dict_jj)
 
 #
 # sorted() function
-# - returns a sorted list of the specified iterable objecdt
-# - see also list.sort() noted above
+# - stand-alone function which returns a sorted list
+# - similar to list.sort() noted above - which sorts in place
+# - returns a sorted list of the specified iterable object
 # - sorted(iterable, key=key, reverse=False)
 # - key and reverse are same as for list.sort()
 #
 
+# sorting a list of objects
+# - custom sort function
 import operator
 lst_srt = sorted(lst, key=operator.itemgetter('lname','fname')
+
+# same thing - in place
+lst.sort(key=operator.itemgetter('lname','fname'))
+
+
+# sorting a list of dictionaries
+# - custom sort function
+lst_srt = sorted(lst, key=lambda x: (x['make'], x['model']))
+
+# same thing - in place
+lst.sort(key=lambda x: (x['make'], x['model']))
 </pre>
 
 <h2>Sub-lists</h2>

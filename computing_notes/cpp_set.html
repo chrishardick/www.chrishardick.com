@@ -38,36 +38,93 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>C++ Set, Multiset</h1>
+<h1>C++ <code>set</code>, <code>multiset</code></h1>
 
-<dl>
-<dt>Set 
-<dd>Sorted set of unique elements. No Duplicates.
+<ul>
+<li><code>set</code> - sorted set of unique elements. No Duplicates.
 
-<dt>Multiset 
-<dd>Sorted set of elements. Duplicates allowed.
-</dl>
+<li><code>multiset</code> - sorted set of elements. Duplicates allowed.
+</ul>
 
+<pre>
+#include &lt;set&gt;
+
+template &lt;   class T
+            ,class Compare = less&lt;T&gt;   
+            &gt; class set;
+
+key_compare() - binary predicate (function which accepts two parameters and returns a boolean) 
+as to whether or not lhs is less than rhs
+</pre>
 
 
 <h2>Constructors</h2>
+
+<h3><code>set&lt;T&gt; s (const key_compare&amp; comp = key_compare());</code></h3>
 <ul>
-<li>
+<li>Default constructor. 
+<li>Creates a set with no elements (size = 0)
 </ul>
 
-
-<h2>Destructor</h2>
+<h3><code>set (InputIterator first, InputIterator last, const key_compare&amp; dcomp = key_compare());</code></h3>
 <ul>
+<li>Range constructor. 
+<li>Creates a set initialized with range <code>[first, last)</code>
+</ul>
+
+<h3><code>set (const set&amp; x);</code></h3>
+<ul>
+<li>Copy constructor
+</ul>
+
+<h2>Destructor (<code>~set</code>)</h2>
+<ul>
+<li>destruct each element and destruct the container
 </ul>
 
 
 <h2>Member Functions</h2>
+<h3><code>iterator begin();</code></h3>
+<h3><code>const_iterator begin() const;</code></h3>
 <ul>
+<li>Return an iterator pointing to the first element of the <code>set</code>
 </ul>
 
-<h2>Common Operations</h2>
+<h3><code>iterator end();</code></h3>
+<h3><code>const_iterator end() const;</code></h3>
+<ul>
+<li>Return an iterator pointing to the <strong>past-the-end</strong> element of the <code>set</code>
+</ul>
 
-<h3>Insertion</h3>
+<h3><code>bool empty() const;</code></h3>
+<ul>
+<li>Return a boolean as to whether or not the <code>set</code> is empty
+</ul>
+
+<h3><code>size_type size() const;</code></h3>
+<ul>
+<li>Return the number of elements in the <code>set</code>
+</ul>
+
+<h3><code>pair&lt;iterator, bool&gt; insert (const T& val);</code></h3>
+<ul>
+<li>Insert single element
+<li><strong>Return value</strong>: 
+<li><code>pair.first</code> - an iterator pointing to the element (which was either added or already existed). 
+<li><code>pair.second</code> - boolean - <code>true</code>=element added. <code>false</code>=element was already present
+</ul>
+
+<h3><code>void insert (InputIterator first, InputIterator last);</code></h3>
+<ul>
+<li>Range Insert
+</ul>
+
+<h3><code>iterator find (const T& val) const;</code></h3>
+<ul>
+<li>Get iterator to element
+<li>Returns <code>set::end</code> is not found
+</ul>
+
 
 </div>
 </body> 
