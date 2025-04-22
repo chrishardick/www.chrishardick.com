@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_graph");
+}
+</script>
+
+<title>Graph - Breadth First</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Graph - Breadth First</h1>
+
+<ul>
+<li>Breadth First always involves a queue
+<li>You can use a <a href="cpp_list.html"><code>list</code></a> in C++, <a href="python_collections.html"><code>collections.deque</code></a> in Python, etc.
+</ul>
+
+<h2>Basic Algorithm</h2>
+<ul>
+<li>Put one of the graph's nodes in the queue
+<li>while the queue is not empty:
+    <ul>
+    <li>Remove the front item from the queue and add it to the visited set
+    <li>For each adjacent node which has yet to be visited, add it to the queue
+    </ul>
+</ul>
+
+
+<h3>Example</h3>
+<pre>
+struct Point
+{
+    int x {0};
+    int y {0};
+
+    int num {0};
+
+    Point (int _x=0, int _y=0, int _num=0) :
+        x(_x), y(_y), num(_num)
+        {}
+};
+
+
+int num_steps (const vector&lt;vector&lt;char&gt;&gt;&amp; board, int x, int y)
+{
+    set&lt;pair&lt;int,int&gt;&gt; visited;
+
+    list&lt;Point&gt; q;
+
+    q.push_back(Point(x,y));
+
+    while (!q.empty())
+    {
+        auto p = q.front();
+
+        q.pop_front();
+
+        visited.insert(make_pair(p.x,p.y));
+
+        if (board[p.y][p.x] == 'E')
+            return p.num;
+
+        vector&lt;Point&gt; pts { Point(p.x+1,p.y,p.num+1)
+                            ,Point(p.x-1,p.y,p.num+1)
+                            ,Point(p.x,p.y+1,p.num+1)
+                            ,Point(p.x,p.y-1,p.num+1)
+                            };
+       
+        for (auto a = pts.begin(); a != pts.end(); a++)
+        {
+            Point&amp; pt_ref = *a;
+
+            if (pt_ref.x &gt;= 0 &amp;&amp; pt_ref.x &lt;= (int)board[0].size()-1 &amp;&amp; 
+                pt_ref.y &gt;= 0 &amp;&amp; pt_ref.y &lt;= (int)board.size()-1)
+            {
+                if (visited.find(make_pair(pt_ref.x,pt_ref.y)) == visited.end())
+                    q.push_back(pt_ref);
+            }
+        }
+    }
+
+    return 0;
+}
+
+int main (int argc, const char* argv[])
+{
+    (void)argc;
+    (void)argv;
+
+    int steps = 0;
+
+    vector&lt;vector&lt;char&gt;&gt; board {
+            //   0    1    2    3    4
+             {  ' ', ' ', ' ', ' ', ' ' }
+            ,{  'S', ' ', ' ', ' ', ' ' }
+            ,{  ' ', ' ', ' ', ' ', ' ' }
+            ,{  ' ', ' ', 'E', ' ', ' ' }
+            };
+
+    for (unsigned int y=0; y&lt;board.size(); y++)
+    {
+        for (unsigned int x=0; x&lt;board[0].size(); x++)
+        {
+            if (board[y][x] == 'S')
+            {
+                steps = num_steps (board, x, y);
+                break;
+            }
+        }
+    }
+
+    cout &lt;&lt; "#steps=" &lt;&lt; steps &lt;&lt; endl;
+
+    return 0;
+}
+
+</pre>
+
+</div>
+</body> 
+</html>

@@ -266,10 +266,11 @@ function _print_nav ()
         <a href="cpp_curly_bracket_initialization.html">Curly Bracket Initialization</a>
         <a href="cpp_stream_buffers_and_streams.html">Stream Buffers and Streams</a>
         <a href="cpp_inserter_back_inserter.html">std::inserter and std::back_inserter</a>
-        <a href="cpp_set_difference.html">std::set_difference</a>
+        <a href="cpp_set_algorithms.html">Set Algorithms</a>
         <a href="cpp_versions.html">C++ Versions</a>
         <a href="cpp_move_semantics.html">Move Semantics</a>
         <a href="cpp_iterators.html">Iterators</a>
+        <a href="cpp_compiler_warnings.html">Compiler Warnings</a>
     </div>
 
     <button class="accordion" id="accordion_cmake">CMake</button>
@@ -362,6 +363,7 @@ function _print_nav ()
         <a href="graph_bt_depth_first.html">Binary Tree - Depth First</a>
         <a href="graph_bst.html">Binary Search Tree</a>
         <a href="graph_depth_first.html">Graph - Depth First</a>
+        <a href="graph_breadth_first.html">Graph - Breadth First</a>
     </div>
 
     <button class="accordion" id="accordion_groovy">Groovy</button>
@@ -679,6 +681,7 @@ function _print_nav ()
     <div class="panel">
         <a href="set_cheatsheet.html">Cheat Sheet</a>
         <a href="set_permutations_and_combinations.html">Permutations and Combinations</a>
+        <a href="set_all_subsets.html">All Subsets</a>
     </div>
 
     <button class="accordion" id="accordion_sockets_api">Sockets API (C/UNIX)</button>

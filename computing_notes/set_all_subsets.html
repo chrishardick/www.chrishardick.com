@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_set");
+}
+</script>
+
+<title>Set: All Subsets</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Set: All Subsets</h1>
+
+<ul>
+<li>Given a set of <em>n</em> items, return all possible subsets including the empty set
+<li>There are 2<sup>n</sup> sub-sets
+</ul>
+
+<pre>
+GIVEN: s = { 'a, 'b' }
+
+FIND: All possible subsets, including the empty set 
+
+ANSWER:
+{ { }, {'a'}, {'b'}, {'a','b'} }
+</pre>
+
+
+<h2>Recursive Solution</h2>
+<pre>
+#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+#include &lt;ch_vector.h&gt;
+
+using namespace std;
+
+// given a set of items, return a list of all subsets - including the empty sub-set
+
+
+/*
+
+walk thru and test...
+
+all_subsets ([a, b])
+    |
+    first = a
+    rem = [b]
+    |
+    vector&lt;vector&lt;char&gt;&gt; setsWithoutFirst = all_subsets (rem [b])
+        |
+        first = b
+        rem = []
+        |
+        vector&lt;vector&lt;char&gt;&gt; setsWithoutFirst   = all_subsets (rem [])
+                                                = [[]]
+        |
+        vector&lt;vector&lt;char&gt;&gt; setsWithFirst = []
+        |
+        traverse setsWithoutFirst // [[]]
+            |
+            vector&lt;char&gt; tmp
+            tmp.push_back(first)    // b
+            tmp.insert(tmp.end(), *a.begin(), *a.end())
+            |
+            setsWithoutFirst.push_back(tmp);
+        |
+        return (setsWithFirst + setsWithoutFirst);  // [ [b], [] ]
+    |
+    vector&lt;vector&lt;char&gt;&gt; setsWithFirst = []
+    |
+    traverse setsWithoutFirst   // [ [b], [] ]
+        |
+        for each set, append first
+        append the set to setsWithFirst
+        results in [ [a,b], [a] ]
+    |
+    return (setsWithFirst + setsWithoutFirst)   // [a,b], [a], [b], []
+*/
+
+vector&lt;vector&lt;char&gt;&gt; all_subsets (const vector&lt;char&gt;&amp; v)
+{
+    if (v.size() == 0)
+    {
+        return vector&lt;vector&lt;char&gt;&gt;(1);
+    }
+
+    char first = *(v.begin());
+    vector&lt;char&gt; rem(v.begin()+1, v.end());
+
+    vector&lt;vector&lt;char&gt;&gt; setsWithoutFirst = all_subsets(rem);
+    vector&lt;vector&lt;char&gt;&gt; setsWithFirst = vector&lt;vector&lt;char&gt;&gt;();
+
+    for (auto a = setsWithoutFirst.begin(); a != setsWithoutFirst.end(); a++)
+    {
+        vector&lt;char&gt;&amp; aa = *a;
+
+        vector&lt;char&gt; tmp;
+
+        tmp.push_back (first);
+        tmp.insert (tmp.end(), aa.begin(), aa.end());
+
+        setsWithFirst.push_back(tmp);
+    }
+
+    setsWithFirst.insert (setsWithFirst.end(), setsWithoutFirst.begin(), setsWithoutFirst.end());
+    return setsWithFirst;
+}
+
+
+int main (int argc, const char* argv[])
+{
+    (void)argc;
+    (void)argv;
+
+    vector&lt;char&gt; v { 'a', 'b' };
+
+    vector&lt;vector&lt;char&gt;&gt; sets = all_subsets(v);
+
+    for (auto a=sets.begin(); a!=sets.end(); a++)
+        cout &lt;&lt; *a &lt;&lt; endl;
+        
+    return 0;
+}
+</pre>
+
+<h2>Truth Table (Binary Couting) Solution</h2>
+
+</div>
+</body> 
+</html>
+  

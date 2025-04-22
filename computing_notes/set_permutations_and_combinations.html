@@ -48,34 +48,55 @@ C O N T E N T
 
 <h2>Formulas and Examples</h2>
 
+<h3>Permutations</h3>
 <ul>
-
 <li>Number of permutations (order matters) of <em>n</em> taken <em>r</em> at a time
+<li>E.g. How many ways can you you arrange 6 people in 4 chairs
 <pre>
 P(n,r) = n! / (n-r)!
-</pre>
 
-<li>Number of combinartions (order does not matter) of <em>n</em> taken <em>r</em> at a time
-<pre>
-C(n,r) = n! / (n-r)!r!
-</pre>
+E.g.
+<u>6</u> &middot; <u>5</u> &middot; <u>4</u> &middot; <u>3</u>
 
+
+Alternatively:
+6!/(6-4)!
+6 &middot; 5 &middot; 4 &middot; 3 &middot; <s>2</s> / <s>2</s> 
+</pre>
 <li>3 items, 2 at a time (E.g. a, b, c)
 <pre>
-P(3,2) = 3&#8901;2 / 1 = 6
+P(3,2) = 3 &middot; 2 / 1 = 6
 1) a b
 2) b a
 3) a c
 4) c a 
 5) b c
 6) c b
+</pre>
+</ul>
 
-C(3,2) = 3&#8901;2 / 2 = 3
+<h3>Combinations</h3>
+<ul>
+<li>Number of combinations (order does not matter) of <em>n</em> items taken <em>r</em> at a time
+<li>Similar to permutations, except, we need to subtract out sets with the same values (different order) 
+<li>For our example above, 6 people, 4 chairs, we need to subtract out <code>4 &middot; 3 &middot; 2 &middot; 1</code>
+    (the number of ways we can arrange 4 people in different orders)
+<pre>
+C(n,r) = n! / (n-r)!r!
+
+6!/(6-4)! &middot; 4!
+<s>6</s>3 &middot; 5 &middot; <s>4</s> &middot; <s>3</s> &middot; <s>2</s> / <s>2</s> &middot; <s>4</s> &middot; <s>3</s> &middot; <s>2</s>
+
+</pre>
+
+<pre>
+C(3,2) = 3 &middot; <s>2</s> / <s>2</s> = 3
 1) a b
 2) a c
 3) b c
 </pre>
 
+</ul>
 </div>
 </body> 
 </html>
