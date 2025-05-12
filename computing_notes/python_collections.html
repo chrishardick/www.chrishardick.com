@@ -53,7 +53,24 @@ C O N T E N T
 <tr><td><code>UserString</code></td><td></td></tr>
 </table>
 
-<h2>deque as a Queue</h2>
+<h2>deque</h2> 
+
+<ul>
+<li>Double-ended queue
+<li>Allows adding and removing elements from both ends efficiently.
+<li>Supports LIFO and FIFO operations
+</ul>
+
+<ul>
+<li><code>append(x)</code> - add x to the right end of the deque
+<li><code>appendleft(x)</code> - add x to the left end of the deque
+<li><code>pop()</code> - remove and return element from the right end of the deque
+<li><code>popleft()</code> - remove and return item from the left end of the deque
+<li><code>clear()</code> - remove all items from the deque
+</ul>
+
+
+<h3>deque as a Queue</h3>
 <pre>
 import collections
 
@@ -63,10 +80,13 @@ q.append('a')
 q.append('b')
 q.append('c')
 
-print (q.popleft())
-print (q.popleft())
-print (q.popleft())
+while q:
+    print (q.popleft())
+
+print ("q is empty")
 </pre>
+
+
 
 <h2>defaultdict</h2>
 <ul>

@@ -96,6 +96,60 @@ C(3,2) = 3 &middot; <s>2</s> / <s>2</s> = 3
 3) b c
 </pre>
 
+<h4>Algorithm in C++</h4>
+<pre>
+// combinations (order does not matter)
+// n items taken r at a time
+void combo (const std::vector&lt;int&gt;&amp; v, int r)
+{
+    // 2^v.size()
+
+    if (pow(2,v.size()) &gt; sizeof(unsigned long long))
+    {
+        std::cout &lt;&lt; "too large" &lt;&lt; std::endl;
+        return;
+    }
+
+    unsigned long long max = 1 &lt;&lt; v.size();             // 2^v.size()
+
+    for (unsigned long long i=0; i &lt; max; i++)          // 0=000, 1=001, 2=010, ...
+    {   
+        int cnt = 0;
+
+        std::vector&lt;int&gt; tmp;
+
+        for (unsigned int j=0; j &lt; v.size(); j++)       // traverse as bit map
+        {
+            if (i &amp; 1&lt;&lt;j) 
+            {
+                tmp.push_back(v[j]);
+                cnt++;
+            }
+        }
+
+        if (cnt == r)
+        {
+            std::cout &lt;&lt; tmp &lt;&lt; std::endl;
+        }
+    }
+}
+
+
+int main (int argc, const char* argv[])
+{
+    (void)argc;
+    (void)argv;
+
+    std::vector&lt;int&gt; v {1,2,3};
+
+    combo (v, 2);
+
+    return 0;
+}
+
+</pre>
+
+
 </ul>
 </div>
 </body> 

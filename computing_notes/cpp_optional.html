@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ optional</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ <code>optional</code></h1>
+
+<ul>
+<li>Essentially a wrapper for an ordinary C pointer
+<li>It either contains a value or it doesn't
+<li>Introduced in C++17
+</ul>
+
+<pre>
+#include &lt;optional&gt;
+
+template &lt;typename T&gt;
+class optional;
+</pre>
+
+<h2>Constructors</h2>
+<ul>
+
+<li>Default Constructor
+	<ul>
+	<li>constructs an empty optional
+	</ul>
+<pre>optional &lt;T&gt; v;</pre>
+
+<li>Initialize with a value
+<pre>optional &lt;T&gt; (T&amp;&amp; value);</pre>
+
+<li>Initialize with a value - type deduced
+<pre>optional (T&amp;&amp; value);</pre>
+
+</ul>
+
+
+<h2>Destructor</h2>
+<ul>
+<li>Destroys the contained value, if there is one
+<pre>~optional()</pre>
+</ul>
+
+
+<h2>Member Functions</h2>
+<ul>
+
+<li><code>operator=</code>
+    <ul>
+    <li>assign a value
+    </ul>
+
+<li><code>value()</code>
+    <ul>
+    <li>Returns the contained value
+    <li>Calling value() on an optional which does not contain a value will throw an exception
+    </ul>
+
+<li><code>value_or()</code>
+    <ul>
+    <li>returns the contained value if available, other value otherwise
+    </ul>
+
+<li><code>has_value()</code>
+    <ul>
+    <li>Return boolean as to whether or not the optional contains a value
+    </ul>
+
+</ul>
+
+<h2>Optional Return Value</h2>
+<pre>
+std::optional&lt;std::string&gt; foo ()
+{
+    if (...)
+        // a made up condition which will return an empty optional
+        return { };
+
+    else
+        return ("hello, world");
+}
+</pre>
+
+</div>
+</body> 
+</html>

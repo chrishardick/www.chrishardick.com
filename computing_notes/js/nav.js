@@ -271,6 +271,7 @@ function _print_nav ()
         <a href="cpp_move_semantics.html">Move Semantics</a>
         <a href="cpp_iterators.html">Iterators</a>
         <a href="cpp_compiler_warnings.html">Compiler Warnings</a>
+        <a href="cpp_optional.html">optional</a>
     </div>
 
     <button class="accordion" id="accordion_cmake">CMake</button>

@@ -120,6 +120,7 @@ vector&lt;vector&lt;char&gt;&gt; all_subsets (const vector&lt;char&gt;&amp; v)
     vector&lt;vector&lt;char&gt;&gt; setsWithoutFirst = all_subsets(rem);
     vector&lt;vector&lt;char&gt;&gt; setsWithFirst = vector&lt;vector&lt;char&gt;&gt;();
 
+    // for each set without first, add the first (setsWithFirst)
     for (auto a = setsWithoutFirst.begin(); a != setsWithoutFirst.end(); a++)
     {
         vector&lt;char&gt;&amp; aa = *a;
@@ -132,6 +133,7 @@ vector&lt;vector&lt;char&gt;&gt; all_subsets (const vector&lt;char&gt;&amp; v)
         setsWithFirst.push_back(tmp);
     }
 
+    // return the set union
     setsWithFirst.insert (setsWithFirst.end(), setsWithoutFirst.begin(), setsWithoutFirst.end());
     return setsWithFirst;
 }
