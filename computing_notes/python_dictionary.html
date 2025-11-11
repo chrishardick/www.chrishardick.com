@@ -42,39 +42,51 @@ C O N T E N T
 <h1>Python: Dictionary</h1>
 
 <ul>
-<li>A dictionary is written as <code>key:value</code> pairs surrounded by curly braces
-<li>Keys must be an immutable data type (i.e. strings, numbers, or tuples) -- remember that a tuple is an immutable list
+<li>A Python Dictionary is a <a href="python_variables.html#mutability">mutable</a> collection of key-value pairs
+<li>Dictionaries are implemented as hash tables 
+<li>A dictionary is written as <code>key:value</code> pairs surrounded by curly braces - see below
+<li>Keys must be an immutable data type (i.e. strings, numbers, tuples, etc.)
+<li>Prior to version 3.7, the elements in a dictionary were unordered
+<li>Starting at version 3.7, dictionaries maintain insertion order
+</ul>
+
 <pre>
 states = {   'NY': "New York"
             ,'NJ': "New Jersey"
+            ,'CT': "Connecticut"
          }
 
 states['CO'] = "Colorado"
 
-#==========
 # loop thru a dictionary
-#==========
-for abbr in states:
-    print abbr, '--&gt;', states[abbr]
+# - prior to 3.7, this would print out in random order
+# - 3.7+, this will print out in insertion order 
 
-#==========
+for abbr in states:
+    print (abbr, states[abbr])
+
+
 # loop thru a dictionary - sorted keys
-#==========
+
 for abbr in sorted(states):
-    print abbr, '--&gt;', states[abbr]
+    print (abbr, states[abbr])
+
 
 # remove an item 
 del states['CO']
 
-# prints out the entire dictionary
-print states
+
+# prints the entire dictionary
+print (states)
+
 
 # check if key exists 
 # - use 'in' keyword
+
 if 'NY' in states:
-    print "Wooh!"
+    print ("Wooh!")
 else:
-    print "Boo!"
+    print ("Boo!")
 
 # dictionary with tuple as key
 # i.e. a,b,c --&gt; value
@@ -87,18 +99,99 @@ complex_dict = {
 </pre>
 </ul>
 
-<h3>Dictionary methods</h3>
+
+<h2>Functions and Statements</h2>
+<p>Here is a list of stand-alone functions and statements which work on dictionaries</p>
+
+<h3><code>del()</code></h3>
 <ul>
-<li><code>dict.clear()</code> -- remove all items from the dictionary
+<li>The <strong><code>del(dict[key])</code> statement</strong> will remove a dictionary entry with the specified key
+<li>E.g. <code>del states['NJ']</code> 
 </ul>
 
-<h3>Length</h3>
-You can use the <code>len()</code> method to obtain the length of a dictionary
+<h3><code>len()</code></h3>
+<ul>
+<li>The <strong><code>len(dict)</code> function</strong> will return the number of entries in the dictionary
+<li>E.g. <code>print ("length=%d" % len(states))</code>
+</ul>
+
+<h3><code>str()</code></h3>
+<ul>
+<li>The <strong><code>str(dict)</code> function</strong> will return a string representation of the dictionary
+</ul>
+
+
+<h2>Dictionary Methods</h2>
+
+<h3><code>clear()</code></h3>
+<ul>
+<li><code>dict.clear()</code> - remove all items from the dictionary
+</ul>
+
+<h3><code>copy()</code></h3>
+<ul>
+<li><code>dict.copy()</code> - returns a shallow copy of the dictionary
+</ul>
 
 <pre>
-print "length=%d" % len(states)
+d1 = {   1:    'a'
+        ,2:    [2]
+        ,3:    {4:5}
+     }
+
+d2 = d1.copy()
+
+d1[1] = 'aa'        # will only affect d1 - strings are immutable
+d1[2][0] = 3        # will affect d1 and d2 - lists are mutable
+d1[3][4]=6          # will affect d1 and d2 - dictionaries are mutable
 </pre>
-)
+
+<h3><code>get()</code></h3>
+<ul>
+<li>Use the <code>get(key,value=None)</code> method to obtain the value for the given key in the dictionary. 
+<li>If the key is not present, <code>None</code> or the value specified will be returned
+</ul>
+
+<h3><code>keys()</code></h3>
+<ul>
+<li>The <code>keys()</code> method returns an object which is essentially a list of all the keys in the dictionary
+</ul>
+
+<h3><code>pop()</code></h3>
+<ul>
+<li>The <code>pop(key,default)</code> method removes and returns the value of the specified key from the dictionary. 
+<li>If the key is not found, the default parameter will be returned. 
+<li>If the default parameter was not specified, a <code>KeyError</code> Exception is generated
+<li><code>key</code> is required
+<li>You can use <code>your_dict.(pop(next(iter(your_dict)))</code> to remove the 1st item from the dictionary
+<li>See also <code>popitem()</code>
+</ul>
+
+<h3><code>popitem()</code></h3>
+<ul>
+<li>The <code>popitem()</code> method removes and returns the last key-value pair added to the dictionary
+<li>The removed item is returned as a <a href="python_tuple.html">tuple</a>
+<li>Prior to 3.7, <code>popitem</code> returned a random item
+</ul>
+
+<h3><code>setdefault()</code></h3>
+<ul>
+<li>The <code>setdefault(key,default=None)</code> method returns the value of the specified key - if it exists.
+Otherwise, an entry is added to the dictionary with the specified key and default value
+<li>The corresponding value is returned. I.e. either the value which existed in the dictionary or the default value - 
+    which was just added
+</ul>
+
+<h3><code>values()</code></h3>
+<ul>
+<li>The <code>values()</code> method returns an object which is essentially a list of all the values in the dictionary
+</ul>
+
+<h3><code>update()</code></h3>
+<ul>
+<li>The <code>update()</code> method updates the dictionary with elements from another dictionary or iterable of key/value pairs
+</ul>
+
 </div>
 </body>
 </html>

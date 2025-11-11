@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_redis");
+}
+</script>
+
+<title>Redis Introduction</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Redis</h1>
+
+<ul>
+<li>In memory key-value store
+<li>Distributed cache
+<li>Written in <code>C</code>
+<li>REmote DIctionary Server
+<li>Useful when data can be cached (i.e. is essentially static for a period of time) and obtaining or calculating it is expensive (takes a while, etc.)
+<li>Redis keys are <a href="redis_data_types.html#strings">strings</a>
+</ul>
+
+<h2>Configurations</h2>
+
+<h3>1 Active, N Replicants</h2>
+<ul>
+<li>Typical configuration
+<li>Data is eventually consistient
+<li>If an instance fails and is restored, it will catch up
+<li>Data is asychronously replicated across many machines
+<li>Data is eventually consistient
+<li>Data written to active node may be read from any istance after sync
+<li>Capacity is limited to what can be stored on a single machine
+<li>Writes may be lost
+<li>Scalable read throughput, limited write throughput
+<li>Reads can have datacenter affinity, writes do not
+<li>
+</ul>
+
+<h2>Acknowledgements</h2>
+<ul>
+</ul>
+
+
+</div>
+</body> 
+</html>

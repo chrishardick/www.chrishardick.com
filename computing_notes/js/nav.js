@@ -272,6 +272,7 @@ function _print_nav ()
         <a href="cpp_iterators.html">Iterators</a>
         <a href="cpp_compiler_warnings.html">Compiler Warnings</a>
         <a href="cpp_optional.html">optional</a>
+        <a href="cpp_array.html">array</a>
     </div>
 
     <button class="accordion" id="accordion_cmake">CMake</button>
@@ -676,6 +677,12 @@ function _print_nav ()
     <button class="accordion" id="accordion_recursion">Recursion</button>
     <div class="panel">
         <a href="recursion_intro.html">Introduction</a>
+    </div>
+
+    <button class="accordion" id="accordion_redis">Redis</button>
+    <div class="panel">
+        <a href="redis_intro.html">Introduction</a>
+        <a href="redis_data_types.html">Data Types</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>

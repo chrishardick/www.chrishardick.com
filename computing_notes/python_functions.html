@@ -83,11 +83,11 @@ foo (y=10, x=5)
 
 <h3>Pass by Value vs. Pass by Reference</h3>
 <ul>
-<li>Primative types are passed by value
-<li>Complex types (lists, dictionaries, objects, etc.) are passed by reference
-<li>Strings in Python are immutable. Although they are passed by reference, if you modify a string 
-    inside a function, you're creating a new string which the local variable will point to. This has the
-    effect of behaving similar to pass by value.
+<li>In Python, all variables are references to objects in memory. I.e. Python only supports pass-by-reference
+<li>However, when you assign a value to a variable, its <strong>mutability</strong> is what affects whether or not you
+    will modify the original object or if a copy will be created. 
+<li>If you assign to an immutable type, a copy will be created
+<li>If you assign to a mutable type, you will be modifying the original object
 </ul>
 
 
@@ -114,6 +114,28 @@ def foo (fname, lname, mname=""):
     ...
 </pre>
 </ul>
+
+<h2>Specify Parameter and Return Types</h2>
+<ul>
+<li>In Python, you can specify the parameter types using <strong>type hints</strong>, 
+    also known as <strong>type annotations</strong>
+<li>Type hints are added after the parameter name, separated by a colon
+<li>Type hints are not enforced. You can still call a function with arguments
+    of different types and the code will execute (unless a runtime error occurs due to
+    an incompatible type)
+<li>You can specify the return type via <code>-&gt; type</code>
+</ul>
+
+<pre>
+def Sum (n1: int, n2: int) -&gt; int:
+    return n1 + n2
+
+def SumList (l: list) -&gt; int:
+    s = 0
+    for ll in l:
+        s += ll
+    return s
+</pre>
 
 <h2>Positional vs. Keyword (Named) Parameters</h2>
 <ul>

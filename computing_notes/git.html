@@ -65,8 +65,8 @@ By convention, bare repositories are normally named with .git extension
 <ul>
 <li><code>git clone &lt;url&gt;</code>
 <li>Clone repository (will make directory for you)
-<li>You will have one branch (master). run <code>git branch</code> to verify
-<li>You never want to work in the master branch -- you essentially want to treat it as read-only
+<li>You will have one branch (main). run <code>git branch</code> to verify
+<li>You never want to work in the main branch - you essentially want to treat it as read-only
 <li>Examples:
 <pre>
 git clone ssh://john.smith@smith.com:[port]/dir
@@ -94,7 +94,7 @@ on the repository
 <h2><code>git remote [-v]</code></h2>
 
 <ul>
-<li>To see which remote servers you have configured, run <code>git remote</code> -- if you've cloned your repository, you should see at least <code>origin</code>.
+<li>To see which remote servers you have configured, run <code>git remote</code> - if you've cloned your repository, you should see at least <code>origin</code>.
     This will display the shortname for the remote server
 <li>Use the -v option to also see the actual URL of the remote server
 <li>To see which remote servers you have configured, run <code>git remote</code>
@@ -104,11 +104,11 @@ on the repository
 
 <ul>
 <li>Add a new remote
-<li><code>git add remote blah chris@blah.com:[port]/dir</code>
+<li><code>git remote add blah chris@blah.com:[port]/dir</code>
 </ul>
 
 <ul>
-<li>To see which remote servers you have configured, run <code>git remote</code> -- if you've cloned your repository, you should see at least <code>origin</code>.
+<li>To see which remote servers you have configured, run <code>git remote</code> - if you've cloned your repository, you should see at least <code>origin</code>.
     This will display the shortname for the remote server
 <li>Use the -v option to also see the actual URL of the remote server
 <li>To see which remote servers you have configured, run <code>git remote</code>
@@ -121,7 +121,7 @@ on the repository
 <li><code>git checkout -b new_branch</code> - create a new branch and switch to it
 <li><code>git checkout branch</code> - switch to an existing branch
 <li><code>git checkout commit_hash</code> - restore to previous commit - use <code>git log</code> for a list of commit hashes
-<li>Always create a branch rather than working in master. I.e. <code>dev</code>
+<li>Always create a branch rather than working in main. I.e. <code>dev</code>
 <li>Before switching branches, make sure all your changes are committed. If not, you will be warned that changes will be lost.
 <li>For example: <code>git checkout -b dev</code>
 </ul>
@@ -145,9 +145,15 @@ on the repository
 <li>To get a list of files which changed
 <pre>git diff --name-only tag_or_branch1 [tag_or_branch2]</pre>
 
-<li>Diff against master -- see handy script listed below
-<pre>git difftool --extcmd="diff -w" --no-prompt master &lt;file&gt; &gt;file.diff 2&gt;&amp;1</pre>
+<li>Diff against main - see <a href="#handy_diff_script">handy script</a> listed below
+<pre>git difftool --extcmd="diff -w" --no-prompt main &lt;file&gt; &gt;file.diff 2&gt;&amp;1</pre>
 
+<li>Diff against remote branch
+    <ul>
+    <li>Create a new remote. E.g. <code>git remote add rmt_name git_url</code>
+    <li>Fetch remote repo. E.g. <code>git fetch rmt_name</code>
+    <li>Get list of files which have changed <code>git diff --name-only rmt_name/main</code>
+    </ul>
 </ul>
 
 
@@ -174,14 +180,14 @@ on the repository
 <ul>
 <li>Merges changes into the current branch
 <li>For instance, let's say you've been working on branch <code>foo</code> and all your changes have been committed
-<li>Let's also say that you're ready to merge your changes into master
-<li>The following would merge your changes into <code>master</code>
+<li>Let's also say that you're ready to merge your changes into main
+<li>The following would merge your changes into <code>main</code>
 
 <pre>
-# switch to master branch
-git checkout master
+# switch to main branch
+git checkout main
 
-# merge changes in foo to master branch
+# merge changes in foo to main branch
 git merge foo
 </pre>
 
@@ -214,29 +220,29 @@ git checkout your_tag
 
 <p><strong>KEY CONCEPT:</strong> Before attempting to update remote branches, all changes must have already been committed to the local repository</p>
 
-<h3>Bring Local Master Up-to-Date</h3>
+<h3>Bring Local Main Up-to-Date</h3>
 
 <ul>
-<li>this is only necessary if the remote master branch is ahead of our local master branch
+<li>this is only necessary if the remote main branch is ahead of our local main branch
 
 <pre>
 #
-# Switch to local master branch
+# Switch to local main branch
 # - make sure all your changes have been committed. Otherwise, you'll receive an error
 #
-git checkout master
+git checkout main
 
 #
-# bring local master up-to-date with 'origin master'
+# bring local main up-to-date with 'origin main'
 # - git pull is the equivalent of git fetch followed by git merge
 #
-git pull origin master
+git pull origin main
 </pre>
 
 </ul>
 
 
-<h3>Merge Changes -- Development Branch</h3>
+<h3>Merge Changes - Development Branch</h3>
 <ul>
 <pre>
 #
@@ -245,22 +251,22 @@ git pull origin master
 git checkout &lt;branch&gt;
 
 #
-# merge remote changes to master into your development branch
+# merge remote changes to main into your development branch
 #
-git rebase master
+git rebase main
 </pre>
 </ul>
 
-<h3>Merge Changes -- Master Branch</h3>
+<h3>Merge Changes - Main Branch</h3>
 <ul>
 <pre>
 #
-# switch to master branch
+# switch to main branch
 # 
-git checkout master
+git checkout main
 
 #
-# merge changes from development branch into master
+# merge changes from development branch into main
 #
 git merge &lt;branch&gt;
 </pre>
@@ -268,8 +274,8 @@ git merge &lt;branch&gt;
 
 <h3>Push Changes to Remote Repository</h3>
 <ul>
-<li><code>git push [origin master]</code>
-<li>specify origin master for 1st push
+<li><code>git push [origin main]</code>
+<li>specify origin main for 1st push
 </ul>
 
 <h3>Show History</h3>
@@ -280,7 +286,7 @@ git merge &lt;branch&gt;
 
 <h2>Appendix</h2>
 <ul>
-<li>Handy diff script -- mygitdiff.sh
+<li id="handy_diff_script">Handy diff script - mygitdiff.sh
 <pre>
 for file in $@
 do
@@ -303,7 +309,7 @@ echo ""                                                   &gt;&gt;$file.diff
 echo "==================================================" &gt;&gt;$file.diff
 echo ""                                                   &gt;&gt;$file.diff
 
-git difftool --extcmd="diff -w" --no-prompt master $file &gt;&gt;$file.diff 2&gt;&amp;1
+git difftool --extcmd="diff -w" --no-prompt main $file &gt;&gt;$file.diff 2&gt;&amp;1
 done
 </pre>
 

@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ array</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ <code>array</code></h1>
+
+<ul>
+<li>Fixed size sequence container
+<li>Similar to in <code>C</code>, if you declare an array of built-in types without an 
+    explicit initializer list, its elements will have indeterminite (garbage) values
+<li>If you declare an array of objects, its elements will be default initialized.
+</ul>
+
+
+<pre>#include &lt;array&gt;
+
+template &lt; class T
+            ,size_t N
+            &gt; class array;
+</pre>
+
+<pre>#include &lt;array&gt;
+
+std::array&lt;int, 3&gt; my_arr {1, 2, 3}
+</pre>
+
+
+<h2>Constructors</h2>
+
+<h2>Destructor (<code>~array()</code>)</h2>
+<ul>
+<li>TODO: VERIFY THIS! destruct each element and destruct the container
+</ul>
+
+
+<h2>Member Functions</h2>
+<h3><code>iterator begin()</code></h3>
+<ul>
+<li>returns an iterator pointing to the 1st element of the array container
+</ul>
+
+<h3><code>iterator end()</code></h3>
+<ul>
+<li>returns an iterator pointing to the past-the-end element of the array container
+</ul>
+
+<h3><code>iterator end()</code></h3>
+<ul>
+<li>returns an iterator pointing to the past-the-end element of the array container
+</ul>
+
+<h3><code>sizetype size()</code></h3>
+<ul>
+<li>returns the number of elements
+<li>the size of the array object is always equal to the 2nd template parameter
+</ul>
+
+
+</div>
+</body> 
+</html>

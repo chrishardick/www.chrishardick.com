@@ -47,7 +47,7 @@ C O N T E N T
 <li>It's perfectly legal to assign an integer to a variable i and later assign a dictionary to it
 <li>In Python, there are no declarations. 
 <li>To create a new variable, simply assign a value to it
-
+</ul>
 
 <pre>
 // i as an integer with value of 0 (zero)
@@ -58,17 +58,27 @@ i = { }
 </pre>
 </ul>
 
+<h2 id="mutability">Key Concept - Mutability</h2>
+<ul>
+<li>In Python, all variables are references to objects in memory
+<li>In other words, when you assign a variable, you are not creating a copy of the data. 
+<li>Instead, you are creating a new variable which points to the existing object
+<li>This applies to all data types
+<li>In Python, the key concept is <strong>mutability</strong>. 
+<li>Mutability affects how assignments affect references to the same object
+</ul>
+
 <h2>Variable Types</h2>
 
 Python supports the following basic variable types:
 <ul>
-<li><a href="#Numbers">Numbers</a>
-<li><a href="python_string.html">Strings</a>
-<li><a href="#Booleans">Booleans</a>
-<li><a href="python_list.html">List</a>. Denoted via <code>[ ... ]</code>
+<li><a href="#Numbers">Numbers</a> - immutable
+<li><a href="python_string.html">Strings</a> - immutable
+<li><a href="#Booleans">Booleans</a> - immutable
+<li><a href="python_list.html">List</a>. Denoted via <code>[ ... ]</code> - mutable
 <li><a href="python_tuple.html">Tuple</a>.  An immutable list. Denoted via <code>( ... )</code>
-<li><a href="python_dictionary.html">Dictionary</a> E.g. <code>{ 'key1':'value1', 'key2':'value2', ... }</code>
-<li><a href="python_set.html">Set</a> <code>{ 'name1', 'name2' }</code>
+<li><a href="python_dictionary.html">Dictionary</a> E.g. <code>{ 'key1':'value1', 'key2':'value2', ... }</code> - mutable
+<li><a href="python_set.html">Set</a> <code>{ 'name1', 'name2' }</code> - mutable
 </ul>
 
 <h2 id="Numbers">Numbers</h2>

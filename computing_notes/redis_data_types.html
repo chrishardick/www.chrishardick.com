@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_redis");
+}
+</script>
+
+<title>Redis Data Types</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Redis Data Types</h1>
+
+<h2 id="strings">Strings</h2>
+<ul>
+<li>Redis keys are strings
+<li>Redis values can also be strings
+<li>Sequence of bytes - text, serialized objects, json strings, binary arrays, jpeg image, etc.
+<li>Max value size is 512 MB
+<li>Strings can be used as counters using the <code>INCR</code>, <code>INCRBY</code>, <code>DECR</code>, <code>DECRBY</code> commands
+    which atomically get and increment/decrement a value
+</ul>
+
+<h2>List</h2>
+<ul>
+<li>Linked list of string values
+</ul>
+
+<h2>Hash</h2>
+<h2>Set</h2>
+<h2>Sorted Set</h2>
+
+<h2>Acknowledgements</h2>
+<ul>
+</ul>
+
+
+</div>
+</body> 
+</html>

@@ -42,7 +42,8 @@ C O N T E N T
 <h1>Python: Introduction</h1>
 
 <ul>
-<li>Like most scripting languages, variables in Python are untyped -- they can hold integers, floating point numbers, strings, booleans, etc.
+<li>Like most scripting languages, variables in Python are untyped - they can hold integers, floating point numbers, strings, booleans, etc.
+    Although like all other languages, as they evolve and mature, they are becoming more and more typed.
 <li>Unlike most computer languages, white space matters. 
 <li>Rather than using brackets to denote the beginning and end of control structures, functions, classes, etc., the body of the block is denoted via indention
 <pre>
@@ -54,15 +55,19 @@ else:
 <li>Unlike most computer languages, noticeably missing are the semi-colons to denote the end of statements. Instead, the end of each statement is denoted by a newline
 <li>One of the criticisms of Perl was that once written, it was very hard to read -- which proved a barrier for new developers. 
 <li>The things that are different about Python (e.g. whitespace, newlines, etc), seem to address this criticism
+<li>Python underwent a major version change from Python 2 to Python 3. 
+    Usually, scripts execute under either <code>python</code> (python 2) or <code>python3</code> (python 3).
+<li>As Python continues to evolve, new minor and patch versions of Python 3 are constantly released.
+<li>You can find out which version of Python 3 your system is running via <code>python3 -V</code>
 </ul>
 
 <h2>Hello, World!</h2>
 <ul>
 <li>As always, the best way to start any new computing language is with a "Hello, World!" program
 <pre>
-#!/usr/bin/python
+#!/usr/bin/python3
 
-print "Hello, World!"
+print ("Hello, World!")
 </pre>
 </ul>
 
@@ -113,6 +118,7 @@ exit(0)
 <pre>
 2to3 -w foo.py
 </pre>
+</ul>
 
 <h2>Misc</h2>
 <ul>
