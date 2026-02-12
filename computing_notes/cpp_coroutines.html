@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>C++ Coroutines</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C++ Coroutines</h1>
+
+<ul>
+<li>A coroutine is a function that can suspend execution and be resumed later
+<li><code>co_await&lt;expr&gt;</code> - if <code>expr</code> has a result value, 
+    its value is extraceted and the function continues as normal. 
+    If it does not have a result, the current function is suspended.
+<li>The coroutine attaches itself to <code>expr</code> such that once it does
+    have a value, it should resume the coroutine's execution with the value
+</ul>
+
+</div>
+</body> 
+</html>

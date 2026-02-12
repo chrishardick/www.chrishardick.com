@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_c");
+}
+</script>
+
+<title>C/UNIX: fork() and Related Functions</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C/UNIX: <code>fork()</code> and Related Functions</h1>
+
+<h2><code>fork ()</code></h2>
+<ul>
+<li>A system call
+<li>Create a child process which is virtually identical to parent process
+<li>All file descriptors remain open across both child and parent processes
+</ul>
+
+<pre>
+/*
+ * RETURN
+ * ======
+ * on success
+ * - IN PARENT: PID of child process
+ * - IN CHILD: 0
+ * 
+ * on error
+ * - IN PARENT: -1 (no child process is created)
+ */
+
+#include &lt;sys/types.h&gt;
+#include &lt;unistd.h&gt;
+
+<strong>pid_t fork (void);</strong>
+</pre>
+
+
+<h2><code>wait()</code>, <code>waitpid()</code></h2>
+<pre>
+#include &lt;sys/types.h&gt;
+#include &lt;sys/wait.h&gt;
+
+
+//
+// RETURN
+// ======
+// on success, returns the process ID of the child who terminated
+// otherwise, returns -1 (errno will be set)
+//
+<strong>pid_t wait (int* status)    // see below</strong>
+
+
+//
+// RETURN
+// ======
+// on success, returns the process ID of the child whose state has changed
+// otherwise, returns -1 (errno will be set)
+//
+<strong>
+pid_t waitpid ( pid_t pid       // -1=wait for any child process, &gt;0=wait for child with given PID
+                ,int* status    // see below
+                ,int options    // pass 0 for default options
+                );</strong>
+</pre>
+<ul>
+<li>The <code>wait()</code> system call suspends execution of the calling thread until
+    one of its childen terminates
+<li>The <code>waitpid()</code> system call suspends execution of the calling thread until
+    a child specified by the <code>pid</code> argument has changed state
+<li>By default, <code>waitpid()</code> waits only for terminated children - similar 
+    to <code>wait()</code>. 
+<li>The following are state changes:
+    <ul>
+    <li>The child terminated
+    <li>The child stopped due to a signal
+    <li>The child was resumed due to a signal
+    </ul>
+<li>In the case of a terminated child, calling <code>wait()</code> or <code>waitpid()</code> 
+    allows the system to release resources associated with the child. If <code>wait()</code>
+    or <code>waitpid()</code> is not called, the child remains in a <strong>zombie</strong> state.
+<li>If the child has already changed state, the call returns immediately.
+<li>Otherwise, the call will block until either the child changes status or a signal handler
+    interrupts the call.
+<li>If <code>status</code> is not <code>NULL</code>, <code>waitpid()</code> will store status
+    information of the child PID into the integer it points to.
+<li>The integer can be inspected with the following macros which take the integer (as opposed to
+    the pointer) as input.
+<li><code>WIFEXITED(status)</code> - returns <code>true</code> if the child terminated normally 
+(by calling <code>exit()</code>, <code>_exit()</code>, or returned from <code>main()</code>
+<li><code>WEXITSTATUS(status)</code> - returns the exit status of the child. This is either
+the least significant 8 bits of the status argument passed to <code>exit()</code>, 
+<code>_exit()</code> or the argument of return statement from main(). This macro should only be
+called if <code>WIFEXITED</code> returned true.
+
+<li><code>WIFSIGNALED(status)</code> - returns true if the child process was terminated by a signal
+<li><code>WTERMSIG(status)</code> - returns the signal number which terminated the process. This macro should only be called if <code>WIFSIGNALED</code> returned true.
+
+<li><code>WIFSTOPPED(status)</code> - returns true if the child process was stopped by delivery of a signal
+<li><code>WSTOPSIG(status)</code> - returns the signal number which stopped the process. This macro should only be called if <code>WIFSTOPPED</code> returned true.
+
+<li><code>WICONTINUED(status)</code> - returns true if the child process resumed execution due to SIGCONT delivery.
+</ul>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li>Linux Man Page
+</ul>
+
+</div>
+</body> 
+</html>

@@ -68,17 +68,17 @@ class pair
 
 // e.g.
 
-pair &lt;int, double&gt; my_pair(5, 5.1);
+std::pair &lt;int, double&gt; my_pair(5, 5.1);
 
 cout &lt;&lt; "first=" &lt;&lt; my_pair.first &lt;&lt; endl;
 cout &lt;&lt; "second=" &lt;&lt; my_pair.second &lt;&lt; endl;
 </pre>
 
-<h3>make_pair</h3>
+<h2><code>make_pair()</code></h2>
 
 <ul>
-<li>a convenience
-<li>you need not specify the template parameters, as they are deduced from the function arguments
+<li>A convenience
+<li>You need not specify the template parameters, as they are deduced from the function arguments
 </ul>
 
 <pre>
@@ -91,6 +91,26 @@ pair&lt;int, double&gt; (5, 3.14)
 // make_pair(5, 3.14)
 </pre>
 
+<h2><code>std::get()</code> (C++11)</h2>
+<ul>
+<li>In C++11 (and onward), you can use <code>std::get()</code> with an integer template argument to access the elements of a pair
+</ul>
+
+<pre>
+std::cout &lt;&lt; "first=" &lt;&lt; std::get&lt;0&gt;(p) &lt;&lt; std::endl;
+std::cout &lt;&lt; "second=" &lt;&lt; std::get&lt;1&gt;(p) &lt;&lt; std::endl;
+</pre>
+
+<h2>Structured Bindings (C++17)</h2>
+<ul>
+<li>Structured Bindings allow you to unpack the elements of the pair into separate variables using square brackets
+</ul>
+
+<pre>
+auto [x, y] = p;
+
+std::cout &lt;&lt; "x=" &lt;&lt; x &lt;&lt; " y=" &lt;&lt; y &lt;&lt; std::endl;
+</pre>
 
 </div>
 </body> 

@@ -49,6 +49,9 @@ C O N T E N T
 <li>You can access individual elements via indexing (square brackets). 
 <li>Lists are indexed from 0 (zero)
 <li>You can get the length of a list using the stand-alone <code>len()</code> function.
+<li>Because lists are mutable, assigning one list to another, will simply create another reference
+    to the same list. A change in list1 will affect list2. In order to copy a list the <code>copy()</code> 
+    method must be used.
 </ul>
 
 <pre>
@@ -63,6 +66,7 @@ print ("#weekdays=%d" % (len(weekdays)))        # 5
 <h3><code>list</code> methods</h3>
 <ul>
 <li><code>list.append(x)</code> - add an item (or items) to the end of the list
+<li><code>list.copy()</code> - copy a list. since sts are mutable, you need to use the copy method to copy a list
 <li><code>list.clear()</code> - remove all items from list
 <li><code>list.insert(i,x)</code> - insert an item (or items) to the list at position i. All subsequent items are moved down
 <li><code>list.remove(x)</code> - remove the 1st item from the list whose value is x

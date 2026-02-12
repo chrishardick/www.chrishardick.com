@@ -41,7 +41,11 @@ C O N T E N T
 <h1>C++ Unordered Map</h1>
 
 <ul>
-<li>I.e. Hash
+<li>I.e. Hash Table
+<li><strong>key value</strong> - essentially the key (lhs)
+<li><strong>mapped value</strong> - essentially the value (rhs)
+<li><code>value_type</code> - a <code>pair</code> class in which the first value is a <code>const</code> version
+    of the key value and the second value is the mapped value
 </ul>
 
 <pre>
@@ -113,14 +117,56 @@ mapped_type&amp; at(const key_type&amp; k);
 const mapped_type&amp; at(const key_type&amp; k) const;
 </pre>
 
+<li><code>operator[]</code>
+<pre>
+//
+// If <strong>k</strong> is already in the container, a reference is returned to its mapped value
+// Otherwise, a new element is inserted into the container. If <strong>k</strong> does not 
+// - the element is inserted <strong>only</strong> if the key is not already present
+// - value_type = pair&lt; const key_type, T&gt;
+//
+// RETURN
+// ======
+// - A reference to the mapped value of the element with key value <strong>k</strong>
+//
+mapped_type&amp; operator[] (const key_type&amp; k);
+mapped_type&amp; operator[] (key_type&amp;&amp; k);
+
+state["NY"] = "New York";
+</pre>
+
 <li><code>insert()</code>
 <pre>
 //
-// insert element
-// - the element is inserted only if the key is not already present
+// insert element (if it does not already exist)
+// - the element is inserted <strong>only</strong> if the key is not already present
 // - value_type = pair&lt; const key_type, T&gt;
 //
-pair<iterator,bool> insert (const value_type&amp; val);
+// RETURN
+// ======
+// - a pair object.
+//   first element - iterator pointing either to new or existing element
+//   second element - bool indicating whether or not a new element was inserted
+//
+pair&lt;iterator,bool&gt; insert (const value_type&amp; val);
+</pre>
+
+<li><code>emplace()</code>, <code>try_emplace</code> (C++17)
+<pre>
+//
+// insert element
+// - the element is inserted <strong>only</strong> if the key is not already present
+// - value_type = pair&lt; const key_type, T&gt;
+// - try_emplace() will only construct the mapped value if the key is not already present
+//
+// RETURN
+// ======
+// - a pair object.
+//   first element - iterator pointing either to new or existing element
+//   second element - bool indicating whether or not a new element was inserted
+//
+pair&lt;iterator,bool&gt; emplace (const value_type&amp;&amp; val);
+pair&lt;iterator,bool&gt; try_emplace (const value_type&amp;&amp; val); // C++17
 </pre>
 
 <li><code>erase()</code>

@@ -44,7 +44,12 @@ C O N T E N T
 <ul>
 
 <li>Strings in Python are handled with <code>str</code> objects or <em>strings</em>.
-<li>Strings are <strong>immutable</strong>.
+<li>Strings are <strong>immutable</strong>. 
+<li>If you assign a string to another variable, you'll create a copy of the string
+<li>Since strings are immutable, you cannot change single characters in a string. 
+<li>If you need to change individual characters in a string, 
+    it's usually easier to convert to a list of characters. E.g.  
+    <code>str_as_list = list("abc")</code>
 <li>In Python 2, strings (by default) are ASCII byte strings
 <li>In Python 3, strings (by default) are Unicode encoded via UTF-8
 <li>Strings can be defined using either double or single quotes
@@ -114,13 +119,15 @@ print r'c:\abc\def' # results in 'c:\abc\def'
 <li><code>str</code> objects (aka <strong>strings</strong>)
 <li>Strings are immutable sequences of Unicode 
 <li>String literals can be written as
-    <ul>Single quotes: <code>'allows embedded "double" quotes'</code>
-    <ul>Double quotes: <code>"allows embedded 'single' quotes"</code>
-    <ul>Triple quoted: <code>"""can span multiple lines"""</code> or <code>'''can span multiple lines'''</code>
+    <ul>
+    <li>Single quotes: <code>'allows embedded "double" quotes'</code>
+    <li>Double quotes: <code>"allows embedded 'single' quotes"</code>
+    <li>Triple quoted: <code>"""can span multiple lines"""</code> or <code>'''can span multiple lines'''</code>
+    </ul>
 <li>Strings can also be created from other objects using the <code>str</code> constructor
 </ul>
 
-<h3>str Methods</h3>
+<h3><code>str</code> Methods</h3>
 <ul>
 <li><code>str.isdigit()</code> - return true if all characters in the string are decimal characters. False otherwise. 
 <pre>

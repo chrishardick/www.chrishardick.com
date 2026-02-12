@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_graph");
+}
+</script>
+
+<title>Graph - Dijkstra's Algorithm</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Graph - Dijkstra's Algorithm</h1>
+
+<ul>
+<li>Allows you to determine the shortest path from a given node to every other node
+<li>The shortest path is the path with the minimum possible sum of weights between 
+    2 verticies in a weighted graph
+</ul>
+
+<pre>
+A to every other node
+Visited Nodes: [A]
+Unvisited Nodes: [B,C,D,E,F]
+Find distance to all unvisited neighbors
+Put a in visited visited notes, remove it from unvisited nodes
+
+Pick a new current node [shortest distance of all unvisited nodes] - B
+Find distance from current node to all unvisited neighbors
+Mark B as visited (also remove from unvisited)
+Visited: [A,B]
+Unvisited: [C,D,E,F]
+
+Pick a new current node [shortest distance of all unvisited nodes] - D
+Find distance from current node to all unvisited neighbors
+Visited: [A,B,D]
+Unvisited: [C,E,F]
+
+Pick a new current node [shortest distance of all unvisited nodes] - E
+Find distance from current node to all unvisited neighbors
+Visited: [A,B,D,E]
+Unvisited: [C,F]
+
+Pick a new current node [shortest distance of all unvisited nodes] - F
+Find distance from current node to all unvisited neighbors
+Visited: [A,B,D,E,F]
+Unvisited: [C]
+
+Visited: [A,B,D,E,F,C]
+Unvisited: []
+
+We now know the min distance from A to every other node in the graph
+
+For instance, if we wanted to go from  A - C. It would have a cost of 12
+Working backward...
+C &lt; F  (cost=3)
+F &lt; D  (cost=2)
+D &lt; B  (cost=5)
+B &lr; A  (cost=2)
+</pre>
+
+<table>
+Shortest Distance from A to every other node
+<tr><th>Node</th><th>Shortest Distance          </th><th>Prev Node  </th></tr>
+<tr><td>A   </td><td>0                          </td><td>           </td></tr>
+<tr><td>B   </td><td>inf, 2                     </td><td>A          </td></tr>
+<tr><td>C   </td><td>inf, 8+9(17),9+3(12)       </td><td>F          </td></tr>
+<tr><td>D   </td><td>inf, 8, 2+5(7)             </td><td>B          </td></tr>
+<tr><td>E   </td><td>inf, 2+6(8)                </td><td>B          </td></tr>
+<tr><td>F   </td><td>inf, 7+2(9)                </td><td>D          </td></tr>
+</table>
+
+<h2>Applications</h2>
+<ul>
+<li>GPS
+<li>Network packet routing
+</ul>
+</div>
+</body> 
+</html>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_c");
+}
+</script>
+
+<title>C/UNIX: Pipes</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>C/UNIX: Pipes</h1>
+
+<ul>
+<li>A pipe is a connection between two processes.
+    E.g. the standard output of one process becomes the standard input of another process.
+<li>Pipes are unidirectional. E.g. only one process can write to the pipe and only
+    one process can read from the pipe.
+<li>Pipes are FIFO (first in, first out). E.g. standard queue
+<li>Pipes are usually used together with <code>fork()</code> to communicate between parent and child
+    processes.
+<li>Reading from a pipe is a blocking call. I.e. if no data is available, a call to <code>read()</code> 
+    will block until data is available
+<li>The size of <code>read()</code> and <code>write()</code> calls do not need to match.
+    For instance, you could write in 1024 byte blocks and read in 256 byte blocks (or even 1 byte at a time), 
+    or vice versa.
+</ul>
+
+
+<pre>
+#include &lt;unistd.h&gt;
+
+//
+// pipefd[0] = read
+// pipefd[1] = write
+//
+// RETURN
+// ======
+//  0 = success
+// -1 on error (ERRNO will be set to indicate the error)
+//
+
+<strong>int pipe (int pipefd[2] /* out */);</strong>
+</pre>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li>Linux Man Page
+</ul>
+
+</div>
+</body> 
+</html>

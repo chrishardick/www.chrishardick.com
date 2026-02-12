@@ -273,6 +273,7 @@ function _print_nav ()
         <a href="cpp_compiler_warnings.html">Compiler Warnings</a>
         <a href="cpp_optional.html">optional</a>
         <a href="cpp_array.html">array</a>
+        <a href="cpp_enum_class.html">enum class</a>
     </div>
 
     <button class="accordion" id="accordion_cmake">CMake</button>
@@ -317,6 +318,8 @@ function _print_nav ()
         <a href="cunix_clock_gettime.html">clock_gettime()</a>
         <a href="cunix_getopt.html">getopt()</a>
         <a href="cunix_popen.html">popen()</a>
+        <a href="cunix_fork.html">fork() and Related Functions</a>
+        <a href="cunix_pipe.html">Pipes</a>
     </div>
     
     <button class="accordion" id="accordion_db">Databases</button>
@@ -366,6 +369,7 @@ function _print_nav ()
         <a href="graph_bst.html">Binary Search Tree</a>
         <a href="graph_depth_first.html">Graph - Depth First</a>
         <a href="graph_breadth_first.html">Graph - Breadth First</a>
+        <a href="graph_dijkstra.html">Dijkstra's Shortest Path Algorithm</a>
     </div>
 
     <button class="accordion" id="accordion_groovy">Groovy</button>
@@ -486,6 +490,11 @@ function _print_nav ()
         <a href="kafka_intro.html">Intro</a>
         <a href="kafka_consumers.html">Consumers</a>
         <a href="kafka_installation.html">Installation</a>
+    </div>
+
+    <button class="accordion" id="accordion_linearalgebra">Linear Algebra</button>
+    <div class="panel">
+        <a href="linearalgebra_intro.html">Intro</a>
     </div>
 
     <button class="accordion" id="accordion_linux">Linux</button>

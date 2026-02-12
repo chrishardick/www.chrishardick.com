@@ -283,6 +283,26 @@ std::string rtrim (const std::string&amp; s)
 }
 </pre>
 
+<h2>String Formatting</h2>
+
+<ul>
+<li>C++20 and later
+<li><code>std::format</code> allows to use a Python-like syntax with curly braces as placeholders 
+    for values within a format string.
+<li>If you need to include a literal curly brace <code>{</code> or <code>}</code> within a format 
+    string, you must escape it by using a double brace <code>{{</code> or <code>}}</code>
+</ul>
+
+<pre>
+#include &lt;string&gt;
+#include &lt;format&gt;
+
+std::string w { "world" };
+
+std::string s = std::format ("Hello, {}!", w);
+</pre>
+
+
 </div>
 </body> 
 </html>

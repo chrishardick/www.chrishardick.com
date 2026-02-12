@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_cpp");
+}
+</script>
+
+<title>enum class</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1><code>enum class</code></h1>
+
+<ul>
+<li>Introduced in C++11
+<li>A strongly typed enumation 
+<li>Enumerator names (e.g. <code>MMkt</code>) are scoped within the the enumerator's name (<code>SecType::Mmkt</code>)
+<li>Strongly Typed - an <code>enum class</code> is a type and does not implictly convert to an integer type
+<li>Explicit casts using <code>static_cast</code> is required to convert to an integer
+<li>You can specify the underlying data type (e.g. <code>char</code>, <code>unsigned int</code>, etc.). 
+    The default underlying type is <code>int</code>
+<li>Forward declarations are supported
+<li>Similar to traditional <code>enum</code> in that the first item in the list defaults to 0
+    and each subsequent item without an explicit value is assigned a value one greater than the preceding item
+<li><strong>Constructors</strong> are NOT supported and if you do not provide an initial value for a given 
+    <code>enum class</code>, its value will be indeterministic
+</ul>
+
+<pre>
+// forward declaration
+enum class SecType : short;
+
+
+enum class SecType : short
+{
+    Corp
+    ,Govt
+    ,Muni
+    ,Mtge
+    ,Mmkt
+    ,Eqty
+    ,Pfd
+    ,Curr
+    ,Fut
+    ,Opt
+};
+
+
+enum State { Off, On };
+
+State s1 = State::Off;   
+State s2 {};    // zero - which corresponds to State::Off
+State s3;       // <strong>uninitialized</strong> - indeterminstic
+</pre>
+
+</div>
+</body> 
+</html>
