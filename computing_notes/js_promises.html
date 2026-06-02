@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_js");
+}
+</script>
+
+<title>JavaScript - Promises</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>JavaScript - Promises</h1>
+
+<ul>
+<li>A <code>Promise</code> is an object representing the eventual completion (or failure) of an asynchronous operation
+<li>
+</ul>
+
+<pre>
+function successCallback (result)
+{
+    console.log (`File is ready. Result=${result}`);
+}
+
+function failureCallback(error)
+{
+    console.error(`Error generating file: ${error}`);
+}
+
+createFileAsync(fileName).then(successCallback, failureCallback)
+</pre>
+
+<h2>Chaining</h2>
+<ul>
+<li>A common use case is to chain together multiple asynchronous operations
+</ul>
+
+<pre>
+const promise = doSomethingAsync();
+const promise2 = promise.then(successCallback
+
+
+</pre>
+
+</div>
+</body> 
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: argparse</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>argparse</code> - Command Line Parser</h1>
+
+<ul>
+<li>To use the <code>argparse</code> module, you instantiate a <code>ArgumentParser</code> object
+</ul>
+
+<h2><code>ArgumentParser</code> constructor</h2>
+
+<pre>class argparse.ArgumentParser(prog=None, usage=None, description=None, epilog=None, ...)</pre>
+
+<ul>
+<li><code>prog</code> - name of the program. Defaults to <code>sys.argv[0]</code>
+<li><code>usage</code> - the usage string. Default will be generated automatically
+<li><code>description</code> - the text to display before the argument help. Defaults to none.
+<li><code>epilog</code> - the text to display before the argument help. Defaults to none.
+</ul>
+
+<h2><code>add_argument()</code> method</h2>
+
+<pre>ArgumentParser.add_argument(name or flags..., )</pre>
+
+<ul>
+<li><code>name or flags</code> - either a name or a list of option strings. E.g. <code>'foo'</code> or <code> '-f', '--foo'</code>
+<li><code>action</code> - the number of command-line arguments that should be consumed
+    <ul>
+    <li><code>'store'</code>. Store the argument's value. This is the default action
+    <li><code>'store_const'</code>. Store the value specified by the <code>const</code> keyword. Usually used with an optional argument
+    <li><code>'store_true'</code>, <code>'store_false'</code>. Special cases of <code>'store_const'</code> which store the values
+        <code>True</code> or <code>False</code>
+    <li><code>'append'</code>. Append each argument to a list
+    <li><code>'append_const'</code>
+    <li><code>'extend'</code>
+    <li><code>'count'</code>
+    <li><code>'help'</code>. Prints help message
+    <li><code>'version'</code>. Expects a <code>version=</code> keyword argument 
+    </ul>
+<li><code>nargs</code> - the number of command-line arguments that should be consumed
+</ul>
+
+<h2>Sample</h2>
+<pre>
+import argparse
+
+// constructor
+
+parser = argparse.ArgumentParser(   prog='ProgramName'
+                                    ,description='What the program does'
+                                    )
+
+
+parser.add_argument('-f', '--foo')                          # option which may or may not take a value
+parser.add_argument('bar')                                  # positional parameter
+
+args = parser.parse_args()
+
+if args.foo:
+    print (f"foo={args.foo}")
+
+print (f"bar={args.bar}")
+</pre>
+
+
+</div>
+</body>
+</html>
+

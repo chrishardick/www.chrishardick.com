@@ -38,13 +38,33 @@ C O N T E N T
 -->
 
 <div id="content" class="content">
-<h1>PostgreSQL: Administration</h1>	
+<h1>PostgreSQL: Users</h1>	
 
-<h2>Installing PostgreSQL</h2>
+<h2>Creating Users</h2>
 
-<h3>Debian-based Systems</h3>
-<pre>apt-get update
-apt-get install postgresql postgres-contrib     # -contrib package adds additional utilities and functionality</pre>
+<ul>
+<li>It's easier if your postgres username matches your Linux username. See section on <code>pg_hba.conf</code>
+<li>After you create a user, you need to create a table with the same name as the user - <code>createdb username</code>
+</ul>
+
+<h2>Method #1 - Using <code>psql</code></h2>
+
+<ul>
+<li><code>sudo -u postgres psql</code>
+<li><code>create user username with password 'password' createdb login;</code>
+    <ul>
+    <li><code>LOGIN</code> - ensures user can log in (which I believe is the default)
+    <li><code>CREATEDB</code> - grant create db privilege 
+    </ul>
+<li><code>\du</code> - verify the user's privileges. Thisi command lists all users and their attributes
+<li><code>\q</code> - quit
+</ul>
+
+
+<h2>Method #2 <code>createuser</code> command</h2>
+<ul>
+<li><code>sudo -u postgres createuser --createdb --pwprompt username</code>
+</ul>
 
 
 <h2><code>pg_hba.conf</code></h2>
@@ -153,7 +173,7 @@ apt-get install postgresql postgres-contrib     # -contrib package adds addition
     Otherwise you need to use <strong><code>SET ROLE role</code></strong> to temporarily become the group role (and no longer in your login role)
 </ul>
 
-<h2>Quick Start - Create User</h2>
+<h2>Create User Example</h2>
 <ul>
 <li>Edit <code>/etc/postgresql[version]/main/pg_hba.conf</code> to have this line -- which will allow local connections without a password:
 <pre>local   all             all                                     trust</pre>

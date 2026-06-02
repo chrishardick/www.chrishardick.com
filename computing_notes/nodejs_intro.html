@@ -42,15 +42,16 @@ C O N T E N T
 
 <ul>
 <li>Runtime JavaScript environment which executes JS outside of a browser
-<li>Built using Chrome's V8 JS Engine
+<li>Built using Chrome's V8 JS Engine (written in C++)
 <li>Allows you to write server side JS
 <li>Uses an event drivern, non-blocking I/O model
 <li>Open Source
 <li>Cross Platform
 <li>Useful for building networking applications
 <li><a href="https://nodejs.org">https://nodejs.org</a>
+<li><code>node --version</code> to see what version you're running
+<li>Node comes with NPM - node package manager
 </ul>
-
 
 <h2>Hello World!</h2>
 <pre>
@@ -58,7 +59,70 @@ C O N T E N T
 console.log("Hello, World");
 </pre>
 
-<pre>node hello_world.js<pre>
+<pre>node hello_world.js</pre>
+
+
+<h2>Node Interactive Mode - REPL - read, eval, print loop</h2>
+<ul>
+<li>To enter this mode, run <code>node</code>
+<li>E.g. <code>console.log('Hello, World')</code>
+</ul>
+
+<h2>Getting Started</h2>
+
+<ul>
+<li>Create<code>package.json</code> file by <code>npm init</code> - add a "type": "module" entry for ES module support
+<li>Create entry point. E.g. <code>index.js</code>
+<li>Create <code>utils.js</code>
+</ul>
+
+<pre>
+// index.js
+
+import { getPosts } from './postController.js';
+
+console.log('Hello World');
+
+const {generateRandomNumber,celciustoFahrenheit} = require('./utils');
+
+console.log(`Random Number: $generateRandomNumber()}`);
+
+console.log(`Celcius to fahrenhiet: ${celciusToFahrenheit(0)}`);
+</pre>
+
+<pre>
+// utils.js
+
+function generateRandomNumber()
+{
+    return Math.floor(Math.ramdom() * 100 + 1)
+}
+
+function celciusToFahrenheit (celcius}
+{
+    return (celcius * 9)  / 5 + 32;
+}
+
+module.exports = { 
+    generateRandomNumber
+    ,celciusToFahrenheit
+}
+</pre>
+
+<pre>
+// postController.js
+
+const posts = [
+    { id: 1, title: 'Post One'},
+    { id: 2, title: 'Post Two'}
+];
+
+const getPosts = () =&gt; posts;
+
+export { getPosts };
+
+
+</pre>
 
 
 <h2>Event Loop</h2>

@@ -351,8 +351,8 @@ function _print_nav ()
     <div class="panel">
         <a href="git.html">Cheat Sheet</a>
         <a href="git_hooks.html">Git Hooks</a>
+        <a href="git_github.html">Github</a>
         <a href="git_github_markdown.html">Github Markdown</a>
-        <a href="git_github_ssh.html">Github SSH</a>
     </div>
 
     <button class="accordion" id="accordion_gtest">Google Test / Mock</button>
@@ -515,6 +515,7 @@ function _print_nav ()
         <a href="linux_raspberrypi.html">Raspberry Pi</a>
         <a href="linux_rcs.html">RCS</a>
         <a href="linux_rsync.html">rsync</a>
+        <a href="linux_sed.html">sed</a>
         <a href="linux_sendmail.html">sendmail</a>
         <a href="linux_setup_new_server.html">Set Up New Server</a>
         <a href="linux_shutdown.html">shutdown</a>
@@ -587,10 +588,10 @@ function _print_nav ()
     <button class="accordion" id="accordion_postgres">PostgreSQL</button>
     <div class="panel">
         <a href="postgres_intro.html">Introduction</a>
-        <a href="postgres_admin.html">Administration</a>
+        <a href="postgres_users.html">Users</a>
+        <a href="postgres_psql.html">Psql / Other Utilities</a>
         <a href="postgres_sql.html">SQL</a>
         <a href="postgres_data_types.html">Data Types</a>
-        <a href="postgres_psql.html">Psql / Other Utilities</a>
     </div>
 
     <button class="accordion" id="accordion_pthreads">POSIX Threads (C/UNIX)</button>
@@ -630,6 +631,7 @@ function _print_nav ()
         <a href="python_collections.html">collections</a>
         <a href="python_functions.html">Functions</a>
         <a href="python_cmd_line_args.html">Command Line Arguments</a>
+        <a href="python_argparse.html">argparse</a>
         <a href="python_files.html">Files</a>
         <a href="python_modules.html">Modules</a>
         <a href="python_classes.html">Classes</a>
@@ -673,6 +675,9 @@ function _print_nav ()
         <a href="python_pika.html">Pika - RMQ</a>
         <a href="python_numpy.html">NumPy</a>
         <a href="python_pandas.html">pandas</a>
+        <a href="python_psycopg.html">Psycopg - PostgreSQL</a>
+        <a href="python_venv.html">venv (Virtual Environments)</a>
+        <a href="python_fastapi.html">FastAPI</a>
     </div>
 
     <button class="accordion" id="accordion_rabbitmq">RabbitMQ</button>

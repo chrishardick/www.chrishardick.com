@@ -134,6 +134,18 @@ Python supports the following basic variable types:
 <li><code>oct (x)</code> - convert integer x to a octal string
 </ul>
 
+<ul>
+<li>If a given value cannot be converted, a <code>ValueError</code> exception will be thrown
+</ul>
+
+<pre>
+val = "hello, world!"
+
+try:
+    num = int(val)
+except:
+    print (f"|{val}| cannot be converted to an integer.")
+</pre>
 
 <h2>Variable Scope and Lifetime</h2>
 

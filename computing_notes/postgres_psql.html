@@ -41,9 +41,12 @@ C O N T E N T
 <h1>PostgreSQL: psql / Other Utilities</h1>	
 
 <h2><code>psql</code></h2>
+<pre>psql mydb</pre>
+
 <ul>
-<li>Terminal based PostgreSQL front-end. It is a regular PostgreSQL client application
-<li>All SQL statements entered into <code>psql</code> must be terminated via a semicolon(;). This allows statements to span multiple lines
+<li>Terminal based PostgreSQL front-end. 
+<li>It is a regular PostgreSQL client application
+<li>All SQL statements entered into <code>psql</code> must be terminated via a semicolon(;) - allowing statements to span multiple lines
 <li><code>psql [options] [dbname [username] [host] [port]]</code>
 <li>Arguments
     <ul>
@@ -58,9 +61,16 @@ C O N T E N T
     <li><code>-U username</code>
     <li><code>-d dbname</code>
     <li><code>-h hostname</code> - specifies the host name of the machine in which he server is running
+    <li><code>-f filename</code> - execute script 
     <li><code>-H</code> - turn on HTML tabular output
     <li><code>-V</code> - print psql version information and exit
     </ul>
+<li>You can use the <code>-f</code> option to execute a script of sql commands - i.e. installation script which creates a database, creates tables, keys, etc.
+<li>Alternatively, you could use the re-direct operator. E.g. <code>psql -U username &lt; script.sql</code>
+<li>When specifying a file to execute, <code>psql</code> supports <strong>comments</strong>.
+    You can use single line comments (anything following two dashes (<code>--</code>) is considered a comment.
+    You can also specify multi-line comments (<code>/* ... */</code>)
+<li>When e
 </ul>
 
 <h3><code>psql</code> - Internal Commands</h3> 

@@ -199,6 +199,33 @@ words = s.split() # results in ['Today', 'is', 'too', beautiful', 'a', 'day', 't
 <li>Whereas the string <code>'a\n'</code> is interpreted as the character string <code>a</code> followed by a newline
 </ul>
 
+
+<h2>String Formatting - Percent Specifiers</h2>
+
+<ul>
+<li>This is the "older" way to format strings - using the modulo operator to inject values into a string template. 
+<li>Placeholders: <code>%s</code>, <code>%d</code>, <code>%f</code>
+<li>Similar to how it's done in C
+<li>Positional <code>"Hello %s" % "World"</code> 
+<li>Dictionary Mapping: <code>"State: %(name)s - %(abbr)s. Founded %(founded_year)d" % {"name": "New York", "abbr": "NY", "founded_year": 1624}</code>
+</ul>
+
+
+<h2>String Formatting - F-Strings</h2>
+
+<ul>
+<li>This is the "newer" way to format strings
+<li><code>f"Hello, my name is {name}. My age is {age}"</code> 
+<li>More robust formatting support, etc.
+</ul>
+
+<pre>
+name = "Chris"
+age = 30
+
+print (f"Hello, my name is {name}. My age is {age}")
+</pre>
+
 </div>
 </body>
 </html>

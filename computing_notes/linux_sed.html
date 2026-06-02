@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_linux");
+}
+</script>
+
+<title>Linux - sed</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>Linux - <code>sed</code></h1>
+
+<ul>
+<li>stream editor
+<li><code>sed SCRIPT INPUTFILE...</code>
+<li>If you do not specify an INPUTFILE, <code>sed</code> uses standard input
+<li>By default, <code>sed</code> prints all input (exluding anything deleted)
+</ul>
+
+<p>Equivalent Commands</p>
+<pre>sed 's/hello/world/g' input.txt &gt;output.txt
+sed 's/hello/world/g' &lt;input.txt &gt;output.txt
+cat input.txt | sed 's/hello/world/g' &gt;output.txt
+</pre>
+
+<h2>Acknowledgements</h2>
+<ul>
+<li>man page
+</ul>
+
+</div>
+</body> 
+</html>
+  

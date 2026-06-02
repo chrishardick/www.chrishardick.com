@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: venv - Virtual Environments</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: <code>venv</code> - Virtual Environments</h1>
+
+<ul>
+<li><code>venv</code> is a standard library module used to create virtual environments
+    (isolated, project-specific directories) which contain:
+    <ul>
+    <li>their own Python interpreter 
+    <li>set of locally installed packages
+    </ul>
+<li>It is built into Python 3.3 and later
+<li><strong>Benefits</strong>:
+    <ul>
+    <li><strong>Isolation</strong>. E.g. you want to use a different version of a module than the one currently installed on your system.
+    <li><strong>Protection</strong>. E.g. you want to install a 3rd party package in which you're not sure is safe
+    <li><strong>Reproducibility</strong>. E.g. sharing Python scripts can be frustrating if they require a lot of different modules
+        which may not be installed in a given environment. By using a <code>requirements.txt</code> file - see below, 
+        others can easily replicate your exact environment
+    </ul>
+</ul>
+
+<h2>How to Use - Linux</h2>
+<ol>
+<li>Create: <code>python3 -m venv venv</code> - where the second <code>venv</code> is the name of the folder to be created
+<li>Activate: <code>. venv/bin/activate</code>
+<li>Install Project Specific Packages: <code>pip install foo</code>, <code>pip install bar</code>
+<li>Execute: <code>python3 ./hello_world.py</code>
+<li>Deactivate: <code>deactivate</code>
+</ol>
+
+<h2>Best Practives / Source Code Organization</h2>
+
+<pre>
+my_project/
+├── pyproject.toml      # universal configuration file for Python projects
+├── requirements.txt    # dependencies
+├── venv/               # Virtual environment folder
+└── src/                # source code - smaller projects can include this directly in your package root directory
+    └── main.py
+</pre>
+
+<ul>
+<li>When using <code>venv</code>, you should place your Python files in your project root directory (small projects)
+    or a dedicated subdirectory (e.g. <code>src</code>) - for larger projects, 
+<li>You should never place your source files inside the <code>venv</code> directory.
+<li>The <code>venv</code> directory is a managed directory for the <em>Python virtual environment</em> and
+    should contain only the interpreter and installed third-party libraries
+<li>When committing to version control, always ignore the <code>venv</code> directory - it should always be 
+    generated from scratch - most likely using a <code>requirements.txt</code> file - see below
+</ul>
+
+<h3><code>requirements.txt</code></h3>
+<ul>
+<li>You can create a requirements.txt (usually in the project root directory) - which contains all of the libraries required by your project
+<li><code>pip install -r requirements.txt</code> to install the libraries listed in the file
+<li><code>pip freeze &gt;requirements.txt</code> - will create a file listing every installed library along with its exact version
+</ul>
+
+<pre>
+# requirements.txt
+
+# install latest version available
+flask
+
+# greater than or equal to 
+numby&gt;=1.26.4
+
+# strictly enforced version
+pandas==2.2.2
+</pre>
+
+
+<h3><code>pyproject.toml</code></h3>
+<ul>
+<li>The modern, universal configuration file for Python projects
+<li>It replaces older configuration files like <code>setup.py</code>,
+    <code>setup.cfg</code>, <code>requirements.txt</code>, etc.
+<li>It consolidates everything into a single, standarized file
+<li>Primary Purposes:
+    <ul>
+    <li>Defines Build Requirements
+    <li>Stores Project Metadata
+    <li>Stores Tool Configuration
+    </ul>
+</ul>
+
+<pre>
+# pyproject.toml
+
+[build-system]
+# no entries
+
+[project]
+name = "my_projecdt"
+version = "0.0.1"
+description = "awesome project"
+dependencies = [
+    numby&gt;=1.26.4
+]
+
+[tool.foo]
+# ...
+</pre>
+
+
+</div>
+</body>
+</html>
+

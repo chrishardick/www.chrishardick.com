@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: FastAPI</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: FastAPI</h1>
+
+<ul>
+<li>FastAPI is a modern, fast web framework for building web services
+<li>It usually runs on top of <a href="python_uvicorn.html">Uvicorn</a>
+<li>FastAPI defines your API's logic, while Uvicorn listens for incoming requests and feeds them to FastAPI
+<li>It's built on the ASGI (Asynchronous Server Gateway) standard. 
+<li>ASGI is the standard calling convention in Python that allows web servers (like Uvicorn) to communicate 
+    with asynchronous-capable web frameworks and applications (like FastAPI)
+<li>To install: <code>pip install fastapi; pip install uvicorn</code>
+</ul>
+
+<pre>
+# main.py
+
+import uvicorn
+from fastapi import FastAPI
+
+app = FastAPI()
+
+#==========
+# root() 
+# - handle "/" (root) requests - using a get operation
+#==========
+@app.get("/")
+def root():
+    return {"message": "Hello, World"}
+
+
+#==========
+# read_item()
+# - handle "items/{item_id}" requests which take an optional query string q
+#==========
+@app.get("/items/{item_id}")
+def read_item (item_id: int, q: str = None):
+    return {"item_id": item_id, "q": q}
+
+
+if __name__ == "__main__":
+    uvicorn.run(app,host="0.0.0.0", port=8000)
+</pre>
+
+<ul>
+<li><code>python3 ./main.py</code>
+<li>From your favorite web browser: <a href="http://127.0.0.1:8000">http://127.0.0.1:8000</a> and 
+    <a href="http://127.0.0.1:8000/items/5?q=blah">http://127.0.0.1:8000/items/5?q=blah</a>
+<li>This basic web service will handle HTTP requests for <code>/</code> and <code>/items/{item_id}</code>
+<li>The path <code>/items/{item_id}</code> has a path parameter - which should be an <code>int</code> and an optional
+    <code>str</code> query parameter <code>q</code>
+<li>Try: <a href="http://127.0.1:8000/docs">http://127.0.0.1:8000/docs</a>
+</ul>
+
+
+</div>
+</body>
+</html>
+

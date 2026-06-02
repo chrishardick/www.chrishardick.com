@@ -45,6 +45,14 @@ C O N T E N T
 <li>Package Manager for Python Modules
 <li><code>pip</code> is for Python 2
 <li><code>pip3</code> is for Python 3
+<li>By default, <code>pip</code> installs packages into a folder called <code>site-packages</code>
+<li>Depending upon how you invoke <code>pip</code> and your permissions, packages are either 
+    installed site-wide - e.g. <code>/usr/lib/pythonX.X/site-packages</code> or 
+    <code>/usr/local/lib/pythonX.X/site-packages</code> or user-level. 
+<li>User level installs are generally installed to <code>~/.local/lib/pythonX.X/site-packages</code>
+<li>You can force user level installs by specifying <code>--user</code> option
+<li>Run <code>pip show &lt;package-name&gt; to find the location of a specific package or 
+    <code>pip list -v</code> to see where every package is installed
 </ul>
 
 

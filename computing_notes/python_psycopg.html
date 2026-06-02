@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_python");
+}
+</script>
+
+<title>Python: pycopg</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+
+<h1>Python: psycopg (PostgreSQL adapter)</h1>
+
+<ul>
+<li>Accessing PostgreSQL via Python is typically done using the <code>psycopg2</code> library
+    or <code>psycopg</code> (Psycopg 3) for new projects.
+<li>It is the most popular PostgreSQL adapter for Python
+<li>It is a complete implementation of the <strong>Python DB API 2.0</strong> specification
+</ul>
+
+<pre>
+# v3 example
+
+import psycopg
+
+with psycopg.connect("dbname=test user=postgres") as conn:
+
+    with conn.cursor() as cur:
+
+        cur.execute ("CREATE TABLE foo (id serial PRIMARY KEY, num integer, data text")
+
+        cur.execute ("INSERT INTO foo (num, data) VALUES (%s, %s)", (100, "12345"))
+
+        cur.execute ("SELECT * FROM foo")
+
+        for rec in cur:
+            print (rec)
+
+        cur.executemany ("INSERT INTO foo (num) values (%s)", [(33,), (66,), (99,)])
+        
+        for rec in cur:
+            print (rec)
+
+    with conn.tranaction as tx:
+        # inside a tranaction block, it is not possible to call commit() or rollback()
+            
+
+</pre>
+
+<h2><code>Connection</code> class</h2>
+<ul>
+<li>The <code>Connection</code> class encapsulates a database session
+<li>It allows you to create <code>Cursor</code> instances using the <code>cursor()</code> method to execute database 
+    queries and commnds
+<li>It allows you to terminate transactions using the <code>commit()</code> and <code>rollback()</code> methods
+<li>Using this object as a <a href="python_context_managers.html">Context Manager</a> (using the <code>with</code> statement) will ensure connections are closed and resources are freed 
+    at the end of the block (available in v3 only)
+</ul>
+
+<h3><code>Connection</code> Methods</h3>
+
+<h4><code>connect()</code></h4> 
+<ul>
+<li>Create a new database session returning the new <code>Connection</code> instance.
+</ul>
+
+<h4><code>close()</code></h4>
+<ul>
+<li>Close the database connection
+<li>Note - it's better to use the class as a Context Manager - in which case the
+    connection will be closed when the block is exited.
+</ul>
+
+<h4><code>cursor()</code></h4>
+<ul>
+<li>Create and return a new <code>Cursor</code> object
+</ul>
+
+
+<h4><code>execute()</code></h4>
+<ul>
+<li>Execute a query and return a <code>Cursor</code> to its results
+</ul>
+
+<h4><code>commit()</code></h4>
+<ul>
+<li>Commit any pending transaction to the datbase
+</ul>
+
+<h4><code>rollback()</code></h4>
+<ul>
+<li>Rollback to the start of any pending transaction
+</ul>
+
+<h4><code>transaction()</code></h4>
+<ul>
+<li>start a context block with a new transaction or nexted transaction
+</ul>
+
+
+<h3><code>Connection</code> Properties</h3>
+<ul>
+<li><code>closed</code> - <code>True</code> if the connection is closed.
+<li><code>broken</code> - <code>True</code> if the connection was interrupted. 
+    A broken connecdtion is always <code>closed</code>
+</ul>
+
+
+<h2><code>Cursor</code> class</h2>
+<ul>
+<li>The <code>Cursor</code> class allows interaction with the database
+<li>It allows you to send commands to the databsase using methods <code>execute</code> or <code>executemany()</code>
+<li>It allows you retrieve data from the database, iterating on the cursor or using methods such as 
+    <code>fetchone()</code>, <code>fetchmany()</code>, or <code>fetchall()</code>
+<li>Using this object as a Context Manager (<code>with</code> statement) will ensure the cursor is closed and resources are freed
+    at the end of the block
+
+<h3><code>Cursor</code> Methods</h3>
+
+<h4><code>close()</code></h4>
+<ul>
+<li>Close the cursor and free any associated resources. 
+<li>Note - it's better to use the class as a Context Manager via <code>with</code>
+</ul>
+
+<h4><code>execute()</code></h4>
+<ul>
+<li>Execute the specified query
+<li>Pass parameters to a SQL statement using <code>%s</code> placeholders in the SQL statement and passing a sequence of values as the 
+    second argument
+<li>Returns the <code>Cursor</code> itself to allow you to chain operations
+<pre>cur.execute("""
+    INSERT into foo (bar1, bar_date, bar_timestamp) 
+    VALUES (%s, %s, %s);
+    """
+    ,(10, datetime.date(2026,3,25), NOW())
+    )
+</pre>
+</ul>
+
+<h4><code>executemany()</code></h4>
+<ul>
+<li>Execute the specified query with a sequence of input data
+</ul>
+
+<h4><code>fetchone()</code></h4>
+<ul>
+<li>Return the next record from the current result set returning either the Row or <code>None</code>
+</ul>
+
+<h4><code>fetchmany(size: int = 0) -&gt; list[+Row]</code></h4>
+<ul>
+<li>Return the next <code>size</code> records from the current result set
+</ul>
+
+<h4><code>fetchall() -&gt; list[+Row]</code></h4>
+<ul>
+<li>Return all remaining records from the current result set
+</ul>
+
+
+<h3><code>Cursor</code> Properties</h3>
+<ul>
+<li><code>connection</code> - the Connection object the cursor is currently using
+<li><code>closed</code> - whether or not the cursor is closed.
+</ul>
+
+
+
+</div>
+</body>
+</html>
+

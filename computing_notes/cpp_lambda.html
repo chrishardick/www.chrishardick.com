@@ -67,13 +67,14 @@ func(); // call the function
 <h2>Variable Capture</h2>
 
 <p><strong>TIP</strong>: Variable capture by value can be very useful with threads. 
-For example when enqueuing to a thred pool, as the copies it creates can be freely accessed by the worker threads
+For example when enqueuing to a thread pool, as the copies it creates can be freely accessed by the worker threads
 </p>
 
 <ul>
 <li><code>[]</code> - empty capture clause. do not capture any variables. 
     A lambda with an empty capture clause can access only those variables which are local to it.
-<li><code>[&amp;]</code> - capture any referenced variable by reference
+<li><code>[&amp;]</code> - capture any referenced variable by reference.
+    E.g. the lambda refers directly to the original variable in the surrounding scope rather than creating a copy of it
 <li><code>[=]</code> - capture any referenced variable by value
 <li><code>[=]</code> - capture any referenced variable by making a copy
 <li><code>[foo]</code> - capture foo by making a copy. Do not copy anything else
