@@ -40,14 +40,17 @@ C O N T E N T
 <div id="content" class="content">
 <h1>Redis Data Types</h1>
 
-<h2 id="strings">Strings</h2>
+<h2 id="strings">Strings and Integers</h2>
 <ul>
-<li>Redis keys are strings
-<li>Redis values can also be strings
-<li>Sequence of bytes - text, serialized objects, json strings, binary arrays, jpeg image, etc.
-<li>Max value size is 512 MB
-<li>Strings can be used as counters using the <code>INCR</code>, <code>INCRBY</code>, <code>DECR</code>, <code>DECRBY</code> commands
-    which atomically get and increment/decrement a value
+<li>In Redis, <strong>Keys</strong> must be strings. More specifically, <strong>binary-safe strings</strong>
+<li>A <strong>binary-safe string</strong> is any arbitrary sequence of bytes - which can include
+    null characters (binary 0 or <code>\0</code>).
+<li>In other words, in Redis, a string is simply any arbitrary sequence of bytes
+<li>Plain text, json strings, jpeg images, binary structures, binary arrays, etc. are all valid strings in Redis
+<li>The maximum string size which Redis supports is 512 MB
+<li>Redis <strong>Values</strong> can also be strings
+<li>Caveat for Values: whereby Redis Keys are always stored as the keys themselves, if a Redis <strong>Value</strong> is a valid integer, Redis recognizes this and stores it as a 64-bit signed integer. 
+<li>This is how Redis Commands <code>INCR</code> and <code>DECR</code> - which atomically increment or decrement a given value work
 </ul>
 
 <h2>List</h2>

@@ -504,6 +504,7 @@ function _print_nav ()
         <a href="linux_curl.html">curl</a>
         <a href="linux_debian.html">Debian</a>
         <a href="linux_dhcp.html">DHCP</a>
+        <a href="linux_find.html">find - find files</a>
         <a href="linux_gdb.html">GDB</a>
         <a href="linux_inotifywait.html">inotifywait</a>
         <a href="linux_iptables.html">IPTables</a>
@@ -592,6 +593,7 @@ function _print_nav ()
         <a href="postgres_psql.html">Psql / Other Utilities</a>
         <a href="postgres_sql.html">SQL</a>
         <a href="postgres_data_types.html">Data Types</a>
+        <a href="postgres_libpqxx.html">libpqxx - C++ Client Library</a>
     </div>
 
     <button class="accordion" id="accordion_pthreads">POSIX Threads (C/UNIX)</button>
@@ -697,6 +699,7 @@ function _print_nav ()
     <div class="panel">
         <a href="redis_intro.html">Introduction</a>
         <a href="redis_data_types.html">Data Types</a>
+        <a href="redis_commands.html">Commands</a>
     </div>
 
     <button class="accordion" id="accordion_set">Set Theory</button>

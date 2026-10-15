@@ -73,7 +73,91 @@ C O N T E N T
 
 <dt><strong><code>DROP TABLE tablename</code></strong>
 <dd>Delete a table
+
 </dl>
+
+<h2>Cursors</h2>
+
+<ul>
+<li>Cursors tell the PostgreSQL engine to execute the query, but hold the result set on the server as opposed to immediately
+    returning all the data immediately back to the caller
+<li>They are usually used when working with large data sets
+<li>Cursors are created using the <code>DELARE</code> statement and rows are retrieved using the <code>FETCH</code> statement
+</ul>
+
+<h3><code>DECLARE [ BINARY ] cursor_name [ [ NO ] SCROLL ] CURSOR [ { WITH | WITHOUT } HOLD ] FOR query</code></h3>
+<ul>
+<li>Create a <strong>cursor</strong> which can be used to retrieve a small number of rows at a time out of a larger query
+<li>After the cursor is created, rows are fetched from it using <code>FETCH</code>
+<li><code>cursor_name</code> needs to be different from all other acctive cursor names of the session
+<li><code>SCROLL</code> specifies that the cursor can be used to retrieve rows in a nonsequential fashion
+<li><code>NO SCROLL</code> specifies that the cursor cannot be used to retrieve rows in a nonsequential fashion. 
+    The default is to allow scrolling in some cases. 
+<li>Normal cursors return data in text format, the same as a <code>SELECT</code> would produce.
+    The <code>BINARY</code> option specifies that the data should be returned in binary format. This reduces the need to convert
+    from a string to tha actual data type. E.g. If a query returned a value of 1 from an integer column, you would normally 
+    receive a string of <code>"1"</code> from a default cursor. With a binary cursor, you would receive a field with the internal
+    representation of an integer (4 byte integer in big-endian byte order
+<li>Normally, a cursor is destroyed when its transaction ends. If <code>WITH HOLD</code> is specified and the cursor successfully commits, 
+    the cursor can continue to be accessed by subsequent transactions in the same session. Held cursors are clsoed with an 
+    explicit <code>CLOSE</code> command is executed on it (or the session ends)
+</ul>
+
+<h3><code>FETCH [ direction ] [ FROM | IN ] cursor_name</code></h3>
+
+<h4><code>direction</code> values:</h4>
+<ul>
+<li><code>NEXT</code>
+<li><code>PRIOR</code>
+<li><code>FIRST</code>
+<li><code>LAST</code>
+<li><code>ABSOLUTE count</code>
+<li><code>RELATIVE count</code>
+<li><code>count</code>
+<li><code>ALL</code>
+<li><code>FORWARD</code>
+<li><code>FORWARD count</code>
+<li><code>FORWARD ALL</code>
+<li><code>BACKWARD</code>
+<li><code>BACKWARD count</code>
+<li><code>BACKWARD ALL</code>
+</ul>
+
+<ul>
+<li><code>NEXT</code>, <code>PRIOR</code>, <code>FIRST</code>, <code>LAST</code> fetch a single row after moving the cusor appropriately.
+    If there is no such row, an empty result is returned and the cursor is left positioned 
+<li><code>count</code> and <code>FORWARD count</code> are equivalent
+<li><code>ALL</code> - fetch all remaining rows. Equivalent to <code>FORWARD ALL</code>
+</ul>
+
+<pre>
+BEGIN WORK;
+
+-- Set up a cursor:
+DECLARE get_users_cursor CURSOR FOR SELECT id, name FROM users;
+
+-- Fetch the first 5 rows in the cursor: 
+FETCH 5 FROM get_users_cursor
+
+ id    |          name 
+-------+-------------------------
+ 101   | John Smith
+ 102   | Joe Jones
+ 103   | Mike Schmidt 
+ 104   | Bing Blue 
+ 105   | George Bunt
+
+-- Close the cursor and end the transaction:
+CLOSE get_users_ccursor
+COMMIT WORK;
+</pre>
+
+
+<h2>Acknowledgements</h3>
+<ul>
+<li><a href="https://www.postgresql.org/docs/">PostgreSQL</a>
+</ul>
+
 
 </div>
 </body> 

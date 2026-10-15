@@ -93,6 +93,25 @@ You can use <code>passwd -u &lt;username&gt;</code> to re-enable log in via pass
 <li>Type the tilde character <code>~</code> followed by a period <code>.</code>
 </ul>
 
+<h2>How to Avoid Proxy Settings</h2>
+<ul>
+<li>Create an identify fie under <code>~/.ssh/id_2d25519</code>
+<li>Enter a host entry under <code>~/.ssh/</code>
+<li>For example for a host with nickname <code>ubuntu-vm</code>,
+    create <code>~/.ssh/00_ubuntu_vm.config</code>, with the following:
+<li>Notice how <code>ProxyCommand</code> is set to <code>none</code>
+</ul>
+
+<pre>
+Host ubuntu-vm
+    HostName 10.211.55.4
+    User parallels      # this is your username on the remote machine
+    ProxyCommand none
+    CertificateFile none
+    IdentityFile ~/.ssh/id_ed25519
+    HostKeyAlgorithms +ssh-ed25519
+</pre>
+
 </div>
 </body> 
 </html>

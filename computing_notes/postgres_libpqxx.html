@@ -1,0 +1,453 @@
+<!doctype html>
+<html lang="en">
+
+<!-- 
+H E A D
+-->
+
+<head>
+
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="css/nav.css" media="all">
+
+<script src="js/nav.js"></script>
+
+<script>
+window.onload = function() {
+    on_load("accordion_postgres");
+}
+</script>
+
+<title>PostgreSQL: libpqxx - C++ Client Library</title>
+
+</head>
+
+
+<!-- 
+B O D Y
+-->
+
+<body>
+<div id="nav" class="nav"></div>
+<div id="title" class="title"></div>
+
+
+<!-- 
+C O N T E N T
+-->
+
+<div id="content" class="content">
+<h1>PostgreSQL: <code>libpqxx</code> - C++ Client Library</h1>	
+
+<ul>
+<li>C++ Client Library for PostgreSQL
+<li>A wrapper around the C Client API - <code>libpq</code>
+</ul>
+
+<h2>Include Files</h2>
+<ul>
+<li><code>#include &lt;pqxx/pqxx&gt;</code>
+<li><code>pqxx/pqxx</code> is the standard include file for working with <code>libpqxx</code>
+</ul>
+
+<h2>Exceptions</h2>
+<ul>
+<li>The <code>libpqxx</code> library utilizes an inheritance hierarchy for all generated exceptions 
+    - which inherit from <code>std::exception</code>
+</ul>
+
+<pre>
+std::exception
+ └── pqxx::failure
+      └── pqxx::broken_connection
+</pre>
+
+<h2><code>SIGPIPE</code></h2>
+<ul>
+<li>Remember, if you're working with Unix (or a Unix-like operating system), you need to ignore <code>SIGPIPE</code> signals
+</ul>
+
+<pre>
+#include &lt;signal.h&gt;
+
+signal (SIGPIPE, SIG_IGN);  // or similar
+</pre>
+
+
+<h2><code>pqxx::connection</code> Class</h2>
+
+<h3>Constructors</h3>
+<ul>
+<li><code>pqxx::connection::connection (const string&amp; connection_string)</code> 
+<li>Establishes a live session with a PostgreSQL database by initializing and configuring the network connection
+<li>If there is a problem either establishing a connection or with authentication, a <code>pqxx::broken_connection</code> exception is thrown
+<li>There is a default constructor which relies on standard PostgreSQL environment variables: 
+    <code>PGHOST</code>, <code>PGPORT</code>, <code>PGUSER</code>, and <code>PGPASSWORD</code>
+<li>There is also a constructor which accepts a <code>std::string_view</code> - see below
+<li>Once created, the connection stays open until the destructor is called - which cleanly closes the session
+<li>You cannot execute queries diectly thru the <code>connection</code> object. You need to use a transaction object (e.g. <code>pqxx::work</code>)
+</ul>
+
+
+<pre>
+#include &lt;pqxx/pqxx&gt;
+
+try 
+{
+    // default constructor - uses environment variables
+    pqxx::connection conn;
+
+    // constructor which accepts connection string
+    pqxx::connection conn("host=127.0.0.1 port=5432 dbname=mydb user=postgres");
+
+    // constructor which accepts std::string_view
+    std::string_view conn_str = "postgresql://user:pass@host:port/dbname";
+    pqxx::connection conn(conn_str);
+}
+catch (const pqxx::broken_connection&amp; e)
+{
+    std::cerr &lt;&lt; "Connection Error. Details: " &lt;&lt; e.what() &lt;&lt; std::endl;
+}
+catch (const pqxx::failure&amp; e)
+{
+    std::cerr &lt;&lt; "General Pqxx Error. Details: " &lt;&lt; e.what() &lt;&lt; std::endl;
+}
+catch (const std::exception&amp; e)
+{
+    std::cerr &lt;&lt; "Exception Occurred. Details: " &lt;&lt; e.what() &lt;&lt; std::endl;
+}</pre>
+
+<h2><code>pqxx::work</code> Class</h2>
+
+<ul>
+<li>The <code>pqxx::work</code> class represents a standard transactional context in the <code>libpqxx</code> library
+<li>It ensures all database operations executed within its scope are bundled together as a single, atomic unit. 
+<li>Instantiating a <code>pqxx:work</code> object sends a <code>BEGIN</code> command to the database.
+<li>If any opeation fails, an exception is thrown and the transaction defaults to rolling back.
+<li>If updates are made, an explicit commit is required. Changes are temporary until you call the <code>commit</code> method.
+<li>If the object is destroyed before committing, it is automatically rolled back.
+<li>Provides methods <code>exec()</code> and <code>exec_params()</code>
+<li>When fetching large datasets, using <em>cursors</em> is usually recommended - see below.
+</ul>
+
+<h3>INSERT Example</h3>
+<pre>
+...
+
+pqxx::work txn{conn};
+
+std::string sql = "INSERT INTO users (name, email) VALUES ($1, $2) RETURN id;"
+
+std::string name = "Chris";
+std::string email = "chardick@icloud.com";
+
+pqxx::result res = txn.exec_params(sql, name, email);
+
+if (!res.empty())
+{
+    int id = res[0][0].as&lt;int&gt;();
+
+    std::cout &lt;&lt; "id=" &lt;&lt; id &lt;&lt; std::endl;
+}
+
+txn.commit();
+</pre>
+
+
+<h3>SELECT Example</h3>
+<pre>
+...
+
+pqxx::work txn{conn};
+
+std::string sql = "SELECT id, name FROM users WHERE status=$1;";
+
+std::string status = "active";
+
+pqxx::result res = txn.exec_params(sql, status);
+
+std::cout &lt;&lt; "# RECS=" &lt;&lt; res.size() &lt;&lt; std::endl;
+
+for (const auto &amp;row : res)
+{
+    int id = row["id"].as&lt;int&gt;();
+    std::string name = row["name"]as&lt;std::string&gt;();
+    
+    std::cout &lt;&lt; "id=" &lt;&lt; id &lt;&lt; std::endl;
+}
+
+if (!res.empty())
+{
+    int id = res[0][0].as&lt;int&gt;();
+
+
+}
+
+// optional for pure reads, but good practice
+txn.commit();
+</pre>
+
+
+<h2><code>pqxx::result</code> Class</h2>
+
+<ul>
+<li>The <code>pqxx::result</code> class is a read-only container object which holds the rows and metadata returned by a 
+    PostgreSQL query
+<li>It is <strong>immutable</strong>. You cannot modify the data inside a <code>pqxx::result</code> object
+<li>It contains a copy of the query data. Hence it remains fully readable even if the associated <code>pqxx::work</code>
+    or <code>pqxx::connection</code> object(s) are destroyed.
+<li>It supports a <code>.size()</code> method which returns the total number of rows contained within the specific
+    query result set. It returns a value of type <code>pqxx::result::size_type</code> which usually maps to a <code>std::size_t</code>
+<li><code>pqxx::result</code> mimics a standard C++ STL container. Hence it also supports <code>empty()</code>, <code>clear()</code>,
+    <code>begin()</code>, and <code>end()</code>.
+</ul>
+
+<h3>Methods</h3>
+<ul>
+<li><code>.affected_rows()</code> - returns the number of rows modified, inserted or deleted for <code>UPDATE</code>, 
+    <code>INSERT</code> and <code>DELETE</code> commands
+<li><code>.columns()</code> - returns the total number of columns for each row of the returned dataset
+<li><code>.column_name(index)</code> - returns the string name of the column (0 based index)
+<li><code>.column_type(index)</code> - returns the PostgrSQL Object Identifier (OID) of the data type of the specified column (0 based index)
+</ul>
+
+<h2><code>pqxx::row</code> and <code>pqxx::field</code> Classes</h2>
+
+<ul>
+<li>When you loop over a <code>pqxx::result</code>, the iterator yields a <code>const pqxx::row&amp;</code>
+<li>You can access the individual fields using either a zero-based index number (e.g. <code>row[0]</code>) or the column name
+    (e.g. <code>row["column_name"]</code>)
+<li>Accessing an item inside a row returns a <code>pqxx::field</code> object which can then be converted to a native C++ type
+</ul>
+
+<pre>
+// <strong>extracting a field</strong>
+pqxx::field id_field = row{"id"};       
+
+// <strong>converting it to native c++ type</strong>
+int id = id_field.as&lt;int&gt;();
+</pre>
+
+<h2><code>pqxx::read_transaction</code> Class</h2>
+
+<ul>
+<li>You can use <code>pqxx::work</code> without a commit for reads. 
+<li>You can also use the <code>pqxx::read_transaction</code> class - which is optimized for read-only transactions
+<li>If you execute multiple <code>SELECT</code> statements over a short window, executing them with a single <code>pqxx::read_transaction</code>
+    is much faster than executing them in isolation
+<li>It allows PostgreSQL to reuse the same snapshot of data and saves on the network overhead of opening and closing the transaction
+</ul>
+
+<pre>
+void read_recs (pqxx::connction&amp; conn)
+{
+    try
+    {
+        pqxx::read_transaction txn{conn};
+
+        pqxx::result rows = txn.exec("SELECT id, name FROM users LIMIT 100");
+
+        if (! rows.empty())
+            std::cout &lt;&lt; "#ROWS=" &lt;&lt; rows.size() &lt;&lt; std::endl;
+
+        for (auto row : rows)
+        {
+            int id = 0;
+
+            // protect against null field values
+            if (!row["id").is_null())
+                id = row["id"].as&lt;int&gt;()
+   
+            // alternate method to safely handle null field values
+            std::optional&lt;std::string&gt; name = row["name"].as&lt;std::optinal&lt;std::string&gt;&gt;();
+
+            std::cout &lt;&lt; "id=" &lt;&lt; id &lt;&lt; ",name=" &lt;&lt; name &lt;&lt; std::endl;
+        }
+    }
+    catch (const std::exception&amp; e)
+    {
+        std::cerr &lt;&lt; "ERROR: " &lt;&lt; e.what() &lt;&lt; std::endl;
+    }
+}
+</pre>
+
+<h2>Cursors</h2>
+<ul>
+<li>Using <strong>cursors</strong> is advantageous when dealing with large result sets. 
+<li>Cursors tell the PostgreSQL engine to execute the query, but hold the result set on the server
+<li>The application then issues <code>FETCH</code> instructions to pull a predefined amount (e.g. 5,000 rows) at a time
+<li>Without using cursors, executing a <code>SELECT</code> query results in all of the rows of the result set 
+    being written to the <code>pqxx::result</code> object at once. The application will block until all data is written.
+<li>When using cursors, the result set is kept on the server until the cursor is closed
+</ul>
+
+<h3><code>pqxx::icusorstream</code></h3>
+
+<ul>
+<li>A read-only forward-only cursor
+<li>Records are read either by using the <code>.read()</code> method or the <code>&gt;&gt;</code> operator
+</ul>
+
+<h4><code>pqxx::icursorstream</code> example</h4>
+<pre>
+try
+{
+    pqxx::work txn{conn};
+
+    pqxx::icursorstream stream{txn, "SELECT id, name FROM users", 1000 /* chunk size */}
+
+    pqxx::result chunk;
+
+    while (stream &gt;&gt; chunk)
+    {
+        // chunk now contains up to 1,000 rows
+
+        for (*const auto&amp; row : chunk)
+            // process each row
+
+        std::cout &lt;&lt; "finished processing chunk of " &lt;&lt; chunk.size() &lt;&lt; " rows" &lt;&lt; std::endl;
+    }
+}
+catch (const std::exception&amp; e)
+{
+    std::cerr &lt;&lt; "ERROR: " &lt;&lt; e.what() &lt;&lt; std::endl;
+}
+</pre>
+
+<h3><code>pqxx::stateless_cursor</code></h3>
+
+<ul>
+<li>C++ Wrapper around a PostgreSQL random access server-side cursor
+<li>Supports random access. I.e. you can retrieve specific row ranges by index irregardless of where the cursor currently points.
+</ul>
+
+<h4>Methods</h4>
+<ul>
+<li><code>.retrieve(begin_pos, end_pos)</code> - allows you to fetch a small chunk
+<li><code>.size()</code> - total number of records
+</ul>
+
+<h4>Cursor Name (cname) Notes</h4>
+<ul>
+<li>If the <code>hold</code> parameter is set to <code>false</code>, (standard cursor, which is destroyed when the transaction ends), 
+    the cursor name only needs to be unique within that specific open transaction
+<li>If the <code>hold</code> parameter is set to <code>true</code>, (held cursor, which remains alive even after the transaction ends),
+    <code>cname</code> needs to unique across the entire lifetime of the database connection or until you explicitly close the cursor.
+    If you attempt to create anotehr cursor with the same name, you will receive a naming collision error.
+<li>You can also pass in an empty string (<code>""</code>) in which case, the library will generate a unique name eliminating the risk 
+    of a collission.
+</ul>
+    
+<pre>
+try
+{
+    pqxx::work txn{conn};
+
+    pqxx::stateless_cursor&lt;pqxx::cursor_base::read_only, pqxx::cursor_base::owned&gt; cursor(
+                    txn, 
+                    "SELECT id, name FROM users"
+                    "select_users_cursor"    // cname (cursor name) - see note above
+                    false   // hold = false (close cursor when transaction ends)
+                    );
+
+    size_t total_rows = cursor.size();  // total number of rows
+    size_t chunk_size = 1000;
+    
+    for (size_t i = 0; i &lt; total_rows; i += chunk_size)
+    {
+        size_t end_index = std::min(i + chunk_size, total_rows);
+
+        pqxx::result chunk = cursor.retrieve(i, end_index);;
+
+        for (const auto&amp; row : chunk)
+        {
+            // process each row
+        }
+
+        std::cout &lt;&lt; "finished processing rows " &lt;&lt; i &lt;&lt; " to " &lt;&lt; end_index &lt;&lt; std::endl;
+    }
+}
+catch (const std::exception&amp; e)
+{
+    std::cerr &lt;&lt; "ERROR: " &lt;&lt; e.what() &lt;&lt; std::endl;
+}
+</pre>
+
+
+<h3>Cursor Example with a Query with Parameters</h3>
+
+<ul>
+<li>Neither <code>pqxx::icursorstream</code> or <code>pqxx::stateless_cursor</code> support execution of a query with 
+    parameters
+<li>In order to utilize a cursor with a parameterized query, you must explicitly create a cursor using a <code>DECLARE</code> statement
+<li>You then need to use the <code>FETCH</code> statement to retrieve chunks of records from the database
+</ul>
+
+<pre>
+try
+{
+    pqxx::work txn{conn};
+  
+    std::ostringstream sql_oss;
+
+    sql_oss &lt;&lt;    <strong>"DECLARE get_users_cursor CURSOR FOR"</strong>
+            &lt;&lt;    " SELECT id, name"
+            &lt;&lt;    " FROM users"
+            &lt;&lt;    " WHERE status=$1"
+            ;
+   
+
+    // query parameters
+
+    std::string status = "active";
+
+    pqxx::params params;
+    
+    query_args.append(status);
+
+
+    std::cout &lt;&lt;  "SQL=|" &lt;&lt; sql_oss.str() &lt;&lt; &lt;&lt; "|"
+              &lt;&lt;  " PARAMS=[" &lt;&lt; status &lt;&lt; "]"
+              &lt;&lt;  std::endl;
+
+
+    // execute query with parameters
+
+    txn.exec_params(sql_oss.str(), params);
+
+
+    unsigned int batch_size = 1000;
+
+    std::ostringstream fetch_oss;
+
+    fetch_oss &lt;&lt; <strong>"FETCH " &lt;&lt; batch_size &lt;&lt; " FROM get_users_cursor"</strong>;
+
+    pqxx::result res;
+
+    do 
+    {
+        std::cout &lt;&lt; "SQL=| &lt;&lt; fetch_oss.str() &lt;&lt; "|" &lt;&lt; std::endl;
+
+        res = tsn.exec(fetch_oss.str());
+
+        std::cout &lt;&lt; "GOT " &lt;&lt; res.size() &lt;&lt; " RECS" &lt;&lt; std::endl;
+
+
+        // loop thru recs of fetch
+
+        for (const auto&amp; row : chunk)
+        {
+            // process each row
+        }
+    }
+}
+catch (const std::exception&amp; e)
+{
+    std::cerr &lt;&lt; "ERROR: " &lt;&lt; e.what() &lt;&lt; std::endl;
+}
+</pre>
+
+</div>
+</body> 
+</html>

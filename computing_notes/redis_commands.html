@@ -40,25 +40,31 @@ C O N T E N T
 <div id="content" class="content">
 <h1>Redis Commands</h1>
 
-<h2>GET</h2>
+<h2>Generic Key Management</h2>
 
-<h2>MGET</h2>
 <ul>
-<li>Get values for multiple keys
+<li><code>DEL</code>: delete a key
+<li><code>EXISTS</code>: check if a key exists
+<li><code>EXPIRE</code>: set a time-to-live timeout on a key
+<li><code>TTL</code>: return the remaining time-to-live of a key
+<li><code>SCAN</code>: iterate through keys without blocking the server
 </ul>
 
-<h2>SET</h2>
 
-<h2>MSET</h2>
+<h2>Strings (Text and Numbers)</h2>
+
 <ul>
-<li>Set multiple keys
+<li><code>SET</code>: store a key/value pair
+<li><code>GET</code>: retrieve the value of the given key
+<li><code>MGET</code>: retrieve the value of multiple keys at once
+    <ul>
+    <li>You should be careful when using <code>MGET</code> to request large amounts of data at once
+    <li>Fetching keys in batches is a great way to cut down on network round-trip times, asking for too many keys can create bottlenecks for the server
+    <li>Fundamentally, Redis is single threaded. Asking for a large amount of keys at once, can cause other requests to be blocked and timeouts to occur
+    </ul>
+<li><code>INCR</code>, <code>DECR</code>: atomically increment or decrement an integer value. If key does not exist, <code>0</code> be stored.
+    If the value is not an integer, an error will be returned.
 </ul>
-
-<h2>GETSET</h2>
-<ul>
-<li>Sets a key to a new value, returning the old value as the result
-</ul>
-
 
 <h2>Acknowledgements</h2>
 <ul>
